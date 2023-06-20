@@ -1,10 +1,8 @@
-import { useState } from 'react'
-import AdminPage from './pages/adminPage'
+import { useState } from "react";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
-  return (
-    <AdminPage />
-  )
+  return <AdminPage />;
 }
 
-export default App
+export default App;
