@@ -1,6 +1,7 @@
 import React from 'react'
 import PackageContainer from '../features/packages/components/PackageContainer'
 import PurchaseHistoryContainer from '../features/purchase-history/components/PurchaseHistoryContainer'
+import DashboardContainer from '../features/dashboard/components/DashboardContainer'
 
 export default function AdminPage() {
   return (
@@ -11,6 +12,7 @@ export default function AdminPage() {
       <div className='w-3/4 bg-[#F4F6FF] text-lg'>
         <PackageContainer />
         <PurchaseHistoryContainer />
+        <DashboardContainer />
       </div>
     </div>)
 }
