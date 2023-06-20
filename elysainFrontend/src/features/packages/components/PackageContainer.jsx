@@ -13,7 +13,7 @@ export default function PackageContainer() {
   return (
         <>
             <HeaderAdmin topic="Pricing Plan"/>
-                {isAddMode? <div className='m-8'><PackageForm textConFirm={`Add`} onIsAddMode={setIsAddMode} /></div> : <button type='button' className='mx-8 p-2 min-w-[120px] my-8 text-white bg-blue-600 rounded-sm w-fit' onClick={() => setIsAddMode(true)}>+ Add New</button>}
+                {isAddMode? <div className='m-8 mt-0'><PackageForm textConFirm={`Add`} onIsAddMode={setIsAddMode} /></div> : <button type='button' className='mx-8 p-2 min-w-[120px] mb-8 text-white bg-blue-600 rounded-sm w-fit' onClick={() => setIsAddMode(true)}>+ Add New</button>}
                 <div className="bg-white rounded-md m-8 p-8 mt-0">
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
                     <table class="w-full text-left text-gray-500 dark:text-gray-400">
