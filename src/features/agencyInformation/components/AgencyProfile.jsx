@@ -7,7 +7,7 @@ export default function AgencyContainer({data}) {
   
   return (
     <>
-      <HeaderAdmin topic="Agent List" />
+      <HeaderAdmin topic="Agent details" />
     </>
   )
 }
