@@ -1,14 +1,12 @@
 import React from "react";
-import HeaderAdmin from "../../../components/HeaderAdmin";
-import AgentItem from "./AgentItem";
-import InputForm from "../../../components/InputForm";
-import AgencyProfile from "./AgencyProfile";
+import HeaderAdmin from "../../components/HeaderAdmin";
+import InputForm from "../../components/InputForm";
+import AdminItem from "./AdminItem";
 
-export default function AgencyContainer({data}) {
-  
+export default function AdminContainer({data}) {
   return (
     <>
-      <HeaderAdmin topic="Agent List" />
+      <HeaderAdmin topic="Admin List" />
       <div className="bg-white rounded-md m-8 px-8 pt-6 pb-8 mt-0">
         <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>Search:</div>
@@ -37,9 +35,7 @@ export default function AgencyContainer({data}) {
             </thead>
             <tbody>
               {data.map((el) => (
-                <>
-                  <AgentItem key={el.id} el={el} />
-                </>
+                <AdminItem key={el.id} el={el} />
               ))}
             </tbody>
           </table>
