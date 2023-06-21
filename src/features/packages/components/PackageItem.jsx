@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { EditIcon, TrashIcon } from "../../../icons";
 import PackageForm from "./PackageForm";
@@ -68,3 +69,14 @@ export default function PackageItem({ el }) {
     </>
   );
 }
+=======
+import React from 'react'
+
+export default function PackageItem() {
+  return (
+    <div>
+        
+    </div>
+  )
+}
+>>>>>>> cdc4f7f5a96877e95800f897cb2b1974cae167c8
