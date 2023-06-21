@@ -1,10 +1,5 @@
-import { useState } from 'react'
-import AdminPage from './pages/adminPage'
+import Router from "./route/Router";
 
-function App() {
-  return (
-    <AdminPage />
-  )
+export default function App() {
+  return <Router />;
 }
-
-export default App

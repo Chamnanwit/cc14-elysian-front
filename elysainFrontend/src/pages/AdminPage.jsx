@@ -2,6 +2,7 @@ import React from 'react'
 import PackageContainer from '../features/packages/components/PackageContainer'
 import PurchaseHistoryContainer from '../features/purchase-history/components/PurchaseHistoryContainer'
 import AgencyContainer from '../features/agencyInformation/components/AgencyContainer'
+import DashboardContainer from '../features/dashboard/components/DashboardContainer'
 
 export default function AdminPage() {
   const dataActive = [
@@ -25,6 +26,7 @@ export default function AdminPage() {
         <PurchaseHistoryContainer />
         <AgencyContainer data={dataActive}/>
         <AgencyContainer data={dataInActive}/>
+        <DashboardContainer />
       </div>
     </div>)
 }
