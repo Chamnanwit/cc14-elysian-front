@@ -6,13 +6,17 @@ export default function InputForm({
   value,
   onChange,
   name,
-  isInvalid
+  isInvalid,
+  disabled
 }) {
   const className = createClasses(
-    'block w-full border bg-gray-50 rounded-md px-3 py-2 outline-none focus:ring-1 text-lg',
+    `block w-full border rounded-md px-3 py-2 outline-none focus:ring-1 text-lg `,
     isInvalid
       ? 'border-red-500 focus:ring-red-300'
-      : 'border-gray-300 focus:border-blue-500 focus:ring-blue-300'
+      : 'border-gray-300 focus:border-blue-500 focus:ring-blue-300',
+    disabled
+      ? 'bg-gray-100'
+      : 'bg-white'
   );
   return (
     <>
@@ -25,6 +29,7 @@ export default function InputForm({
         value={value}
         onChange={onChange}
         name={name}
+        disabled={disabled}
       />
     </>
   );
