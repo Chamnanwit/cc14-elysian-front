@@ -1,6 +1,6 @@
 import HeaderSearch from "../layouts/HeaderSearch";
 
-import { FaSearch, FaSearchLocation, FaSignOutAlt } from "react-icons/fa";
+// import { FaSearch, FaSearchLocation, FaSignOutAlt } from "react-icons/fa";
 
 import Navbar from "../layouts/Navbar";
 import BigFourButtonBar from "../layouts/BigFourButtonBar";
