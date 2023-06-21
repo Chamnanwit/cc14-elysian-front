@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PackageItem from './PackageItem'
 import PackageForm from './PackageForm'
 import HeaderAdmin from '../../../components/HeaderAdmin'
+import InputForm from '../../../components/InputForm'
 
 export default function PackageContainer() {
     const [isAddMode, setIsAddMode] = useState(false)
@@ -14,7 +15,11 @@ export default function PackageContainer() {
         <>
             <HeaderAdmin topic="Pricing Plan"/>
                 {isAddMode? <div className='m-8 mt-0'><PackageForm textConFirm={`Add`} onIsAddMode={setIsAddMode} /></div> : <button type='button' className='mx-8 p-2 min-w-[120px] mb-8 text-white bg-blue-600 rounded-sm w-fit' onClick={() => setIsAddMode(true)}>+ Add New</button>}
-                <div className="bg-white rounded-md m-8 p-8 mt-0">
+                <div className="bg-white rounded-md m-8 px-8 pt-6 mt-0">
+                    <div className="flex items-baseline gap-4 justify-end mb-6">
+                        <div>Search:</div>
+                        <div className="100px text-md"><InputForm /></div>
+                    </div>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
                     <table class="w-full text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

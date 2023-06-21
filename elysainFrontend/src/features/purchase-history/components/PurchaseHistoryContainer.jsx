@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderAdmin from "../../../components/HeaderAdmin";
 import PurchaseHistoryItem from "./PurchaseHistoryItem";
+import InputForm from "../../../components/InputForm";
 
 export default function PurchaseHistoryContainer() {
   const data = [
@@ -35,7 +36,11 @@ export default function PurchaseHistoryContainer() {
   return (
     <>
       <HeaderAdmin topic="Purchase history" />
-      <div className="bg-white rounded-md m-8 p-8 mt-0">
+      <div className="bg-white rounded-md m-8 px-8 pt-6 mt-0">
+      <div className="flex items-baseline gap-4 justify-end mb-6">
+          <div>Search:</div>
+          <div className="100px text-md"><InputForm /></div>
+        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
             <table class="w-full text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
