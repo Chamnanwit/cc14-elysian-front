@@ -5,12 +5,13 @@ import AgencyContainer from '../features/agencyInformation/components/AgencyCont
 import DashboardContainer from '../features/dashboard/components/DashboardContainer'
 import PaymentContainer from '../features/agencyPayment/components/PaymentContainer'
 import AdminContainer from '../features/adminInformation/AdminContainer'
+import AgencyProfile from '../features/agencyInformation/components/AgencyProfile'
 
 export default function AdminPage() {
   const dataAgent = [
-    {id: 1, name: "John", email: "j1@gmail.com", status: 1},
-    {id: 2, name: "Jane", email: "j2@gmail.com", status: 1},
-    {id: 3, name: "June", email: "j3@gmail.com", status: 0},
+    {id: 1, firstName: "John", lastName: "Doe", email: "j1@gmail.com", status: 1},
+    {id: 2, firstName: "June", lastName: "Doe", email: "j2@gmail.com", status: 1},
+    {id: 3, firstName: "Jane", lastName: "Doe", email: "j3@gmail.com", status: 0},
   ]
 
   const dataAdmin = [
@@ -31,6 +32,7 @@ export default function AdminPage() {
         <PaymentContainer />
         <AdminContainer data={dataAdmin} />
         <AgencyContainer data={dataAgent}/>
+        <AgencyProfile />
       </div>
     </div>)
 }

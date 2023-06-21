@@ -4,7 +4,6 @@ import InputForm from "../../components/InputForm";
 import AdminItem from "./AdminItem";
 
 export default function AdminContainer({data}) {
-  
   return (
     <>
       <HeaderAdmin topic="Admin List" />

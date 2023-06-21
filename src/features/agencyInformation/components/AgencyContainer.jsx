@@ -2,6 +2,7 @@ import React from "react";
 import HeaderAdmin from "../../../components/HeaderAdmin";
 import AgentItem from "./AgentItem";
 import InputForm from "../../../components/InputForm";
+import AgencyProfile from "./AgencyProfile";
 
 export default function AgencyContainer({data}) {
   
@@ -36,7 +37,9 @@ export default function AgencyContainer({data}) {
             </thead>
             <tbody>
               {data.map((el) => (
-                <AgentItem key={el.id} el={el} />
+                <>
+                  <AgentItem key={el.id} el={el} />
+                </>
               ))}
             </tbody>
           </table>
