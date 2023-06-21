@@ -52,7 +52,7 @@ export default function PaymentForm({
             {error.price && <InputErrorMessage message={error.price} />}
         </div>
         <div className='flex gap-4'>
-            <button type='submit' className='p-2 min-w-[100px] text-white bg-blue-600 rounded-sm w-fit'>Update</button>
+            <button type='submit' className='p-2 min-w-[80px] text-white bg-blue-600 rounded-sm w-fit'>Update</button>
         </div>
     </form>
   )
