@@ -3,6 +3,7 @@ import PackageContainer from '../features/packages/components/PackageContainer'
 import PurchaseHistoryContainer from '../features/purchase-history/components/PurchaseHistoryContainer'
 import AgencyContainer from '../features/agencyInformation/components/AgencyContainer'
 import DashboardContainer from '../features/dashboard/components/DashboardContainer'
+import PaymentContainer from '../features/agencyPayment/components/PaymentContainer'
 
 export default function AdminPage() {
   const dataActive = [
@@ -27,6 +28,7 @@ export default function AdminPage() {
         <AgencyContainer data={dataActive}/>
         <AgencyContainer data={dataInActive}/>
         <DashboardContainer />
+        <PaymentContainer />
       </div>
     </div>)
 }

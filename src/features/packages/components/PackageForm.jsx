@@ -26,7 +26,7 @@ export default function PackageForm({
     <form className='bg-white rounded-md px-6 pt-4'>
         <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <label htmlFor="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plan Type</label>
+                <label htmlFor="type" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Plan Type</label>
                 <select id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="type">
                     <option disabled selected value>Choose type</option>
                     <option value="1">Premium</option>
@@ -61,12 +61,11 @@ export default function PackageForm({
                 {error.name && <InputErrorMessage message={error.name} />}
             </div>
             <div>
-            <label htmlFor="expiration" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expiration</label>
-                <select id="expiration" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="expiration">
+            <label htmlFor="expiration" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Expiration</label>
+                <select id="expiration" class="bg-gray-50 border text-lg border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="expiration">
                     <option disabled selected value>Choose type</option>
-                    <option value="1">Monthly</option>
-                    <option value="2">Yearly</option>
-                    <option value="3">Lifetime</option>
+                    <option value="1">Weekly</option>
+                    <option value="2">Monthly</option>
                 </select>
                 <div className='h-0 pb-2'> 
                     {error.type && (<InputErrorMessage message={error.type} />)}
@@ -99,8 +98,8 @@ export default function PackageForm({
                 </div>
             </div>
             <div>
-            <label htmlFor="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                <select id="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="status">
+            <label htmlFor="status" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Status</label>
+                <select id="status" class="bg-gray-50 border text-lg border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="status">
                     <option disabled selected value>Choose status</option>
                     <option value="US">Enable</option>
                     <option value="US">Disable</option>
