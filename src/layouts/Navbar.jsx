@@ -2,16 +2,19 @@ import logo from "../assets/logo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillHome } from "react-icons/ai";
-import { FaSearch, FaSearchLocation, FaSignOutAlt } from "react-icons/fa";
+import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
+import { TbCards } from "react-icons/tb";
 import { MdPassword } from "react-icons/md";
+import { RiAdminLine } from "react-icons/ri";
+import { ImProfile } from "react-icons/im";
 import LoginButton from "../features/auth/components/LoginButton";
 import LogoutButton from "../features/auth/components/LogoutButton";
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth0();
   return (
-    <div className="mx-auto bg-c-white1 h-[60px] w-full flex justify-between items-center p-5 px-10 shadow-lg sticky top-0 z-40">
+    <div className="mx-auto bg-c-white1 h-[60px] w-full flex justify-between items-center p-5 px-10 shadow-lg sticky top-0 z-50">
       <div class="text-center text-c-gray1 text-[25px] pt-2">
         <button
           class="hover:scale-105 transition-all duration-200 hover:bg-white p-1 rounded-lg"
@@ -25,6 +28,9 @@ export default function Navbar() {
       </div>
       <div className="">
         <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" />
+      </div>
+      <div className="cursor-pointer border border-1 border-c-blue1 rounded-full px-5 py-1 text-c-blue1 font-semibold hover:bg-c-blue1 hover:text-c-white1  active:scale-95  hover:scale-105 transition-all duration-200">
+        เข้าสู่ระบบ
       </div>
       <LoginButton />
       <LogoutButton />
@@ -95,11 +101,22 @@ export default function Navbar() {
                 class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">
+                  <TbCards />
+                </div>
+                <span class="ml-3">แพ็คเกจ</span>
+              </a>
+            </li>
+            {/* <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
                   <FaSearchLocation />
                 </div>
                 <span class="ml-3">ค้นหาโดยแผนที่</span>
               </a>
-            </li>
+            </li> */}
 
             {/* dropdown */}
             {/* <li>
@@ -162,45 +179,61 @@ export default function Navbar() {
             </ul>
           </li> */}
 
-            {isAuthenticated && (
-              <>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
-                  >
-                    <div className="text-[18pt]">
-                      <RxDashboard />
-                    </div>
-                    <span className="ml-3">จัดการห้องเช่า</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
-                  >
-                    <div className="text-[18pt]">
-                      <MdPassword />
-                    </div>
-                    <span className="ml-3">เปลี่ยนรหัสผ่าน</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
-                  >
-                    <div className="text-[18pt]">
-                      <FaSignOutAlt />
-                    </div>
-                    <span className="ml-3">ออกจากระบบ</span>
-                  </a>
-                </li>
-              </>
-            )}
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <RxDashboard />
+                </div>
+                <span class="ml-3">จัดการห้องเช่า</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <ImProfile />
+                </div>
+                <span class="ml-3">ข้อมูลส่วนตัว</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <MdPassword />
+                </div>
+                <span class="ml-3">เปลี่ยนรหัสผ่าน</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <FaSignOutAlt />
+                </div>
+                <span class="ml-3">ออกจากระบบ</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 my-10 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <RiAdminLine />
+                </div>
+                <span class="ml-3">ADMIN</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
