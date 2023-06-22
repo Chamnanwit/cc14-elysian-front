@@ -1,9 +1,10 @@
-import { User, useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import ButtonYellowM from "../components/ButtonYellowM";
 import InputBar from "../components/InputBar";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import { useState } from "react";
+import { register } from "../api/axios";
 
 export default function RegisterPage() {
   const { user, isAuthenticated } = useAuth0();
@@ -11,9 +12,12 @@ export default function RegisterPage() {
     firstName: "",
     lastName: "",
     phoneNumber: "",
+    password: "",
     taxId: "",
-    email: "",
+    email: user.email,
     profileImage: "",
+    confirmPassword: "",
+    locked: "",
   });
 
   const hdlChangeInput = (e) => {
@@ -21,17 +25,29 @@ export default function RegisterPage() {
   };
 
   const hdlSubmit = (e) => {
-    const { firstName, lastName, phoneNumber, taxId, email, profileImage } =
-      input;
     e.preventDefault();
+
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      taxId,
+      email,
+      profileImage,
+      password,
+      locked,
+    } = input;
+    console.log(input);
     register({
-      //รอAPI มาเชื่อม
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phoneNumber,
       taxId: taxId,
       email: email,
       profileImage: profileImage,
+      password: password,
+      confirmPassword: password,
+      locked: locked,
     })
       .then((rs) => {
         console.log(rs);
@@ -54,23 +70,23 @@ export default function RegisterPage() {
             {isAuthenticated && (
               <>
                 <InputBar
-                  onChange={hdlChangeInput}
                   value={input.firstName}
                   name="firstName"
+                  onChange={hdlChangeInput}
                 >
                   ชื่อ
                 </InputBar>
                 <InputBar
-                  onChange={hdlChangeInput}
                   value={input.lastName}
                   name="lastName"
+                  onChange={hdlChangeInput}
                 >
                   นามสกุล
                 </InputBar>
                 <InputBar
-                  onChange={hdlChangeInput}
                   value={input.phoneNumber}
                   name="phoneNumber"
+                  onChange={hdlChangeInput}
                 >
                   เบอร์โทรศัพท์
                 </InputBar>
@@ -81,14 +97,37 @@ export default function RegisterPage() {
                   name="email"
                   onChange={hdlChangeInput}
                 />
-
                 <InputBar
-                  onChange={hdlChangeInput}
                   value={input.taxId}
                   name="taxId"
+                  onChange={hdlChangeInput}
                 >
                   เลขประจำตัวผู้เสียภาษี
                 </InputBar>
+                <InputBar
+                  value={(input.password = "123456")}
+                  name="password"
+                  // onChange={hdlChangeInput}
+                  style={{ display: "none" }}
+                ></InputBar>
+                <InputBar
+                  value={(input.password = "123456")}
+                  name="confirmPassword"
+                  // onChange={hdlChangeInput}
+                  style={{ display: "none" }}
+                ></InputBar>
+                <InputBar
+                  value={(input.profileImage = "photo123456")}
+                  name="profileImage"
+                  // onChange={hdlChangeInput}
+                  style={{ display: "none" }}
+                ></InputBar>
+                <InputBar
+                  value={(input.locked = "TRUE")}
+                  name="locked"
+                  // onChange={hdlChangeInput}
+                  style={{ display: "none" }}
+                ></InputBar>
               </>
             )}
             <div class="flex items-center justify-center w-full">
