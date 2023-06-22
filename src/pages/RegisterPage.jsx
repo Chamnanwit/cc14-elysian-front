@@ -15,14 +15,6 @@ export default function RegisterPage() {
             <p className=" text-lg text-c-white1 font-semibold">
               กรอกข้อมูลเพื่อยืนยันตัวตน
             </p>
-<<<<<<< HEAD
-            <InputBar>อีเมล์</InputBar>
-            <InputBar>ชื่อ</InputBar>
-            <InputBar>นามสกุล</InputBar>
-            <InputBar>เบอร์โทรศัพท์</InputBar>
-            <InputBar>หมายเลขบัตรประชาชน</InputBar>
-
-=======
             {isAuthenticated && (
               <>
                 <p
@@ -37,7 +29,6 @@ export default function RegisterPage() {
                 <InputBar>หมายเลขบัตรประชะชน</InputBar>
               </>
             )}
->>>>>>> 279cf526b3d2480ce375151590552d3be6a28e48
             <div class="flex items-center justify-center w-full">
               <label
                 for="dropzone-file"
