@@ -1,9 +1,11 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import ButtonYellowM from "../components/ButtonYellowM";
 import InputBar from "../components/InputBar";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 
 export default function RegisterPage() {
+  const { user, isAuthenticated } = useAuth0();
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
       <div>
@@ -13,12 +15,29 @@ export default function RegisterPage() {
             <p className=" text-lg text-c-white1 font-semibold">
               กรอกข้อมูลเพื่อยืนยันตัวตน
             </p>
+<<<<<<< HEAD
             <InputBar>อีเมล์</InputBar>
             <InputBar>ชื่อ</InputBar>
             <InputBar>นามสกุล</InputBar>
             <InputBar>เบอร์โทรศัพท์</InputBar>
             <InputBar>หมายเลขบัตรประชาชน</InputBar>
 
+=======
+            {isAuthenticated && (
+              <>
+                <p
+                  className="px-5 py-1 border-none text-lg rounded-full w-full ring-2 ring-c-gray1 outline-none focus:ring-c-blue1 focus:ring-2 opacity-100 bg-white hover:ring-2 hover:ring-c-green2 transition-all duration-200"
+                  style={{ textAlign: "left" }}
+                >
+                  {user.email}
+                </p>
+                <InputBar>ชื่อ</InputBar>
+                <InputBar>นามสกุล</InputBar>
+                <InputBar>เบอร์โทรศัพท์</InputBar>
+                <InputBar>หมายเลขบัตรประชะชน</InputBar>
+              </>
+            )}
+>>>>>>> 279cf526b3d2480ce375151590552d3be6a28e48
             <div class="flex items-center justify-center w-full">
               <label
                 for="dropzone-file"
@@ -53,7 +72,6 @@ export default function RegisterPage() {
                 <input id="dropzone-file" type="file" class="hidden" />
               </label>
             </div>
-
             <ButtonYellowM>ยืนยัน</ButtonYellowM>
           </form>
         </div>

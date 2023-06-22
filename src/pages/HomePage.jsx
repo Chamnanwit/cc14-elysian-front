@@ -1,5 +1,11 @@
 import HeaderSearch from "../layouts/HeaderSearch";
+<<<<<<< HEAD
 import ButtonYellowM from "../components/ButtonYellowM";
+=======
+
+// import { FaSearch, FaSearchLocation, FaSignOutAlt } from "react-icons/fa";
+
+>>>>>>> 279cf526b3d2480ce375151590552d3be6a28e48
 import Navbar from "../layouts/Navbar";
 import BigFourButtonBar from "../layouts/BigFourButtonBar";
 import RentCard from "../components/RentCard";

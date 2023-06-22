@@ -1,14 +1,21 @@
 import logo from "../assets/logo.png";
+import { useAuth0 } from "@auth0/auth0-react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillHome } from "react-icons/ai";
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { TbCards } from "react-icons/tb";
 import { MdPassword } from "react-icons/md";
+<<<<<<< HEAD
 import { RiAdminLine } from "react-icons/ri";
 import { ImProfile } from "react-icons/im";
+=======
+import LoginButton from "../features/auth/components/LoginButton";
+import LogoutButton from "../features/auth/components/LogoutButton";
+>>>>>>> 279cf526b3d2480ce375151590552d3be6a28e48
 
 export default function Navbar() {
+  const { isAuthenticated } = useAuth0();
   return (
     <div className="mx-auto bg-c-white1 h-[60px] w-full flex justify-between items-center p-5 px-10 shadow-lg sticky top-0 z-50">
       <div class="text-center text-c-gray1 text-[25px] pt-2">
@@ -25,9 +32,14 @@ export default function Navbar() {
       <div className="">
         <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" />
       </div>
+<<<<<<< HEAD
       <div className="cursor-pointer border border-1 border-c-blue1 rounded-full px-5 py-1 text-c-blue1 font-semibold hover:bg-c-blue1 hover:text-c-white1  active:scale-95  hover:scale-105 transition-all duration-200">
         เข้าสู่ระบบ
       </div>
+=======
+      <LoginButton />
+      <LogoutButton />
+>>>>>>> 279cf526b3d2480ce375151590552d3be6a28e48
 
       <div
         id="drawer-navigation"
@@ -173,6 +185,7 @@ export default function Navbar() {
             </ul>
           </li> */}
 
+<<<<<<< HEAD
             <li>
               <a
                 href="#ก"
@@ -228,6 +241,47 @@ export default function Navbar() {
                 <span class="ml-3">ADMIN</span>
               </a>
             </li>
+=======
+            {isAuthenticated && (
+              <>
+                <li>
+                  <a
+                    href="#"
+                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
+                  >
+                    <div className="text-[18pt]">
+                      <RxDashboard />
+                    </div>
+                    <span className="ml-3">จัดการห้องเช่า</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
+                  >
+                    <div className="text-[18pt]">
+                      <MdPassword />
+                    </div>
+                    <span className="ml-3">เปลี่ยนรหัสผ่าน</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
+                  >
+                    <div className="text-[18pt]">
+                      <FaSignOutAlt />
+                    </div>
+                    <span className="ml-3">ออกจากระบบ</span>
+                  </a>
+                </li>
+              </>
+            )}
+>>>>>>> 279cf526b3d2480ce375151590552d3be6a28e48
           </ul>
         </div>
       </div>

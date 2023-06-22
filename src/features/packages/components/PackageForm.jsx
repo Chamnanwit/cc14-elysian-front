@@ -37,7 +37,7 @@ export default function PackageForm({
                 </div>
             </div>
             <div>
-            <div>
+                <div>
                 <InputForm
                     labelName="Plan Price"
                     name="price"
