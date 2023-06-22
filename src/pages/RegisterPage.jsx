@@ -11,8 +11,8 @@ export default function RegisterPage() {
       <div>
         <Navbar />
         <div className=" bg-[url('/src/assets/pic/headerbg.jpg')]  h-[790px] w-full flex flex-col text-center items-center py-5 transition-all duration-200">
-          <form className="mt-auto w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 opacity-90 ">
-            <p className=" text-lg text-c-gray3 font-semibold">
+          <form className="mt-auto w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-green4 bg-opacity-30 backdrop-blur-sm ">
+            <p className=" text-lg text-c-white1 font-semibold">
               กรอกข้อมูลเพื่อยืนยันตัวตน
             </p>
             {isAuthenticated && (

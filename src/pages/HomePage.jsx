@@ -1,16 +1,19 @@
 import HeaderSearch from "../layouts/HeaderSearch";
-
-// import { FaSearch, FaSearchLocation, FaSignOutAlt } from "react-icons/fa";
-
+import ButtonYellowM from "../components/ButtonYellowM";
 import Navbar from "../layouts/Navbar";
 import BigFourButtonBar from "../layouts/BigFourButtonBar";
 import RentCard from "../components/RentCard";
 import Footer from "../layouts/Footer";
+import AdverBar from "../layouts/AdverBar";
+import { BsCheckCircle } from "react-icons/bs";
+import ListCheckGreenTrue from "../components/ListCheckGreenTrue";
+import PromotionCard from "../components/PromotionCard";
+import PackagePlan from "../layouts/PackagePlan";
 
 export default function HomePage() {
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
-      <div>
+      <div className=" pb-10">
         <Navbar />
         <div className="h-full bg-c-white1">
           <HeaderSearch />
@@ -34,7 +37,8 @@ export default function HomePage() {
           <RentCard />
           <RentCard />
         </div>
-        <div>adver</div>
+        <AdverBar />
+        <PackagePlan />
       </div>
 
       <Footer />

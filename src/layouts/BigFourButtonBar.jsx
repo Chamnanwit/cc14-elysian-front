@@ -16,7 +16,7 @@ export default function BigFourButtonBar() {
         </div>
         <div className=" text-c-white1 text-xl">ค้นหาทั้งหมด</div>
       </div>
-      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg">
+      {/* <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg">
         <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
           <img
             src="src/assets/icon/mapIcon.png"
@@ -30,7 +30,7 @@ export default function BigFourButtonBar() {
           />
         </div>
         <div className=" text-c-white1 text-xl">ค้นหาในแผนที่</div>
-      </div>
+      </div> */}
       <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg">
         <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
           <img
