@@ -1,32 +1,94 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { User, useAuth0 } from "@auth0/auth0-react";
 import ButtonYellowM from "../components/ButtonYellowM";
 import InputBar from "../components/InputBar";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
+import { useState } from "react";
 
 export default function RegisterPage() {
   const { user, isAuthenticated } = useAuth0();
+  const [input, setInput] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    taxId: "",
+    email: "",
+    profileImage: "",
+  });
+
+  const hdlChangeInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const hdlSubmit = (e) => {
+    const { firstName, lastName, phoneNumber, taxId, email, profileImage } =
+      input;
+    e.preventDefault();
+    register({
+      //รอAPI มาเชื่อม
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      taxId: taxId,
+      email: email,
+      profileImage: profileImage,
+    })
+      .then((rs) => {
+        console.log(rs);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
       <div>
         <Navbar />
         <div className=" bg-[url('/src/assets/pic/headerbg.jpg')]  h-[790px] w-full flex flex-col text-center items-center py-5 transition-all duration-200">
-          <form className="mt-auto w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 opacity-90 ">
+          <form
+            className="mt-auto w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 opacity-90 "
+            onSubmit={hdlSubmit}
+          >
             <p className=" text-lg text-c-gray3 font-semibold">
               กรอกข้อมูลเพื่อยืนยันตัวตน
             </p>
             {isAuthenticated && (
               <>
-                <p
-                  className="px-5 py-1 border-none text-lg rounded-full w-full ring-2 ring-c-gray1 outline-none focus:ring-c-blue1 focus:ring-2 opacity-100 bg-white hover:ring-2 hover:ring-c-green2 transition-all duration-200"
-                  style={{ textAlign: "left" }}
+                <InputBar
+                  onChange={hdlChangeInput}
+                  value={input.firstName}
+                  name="firstName"
                 >
-                  {user.email}
-                </p>
-                <InputBar>ชื่อ</InputBar>
-                <InputBar>นามสกุล</InputBar>
-                <InputBar>เบอร์โทรศัพท์</InputBar>
-                <InputBar>หมายเลขบัตรประชะชน</InputBar>
+                  ชื่อ
+                </InputBar>
+                <InputBar
+                  onChange={hdlChangeInput}
+                  value={input.lastName}
+                  name="lastName"
+                >
+                  นามสกุล
+                </InputBar>
+                <InputBar
+                  onChange={hdlChangeInput}
+                  value={input.phoneNumber}
+                  name="phoneNumber"
+                >
+                  เบอร์โทรศัพท์
+                </InputBar>
+                <input
+                  className="px-5 py-1 border-none text-lg rounded-full w-full ring-2 ring-c-gray1 outline-none focus:ring-c-blue1 focus:ring-2 opacity-100 bg-white hover:ring-2 hover:ring-c-green2 transition-all duration-200"
+                  type="text"
+                  value={user.email}
+                  name="email"
+                  onChange={hdlChangeInput}
+                />
+
+                <InputBar
+                  onChange={hdlChangeInput}
+                  value={input.taxId}
+                  name="taxId"
+                >
+                  เลขประจำตัวผู้เสียภาษี
+                </InputBar>
               </>
             )}
             <div class="flex items-center justify-center w-full">
@@ -63,7 +125,7 @@ export default function RegisterPage() {
                 <input id="dropzone-file" type="file" class="hidden" />
               </label>
             </div>
-            <ButtonYellowM>ยืนยัน</ButtonYellowM>
+            <ButtonYellowM type="submit">ยืนยัน</ButtonYellowM>
           </form>
         </div>
       </div>
