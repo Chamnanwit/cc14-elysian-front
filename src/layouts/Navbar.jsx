@@ -2,16 +2,19 @@ import logo from "../assets/logo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillHome } from "react-icons/ai";
-import { FaSearch, FaSearchLocation, FaSignOutAlt } from "react-icons/fa";
+import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
+import { TbCards } from "react-icons/tb";
 import { MdPassword } from "react-icons/md";
+import { RiAdminLine } from "react-icons/ri";
+import { ImProfile } from "react-icons/im";
 import LoginButton from "../features/auth/components/LoginButton";
 import LogoutButton from "../features/auth/components/LogoutButton";
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth0();
   return (
-    <div className="mx-auto bg-c-white1 h-[60px] w-full flex justify-between items-center p-5 px-10 shadow-lg sticky top-0 z-40">
+    <div className="mx-auto bg-c-white1 h-[60px] w-full flex justify-between items-center p-5 px-10 shadow-lg sticky top-0 z-50">
       <div class="text-center text-c-gray1 text-[25px] pt-2">
         <button
           class="hover:scale-105 transition-all duration-200 hover:bg-white p-1 rounded-lg"
@@ -26,6 +29,9 @@ export default function Navbar() {
       <div className="">
         <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" />
       </div>
+      {/* <div className="cursor-pointer border border-1 border-c-blue1 rounded-full px-5 py-1 text-c-blue1 font-semibold hover:bg-c-blue1 hover:text-c-white1  active:scale-95  hover:scale-105 transition-all duration-200">
+        เข้าสู่ระบบ
+      </div> */}
       <LoginButton />
       <LogoutButton />
 
@@ -95,112 +101,139 @@ export default function Navbar() {
                 class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">
+                  <TbCards />
+                </div>
+                <span class="ml-3">แพ็คเกจ</span>
+              </a>
+            </li>
+            {/* <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
                   <FaSearchLocation />
                 </div>
                 <span class="ml-3">ค้นหาโดยแผนที่</span>
               </a>
-            </li>
+            </li> */}
 
             {/* dropdown */}
-            {/* <li>
-            <button
-              type="button"
-              class="flex items-center w-full p-2 rounded-full hover:text-c-gray3  hover:bg-c-white1 active:scale-95 duration-200"
-              aria-controls="dropdown-example"
-              data-collapse-toggle="dropdown-example"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+            <li>
+              <button
+                type="button"
+                class="flex items-center w-full p-2 rounded-full hover:text-c-gray3  hover:bg-c-white1 active:scale-95 duration-200"
+                aria-controls="dropdown-example"
+                data-collapse-toggle="dropdown-example"
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">
-                จัดการห้องเช่าของฉัน
-              </span>
-              <svg
-                class="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+                <svg
+                  aria-hidden="true"
+                  class="flex-shrink-0 w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="flex-1 ml-3 text-left whitespace-nowrap">
+                  จัดการห้องเช่าของฉัน
+                </span>
+                <svg
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+              <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+
+                    //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Products
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+
+                    //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Products
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </button>
-            <ul id="dropdown-example" class="hidden py-2 space-y-2">
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-
-                  //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                >
-                  Products
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-
-                  //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                >
-                  Products
-                </a>
-              </li>
-            </ul>
-          </li> */}
-
-            {isAuthenticated && (
-              <>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
-                  >
-                    <div className="text-[18pt]">
-                      <RxDashboard />
-                    </div>
-                    <span className="ml-3">จัดการห้องเช่า</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
-                  >
-                    <div className="text-[18pt]">
-                      <MdPassword />
-                    </div>
-                    <span className="ml-3">เปลี่ยนรหัสผ่าน</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all active:scale-95 duration-200"
-                  >
-                    <div className="text-[18pt]">
-                      <FaSignOutAlt />
-                    </div>
-                    <span className="ml-3">ออกจากระบบ</span>
-                  </a>
-                </li>
-              </>
-            )}
+                <div className="text-[18pt]">
+                  <RxDashboard />
+                </div>
+                <span class="ml-3">จัดการห้องเช่า</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <ImProfile />
+                </div>
+                <span class="ml-3">ข้อมูลส่วนตัว</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <MdPassword />
+                </div>
+                <span class="ml-3">เปลี่ยนรหัสผ่าน</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <FaSignOutAlt />
+                </div>
+                <span class="ml-3">ออกจากระบบ</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 my-10 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <RiAdminLine />
+                </div>
+                <span class="ml-3">ADMIN</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

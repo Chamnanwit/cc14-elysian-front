@@ -10,7 +10,7 @@ export default function RentCard() {
         </div>
       </div>
 
-      <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg">
+      <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105 active:scale-95 duration-500">
         <div>
           <img
             src="/src/assets/pic/pictest1.jpg"
@@ -44,7 +44,7 @@ export default function RentCard() {
           <div className="text-c-gray3">฿11200 - 28000 / month</div>
         </div>
         <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray2 bg-c-white1">
-          <div>HATYAI</div>
+          <div>หาดใหญ่,ตัวเมือง</div>
           <div>0.45km</div>
         </div>
       </div>

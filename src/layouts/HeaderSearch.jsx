@@ -9,7 +9,7 @@ export default function HeaderSearch() {
           Find your rent in , Fit your rent out
         </div>
         <input
-          className="px-10 py-4 text-lg rounded-full w-full mt-[25%] mb-10 ring-2 ring-c-gray1 outline-none focus:ring-c-blue1"
+          className="px-10 py-4 text-lg rounded-full w-full mt-[25%] mb-10 ring-2 ring-c-gray1 outline-none focus:ring-c-blue1 hover:ring-4 hover:ring-c-blue4 transition-all duration-300"
           placeholder="searchbar"
         />
 
