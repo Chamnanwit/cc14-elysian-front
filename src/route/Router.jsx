@@ -8,6 +8,7 @@ import HomePage from "../pages/HomePage";
 import AdminLoginPage from "../pages/AdminLoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import AdminPage from "../pages/AdminPage";
+import AgentPage from "../pages/AgentPage";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -28,6 +29,11 @@ export default function Router() {
     {
       path: "/admin",
       element: <AdminPage />,
+      // children: [],
+    },
+    {
+      path: "/agent",
+      element: <AgentPage />,
       // children: [],
     },
   ]);
