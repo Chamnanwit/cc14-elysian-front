@@ -4,7 +4,7 @@ import InputBar from "../components/InputBar";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import { useState } from "react";
-import { register } from "../api/axios";
+import { register } from "../api/auth-api";
 import validateRegistration from "../validators/validate-regis";
 import InputErrorMessage from "../components/InputErrorMessage";
 
