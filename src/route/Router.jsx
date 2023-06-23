@@ -12,6 +12,9 @@ import AdminPage from "../pages/AdminPage";
 import AgentPage from "../pages/AgentPage";
 
 import PackagePlanPage from "../pages/PackagePlanPage";
+import SearchPage from "../pages/SearchPage";
+import PhoneNumberPage from "../pages/PhoneNumberPage";
+import RentDetailPage from "../pages/RentDetailPage";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -41,6 +44,21 @@ export default function Router() {
     {
       path: "/packageplan",
       element: <PackagePlanPage />,
+      // children: [],
+    },
+    {
+      path: "/searchpage",
+      element: <SearchPage />,
+      // children: [],
+    },
+    {
+      path: "/phonenumber",
+      element: <PhoneNumberPage />,
+      // children: [],
+    },
+    {
+      path: "/rentdetail",
+      element: <RentDetailPage />,
       // children: [],
     },
   ]);
