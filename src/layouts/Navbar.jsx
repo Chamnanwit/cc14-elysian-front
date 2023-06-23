@@ -10,12 +10,13 @@ import { RiAdminLine } from "react-icons/ri";
 import { ImProfile } from "react-icons/im";
 import LoginButton from "../features/auth/components/LoginButton";
 import LogoutButton from "../features/auth/components/LogoutButton";
+import Logo from "../components/logo";
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth0();
   return (
-    <div className="mx-auto bg-c-white1 h-[60px] w-full flex justify-between items-center p-5 px-10 shadow-lg sticky top-0 z-50">
-      <div class="text-center text-c-gray1 text-[25px] pt-2">
+    <div className="mx-auto bg-c-white1 h-[60px] w-full flex items-center p-5 px-10 shadow-lg sticky top-0 z-50">
+      <div class="text-center text-c-gray1 text-[25px] flex-1 flex justify-start ">
         <button
           class="hover:scale-105 transition-all duration-200 hover:bg-white p-1 rounded-lg"
           type="button"
@@ -26,14 +27,14 @@ export default function Navbar() {
           <GiHamburgerMenu />
         </button>
       </div>
-      <div className="">
-        <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" />
+      <div className=" flex-1 flex justify-center">
+        <Logo />
+        {/* <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" /> */}
       </div>
-      {/* <div className="cursor-pointer border border-1 border-c-blue1 rounded-full px-5 py-1 text-c-blue1 font-semibold hover:bg-c-blue1 hover:text-c-white1  active:scale-95  hover:scale-105 transition-all duration-200">
-        เข้าสู่ระบบ
-      </div> */}
-      <LoginButton />
-      <LogoutButton />
+      <div className="flex-1 flex justify-end">
+        <LoginButton />
+        <LogoutButton />
+      </div>
 
       <div
         id="drawer-navigation"
@@ -106,6 +107,17 @@ export default function Navbar() {
                 <span class="ml-3">แพ็คเกจ</span>
               </a>
             </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <RiAdminLine />
+                </div>
+                <span class="ml-3">ยืนยันตัวตน</span>
+              </a>
+            </li>
             {/* <li>
               <a
                 href="#ก"
@@ -119,7 +131,7 @@ export default function Navbar() {
             </li> */}
 
             {/* dropdown */}
-            <li>
+            {/* <li>
               <button
                 type="button"
                 class="flex items-center w-full p-2 rounded-full hover:text-c-gray3  hover:bg-c-white1 active:scale-95 duration-200"
@@ -177,7 +189,7 @@ export default function Navbar() {
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> */}
 
             <li>
               <a
