@@ -1,4 +1,4 @@
-import logo from "../assets/logo.png";
+import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillHome } from "react-icons/ai";
@@ -27,10 +27,12 @@ export default function Navbar() {
           <GiHamburgerMenu />
         </button>
       </div>
+
       <div className=" flex-1 flex justify-center">
         <Logo />
         {/* <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" /> */}
       </div>
+
       <div className="flex-1 flex justify-end">
         <LoginButton />
         <LogoutButton />
@@ -49,6 +51,7 @@ export default function Navbar() {
           >
             Menu
           </h5>
+
           <button
             type="button"
             data-drawer-hide="drawer-navigation"

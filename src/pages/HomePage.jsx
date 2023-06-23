@@ -9,6 +9,7 @@ import { BsCheckCircle } from "react-icons/bs";
 import ListCheckGreenTrue from "../components/ListCheckGreenTrue";
 import PromotionCard from "../components/PromotionCard";
 import PackagePlan from "../layouts/PackagePlan";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
   return (
@@ -18,9 +19,13 @@ export default function HomePage() {
         <div className="h-full bg-c-white1">
           <HeaderSearch />
           <div className="h-0 body relative">
-            <div className=" absolute top-[-80px] right-0 bottom-0 left-0 ">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className=" absolute top-[-80px] right-0 bottom-0 left-0 "
+            >
               <BigFourButtonBar />
-            </div>
+            </motion.div>
           </div>
           <div className="mt-24 h-5 bg-c-white1"></div>
           <div className="flex justify-between px-10 pt-5">
@@ -28,7 +33,11 @@ export default function HomePage() {
             <div className="text-sm text-c-gray2">ดูทั้งหมด</div>
           </div>
         </div>
-        <div className=" flex w-full gap-5 px-10 py-5 overflow-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className=" flex w-full gap-5 px-10 py-5 overflow-auto"
+        >
           <RentCard />
           <RentCard />
           <RentCard />
@@ -36,8 +45,10 @@ export default function HomePage() {
           <RentCard />
           <RentCard />
           <RentCard />
-        </div>
-        <AdverBar />
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+          <AdverBar />
+        </motion.div>
         <PackagePlan />
       </div>
 

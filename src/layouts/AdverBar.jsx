@@ -1,9 +1,19 @@
 import React from "react";
+import { motion } from "framer-motion";
+
 import ButtonYellowM from "../components/ButtonYellowM";
 
 export default function AdverBar() {
   return (
-    <div className="py-20 text-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{
+        duration: 1,
+        ease: "easeInOut",
+      }}
+      className="py-20 text-center"
+    >
       <div className=" flex justify-between h-fit items-center">
         <div className="flex-[1.5]">
           <img
@@ -28,6 +38,6 @@ export default function AdverBar() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
