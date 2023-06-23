@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as pricingPlanService from "../../../api/pricingPlan-api";
+import * as pricingPlanService from "../../../api/package-api";
 
 const initialState = {
-    pricingPlan: []
+    pricingPlan: [],
+    isLoading: true
 };
 
 export const pricingPlanAsync = createAsyncThunk(
@@ -13,6 +14,7 @@ export const pricingPlanAsync = createAsyncThunk(
         const res = await pricingPlanService.getPricingPlan();
         // setAccessToken(res.data.accessToken);
         // const resFetchMe = await groupService.fetchMe();
+        console.log(res.data)
         return res.data;   // ส่งไป set ค่าใน reducer
       } catch (err) {
         console.log(err);
@@ -40,16 +42,18 @@ const pricingPlanSlice = createSlice({
     initialState,
     extraReducers: (builder) =>
     builder
+    .addCase(pricingPlanAsync.pending, state => {
+      // state.initialLoading = true;
+  })
     .addCase(pricingPlanAsync.fulfilled, (state, action) => {
         state.pricingPlan = action.payload;
-        state.initialLoading = false;
+        state.isLoading = false;
     })
     .addCase(pricingPlanAsync.rejected, (state, action) => {
         state.error = action.payload;
+        state.isLoading = false;
     })
-    .addCase(pricingPlanAsync.pending, state => {
-        // state.initialLoading = true;
-    })
+    
 });
 
 export default pricingPlanSlice.reducer;

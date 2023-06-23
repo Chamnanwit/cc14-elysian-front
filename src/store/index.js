@@ -3,7 +3,7 @@ import pricingPlanReducer from '../features/packages/slice/pricingPlan-slice';
 
 const store = configureStore({
   reducer: {
-    pricingPlan: pricingPlanReducer
+    pricingPlan: pricingPlanReducer,
   }
 });
 

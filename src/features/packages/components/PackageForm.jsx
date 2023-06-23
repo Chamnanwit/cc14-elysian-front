@@ -1,27 +1,17 @@
 import React, { useState } from 'react'
 import InputForm from '../../../components/InputForm'
 import InputErrorMessage from '../../../components/InputErrorMessage';
+import store from "../../../store";
 
 export default function PackageForm({
     textConFirm,
     onIsAddMode,
+    pricingPlanType,
+    expirationType,
+    lockedType,
     oldPackage,
 }) {
-    const pricingPlanType = [
-        { id: 1, type: "FREE" },
-        { id: 2, type: "GOLD" },
-        { id: 3, type: "PREMIUM" },
-    ];
-
-    const expirationType = [
-        {id: 1, type: "WEEKLY", thaiType: "รายสัปดาห์"},
-        {id: 2, type: "MONTHLY", thaiType: "รายเดือน"},
-    ]
-
-    const statusType = [
-        {id: 1, type: "ENABLE"},
-        {id: 2, type: "DISABLE"},
-    ]
+    
   const initialInput = {
     planType: oldPackage?.planType || '',
     price: oldPackage?.price || '',
@@ -29,7 +19,7 @@ export default function PackageForm({
     expiration: oldPackage?.expiration || '',
     limit: oldPackage?.limit || '',
     numberOfTop: oldPackage?.numberOfTop || '',
-    status: oldPackage?.status || ''
+    locked: oldPackage?.locked || ''
   };
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
@@ -37,13 +27,32 @@ export default function PackageForm({
   const handleChangeInput = e => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+    console.log(input)
+    // const result = validatePackage(input);
+    // if (result) {
+    //     return setError(result);
+    // }
+    // setError({});
+    if (!oldPackage) {
+      await dispatch(createPricingPlanAsync(input)).unwrap();
+      store.dispatch(pricingPlanAsync());  // สั่งให้ fetch post list ไหม่ หลัง กด ตกลง  โดยส่งไปบอก Store ให้ Store ไปบบอก component PostList
+      onIsAddMode(false);
+    } else if(oldPackage) {
+    //   await dispatch(updatePricingPlanAsync(oldModel.id, input))
+    //   store.dispatch(pricingPlanAsync());
+    //   onIsAddMode(false);
+    }
+  };
   return (
-    <form className='bg-white rounded-md px-6 pt-4'>
+    <form className='bg-white rounded-md px-6 pt-4' onSubmit={handleSubmitForm}>
         <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
                 <label htmlFor="planType" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">ประเภทแพ็คเกจ</label>
-                <select id="planType" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="planType">
-                    <option disabled selected value>Choose type</option>
+                <select id="planType" class="border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="planType" onChange={handleChangeInput}>
+                    <option disabled selected value>เลือกประเภท</option>
                     {pricingPlanType.map(el => (el.type === input.planType)? <option selected key={el.id} value={el.type}>{el.type}</option> : <option key={el.id} value={el.type}>{el.type}</option>)}
                 </select>
                 <div className='h-0 pb-2'> 
@@ -75,9 +84,9 @@ export default function PackageForm({
                 </div>
             </div>
             <div>
-            <label htmlFor="expiration" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">ระยะเวลา</label>
-                <select id="expiration" class="bg-gray-50 border text-lg border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="expiration">
-                    <option disabled selected value>Choose type</option>
+            <label htmlFor="expiration" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">รูปแบบแพ็คเกจ</label>
+                <select id="expiration" class="border text-lg border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="expiration" onChange={handleChangeInput}>
+                    <option disabled selected value>เลือกรูปแบบ</option>
                     {expirationType.map(el => (el.type === input.expiration)? <option selected key={el.id} value={el.type}>{el.thaiType}</option> : <option key={el.id} value={el.type}>{el.thaiType}</option>)}
                 </select>
                 <div className='h-0 pb-2'> 
@@ -87,7 +96,7 @@ export default function PackageForm({
             <div>
                 <div>
                     <InputForm
-                        labelName="Number of property"
+                        labelName="จำนวนประกาศแบบธรรมดา"
                         name="limit"
                         placeholder=""
                         value={input.limit}
@@ -100,7 +109,7 @@ export default function PackageForm({
             <div>
                 <div>
                     <InputForm
-                        labelName="Number of top property"
+                        labelName="จำนวนประกาศแบบจัดอันดับ"
                         name="numberOfTop"
                         placeholder=""
                         value={input.numberOfTop}
@@ -111,13 +120,13 @@ export default function PackageForm({
                 </div>
             </div>
             <div>
-            <label htmlFor="status" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">สถานะ</label>
-                <select id="status" class="bg-gray-50 border text-lg border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="status">
-                    <option disabled selected value>Choose status</option>
-                    {statusType.map(el => (el.type === input.status)? <option selected key={el.id} value={el.type}>{el.type}</option> : <option key={el.id} value={el.type}>{el.type}</option>)}
+            <label htmlFor="locked" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">สถานะ</label>
+                <select id="locked" class="border text-lg border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="locked" onChange={handleChangeInput}>
+                    <option disabled selected value>เลือกสถานะ</option>
+                    {lockedType.map(el => (el.type === input.locked)? <option selected key={el.id} value={el.type}>{el.thaiType}</option> : <option key={el.id} value={el.type}>{el.thaiType}</option>)}
                 </select>
                 <div className='h-0 pb-2'> 
-                    {error.type && (<InputErrorMessage message={error.type} />)}
+                    {error.locked && (<InputErrorMessage message={error.locked} />)}
                 </div>
             </div>
         </div>
