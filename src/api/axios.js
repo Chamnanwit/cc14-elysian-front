@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Api = axios.create({
-  baseURL: "http://localhost:8888",
+  baseURL: "http://146.190.101.167:8888",
 });
 
 export const register = (input) => {
