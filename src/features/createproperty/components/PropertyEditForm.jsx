@@ -1,34 +1,13 @@
-import React from "react";
 import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
-import validateCreateProperty from "../../../validators/validate-create-property";
 
-export default function PropertyForm({
+export default function PropertyEditForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
 }) {
-  const initialInput = {
-    price: "",
-    floor: "",
-    totalArea: "",
-    totalUnit: "",
-    totalBedroom: "",
-    totalBathroom: "",
-    totalKitchen: "",
-    description: "",
-    latitude: "333.33",
-    longitude: "444.44",
-    rentPeriod: "",
-    locked: "YES",
-    published: "YES",
-    userId: "1",
-    roomTypeId: "",
-    subDistrictId: "3",
-  };
-
   const data = [
     { id: 1, name: "เครื่องปรับอากาศ", type: "ROOM" },
     { id: 2, name: "TV", type: "ROOM" },
@@ -41,29 +20,27 @@ export default function PropertyForm({
     { id: 9, name: "ครัว", type: "COMMON" },
     { id: 10, name: "Co-working Space", type: "COMMON" },
   ];
-
   const dataRoom = data.filter((el) => el.type === "ROOM");
   const dataCommon = data.filter((el) => el.type === "COMMON");
 
-  const [input, setInput] = useState(initialInput);
-  const [error, setError] = useState({});
-  const handleChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
+  const initialInput = {
+    price: oldProperty?.price || "",
+    floor: oldProperty?.floor || "",
+    totalArea: oldProperty?.totalArea || "",
+    totalUnit: oldProperty?.totalUnit || "",
+    totalBedroom: oldProperty?.totalBedroom || "",
+    totalBathroom: oldProperty?.totalBathroom || "",
+    totalKitchen: oldProperty?.totalKitchen || "",
+    description: oldProperty?.description || "",
+    latitude: oldProperty?.latitude || "",
+    longitude: oldProperty?.longitude || "",
+    rentPeriod: oldProperty?.rentPeriod || "",
+    locked: oldProperty?.locked || "",
+    published: oldProperty?.published || "",
+    userId: oldProperty?.userId || "",
+    roomTypeId: oldProperty?.roomTypeId || "",
+    subDistrictId: oldProperty?.subDistrictId || "",
   };
-  const hdlSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      const result = validateCreateProperty(input);
-      if (result) {
-        return setError(result);
-      }
-      setError({});
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const propertyType = [
     { id: 1, name: "สตูดิโอ" },
     { id: 2, name: "ห้องเพดานสูง" },
@@ -77,8 +54,16 @@ export default function PropertyForm({
     { id: 2, thaiName: "รายเดือน", engName: "MONTHLY" },
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
+
+  const [input, setInput] = useState(initialInput);
+  const [error, setError] = useState({});
+
+  const handleChangeInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
   return (
-    <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
+    <form className="flex flex-col gap-8">
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
           ข้อมูลพื้นฐาน
@@ -120,28 +105,18 @@ export default function PropertyForm({
                 id="roomTypeId"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="roomTypeId"
-                value={input.roomTypeId}
-                onChange={handleChangeInput}
               >
-                <option selected hidden value={""}>
+                <option disabled selected value>
                   เลือกประเภทที่พัก
                 </option>
-                {propertyType.map((el) =>
-                  el.id === input.roomTypeId ? (
-                    <option selected key={el.id} value={el.id}>
-                      {el.name}
-                    </option>
-                  ) : (
-                    <option key={el.id} value={el.id}>
-                      {el.name}
-                    </option>
-                  )
-                )}
+                {propertyType.map((el) => (
+                  <option key={el.id} value={el.id}>
+                    {el.name}
+                  </option>
+                ))}
               </select>
               <div className="h-0 pb-2">
-                {error.roomTypeId && (
-                  <InputErrorMessage message={error.roomTypeId} />
-                )}
+                {error.type && <InputErrorMessage message={error.type} />}
               </div>
             </div>
             <div>
@@ -155,10 +130,8 @@ export default function PropertyForm({
                 id="rentPeriod"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="rentPeriod"
-                value={input.rentPeriod}
-                onChange={handleChangeInput}
               >
-                <option selected hidden value={""}>
+                <option disabled selected value>
                   เลือกระยะเวลา
                 </option>
                 {period.map((el) => (
@@ -167,7 +140,7 @@ export default function PropertyForm({
                   </option>
                 ))}
               </select>
-              <div className="h-6 pb-2">
+              <div className="h-0 pb-2">
                 {error.rentPeriod && (
                   <InputErrorMessage message={error.rentPeriod} />
                 )}
