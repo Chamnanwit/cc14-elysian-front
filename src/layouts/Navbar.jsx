@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillHome } from "react-icons/ai";
@@ -40,7 +39,7 @@ export default function Navbar() {
 
       <div
         id="drawer-navigation"
-        class="fixed top-0 left-0 z-40 w-[25%] h-screen p-5 pl-10 overflow-y-auto transition-transform -translate-x-full bg-c-green4 dark:bg-gray-800 duration-[400ms]"
+        class="fixed top-0 left-0 z-40 w-[25%] h-screen p-5 pl-10 overflow-y-auto transition-transform -translate-x-full bg-c-green4 duration-[400ms]"
         tabindex="-1"
         aria-labelledby="drawer-navigation-label"
       >
@@ -79,7 +78,7 @@ export default function Navbar() {
           <ul class="space-y-2 font-medium">
             <li>
               <a
-                href="#"
+                href="/"
                 class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">
@@ -90,7 +89,7 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#ก"
+                href="/searchpage"
                 class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">
@@ -101,7 +100,7 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#ก"
+                href="/packageplan"
                 class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">
@@ -112,7 +111,7 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#ก"
+                href="/phonenumber"
                 class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">
@@ -196,7 +195,7 @@ export default function Navbar() {
 
             <li>
               <a
-                href="#ก"
+                href="/agent"
                 class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">
@@ -240,7 +239,7 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#ก"
+                href="/adminlogin"
                 class="flex items-center p-2 my-10 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
               >
                 <div className="text-[18pt]">

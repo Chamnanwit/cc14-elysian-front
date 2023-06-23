@@ -16,6 +16,8 @@ import SearchPage from "../pages/SearchPage";
 import PhoneNumberPage from "../pages/PhoneNumberPage";
 import RentDetailPage from "../pages/RentDetailPage";
 
+import GooglemapApi from "../pages/GooglemapPage";
+
 export default function Router() {
   const router = createBrowserRouter([
     {
@@ -59,6 +61,11 @@ export default function Router() {
     {
       path: "/rentdetail",
       element: <RentDetailPage />,
+      // children: [],
+    },
+    {
+      path: "/map",
+      element: <GooglemapApi />,
       // children: [],
     },
   ]);

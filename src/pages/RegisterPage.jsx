@@ -5,9 +5,12 @@ import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import { useState } from "react";
 import { register } from "../api/axios";
+import validateRegistration from "../validators/validate";
+import InputErrorMessage from "../components/InputErrorMessage";
 
 export default function RegisterPage() {
   const { user, isAuthenticated } = useAuth0();
+  const [error, setErrors] = useState({});
   const [input, setInput] = useState({
     firstName: "",
     lastName: "",
@@ -32,18 +35,22 @@ export default function RegisterPage() {
       lastName,
       phoneNumber,
       taxId,
-      email,
       profileImage,
       password,
       locked,
     } = input;
-    console.log(input);
+    const validationErrors = validateRegistration(input);
+    if (validationErrors) {
+      setErrors(validationErrors);
+      return;
+    }
+
     register({
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phoneNumber,
       taxId: taxId,
-      email: email,
+      email: user.email,
       profileImage: profileImage,
       password: password,
       confirmPassword: password,
@@ -72,60 +79,62 @@ export default function RegisterPage() {
                 value={input.firstName}
                 name="firstName"
                 onChange={hdlChangeInput}
+                isInvalid={error.firstName}
               >
                 ชื่อ
               </InputBar>
+              {error.firstName && (
+                <InputErrorMessage message={error.firstName} />
+              )}
               <InputBar
                 value={input.lastName}
                 name="lastName"
                 onChange={hdlChangeInput}
+                isInvalid={error.lastName}
               >
                 นามสกุล
               </InputBar>
+              {error.lastName && <InputErrorMessage message={error.lastName} />}
               <InputBar
                 value={input.phoneNumber}
                 name="phoneNumber"
                 onChange={hdlChangeInput}
+                isInvalid={error.phoneNumber}
               >
                 เบอร์โทรศัพท์
               </InputBar>
-              <input
-                className="px-5 py-1 border-none text-lg rounded-full w-full ring-2 ring-c-gray1 outline-none focus:ring-c-blue1 focus:ring-2 opacity-100 bg-white hover:ring-2 hover:ring-c-green2 transition-all duration-200"
-                type="text"
-                value={user.email}
-                name="email"
-                onChange={hdlChangeInput}
-              />
+              {error.phoneNumber && (
+                <InputErrorMessage message={error.phoneNumber} />
+              )}
+              <InputBar type="text" value={user.email} name="email"></InputBar>
               <InputBar
                 value={input.taxId}
                 name="taxId"
                 onChange={hdlChangeInput}
+                isInvalid={error.taxId}
               >
                 เลขประจำตัวผู้เสียภาษี
               </InputBar>
+              {error.taxId && <InputErrorMessage message={error.taxId} />}
               <input
                 className="hidden"
-                value={input.password}
+                value={(input.password = "123456")}
                 name="password"
-                onChange={hdlChangeInput}
               />
               <input
                 className="hidden"
-                value={input.confirmPassword}
+                value={(input.confirmPassword = "123456")}
                 name="confirmPassword"
-                onChange={hdlChangeInput}
               />
               <input
                 className="hidden"
-                value={input.profileImage}
+                value={(input.profileImage = "123456")}
                 name="profileImage"
-                onChange={hdlChangeInput}
               />
               <input
                 className="hidden"
-                value={input.locked}
+                value={(input.locked = true)}
                 name="locked"
-                onChange={hdlChangeInput}
               />
             </>
           )}
