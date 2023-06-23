@@ -53,19 +53,28 @@ export default function RentDetailPage() {
                 <p>สตูดิโอ</p>
               </div>
               <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
-                <p>จำนวนห้องนอน</p>
-                <p>1 ห้อง</p>
-              </div>
-              <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
                 <p>ชั้น</p>
                 <p>4</p>
               </div>
               <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
-                <p>ห้อง</p>
-                <p>404</p>
+                <p>ห้องนอน</p>
+                <p>1 ห้อง</p>
+              </div>
+
+              <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
+                <p>ห้องน้ำ</p>
+                <p>4 ห้อง</p>
               </div>
               <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
-                <p>ขนาดพื้นที่ห้อง</p>
+                <p>ห้องครัว</p>
+                <p>4 ห้อง</p>
+              </div>
+              <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
+                <p>จำนวนห้องเช่า</p>
+                <p>xxx ห้อง</p>
+              </div>
+              <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
+                <p>พื้นที่ห้อง</p>
                 <p>ตร.ว.</p>
               </div>
             </div>
@@ -73,7 +82,7 @@ export default function RentDetailPage() {
           <div className="flex-[3] p-5 flex flex-col gap-5">
             <div className="flex justify-between text-c-gray3">
               <div>
-                <div className="flex gap-2  text-c-gray2">
+                <div className="flex gap-2  text-c-gray2 pt-4">
                   <BiTime />
                   <p className="text-xs items-center"> 4 ชั่วโมง</p>
                 </div>

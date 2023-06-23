@@ -7,7 +7,7 @@ export default function PopOverButton({ children, text }) {
         data-popover-target={text}
         data-popover-trigger="hover"
         type="button"
-        class="text-c-white1 hover:bg-c-gray2  font-medium rounded-full text-lg px-2 py-2 text-center"
+        class="text-c-gray2 hover:bg-c-gray1  font-medium rounded-full text-lg px-2 py-2 text-center"
       >
         {children}
       </button>

@@ -16,13 +16,12 @@ export default function SearchPage() {
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
       <div>
         <Navbar />
-
         <CarouselBig />
 
-        <div className=" py-5 bg-c-gray3 shadow-xl"></div>
+        <div className=" bg-c-white1 shadow-xl"></div>
         <div className="flex w-full h-auto">
-          <div className="flex-[1] ">
-            <div className=" bg-c-green4 h-screen shadow-xl p-5  pb-20  rounded-br-lg pt-12 items-center text-center flex flex-col justify-between gap-3 sticky top-10">
+          <div className="flex-[.5] ">
+            <div className=" bg-c-green4 h-screen shadow-xl p-5 pb-20 rounded-br-lg pt-12 items-center text-center flex flex-col justify-between gap-3 sticky top-10">
               <div className="w-full flex flex-col gap-5">
                 {/* <p>sidebar filtter</p> */}
                 <ButtonGhostWhite>ห้องเช่าแนะนำ</ButtonGhostWhite>
@@ -64,7 +63,7 @@ export default function SearchPage() {
             <p className="text-sm text-c-gray2">
               ผลการค้นหาของคำว่า "อยู่ๆไป" ทั้งหมด 180 รายการ
             </p>
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-16">
               <RentCardBig />
               <RentCardBig />
               <RentCardBig />
@@ -80,11 +79,11 @@ export default function SearchPage() {
             <AgencyCard />
           </div>
         </div>
-        <div className="flex justify-between px-10 pt-5">
+        <div className="flex justify-between px-5 pt-5">
           <div className="text-xl text-c-gray3">ยอดนิยม</div>
           <div className="text-sm text-c-gray2">ดูทั้งหมด</div>
         </div>
-        <div className=" flex w-full gap-5 px-10 py-5 overflow-auto">
+        <div className=" flex w-full gap-5 px-5 py-5 overflow-auto">
           <RentCard />
           <RentCard />
           <RentCard />
