@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { EditIcon, TrashIcon } from "../../../icons";
 import PackageForm from "./PackageForm";
 
-export default function PackageItem({ el }) {
+export default function PackageItem(
+  { 
+    el,
+    pricingPlanType,
+    expirationType,
+    lockedType,
+  }) {
   const [isEditMode, setIsEditMode] = useState(false);
   return (
     <>
@@ -17,15 +23,15 @@ export default function PackageItem({ el }) {
                 </th>
                 <td class="px-6 py-4">{el.name}</td>
                 <td class="px-6 py-4">฿ {el.price}</td>
-                <td class="px-6 py-4">{el.expiration}</td>
+                <td class="px-6 py-4">{(el.expiration==="WEEKLY"? "รายสัปดาห์" : "รายเดือน")}</td>
                 <td class="px-6 py-4 w-[180px]">
-                  {el.status ? (
+                  {(el.locked==="ENABLE") ? (
                     <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[100px]">
-                      Enable
+                      เปิดใช้งาน
                     </div>
                   ) : (
-                    <div className="border rounded-full bg-gray-200 flex justify-center items-center text-white py-1 max-w-[100px]">
-                      Disable
+                    <div className="border rounded-full bg-gray-500 flex justify-center items-center text-white py-1 max-w-[100px]">
+                      ปิดใช้งาน
                     </div>
                   )}
                 </td>
@@ -59,6 +65,9 @@ export default function PackageItem({ el }) {
             onIsAddMode={setIsEditMode}
             oldPackage={el}
             key={el.id}
+            pricingPlanType={pricingPlanType}
+            expirationType={expirationType}
+            lockedType={lockedType}
           />
           <hr/>
           </td>
