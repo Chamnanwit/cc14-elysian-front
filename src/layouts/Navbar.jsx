@@ -10,12 +10,13 @@ import { RiAdminLine } from "react-icons/ri";
 import { ImProfile } from "react-icons/im";
 import LoginButton from "../features/auth/components/LoginButton";
 import LogoutButton from "../features/auth/components/LogoutButton";
+import Logo from "../components/logo";
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth0();
   return (
-    <div className="mx-auto bg-c-white1 h-[60px] w-full flex justify-between items-center p-5 px-10 shadow-lg sticky top-0 z-50">
-      <div class="text-center text-c-gray1 text-[25px] pt-2">
+    <div className="mx-auto bg-c-white1 h-[60px] w-full flex items-center p-5 px-10 shadow-lg sticky top-0 z-50">
+      <div class="text-center text-c-gray1 text-[25px] flex-1 flex justify-start ">
         <button
           class="hover:scale-105 transition-all duration-200 hover:bg-white p-1 rounded-lg"
           type="button"
@@ -26,12 +27,14 @@ export default function Navbar() {
           <GiHamburgerMenu />
         </button>
       </div>
-      <div className="">
-        <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" />
+      <div className=" flex-1 flex justify-center">
+        <Logo />
+        {/* <img src={logo} alt="logo" className="pl-20 h-10 min-w-fit" /> */}
       </div>
- 
-      <LoginButton />
-      <LogoutButton />
+      <div className="flex-1 flex justify-end">
+        <LoginButton />
+        <LogoutButton />
+      </div>
 
       <div
         id="drawer-navigation"
@@ -104,6 +107,17 @@ export default function Navbar() {
                 <span class="ml-3">แพ็คเกจ</span>
               </a>
             </li>
+            <li>
+              <a
+                href="#ก"
+                class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+              >
+                <div className="text-[18pt]">
+                  <RiAdminLine />
+                </div>
+                <span class="ml-3">ยืนยันตัวตน</span>
+              </a>
+            </li>
             {/* <li>
               <a
                 href="#ก"
@@ -118,64 +132,64 @@ export default function Navbar() {
 
             {/* dropdown */}
             {/* <li>
-            <button
-              type="button"
-              class="flex items-center w-full p-2 rounded-full hover:text-c-gray3  hover:bg-c-white1 active:scale-95 duration-200"
-              aria-controls="dropdown-example"
-              data-collapse-toggle="dropdown-example"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+              <button
+                type="button"
+                class="flex items-center w-full p-2 rounded-full hover:text-c-gray3  hover:bg-c-white1 active:scale-95 duration-200"
+                aria-controls="dropdown-example"
+                data-collapse-toggle="dropdown-example"
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">
-                จัดการห้องเช่าของฉัน
-              </span>
-              <svg
-                class="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </button>
-            <ul id="dropdown-example" class="hidden py-2 space-y-2">
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-
-                  //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                <svg
+                  aria-hidden="true"
+                  class="flex-shrink-0 w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Products
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-
-                  //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="flex-1 ml-3 text-left whitespace-nowrap">
+                  จัดการห้องเช่าของฉัน
+                </span>
+                <svg
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Products
-                </a>
-              </li>
-            </ul>
-          </li> */}
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+              <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+
+                    //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Products
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+
+                    //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Products
+                  </a>
+                </li>
+              </ul>
+            </li> */}
 
             <li>
               <a
