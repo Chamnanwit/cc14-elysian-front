@@ -6,6 +6,7 @@ import DashboardContainer from '../features/dashboard/components/DashboardContai
 import PaymentContainer from '../features/agencyPayment/components/PaymentContainer'
 import AdminContainer from '../features/adminInformation/AdminContainer'
 import AgencyProfile from '../features/agencyInformation/components/AgencyProfile'
+import AnimityContainer from '../features/addanimity/components/AnimityContainer'
 
 export default function AdminPage() {
   const dataAgent = [
@@ -33,6 +34,7 @@ export default function AdminPage() {
         <AdminContainer data={dataAdmin} />
         <AgencyContainer data={dataAgent}/>
         <AgencyProfile />
+        <AnimityContainer />
       </div>
     </div>)
 }

@@ -122,8 +122,8 @@ export default function PackageForm({
             </div>
         </div>
         <div className='flex gap-4'>
-            <button type='submit' className='p-2 min-w-[80px] text-white bg-blue-600 rounded-sm w-fit'>Save</button>
-            <button type='submit' className='p-2 min-w-[80px] text-white bg-red-700 rounded-sm w-fit' onClick={() => onIsAddMode(false)}>Cancel</button>
+            <button type='submit' className='p-2 min-w-[80px] text-white bg-blue-600 rounded-md w-fit'>Save</button>
+            <button type='submit' className='p-2 min-w-[80px] text-white bg-red-700 rounded-md w-fit' onClick={() => onIsAddMode(false)}>Cancel</button>
         </div>
         <div className='bg-white rounded-md px-6 pt-8'></div>
     </form>
