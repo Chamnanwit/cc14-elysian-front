@@ -1,9 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
+import { BACKEND_URL } from '../config/env';
+// import { getAccessToken } from '../utils/localstorage';
 
-const Api = axios.create({
-  baseURL: "http://146.190.101.167:8888",
-});
+axios.defaults.baseURL = BACKEND_URL;
 
-export const register = (input) => {
-  return Api.post("/auth/register", input);
-};
+// axios.interceptors.request.use(
+//   config => {
+//     const token = getAccessToken();
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   err => Promise.reject(err)
+// );
+
+export default axios;

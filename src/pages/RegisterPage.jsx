@@ -4,31 +4,42 @@ import InputBar from "../components/InputBar";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import { useState } from "react";
-import { register } from "../api/axios";
-import validateRegistration from "../validators/validate";
+import { register } from "../api/auth-api";
+import validateRegistration from "../validators/validate-regis";
 import InputErrorMessage from "../components/InputErrorMessage";
+
+const initialInput = {
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  password: "",
+  taxId: "",
+  email: "",
+  profileImage: "",
+  confirmPassword: "",
+  locked: "",
+};
 
 export default function RegisterPage() {
   const { user, isAuthenticated } = useAuth0();
-  const [error, setErrors] = useState({});
-  const [input, setInput] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    password: "",
-    taxId: "",
-    email: "",
-    profileImage: "",
-    confirmPassword: "",
-    locked: "",
-  });
+  const [error, setError] = useState({});
+  const [input, setInput] = useState({ initialInput });
 
   const hdlChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const hdlSubmit = (e) => {
-    e.preventDefault();
+  const hdlSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const result = validateRegistration(input);
+      if (result) {
+        return setError(result);
+      }
+      setError({});
+    } catch (err) {
+      console.log(err);
+    }
 
     const {
       firstName,
@@ -39,12 +50,6 @@ export default function RegisterPage() {
       password,
       locked,
     } = input;
-    const validationErrors = validateRegistration(input);
-    if (validationErrors) {
-      setErrors(validationErrors);
-      return;
-    }
-
     register({
       firstName: firstName,
       lastName: lastName,

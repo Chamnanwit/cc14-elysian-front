@@ -24,7 +24,7 @@ function MapPage() {
             mapId: "DEMO_MAP_ID",
         });
         let infoWindow = new google.maps.InfoWindow({
-            content: "Click the map to get Lat/Lng!",
+            content: "Click the map to get Lat/Lng!", // เอา link มาแปะ
             position: position,
         });
         // infoWindow.open(map);
