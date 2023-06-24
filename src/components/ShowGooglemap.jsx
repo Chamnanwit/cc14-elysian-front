@@ -61,7 +61,7 @@ function ShowMap() {
 
     return (
         <div className="w-screen h-screen flex justify-center items-center">
-            <a href={`https://www.google.com/maps/search/?api=1&query=${13.7513}%2C${100.4897}`}>
+            <a href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}`}>
             <div className="w-[500px] h-[500px] " id="map">MapPage</div>
             </a>
         </div>
