@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
-import Checkbox from "./Checkbox";
+import Checkbox from "../../createproperty/components/Checkbox";
 
 export default function PropertyEditForm({
   textConFirm,
@@ -63,10 +63,10 @@ export default function PropertyEditForm({
   };
 
   return (
-    <form className="flex flex-col gap-8">
+    <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          ข้อมูลพื้นฐาน
+          ข้อมูลห้องเช่า
         </div>
         <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
@@ -105,18 +105,28 @@ export default function PropertyEditForm({
                 id="roomTypeId"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="roomTypeId"
+                value={input.roomTypeId}
+                onChange={handleChangeInput}
               >
-                <option disabled selected value>
+                <option selected hidden value={""}>
                   เลือกประเภทที่พัก
                 </option>
-                {propertyType.map((el) => (
-                  <option key={el.id} value={el.id}>
-                    {el.name}
-                  </option>
-                ))}
+                {propertyType.map((el) =>
+                  el.id === input.roomTypeId ? (
+                    <option selected key={el.id} value={el.id}>
+                      {el.name}
+                    </option>
+                  ) : (
+                    <option key={el.id} value={el.id}>
+                      {el.name}
+                    </option>
+                  )
+                )}
               </select>
               <div className="h-0 pb-2">
-                {error.type && <InputErrorMessage message={error.type} />}
+                {error.roomTypeId && (
+                  <InputErrorMessage message={error.roomTypeId} />
+                )}
               </div>
             </div>
             <div>
@@ -130,8 +140,10 @@ export default function PropertyEditForm({
                 id="rentPeriod"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="rentPeriod"
+                value={input.rentPeriod}
+                onChange={handleChangeInput}
               >
-                <option disabled selected value>
+                <option selected hidden value={""}>
                   เลือกระยะเวลา
                 </option>
                 {period.map((el) => (
@@ -140,7 +152,7 @@ export default function PropertyEditForm({
                   </option>
                 ))}
               </select>
-              <div className="h-0 pb-2">
+              <div className="h-6 pb-2">
                 {error.rentPeriod && (
                   <InputErrorMessage message={error.rentPeriod} />
                 )}
@@ -256,7 +268,7 @@ export default function PropertyEditForm({
 
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          Property Image
+          รูปภาพห้อง
         </div>
         <form className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
@@ -365,7 +377,7 @@ export default function PropertyEditForm({
             type="submit"
             className="p-2 min-w-[80px] text-white bg-yellow-400 rounded-md w-full"
           >
-            สร้างห้องเช่า
+            แก้ไขห้องเช่า
           </button>
         </div>
       </>
