@@ -72,10 +72,10 @@ export default function RegisterPage() {
       <Navbar />
       <div className=" bg-[url('/src/assets/pic/cover1.jpg')]  h-fit w-full flex flex-col text-center items-center py-16 bg-cover">
         <form
-          className="mt-auto w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 opacity-90"
+          className=" w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 bg-opacity-50 backdrop-blur-sm"
           onSubmit={hdlSubmit}
         >
-          <p className="text-lg font-semibold text-c-white1">
+          <p className="text-lg font-semibold text-c-gray3">
             กรอกข้อมูลเพื่อยืนยันตัวตน
           </p>
           {isAuthenticated && (
