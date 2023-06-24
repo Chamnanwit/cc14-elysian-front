@@ -10,6 +10,7 @@ import RegisterPage from "../pages/RegisterPage";
 
 import AdminPage from "../pages/AdminPage";
 import AgentPage from "../pages/AgentPage";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import PackagePlanPage from "../pages/PackagePlanPage";
 import SearchPage from "../pages/SearchPage";
@@ -20,6 +21,17 @@ import GooglemapApi from "../pages/GooglemapPage";
 import UserProfile from "../pages/ีUserProfile";
 
 export default function Router() {
+  // const { isAuthenticated, loginWithRedirect } = useAuth0();
+
+  // const requireAuth = (link) => {
+  //   if (!isAuthenticated) {
+  //     console.log(isAuthenticated);
+  //     loginWithRedirect(link);
+  //     return null;
+  //   }
+  //   return link;
+  // };
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -31,6 +43,7 @@ export default function Router() {
       element: <AdminLoginPage />,
       // children: [],
     },
+
     {
       path: "/register",
       element: <RegisterPage />,
