@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { EditIcon, TrashIcon } from "../../../icons";
 import PackageForm from "./PackageForm";
+import { useDispatch } from "react-redux";
+import { deletePricingPlanAsync, pricingPlanAsync } from "../slice/pricingPlan-slice";
 
 export default function PackageItem(
   { 
@@ -10,6 +12,11 @@ export default function PackageItem(
     lockedType,
   }) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const dispatch = useDispatch()
+  const handleClickDeleteBox = async () => {
+        await dispatch(deletePricingPlanAsync(el.id))
+        await dispatch(pricingPlanAsync())
+  };
   return (
     <>
       {!isEditMode ? (
@@ -25,7 +32,7 @@ export default function PackageItem(
                 <td class="px-6 py-4">฿ {el.price}</td>
                 <td class="px-6 py-4">{(el.expiration==="WEEKLY"? "รายสัปดาห์" : "รายเดือน")}</td>
                 <td class="px-6 py-4 w-[180px]">
-                  {(el.locked==="ENABLE") ? (
+                  {(el.locked) ? (
                     <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[100px]">
                       เปิดใช้งาน
                     </div>
@@ -45,7 +52,7 @@ export default function PackageItem(
               >
                 <EditIcon />
               </div>
-              <div className="bg-red-700 p-[5px] rounded-md cursor-pointer">
+              <div className="bg-red-700 p-[5px] rounded-md cursor-pointer" onClick={handleClickDeleteBox}>
                 <TrashIcon />
               </div>
           </td>

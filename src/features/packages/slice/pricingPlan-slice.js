@@ -7,34 +7,58 @@ const initialState = {
 };
 
 export const pricingPlanAsync = createAsyncThunk(
-    "pricingPlan/pricingPlanAsync",
-    async (_, thunkApi) => {
-      try {
-        // console.log(input);
-        const res = await pricingPlanService.getPricingPlan();
-        // setAccessToken(res.data.accessToken);
-        // const resFetchMe = await groupService.fetchMe();
-        console.log(res.data)
-        return res.data;   // ส่งไป set ค่าใน reducer
-      } catch (err) {
-        console.log(err);
-        return thunkApi.rejectWithValue(err.response.data.message);
-      }
+  "pricingPlan/pricingPlanAsync",
+  async (_, thunkApi) => {
+    try {
+      const res = await pricingPlanService.getPricingPlan();
+      console.log(res.data)
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
     }
+  }
 );
 
 export const createPricingPlanAsync = createAsyncThunk(
-    "pricingPlan/createPricingPlanAsync",
-    async (input, thunkApi) => {
-      try {
-        // console.log(input);
-        const res = await pricingPlanService.createPricingPlan(input);
-        return res.data;
-      } catch (err) {
-        console.log(err);
-        return thunkApi.rejectWithValue(err.response.data.message);
-      }
+  "pricingPlan/createPricingPlanAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await pricingPlanService.createPricingPlan(input);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
     }
+  }
+);
+
+
+export const updatePricingPlanAsync = createAsyncThunk(
+  "pricingPlan/updatePricingPlanAsync",
+  async (input, thunkApi) => {
+    try {
+      console.log('-------- >',input)
+      const res = await pricingPlanService.updatePricingPlan(input);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const deletePricingPlanAsync = createAsyncThunk(
+  "pricingPlan/deletePricingPlanAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await pricingPlanService.deletePricingPlan(id);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
 );
 
 const pricingPlanSlice = createSlice({
@@ -53,6 +77,7 @@ const pricingPlanSlice = createSlice({
         state.error = action.payload;
         state.isLoading = false;
     })
+    
     
 });
 
