@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { pricingPlanAsync } from '../slice/pricingPlan-slice'
 import store from '../../../store'
+import Loading from '../../../components/Loading'
 
 export default function PackageContainer() {
     const [isAddMode, setIsAddMode] = useState(false)
@@ -31,9 +32,15 @@ export default function PackageContainer() {
       ];
     
       const lockedType = [
-        { id: 1, type: "ENABLE", thaiType: "เปิดใช้งาน" },
-        { id: 2, type: "DISABLE", thaiType: "ปิดใช้งาน" },
+        { id: 1, type: true, thaiType: "เปิดใช้งาน" },
+        { id: 2, type: false, thaiType: "ปิดใช้งาน" },
       ];
+
+      const isLoading = useSelector(state => state.pricingPlan.isLoading);
+      if (isLoading) {
+        return <Loading />;
+      }
+      
   return (
         <>
             <HeaderAdmin topic="แพ็คเกจ"/>
