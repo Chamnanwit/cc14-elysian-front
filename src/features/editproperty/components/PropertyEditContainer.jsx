@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import HeaderAgent from "../../../components/HeaderAgent";
 import RentCard from "../../../components/RentCard";
+import { propertyPlanAsync } from "../slice/editProperty";
 
 export default function PropertyEditContainer() {
+  // const dispatch = useDispatch();
+  // const propertyData = useSelector((state) => state.propertyPlan);
   const MockEditData = [
     {
       id: 10,
@@ -69,7 +73,9 @@ export default function PropertyEditContainer() {
       Location: "ซอยรัชดา 7 หลังศูนย์การค้า The Street Ratchada",
     },
   ];
-
+  // useEffect(() => {
+  //   dispatch(propertyPlanAsync());
+  // }, [dispatch]);
   return (
     <>
       <HeaderAgent topic="My Properties" />
