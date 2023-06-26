@@ -4,25 +4,57 @@ import InputForm from '../../../components/InputForm'
 import AnimityItem from './AnimityItem'
 import { useState } from 'react'
 import AnimityForm from './AnimityForm'
+import { animityAsync, searchAnimityCommonAsync, searchAnimityRoomAsync, setSearchValueCommon, setSearchValueRoom } from '../slice/aminity-slice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 export default function AnimityContainer() {
     const [isAddModeROOM, setIsAddModeROOM] = useState(false)
     const [isAddModeCOMMON, setIsAddModeCOMMON] = useState(false)
-    const data = [
-        {id: 1, name: "เครื่องปรับอากาศ", type: "ROOM"},
-        {id: 2, name: "TV", type: "ROOM"},
-        {id: 3, name: "ตู้เย็น", type: "ROOM"},
-        {id: 4, name: "เครื่องทำน้ำอุ่น", type: "ROOM"},
-        {id: 5, name: "เครื่องซักผ้า", type: "ROOM"},
-        {id: 6, name: "สระว่ายน้ำ", type: "COMMON"},
-        {id: 7, name: "ฟิตเนส", type: "COMMON"},
-        {id: 8, name: "สวน", type: "COMMON"},
-        {id: 9, name: "ครัว", type: "COMMON"},
-        {id: 10, name: "Co-working Space", type: "COMMON"},
-    ]
 
-    const dataRoom = data.filter(el => el.type==="ROOM")
-    const dataCommon = data.filter(el => el.type==="COMMON")
+    const dispatch = useDispatch()
+    const searchValueR = useSelector((state) => state?.animity?.searchValueRoom);
+    const searchValueC = useSelector((state) => state?.animity?.searchValueCommon);
+
+    useEffect(() => {
+      dispatch(animityAsync());
+    }, []);
+
+    useEffect( ()=> {
+      const id = setTimeout(() => {
+          dispatch(searchAnimityRoomAsync(searchValueR))
+      }, 1000);
+
+      return () => {
+          console.log('cleanup')
+          clearTimeout(id)
+      };
+    }, [searchValueR])
+
+
+    useEffect( ()=> {
+      const id = setTimeout(() => {
+          dispatch(searchAnimityCommonAsync(searchValueC))
+      }, 1000);
+
+      return () => {
+          console.log('cleanup')
+          clearTimeout(id)
+      };
+    }, [searchValueC])
+
+  const handleChangeValueR = (e) => {
+      console.log(e.target.value)
+      dispatch(setSearchValueRoom(e.target.value))
+  };
+  
+  const handleChangeValueC = (e) => {
+      console.log(e.target.value)
+      dispatch(setSearchValueCommon(e.target.value))
+  };
+
+    const animityRoomArrSearch = useSelector((state) => state?.animity?.animityRoomFilter);
+    const animityCommonArrSearch = useSelector((state) => state?.animity?.animityCommonFilter);
 
   return (
     <>
@@ -32,18 +64,26 @@ export default function AnimityContainer() {
           <div className='underline'>ภายในห้อง</div>
           <div className="flex items-baseline gap-4">
             <div>Search:</div>
-            <div className="100px text-md"><InputForm /></div>
+            <div className="100px text-md">
+              <InputForm 
+                  type='text'
+                  className='header__search__input'
+                  placeholder='search'
+                  onChange={handleChangeValueR}
+                  value={searchValueR}
+              />
+            </div>
           </div>
         </div>
-        {isAddModeROOM? <div><AnimityForm textConFirm={`Add`} onIsAddMode={setIsAddModeROOM} type="ROOM"/></div> : <button type='button' className='p-2 min-w-[ุ100px] mb-8 text-white bg-blue-600 rounded-md w-fit' onClick={() => setIsAddModeROOM(true)}>+ เพิ่ม</button>}
+        {isAddModeROOM? <div><AnimityForm textConFirm={`Add`} onIsAddMode={setIsAddModeROOM} type="ROOM"/></div> : <button type='button' className='p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-md w-fit' onClick={() => setIsAddModeROOM(true)}>เพิ่ม</button>}
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
           <table class="w-full text-left text-gray-500 dark:text-gray-400">
             <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" class="px-6 py-5 w-[200px]">
                   SN
                 </th>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" class="px-6 py-5 w-[400px]">
                   Aminity
                 </th>
                 <th scope="col" class="px-6 py-5">
@@ -52,8 +92,8 @@ export default function AnimityContainer() {
               </tr>
             </thead>
             <tbody>
-              {dataRoom.map((el) => (
-                <AnimityItem key={el.id} el={el} />
+              {animityRoomArrSearch.map((el) => (
+                <AnimityItem key={el.id} el={el} type="ROOM" />
               ))}
             </tbody>
           </table>
@@ -64,18 +104,26 @@ export default function AnimityContainer() {
           <div className='underline'>ส่วนกลาง</div>
           <div className="flex items-baseline gap-4">
             <div>Search:</div>
-            <div className="100px text-md"><InputForm /></div>
+            <div className="100px text-md">
+              <InputForm 
+                  type='text'
+                  className='header__search__input'
+                  placeholder='search'
+                  onChange={handleChangeValueC}
+                  value={searchValueC}
+              />
+              </div>
           </div>
         </div>
-        {isAddModeCOMMON? <div><AnimityForm textConFirm={`Add`} onIsAddMode={setIsAddModeCOMMON} type="ROOM"/></div> : <button type='button' className='p-2 min-w-[100px] mb-8 text-white bg-blue-600 rounded-md w-fit' onClick={() => setIsAddModeCOMMON(true)}>+ เพิ่ม</button>}
+        {isAddModeCOMMON? <div><AnimityForm textConFirm={`Add`} onIsAddMode={setIsAddModeCOMMON} type="COMMON"/></div> : <button type='button' className='p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-md w-fit' onClick={() => setIsAddModeCOMMON(true)}>เพิ่ม</button>}
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
           <table class="w-full text-left text-gray-500 dark:text-gray-400">
             <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" class="px-6 py-5 w-[200px]">
                   SN
                 </th>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" class="px-6 py-5 w-[400px]">
                   Aminity
                 </th>
                 <th scope="col" class="px-6 py-5">
@@ -84,8 +132,8 @@ export default function AnimityContainer() {
               </tr>
             </thead>
             <tbody>
-              {dataCommon.map((el) => (
-                <AnimityItem key={el.id} el={el} />
+              {animityCommonArrSearch.map((el) => (
+                <AnimityItem key={el.id} el={el} type="COMMON"/>
               ))}
             </tbody>
           </table>
