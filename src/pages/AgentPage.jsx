@@ -2,6 +2,7 @@ import React from "react";
 import PropertyContainer from "../features/createproperty/components/PropertyContainer";
 import Navbar from "../layouts/Navbar";
 import PropertyEditContainer from "../features/editproperty/components/PropertyEditContainer";
+import MyProfileContainer from "../features/myprofile/components/MyProfileContainer";
 
 export default function AgentPage() {
   return (
@@ -10,6 +11,7 @@ export default function AgentPage() {
       <div className="w-3/4 bg-[#F4F6FF] text-lg">
         <PropertyContainer />
         <PropertyEditContainer />
+        <MyProfileContainer />
       </div>
     </div>
   );

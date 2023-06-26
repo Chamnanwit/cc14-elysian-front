@@ -35,6 +35,33 @@ export const createPropertyPlanAsync = createAsyncThunk(
   }
 );
 
+export const updatePropertyPlanAsync = createAsyncThunk(
+  "propertyPlan/updatePropertyPlanAsync",
+  async (input, thunkApi) => {
+    try {
+      console.log("update---->", input);
+      const res = await propertyPlanService.updateProperty(input);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const deletePropertyPlanAsync = createAsyncThunk(
+  "propertyPlan/deletePropertyPlanAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await propertyPlanService.deleteProperty(id);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const propertyPlanSlice = createSlice({
   name: "propertyPlan",
   initialState,
