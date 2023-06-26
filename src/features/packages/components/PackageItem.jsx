@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { EditIcon, TrashIcon } from "../../../icons";
 import PackageForm from "./PackageForm";
-import { useDispatch } from "react-redux";
-import { deletePricingPlanAsync, pricingPlanAsync } from "../slice/pricingPlan-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePricingPlanAsync, pricingPlanAsync, searchPricingPlanAsync } from "../slice/pricingPlan-slice";
 
 export default function PackageItem(
   { 
@@ -11,11 +11,14 @@ export default function PackageItem(
     expirationType,
     lockedType,
   }) {
+
+  const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
   const [isEditMode, setIsEditMode] = useState(false);
   const dispatch = useDispatch()
   const handleClickDeleteBox = async () => {
         await dispatch(deletePricingPlanAsync(el.id))
         await dispatch(pricingPlanAsync())
+        await dispatch(searchPricingPlanAsync(searchValue));
   };
   return (
     <>

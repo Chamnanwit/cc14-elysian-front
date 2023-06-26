@@ -5,18 +5,37 @@ import HeaderAdmin from '../../../components/HeaderAdmin'
 import InputForm from '../../../components/InputForm'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { pricingPlanAsync } from '../slice/pricingPlan-slice'
-import store from '../../../store'
+import { pricingPlanAsync, searchPricingPlanAsync, setSearchValueRedux, } from '../slice/pricingPlan-slice'
 import Loading from '../../../components/Loading'
 
 export default function PackageContainer() {
     const [isAddMode, setIsAddMode] = useState(false)
-
+    // const [searchValue, setSearchValue] = useState("")
     const dispatch = useDispatch()
+    const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
 
     useEffect(() => {
         dispatch(pricingPlanAsync());
       }, []);
+
+    useEffect( ()=> {
+        const id = setTimeout(() => {
+            dispatch(searchPricingPlanAsync(searchValue))
+        }, 1000);
+
+        return () => {
+            console.log('cleanup')
+            clearTimeout(id)
+        };
+    }, [searchValue])
+
+    
+    const handleChange = (e) => {
+        // setSearchValue(e.target.value);
+        dispatch(setSearchValueRedux(e.target.value))
+    };
+    
+    const packageArrSearch = useSelector((state) => state?.pricingPlan?.pricingPlanFilter);
     
     const packageArr = useSelector((state) => state?.pricingPlan?.pricingPlan);
     
@@ -55,10 +74,18 @@ export default function PackageContainer() {
                     </div> 
                     : 
                     <button type='button' className='mx-8 p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-sm w-fit' onClick={() => setIsAddMode(true)}>+ เพิ่ม</button>}
-                <div className="bg-white rounded-md m-8 px-8 pt-6 mt-0">
+                <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
                     <div className="flex items-baseline gap-4 justify-end mb-6">
                         <div>ค้นหา:</div>
-                        <div className="100px text-md"><InputForm /></div>
+                        <div className="100px text-md">
+                            <InputForm 
+                                type='text'
+                                className='header__search__input'
+                                placeholder='search'
+                                onChange={handleChange}
+                                value={searchValue}
+                            />
+                        </div>
                     </div>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
                     <table class="w-full text-left text-gray-500 dark:text-gray-400">
@@ -85,7 +112,7 @@ export default function PackageContainer() {
                             </tr>
                         </thead>
                         <tbody>
-                            { packageArr.map( el => <PackageItem 
+                            { packageArrSearch.map( el => <PackageItem 
                                 key={el.id} 
                                 el={el}
                                 pricingPlanType={pricingPlanType}
