@@ -4,7 +4,6 @@ import Navbar from "../layouts/Navbar";
 import PropertyEditContainer from "../features/editproperty/components/PropertyEditContainer";
 import MyProfileContainer from "../features/myprofile/components/MyProfileContainer";
 import SidebarAgency from "../components/SidebarAgency";
-import AgencyContainer from "../features/agencyInformation/components/AgencyContainer";
 import AgentDb from "../features/createproperty/components/AgentDb";
 
 export default function AgentPage() {

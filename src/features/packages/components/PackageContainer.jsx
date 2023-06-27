@@ -79,14 +79,20 @@ export default function PackageContainer() {
           className="mx-8 p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-sm w-fit"
           onClick={() => setIsAddMode(true)}
         >
-          + เพิ่ม
+          เพิ่ม
         </button>
       )}
-      <div className="bg-white rounded-md m-8 px-8 pt-6 mt-0">
+      <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
         <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>ค้นหา:</div>
           <div className="100px text-md">
-            <InputForm />
+            <InputForm
+              type="text"
+              className="header__search__input"
+              placeholder="search"
+              onChange={handleChange}
+              value={searchValue}
+            />
           </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
@@ -114,7 +120,7 @@ export default function PackageContainer() {
               </tr>
             </thead>
             <tbody>
-              {packageArr.map((el) => (
+              {packageArrSearch.map((el) => (
                 <PackageItem
                   key={el.id}
                   el={el}
