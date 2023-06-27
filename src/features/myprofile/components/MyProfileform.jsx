@@ -2,6 +2,8 @@ import { useState } from "react";
 import Modal from "../../../components/Modal";
 import InputForm from "../../../components/InputForm";
 import InputErrorMessage from "../../../components/InputErrorMessage";
+import { profileAgncyAsync } from "../slice/myProfile-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function MyProfileForm({ oldProfile }) {
   const initialInput = {
@@ -13,10 +15,22 @@ export default function MyProfileForm({ oldProfile }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const dispatch = useDispatch();
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+
+  //   const hdlSubmit = async e => {
+  //     try {
+  //       e.preventDefault();
+  //       // const result = await
+  // if ()
+  //     } catch (err) {
+
+  //     }
+  //   }
+
   return (
     <>
       <div className="col-lg-9 col-md-8 col-12 mt-8">
@@ -152,6 +166,7 @@ export default function MyProfileForm({ oldProfile }) {
                     name="phonenumber"
                     value={oldProfile.phonenumber}
                     isInvalid={error.phonenumber}
+                    disabled={true}
                   />
                   {error.phonenumber && (
                     <InputErrorMessage message={error.phonenumber} />
@@ -165,6 +180,7 @@ export default function MyProfileForm({ oldProfile }) {
                     name="email"
                     value={oldProfile.email}
                     isInvalid={error.email}
+                    disabled={true}
                   />
                   {error.email && <InputErrorMessage message={error.email} />}
                 </td>
