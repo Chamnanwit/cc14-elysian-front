@@ -73,7 +73,7 @@ export default function PackageContainer() {
                             lockedType={lockedType} />
                     </div> 
                     : 
-                    <button type='button' className='mx-8 p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-sm w-fit' onClick={() => setIsAddMode(true)}>+ เพิ่ม</button>}
+                    <button type='button' className='mx-8 p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-sm w-fit' onClick={() => setIsAddMode(true)}>เพิ่ม</button>}
                 <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
                     <div className="flex items-baseline gap-4 justify-end mb-6">
                         <div>ค้นหา:</div>

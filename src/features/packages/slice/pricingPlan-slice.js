@@ -13,7 +13,6 @@ export const pricingPlanAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await pricingPlanService.getPricingPlan();
-      console.log(res.data)
       return res.data;
     } catch (err) {
       console.log(err);
@@ -35,13 +34,11 @@ export const createPricingPlanAsync = createAsyncThunk(
   }
 );
 
-
 export const updatePricingPlanAsync = createAsyncThunk(
   "pricingPlan/updatePricingPlanAsync",
   async (input, thunkApi) => {
     try {
       const res = await pricingPlanService.updatePricingPlan(input);
-      console.log("up",res.data)
       return res.data;
     } catch (err) {
       console.log(err);
@@ -99,7 +96,10 @@ const pricingPlanSlice = createSlice({
     })
     .addCase(pricingPlanAsync.fulfilled, (state, action) => {
         state.pricingPlan = action.payload;
-        state.pricingPlanFilter = action.payload;
+        if(state.searchValue.trim() === "") state.pricingPlanFilter = state.pricingPlan
+        else {state.pricingPlanFilter = action.payload.filter((el) =>
+        el.name.toLowerCase().includes(state.searchValue.toLowerCase())
+      )}
         state.isLoading = false;
     })
     .addCase(pricingPlanAsync.rejected, (state, action) => {
