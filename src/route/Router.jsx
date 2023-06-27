@@ -82,6 +82,10 @@ export default function Router() {
       element: <GooglemapApi />,
       // children: [],
     },
+    {
+      path: "/user",
+      element: <UserProfile />,
+    },
   ]);
 
   return <RouterProvider router={router} />;
