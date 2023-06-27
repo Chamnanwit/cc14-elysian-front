@@ -18,7 +18,6 @@ export default function PackageItem(
   const handleClickDeleteBox = async () => {
         await dispatch(deletePricingPlanAsync(el.id))
         await dispatch(pricingPlanAsync())
-        await dispatch(searchPricingPlanAsync(searchValue));
   };
   return (
     <>
