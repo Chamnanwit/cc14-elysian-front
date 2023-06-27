@@ -1,6 +1,16 @@
+import { motion } from "framer-motion";
+
 export default function BigFourButtonBar() {
   return (
-    <div className="w-full flex justify-center flex-wrap gap-10">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        ease: "easeInOut",
+      }}
+      className="w-full flex justify-center flex-wrap gap-10"
+    >
       <a
         href="/searchpage"
         className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300"
@@ -59,6 +69,6 @@ export default function BigFourButtonBar() {
         </div>
         <div className=" text-c-white1 text-xl">รายการแนะนำ</div>
       </div>
-    </div>
+    </motion.div>
   );
 }
