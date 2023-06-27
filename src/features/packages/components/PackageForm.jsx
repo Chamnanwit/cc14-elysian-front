@@ -14,7 +14,7 @@ export default function PackageForm({
     lockedType,
     oldPackage,
 }) {
-    console.log(oldPackage)
+
   const initialInput = {
     planType: oldPackage?.planType || '',
     price: oldPackage?.price || '',
@@ -24,6 +24,7 @@ export default function PackageForm({
     numberOfTop: oldPackage?.numberOfTop || '',
     locked: oldPackage?.locked 
   };
+  
   const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
   const dispatch = useDispatch()
   const [input, setInput] = useState(initialInput);
@@ -42,12 +43,11 @@ export default function PackageForm({
     setError({});
     if (!oldPackage) {
       await dispatch(createPricingPlanAsync(input)).unwrap();
-      await dispatch(pricingPlanAsync());  // สั่งให้ fetch post list ไหม่ หลัง กด ตกลง  โดยส่งไปบอก Store ให้ Store ไปบบอก component PostList
-      await dispatch(searchPricingPlanAsync(searchValue));
+      await dispatch(pricingPlanAsync());
       onIsAddMode(false);
     } else if(oldPackage) {
       await dispatch(updatePricingPlanAsync({id:oldPackage.id, ...input}))
-      dispatch(searchPricingPlanAsync(searchValue));
+      await dispatch(pricingPlanAsync());
       onIsAddMode(false);
     }
   };

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { TrashIcon } from "../../icons";
+import { TrashIcon } from "../../../icons";
 
 import { HiEye } from "react-icons/hi"
-import Modal from "../../components/Modal";
+import Modal from "../../../components/Modal";
 
 export default function AdminItem({ el }) {
   const [isViewMode, setIsViewMode] = useState(false);
@@ -44,16 +44,16 @@ export default function AdminItem({ el }) {
         {isViewMode? 
         <Modal title="ประวัติ" width="50" open={isViewMode} onClose={()=> setIsViewMode(false)}>
         <table className="border w-full border-collapse">
-          <tr>
+          {/* <tr>
             <td className="w-1/2 px-3 py-2 border-b border-r">รูปภาพ</td>
             <td className="w-1/2 p-3 border-b">{el.agent}</td>
-          </tr>
+          </tr> */}
           <tr>
             <td className="w-1/2 px-3 py-2 border-b border-r">ชื่อ-นามสกุล</td>
             <td className="w-1/2 p-3 border-b">{el.firstName} {el.lastName}</td>
           </tr>
           <tr>
-            <td className="w-1/2 px-3 py-2 border-b border-r">อีเมลล์</td>
+            <td className="w-1/2 px-3 py-2 border-b border-r">อีเมล</td>
             <td className="w-1/2 p-3 border-b">{el.email}</td>
           </tr>
           <tr>

@@ -51,12 +51,12 @@ export default function AdminLoginPage() {
 
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
-      <div>
+      <div className="h-screen">
         <Navbar />
-
-        <div className=" bg-[url('/src/assets/pic/cover1.jpg')]  h-[700px] w-full flex flex-col text-center items-center py-16 bg-cover">
+        {/* <div className="bg-slate-500 h"></div> */}
+        <div className=" bg-[url('/src/assets/pic/cover1.jpg')]  h-full w-full flex flex-col text-center items-center justify-center bg-cover">
           <form
-            className="mt-14 w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 bg-opacity-50 backdrop-blur-sm"
+            className=" w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 bg-opacity-50 backdrop-blur-sm"
             onSubmit={hdlSubmit}
           >
             <p className=" text-lg text-c-gray3 font-semibold">ADMIN LOGIN</p>
