@@ -10,14 +10,13 @@ export default function AdminItem({ el }) {
   const [status, setStatus] = useState(el.status);
   console.log(status);
 
-  const searchValue = useSelector(
-    (state) => state?.adminInformation?.searchValue
-  );
+  // const searchValue = useSelector(
+  //   (state) => state?.adminInformation?.searchValue
+  // );
   const dispatch = useDispatch();
   const handleClickDeleteBox = async () => {
-    await dispatch(adminInformationAsync());
-    await dispatch(deleteAdminInformationAsync(el.id));
-    await dispatch(searchAdminInformationAsync(searchValue));
+    await dispatch(deleteAdminInformationAsync(el.id)).unwrap();
+    await dispatch(adminInformationAsync()).unwrap();
   };
 
   return (
