@@ -4,7 +4,7 @@ import PurchaseHistoryContainer from "../features/purchase-history/components/Pu
 import AgencyContainer from "../features/agencyInformation/components/AgencyContainer";
 import DashboardContainer from "../features/dashboard/components/DashboardContainer";
 import PaymentContainer from "../features/agencyPayment/components/PaymentContainer";
-import AdminContainer from "../features/adminInformation/AdminContainer";
+import AdminContainer from "../features/adminInformation/components/AdminContainer";
 import AgencyProfile from "../features/agencyInformation/components/AgencyProfile";
 import AnimityContainer from "../features/addanimity/components/AnimityContainer";
 import { AiFillHome } from "react-icons/ai";
@@ -18,29 +18,6 @@ import { ImProfile } from "react-icons/im";
 import SidebarAdmin from "../components/SidebarAdmin";
 
 export default function AdminPage() {
-  const dataAgent = [
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      email: "j1@gmail.com",
-      status: 1,
-    },
-    {
-      id: 2,
-      firstName: "June",
-      lastName: "Doe",
-      email: "j2@gmail.com",
-      status: 1,
-    },
-    {
-      id: 3,
-      firstName: "Jane",
-      lastName: "Doe",
-      email: "j3@gmail.com",
-      status: 0,
-    },
-  ];
 
   const dataAdmin = [
     {
@@ -75,7 +52,7 @@ export default function AdminPage() {
         <DashboardContainer />
         <PaymentContainer />
         <AdminContainer data={dataAdmin} />
-        <AgencyContainer data={dataAgent} />
+        <AgencyContainer />
         <AgencyProfile />
         <AnimityContainer />
       </div>
