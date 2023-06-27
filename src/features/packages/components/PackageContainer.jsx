@@ -1,65 +1,65 @@
-import React, { useState } from 'react'
-import PackageItem from './PackageItem'
-import PackageForm from './PackageForm'
-import HeaderAdmin from '../../../components/HeaderAdmin'
-import InputForm from '../../../components/InputForm'
-import { useEffect } from 'react'
+import React, { useState } from "react";
+import PackageItem from "./PackageItem";
+import PackageForm from "./PackageForm";
+import HeaderAdmin from "../../../components/HeaderAdmin";
+import InputForm from "../../../components/InputForm";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pricingPlanAsync, searchPricingPlanAsync, setSearchValueRedux, } from '../slice/pricingPlan-slice'
-import Loading from '../../../components/Loading'
+import {
+  pricingPlanAsync,
+  searchPricingPlanAsync,
+  setSearchValueRedux,
+} from "../slice/pricingPlan-slice";
+import Loading from "../../../components/Loading";
 
 export default function PackageContainer() {
-    const [isAddMode, setIsAddMode] = useState(false)
-    // const [searchValue, setSearchValue] = useState("")
-    const dispatch = useDispatch()
-    const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
+  const [isAddMode, setIsAddMode] = useState(false);
+  // const [searchValue, setSearchValue] = useState("")
+  const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
 
     useEffect(() => {
         dispatch(pricingPlanAsync());
-      }, []);
+    }, []);
 
-    useEffect( ()=> {
-        const id = setTimeout(() => {
-            dispatch(searchPricingPlanAsync(searchValue))
-        }, 1000);
+  useEffect(() => {
+    const id = setTimeout(() => {
+      dispatch(searchPricingPlanAsync(searchValue));
+    }, 1000);
 
-        return () => {
-            console.log('cleanup')
-            clearTimeout(id)
-        };
-    }, [searchValue])
-
-    
-    const handleChange = (e) => {
-        // setSearchValue(e.target.value);
-        dispatch(setSearchValueRedux(e.target.value))
+    return () => {
+      console.log("cleanup");
+      clearTimeout(id);
     };
-    
-    const packageArrSearch = useSelector((state) => state?.pricingPlan?.pricingPlanFilter);
-    
-    const packageArr = useSelector((state) => state?.pricingPlan?.pricingPlan);
-    
-    const pricingPlanType = [
-        { id: 1, type: "FREE" },
-        { id: 2, type: "GOLD" },
-        { id: 3, type: "PREMIUM" },
-      ];
-    
-      const expirationType = [
-        { id: 1, type: "WEEKLY", thaiType: "รายสัปดาห์" },
-        { id: 2, type: "MONTHLY", thaiType: "รายเดือน" },
-      ];
-    
-      const lockedType = [
-        { id: 1, type: true, thaiType: "เปิดใช้งาน" },
-        { id: 2, type: false, thaiType: "ปิดใช้งาน" },
-      ];
+  }, [searchValue]);
 
-      const isLoading = useSelector(state => state.pricingPlan.isLoading);
-      if (isLoading) {
-        return <Loading />;
-      }
-      
+  const handleChange = (e) => {
+    // setSearchValue(e.target.value);
+    dispatch(setSearchValueRedux(e.target.value));
+  };
+
+  const packageArrSearch = useSelector(
+    (state) => state?.pricingPlan?.pricingPlanFilter
+  );
+
+  const packageArr = useSelector((state) => state?.pricingPlan?.pricingPlan);
+
+  const pricingPlanType = [
+    { id: 1, type: "FREE" },
+    { id: 2, type: "GOLD" },
+    { id: 3, type: "PREMIUM" },
+  ];
+
+  const expirationType = [
+    { id: 1, type: "WEEKLY", thaiType: "รายสัปดาห์" },
+    { id: 2, type: "MONTHLY", thaiType: "รายเดือน" },
+  ];
+
+  const lockedType = [
+    { id: 1, type: true, thaiType: "เปิดใช้งาน" },
+    { id: 2, type: false, thaiType: "ปิดใช้งาน" },
+  ];
+
   return (
         <>
             <HeaderAdmin topic="แพ็คเกจ"/>
@@ -81,7 +81,7 @@ export default function PackageContainer() {
                             <InputForm 
                                 type='text'
                                 className='header__search__input'
-                                placeholder='search'
+                                placeholder='ชื่อแพ็คเกจ'
                                 onChange={handleChange}
                                 value={searchValue}
                             />

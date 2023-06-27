@@ -1,27 +1,28 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import HeaderAgent from "../../../components/HeaderAgent";
 import MyProfileForm from "./MYProfileform";
+import { profileAgncyAsync } from "../slice/myProfile-slice";
 
 export default function MyProfileContainer() {
-  const data = [
-    {
-      id: 1,
-      profileimg: "",
-      firstName: "suthee",
-      lastName: "namsiri",
-      phonenumber: "0812561518",
-      email: "makemake@gmail.com",
-      role: "",
-      locked: "",
-    },
-  ];
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(profileAgncyAsync());
+  }, []);
+
+  const userArr = useSelector(
+    (state) => state?.profileAgncyAsync?.profileAgncy
+  );
+
+  console.log("--*----*-*-----*->", userArr);
   return (
     <>
       <HeaderAgent topic="My profile" />
       <div className="flex flex-col gap-6  mt-0">
-        {data.map((el) => (
+        {/* {userArr.map((el) => (
           <MyProfileForm key={el.id} oldProfile={el} />
-        ))}
+        ))} */}
       </div>
     </>
   );

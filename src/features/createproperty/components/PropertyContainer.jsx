@@ -2,7 +2,6 @@ import React from "react";
 import HeaderAgent from "../../../components/HeaderAgent";
 import AminityForm from "./AminityForm";
 import PropertyForm from "./PropertyForm";
-import PropertyEditForm from "../../editproperty/components/PropertyEditForm";
 
 export default function PropertyContainer() {
   return (
