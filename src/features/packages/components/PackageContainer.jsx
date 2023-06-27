@@ -16,7 +16,7 @@ export default function PackageContainer() {
 
     useEffect(() => {
         dispatch(pricingPlanAsync());
-      }, []);
+    }, []);
 
     useEffect( ()=> {
         const id = setTimeout(() => {
@@ -81,7 +81,7 @@ export default function PackageContainer() {
                             <InputForm 
                                 type='text'
                                 className='header__search__input'
-                                placeholder='search'
+                                placeholder='ชื่อแพ็คเกจ'
                                 onChange={handleChange}
                                 value={searchValue}
                             />

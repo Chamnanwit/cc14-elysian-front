@@ -63,12 +63,12 @@ export default function AnimityContainer() {
         <div className="flex items-baseline gap-4 justify-between mb-6">
           <div className='underline'>ภายในห้อง</div>
           <div className="flex items-baseline gap-4">
-            <div>Search:</div>
+            <div>ค้นหา:</div>
             <div className="100px text-md">
               <InputForm 
                   type='text'
                   className='header__search__input'
-                  placeholder='search'
+                  placeholder='ชื่อสิ่งอำนวยความสะดวก'
                   onChange={handleChangeValueR}
                   value={searchValueR}
               />
@@ -81,10 +81,10 @@ export default function AnimityContainer() {
             <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-6 py-5 w-[200px]">
-                  SN
+                  ลำดับที่
                 </th>
                 <th scope="col" class="px-6 py-5 w-[400px]">
-                  Aminity
+                  สิ่งอำนวยความสะดวก
                 </th>
                 <th scope="col" class="px-6 py-5">
                   Action
@@ -103,12 +103,12 @@ export default function AnimityContainer() {
         <div className="flex items-baseline gap-4 justify-between mb-6">
           <div className='underline'>ส่วนกลาง</div>
           <div className="flex items-baseline gap-4">
-            <div>Search:</div>
+            <div>ค้นหา:</div>
             <div className="100px text-md">
               <InputForm 
                   type='text'
                   className='header__search__input'
-                  placeholder='search'
+                  placeholder='ชื่อสิ่งอำนวยความสะดวก'
                   onChange={handleChangeValueC}
                   value={searchValueC}
               />
@@ -121,10 +121,10 @@ export default function AnimityContainer() {
             <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-6 py-5 w-[200px]">
-                  SN
+                  ลำดับที่
                 </th>
                 <th scope="col" class="px-6 py-5 w-[400px]">
-                  Aminity
+                  สิ่งอำนวยความสะดวก
                 </th>
                 <th scope="col" class="px-6 py-5">
                   Action
@@ -142,3 +142,5 @@ export default function AnimityContainer() {
     </>
   )
 }
+
+
