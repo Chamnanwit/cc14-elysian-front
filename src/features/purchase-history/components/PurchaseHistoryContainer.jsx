@@ -36,7 +36,7 @@ export default function PurchaseHistoryContainer() {
   return (
     <>
       <HeaderAdmin topic="Purchase history" />
-      <div className="bg-white rounded-md m-8 px-8 pt-6 mt-0">
+      <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
       <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>Search:</div>
           <div className="100px text-md"><InputForm /></div>

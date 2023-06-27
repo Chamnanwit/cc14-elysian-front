@@ -5,18 +5,42 @@ import HeaderAdmin from "../../../components/HeaderAdmin";
 import InputForm from "../../../components/InputForm";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pricingPlanAsync } from "../slice/pricingPlan-slice";
-import store from "../../../store";
+import {
+  pricingPlanAsync,
+  searchPricingPlanAsync,
+  setSearchValueRedux,
+} from "../slice/pricingPlan-slice";
 import Loading from "../../../components/Loading";
 
 export default function PackageContainer() {
   const [isAddMode, setIsAddMode] = useState(false);
-
+  // const [searchValue, setSearchValue] = useState("")
   const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
 
   useEffect(() => {
     dispatch(pricingPlanAsync());
   }, []);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      dispatch(searchPricingPlanAsync(searchValue));
+    }, 1000);
+
+    return () => {
+      console.log("cleanup");
+      clearTimeout(id);
+    };
+  }, [searchValue]);
+
+  const handleChange = (e) => {
+    // setSearchValue(e.target.value);
+    dispatch(setSearchValueRedux(e.target.value));
+  };
+
+  const packageArrSearch = useSelector(
+    (state) => state?.pricingPlan?.pricingPlanFilter
+  );
 
   const packageArr = useSelector((state) => state?.pricingPlan?.pricingPlan);
 
@@ -35,11 +59,6 @@ export default function PackageContainer() {
     { id: 1, type: true, thaiType: "เปิดใช้งาน" },
     { id: 2, type: false, thaiType: "ปิดใช้งาน" },
   ];
-
-  const isLoading = useSelector((state) => state.pricingPlan.isLoading);
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <>

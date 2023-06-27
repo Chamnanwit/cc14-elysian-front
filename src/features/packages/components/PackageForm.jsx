@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import InputForm from '../../../components/InputForm'
 import InputErrorMessage from '../../../components/InputErrorMessage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import validatePricingPlan from '../validators/validate-pricingPlan';
-import { createPricingPlanAsync, pricingPlanAsync, updatePricingPlanAsync } from '../slice/pricingPlan-slice';
+import { createPricingPlanAsync, pricingPlanAsync, searchPricingPlanAsync, updatePricingPlanAsync } from '../slice/pricingPlan-slice';
+import { useEffect } from 'react';
 
 export default function PackageForm({
     textConFirm,
@@ -13,7 +14,7 @@ export default function PackageForm({
     lockedType,
     oldPackage,
 }) {
-    
+
   const initialInput = {
     planType: oldPackage?.planType || '',
     price: oldPackage?.price || '',
@@ -23,7 +24,7 @@ export default function PackageForm({
     numberOfTop: oldPackage?.numberOfTop || '',
     locked: oldPackage?.locked 
   };
-
+  const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
   const dispatch = useDispatch()
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
@@ -34,7 +35,6 @@ export default function PackageForm({
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    console.log("rerewrw",input)
     const result = validatePricingPlan(input);
     if (result) {
         return setError(result);
@@ -42,11 +42,11 @@ export default function PackageForm({
     setError({});
     if (!oldPackage) {
       await dispatch(createPricingPlanAsync(input)).unwrap();
-      await dispatch(pricingPlanAsync());  // สั่งให้ fetch post list ไหม่ หลัง กด ตกลง  โดยส่งไปบอก Store ให้ Store ไปบบอก component PostList
+      await dispatch(pricingPlanAsync());
       onIsAddMode(false);
     } else if(oldPackage) {
       await dispatch(updatePricingPlanAsync({id:oldPackage.id, ...input}))
-      dispatch(pricingPlanAsync());
+      await dispatch(pricingPlanAsync());
       onIsAddMode(false);
     }
   };
