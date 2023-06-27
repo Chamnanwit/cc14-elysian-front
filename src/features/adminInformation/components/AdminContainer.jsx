@@ -1,9 +1,12 @@
 import React from "react";
-import HeaderAdmin from "../../components/HeaderAdmin";
-import InputForm from "../../components/InputForm";
+import HeaderAdmin from "../../../components/HeaderAdmin";
+import InputForm from "../../../components/InputForm";
 import AdminItem from "./AdminItem";
 
 export default function AdminContainer({data}) {
+
+
+
   return (
     <>
       <HeaderAdmin topic="Admin List" />

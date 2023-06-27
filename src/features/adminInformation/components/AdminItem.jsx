@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { TrashIcon } from "../../icons";
+import { TrashIcon } from "../../../icons";
 
 import { HiEye } from "react-icons/hi"
-import Modal from "../../components/Modal";
+import Modal from "../../../components/Modal";
 
 export default function AdminItem({ el }) {
   const [isViewMode, setIsViewMode] = useState(false);
-  const [status, setStatus] = useState(el.status)
-  console.log(status)
+  const [status, setStatus] = useState(el.status);
+  console.log(status);
+
+
   return (
     <>
         <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">

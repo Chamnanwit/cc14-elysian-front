@@ -4,7 +4,7 @@ import PurchaseHistoryContainer from "../features/purchase-history/components/Pu
 import AgencyContainer from "../features/agencyInformation/components/AgencyContainer";
 import DashboardContainer from "../features/dashboard/components/DashboardContainer";
 import PaymentContainer from "../features/agencyPayment/components/PaymentContainer";
-import AdminContainer from "../features/adminInformation/AdminContainer";
+import AdminContainer from "../features/adminInformation/components/AdminContainer";
 import AgencyProfile from "../features/agencyInformation/components/AgencyProfile";
 import AnimityContainer from "../features/addanimity/components/AnimityContainer";
 import { AiFillHome } from "react-icons/ai";
