@@ -7,7 +7,9 @@ import { useState } from "react";
 import { register } from "../api/auth-api";
 import validateRegistration from "../validators/validate-regis";
 import InputErrorMessage from "../components/InputErrorMessage";
-import { checkMeAsync } from "../features/auth/slice/authSlice";
+import { checkMeAsync, registerAsync } from "../features/auth/slice/authSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const initialInput = {
   firstName: "",
@@ -24,7 +26,9 @@ const initialInput = {
 export default function RegisterPage() {
   const { user, isAuthenticated } = useAuth0();
   const [error, setError] = useState({});
-  const [input, setInput] = useState({ initialInput });
+  const [input, setInput] = useState(initialInput);
+  const navigate = useNavigate(); // ใช้เพื่อ forward ไป หน้าที่ต้องการ
+  const dispatch = useDispatch();
 
   const hdlChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -33,48 +37,51 @@ export default function RegisterPage() {
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-      const result = validateRegistration(input);
-      if (result) {
-        return setError(result);
-      }
+      // const result = validateRegistration(input);
+      await dispatch(registerAsync(input)).unwrap();
+      navigate("/");
+      // if (result) {
+      //   return setError(result);
+      // }
       setError({});
     } catch (err) {
       console.log(err);
     }
-    const handleSubmitForm = async (e) => {
-      try {
-        e.preventDefault();
-        await dispatch(checkMeAsync(user.email)).unwrap();
-        navigate("/");
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    // const handleSubmitForm = async (e) => {
+    //   try {
+    //     e.preventDefault();
+    //     await dispatch(checkMeAsync(user.email)).unwrap();
+    //     navigate("/");
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
 
-    const {
-      firstName,
-      lastName,
-      phoneNumber,
-      taxId,
-      profileImage,
-      password,
-      locked,
-    } = input;
-    register({
-      firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-      taxId: taxId,
-      email: user.email,
-      profileImage: profileImage,
-      password: password,
-      confirmPassword: password,
-      locked: locked,
-    })
-      .then((rs) => {
-        console.log(rs);
-      })
-      .catch((err) => console.log(err));
+    //   const {
+    //     firstName,
+    //     lastName,
+    //     phoneNumber,
+    //     taxId,
+    //     profileImage,
+    //     password,
+    //     locked,
+    //   } = input;
+    //   register({
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     phoneNumber: phoneNumber,
+    //     taxId: taxId,
+    //     email: user.email,
+    //     profileImage: profileImage,
+    //     password: password,
+    //     confirmPassword: password,
+    //     locked: locked,
+    //   });
+    //   console
+    //     .then((rs) => {
+    //       console.log(rs);
+    //     })
+    //     .catch((err) => console.log(err));
   };
 
   return (
@@ -121,7 +128,12 @@ export default function RegisterPage() {
               {error.phoneNumber && (
                 <InputErrorMessage message={error.phoneNumber} />
               )}
-              <InputBar type="text" value={user.email} name="email"></InputBar>
+              <InputBar
+                type="text"
+                value={input.email}
+                name="email"
+                onChange={hdlChangeInput}
+              ></InputBar>
               <InputBar
                 value={input.taxId}
                 name="taxId"

@@ -4,6 +4,7 @@ import InputForm from "../../../components/InputForm";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import { profileAgncyAsync } from "../slice/myProfile-slice";
 import { useDispatch, useSelector } from "react-redux";
+import validateMyProfile from "../validators/myprofileValidate";
 
 export default function MyProfileForm({ oldProfile }) {
   const initialInput = {

@@ -10,7 +10,7 @@ export const profileAgncyAsync = createAsyncThunk(
   "profileAgncy/profileAgncyAsync",
   async (_, thunkApi) => {
     try {
-      const res = await profileAgncyService.getme();
+      const res = await profileAgncyService.fetchMe();
       console.log(res.data);
       return res.data;
     } catch (err) {

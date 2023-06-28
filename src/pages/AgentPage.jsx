@@ -8,8 +8,26 @@ import { RiAdminLine } from "react-icons/ri";
 import { ImProfile } from "react-icons/im";
 
 import PropertyContainer from "../features/createproperty/components/PropertyContainer";
+import EditPropertyContainer from "../features/editproperty/components/EditPropertyContainer";
 import Navbar from "../layouts/Navbar";
 import MyProfileContainer from "../features/myprofile/components/MyProfileContainer";
+<<<<<<< HEAD
+import SidebarAgency from "../components/SidebarAgency";
+import AgentDb from "../features/createproperty/components/AgentDb";
+
+export default function AgentPage() {
+  return (
+    <div>
+      {/* <Navbar /> */}
+      <div className="max-w-[1440px] mx-auto min-h-screen flex">
+        <SidebarAgency />
+        <div className="flex-[4] bg-[#F4F6FF] text-lg">
+          <AgentDb />
+          <PropertyContainer />
+          <EditPropertyContainer />
+          <MyProfileContainer />
+        </div>
+=======
 import MyPropertyContainer from "../features/myproperty/components/MyPropertyContainer";
 import EditPropertyContainer from "../features/editproperty/components/EditPropertyContainer";
 
@@ -188,6 +206,7 @@ export default function AgentPage() {
         <MyPropertyContainer />
         <EditPropertyContainer />
         <MyProfileContainer />
+>>>>>>> bc25f73abcfe184a8419c93e19598c558a2eb27f
       </div>
     </div>
   );
