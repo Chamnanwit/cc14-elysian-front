@@ -7,6 +7,7 @@ import { useState } from "react";
 import { register } from "../api/auth-api";
 import validateRegistration from "../validators/validate-regis";
 import InputErrorMessage from "../components/InputErrorMessage";
+import { checkMeAsync } from "../features/auth/slice/authSlice";
 
 const initialInput = {
   firstName: "",
@@ -40,6 +41,15 @@ export default function RegisterPage() {
     } catch (err) {
       console.log(err);
     }
+    const handleSubmitForm = async (e) => {
+      try {
+        e.preventDefault();
+        await dispatch(checkMeAsync(user.email)).unwrap();
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
     const {
       firstName,

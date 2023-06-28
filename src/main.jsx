@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     domain="dev-hwzo22lep52tc4jx.us.auth0.com"
     clientId="QLq6EvBUlE7hpRxnal2u3IJv2AcEvVAL"
     authorizationParams={{
-      redirect_uri: window.location.origin,
+      redirect_uri: "http://localhost:5173/user",
     }}
   >
     <React.StrictMode>

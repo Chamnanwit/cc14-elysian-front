@@ -7,6 +7,7 @@ import { RiAdminLine } from "react-icons/ri";
 import { ImProfile } from "react-icons/im";
 import ListAdminMenuButton from "../components/ListAdminMenuButton";
 import LogoWhite from "./LogoWhite";
+import { Link } from "react-router-dom";
 
 export default function SidebarAdmin() {
   return (
@@ -16,13 +17,13 @@ export default function SidebarAdmin() {
       </div>
       <div class="py-4 overflow-y-auto  text-c-white1">
         <ul class="space-y-2 font-medium">
-          <ListAdminMenuButton link="/" icon={<AiFillDashboard />}>
+          <ListAdminMenuButton link="/admin/dashboard" icon={<AiFillDashboard />}>
             ภาพรวม
           </ListAdminMenuButton>
-          <ListAdminMenuButton link="/" icon={<FaUserTie />}>
+          <ListAdminMenuButton link="/admin/admin-list" icon={<FaUserTie />}>
             รายชื่อแอดมิน
           </ListAdminMenuButton>
-          <ListAdminMenuButton link="/" icon={<FaUser />}>
+          <ListAdminMenuButton link="/admin/agent-list" icon={<FaUser />}>
             รายชื่อเอเจนซี่
           </ListAdminMenuButton>
 
@@ -63,14 +64,14 @@ export default function SidebarAdmin() {
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/admin/animity"
                   class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
 
                   //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
                   สิ่งอำนวยความสะดวก
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
@@ -103,20 +104,20 @@ export default function SidebarAdmin() {
             </button>
             <ul id="แพ็คเกจ" class="hidden py-2 space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/admin/pricing-plan"
                   class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   แพ็คเกจ
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/admin/purchase-history"
                   class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   ประวัติการซื้อ
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
