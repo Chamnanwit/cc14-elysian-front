@@ -3,6 +3,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { FaCrown } from "react-icons/fa";
 import { AiFillEye } from "react-icons/ai";
 import { MdLocationOn } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export default function RentCard({
   propName,
@@ -12,6 +13,7 @@ export default function RentCard({
   propRentPeriod,
   propLocation,
   propNearBY,
+  link,
 }) {
   // const MockData = [
   //   {
@@ -215,7 +217,7 @@ export default function RentCard({
       </div>
 
       <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105  duration-500 cursor-pointer">
-        <a href="/rentdetail">
+        <Link to={`/rentdetail/${link}`}>
           <div>
             <img
               src="/src/assets/pic/pictest1.jpg"
@@ -263,7 +265,7 @@ export default function RentCard({
             </div>
             <div>{propNearBY || "0.45km"}</div>
           </div>
-        </a>
+        </Link>
 
         <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray2 bg-c-white1 border">
           {/* <button className=" hover:scale-125 hover:text-c-red1 active:scale-95 transition-all duration-200">
