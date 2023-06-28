@@ -23,17 +23,21 @@ export default function PackagePlan() {
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
         </PromotionCard>
-        <PromotionCard price="฿199/เดือน" packname="พื้นฐาน">
+        <a href="https://buy.stripe.com/test_9AQ7uU0pm1mo9FK002">
+        <PromotionCard price="฿1,799/เดือน" packname="พื้นฐาน">
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
         </PromotionCard>
-        <PromotionCard price="฿299/เดือน" packname="ธุรกิจ">
+        </a>
+        <a href="https://buy.stripe.com/test_9AQ9D22xu3uw05afYZ">
+        <PromotionCard price="฿3,599/เดือน" packname="ธุรกิจ">
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
         </PromotionCard>
+        </a>
       </div>
       <div className=" w-full flex flex-col items-center p-5">
         <p className=" text-lg font-semibold">แพ็คเกจ</p>
