@@ -105,7 +105,7 @@ export default function Router() {
       // children: [],
     },
     {
-      path: "/rentdetail",
+      path: `/rentdetail/:id`,
       element: <RentDetailPage />,
       // children: [],
     },

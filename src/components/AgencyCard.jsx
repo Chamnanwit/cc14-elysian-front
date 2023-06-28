@@ -6,7 +6,14 @@ import {
   BsFillXCircleFill,
 } from "react-icons/bs";
 
-export default function AgencyCard({ agencyImage }) {
+export default function AgencyCard({
+  agencyImage,
+  agencyfirstname,
+  agencylastname,
+  agencystatus,
+  agencyphone,
+  agencyemail,
+}) {
   return (
     <div className=" bg-gray-100 gap-2 w-[200px] h-fit border rounded-lg shadow-md p-5 flex flex-col items-center text-c-white1">
       <img
@@ -16,27 +23,40 @@ export default function AgencyCard({ agencyImage }) {
       />
       <div className="flex gap-1 text-c-gray3  w-full text-xs justify-center">
         <div>ชื่อ</div>
-        <div>อสังหา อาสาหัด</div>
+        <div>
+          {agencyfirstname} {agencylastname}
+        </div>
       </div>
       <div className="flex flex-col items-center gap-1 border-b-gray1  w-full text-xs justify-center">
         {/* <div>สถานะ</div> */}
-        <div className=" flex gap-1 items-center text-c-green2">
+        {agencystatus === "1" ? (
+          <div className=" flex gap-1 items-center text-c-green2">
+            <BsCheckCircleFill />
+            <div>ยืนยันตัวตนแล้ว</div>
+          </div>
+        ) : (
+          <div className=" flex gap-1 items-center text-c-red1">
+            <BsFillXCircleFill />
+            <div>ยังไม่ได้ยืนยันตัวตน</div>
+          </div>
+        )}
+        {/* <div className=" flex gap-1 items-center text-c-green2">
           <BsCheckCircleFill />
           <div>ยืนยันตัวตนแล้ว</div>
         </div>
         <div className=" flex gap-1 items-center text-c-red1">
           <BsFillXCircleFill />
           <div>ยังไม่ได้ยืนยันตัวตน</div>
-        </div>
+        </div> */}
       </div>
       <div className="flex">
-        <PopOverButton text="0889992221">
+        <PopOverButton text={agencyphone || "ไม่ได้ระบุ"}>
           <BsTelephoneFill className="text-xl" />
         </PopOverButton>
-        <PopOverButton text="a@gmail.com">
+        <PopOverButton text={agencyemail || "ไม่ได้ระบุ"}>
           <MdEmail className="text-2xl pb-[1px]" />
         </PopOverButton>
-        <PopOverButton text="@elysian">
+        {/* <PopOverButton text="@elysian">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -53,7 +73,7 @@ export default function AgencyCard({ agencyImage }) {
             />
             <path d="M108.103 208.954h27.952c3.976 0 7.228-3.253 7.228-7.229v-.603c0-3.976-3.252-7.228-7.228-7.228h-20.121v-45.779c0-3.976-3.252-7.228-7.228-7.228h-.603c-3.976 0-7.228 3.252-7.228 7.228v53.609c0 3.977 3.252 7.23 7.228 7.23zm173.205-33.603v-.603c0-3.976-3.253-7.228-7.229-7.228h-20.12v-11.445h20.12c3.976 0 7.229-3.252 7.229-7.228v-.603c0-3.976-3.253-7.228-7.229-7.228h-27.952c-3.976 0-7.228 3.252-7.228 7.228v53.609c0 3.976 3.252 7.229 7.228 7.229h27.952c3.976 0 7.229-3.253 7.229-7.229v-.603c0-3.976-3.253-7.228-7.229-7.228h-20.12v-11.445h20.12c3.976.002 7.229-3.251 7.229-7.226zm-53.755 31.448l.002-.003a7.207 7.207 0 0 0 2.09-5.07v-53.609c0-3.976-3.252-7.228-7.229-7.228h-.603c-3.976 0-7.228 3.252-7.228 7.228v31.469l-26.126-35.042c-1.248-2.179-3.598-3.655-6.276-3.655h-.603c-3.976 0-7.229 3.252-7.229 7.228v53.609c0 3.976 3.252 7.229 7.229 7.229h.603c3.976 0 7.228-3.253 7.228-7.229v-32.058l26.314 35.941c.162.252.339.494.53.724l.001.002c.723.986 1.712 1.662 2.814 2.075.847.35 1.773.544 2.742.544h.603a7.162 7.162 0 0 0 3.377-.844c.723-.344 1.332-.788 1.761-1.311zm-71.208 2.155h.603c3.976 0 7.228-3.253 7.228-7.229v-53.609c0-3.976-3.252-7.228-7.228-7.228h-.603c-3.976 0-7.229 3.252-7.229 7.228v53.609c0 3.976 3.253 7.229 7.229 7.229z" />
           </svg>
-        </PopOverButton>
+        </PopOverButton> */}
       </div>
     </div>
   );
