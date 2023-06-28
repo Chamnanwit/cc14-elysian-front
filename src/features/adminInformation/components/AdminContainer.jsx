@@ -13,7 +13,7 @@ import {
 import AdminForm from "./AdminForm";
 
 export default function AdminContainer() {
-  // const [isAddMode, setIsAddMode] = useState(false);
+  const [isAddMode, setIsAddMode] = useState(false);
   const dispatch = useDispatch();
   const searchValue = useSelector(
     (state) => state?.adminInformation?.searchValue
@@ -69,7 +69,7 @@ export default function AdminContainer() {
             <InputForm
               type="text"
               className="header__search__input"
-              placeholder=""
+              placeholder="ชื่อ/อีเมล"
               onChange={handleChange}
               value={searchValue}
             />

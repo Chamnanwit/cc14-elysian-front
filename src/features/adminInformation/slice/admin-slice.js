@@ -13,7 +13,7 @@ export const adminInformationAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await adminInformationService.getAdminInformation();
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -54,8 +54,8 @@ export const deleteAdminInformationAsync = createAsyncThunk(
   "adminInformation/deleteAdminInformationAsync",
   async (id, thunkApi) => {
     try {
-      const rs = await adminInformationService.deleteAdminInformation(id);
-        console.log("5555555555555555555", res.data);
+      const res = await adminInformationService.deleteAdminInformation(id);
+      // console.log(res.data);
       return res.data;
     } catch (err) {
       //   console.log(err);
@@ -76,7 +76,8 @@ export const searchAdminInformationAsync = createAsyncThunk(
         const filteredData = res.data.filter(
           (el) =>
             el.firstName.toLowerCase().includes(Value.toLowerCase()) ||
-            el.LastName.toLowerCase().includes(Value.toLowerCase())
+            el.lastName.toLowerCase().includes(Value.toLowerCase()) ||
+            el.email.toLowerCase().includes(Value.toLowerCase())
         );
         return filteredData;
       }
@@ -105,8 +106,15 @@ const adminInformationSlice = createSlice({
         if (state.searchValue.trim() === "")
           state.adminInformationFilter = state.adminInformation;
         else {
-          state.adminInformationFilter = action.payload.filter((el) =>
-            el.name.toLowerCase().includes(state.searchValue.toLowerCase())
+          state.adminInformationFilter = action.payload.filter(
+            (el) =>
+              el.firstName
+                .toLowerCase()
+                .includes(state.searchValue.toLowerCase()) ||
+              el.lastName
+                .toLowerCase()
+                .includes(state.searchValue.toLowerCase()) ||
+              el.email.toLowerCase().includes(state.searchValue.toLowerCase())
           );
         }
         state.isLoading = false;

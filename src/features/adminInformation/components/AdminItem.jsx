@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TrashIcon } from "../../../icons";
 import { HiEye } from "react-icons/hi";
 import Modal from "../../../components/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { adminInformationAsync, deleteAdminInformationAsync, searchAdminInformationAsync } from "../slice/admin-slice";
+import { adminInformationAsync, deleteAdminInformationAsync, updateAdminInformationAsync } from "../slice/admin-slice";
 
 export default function AdminItem({ el }) {
+  const dispatch = useDispatch();
   const [isViewMode, setIsViewMode] = useState(false);
-  const [status, setStatus] = useState(el.status);
-  console.log(status);
+  const [status, setStatus] = useState(el.locked);
+
+  const handleClickChangeStatus = async (e) => {
+      await dispatch(updateAdminInformationAsync({id:el.id, locked: !status})).unwrap();
+      await dispatch(adminInformationAsync()).unwrap();
+      setStatus(!status);
+  };
 
   // const searchValue = useSelector(
   //   (state) => state?.adminInformation?.searchValue
   // );
-  const dispatch = useDispatch();
   const handleClickDeleteBox = async () => {
     await dispatch(deleteAdminInformationAsync(el.id)).unwrap();
     await dispatch(adminInformationAsync()).unwrap();
@@ -34,27 +39,14 @@ export default function AdminItem({ el }) {
         <td class="px-6 py-4">{el.email}</td>
         <td class="px-6 py-4">
           <label class="relative inline-flex items-center cursor-pointer">
-            {status ? (
               <input
                 type="checkbox"
-                value=""
+                value={status}
                 className="sr-only peer"
-                checked
-                onClick={() => {
-                  status ? setStatus(0) : setStatus(1);
-                }}
+                checked={status}
+                onChange={handleClickChangeStatus}
               />
-            ) : (
-              <input
-                type="checkbox"
-                value=""
-                className="sr-only peer"
-                onClick={() => {
-                  status ? setStatus(0) : setStatus(1);
-                }}
-              />
-            )}
-            <div className="w-11 h-6 bg-red-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600 tra"></div>
+            <div className="w-11 h-6 bg-red-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
           </label>
         </td>
 
@@ -83,7 +75,7 @@ export default function AdminItem({ el }) {
           <table className="border w-full border-collapse">
             <tr>
               <td className="w-1/2 px-3 py-2 border-b border-r">รูปภาพ</td>
-              <td className="w-1/2 p-3 border-b">{el.agent}</td>
+              <td className="w-1/2 p-3 border-b">{el.proFileImage}</td>
             </tr>
             <tr>
               <td className="w-1/2 px-3 py-2 border-b border-r">
@@ -101,32 +93,25 @@ export default function AdminItem({ el }) {
               <td className="w-1/2 px-3 py-2 border-b border-r">
                 เบอร์โทรศัพท์
               </td>
-              <td className="w-1/2 p-3 border-b"> {el.phone}</td>
+              <td className="w-1/2 p-3 border-b"> {el.phoneNumber}</td>
             </tr>
             <tr>
               <td className="w-1/2 px-3 py-2 border-b border-r">บัตรประชาชน</td>
-              <td className="w-1/2 p-3 border-b"> {el.cardid}</td>
+              <td className="w-1/2 p-3 border-b"> {el.taxId}</td>
             </tr>
             <tr>
               <td className="w-1/2 px-3 py-2 border-b border-r">สถานะ</td>
               <td className="w-1/2 p-3 border-b">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  {status ? (
-                    <input
-                      type="checkbox"
-                      value=""
-                      className="sr-only peer"
-                      checked
-                    />
-                  ) : (
-                    <input
-                      type="checkbox"
-                      value=""
-                      className="sr-only peer-disabled"
-                    />
-                  )}
-                  <div className="w-11 h-6 bg-red-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                </label>
+              <label class="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                value={status}
+                className="sr-only peer"
+                checked={status}
+                onChange={handleClickChangeStatus}
+              />
+            <div className="w-11 h-6 bg-red-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+          </label>
               </td>
             </tr>
           </table>
