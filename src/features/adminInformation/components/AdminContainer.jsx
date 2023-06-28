@@ -3,12 +3,46 @@ import HeaderAdmin from "../../../components/HeaderAdmin";
 import InputForm from "../../../components/InputForm";
 import AdminItem from "./AdminItem";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  adminInformationAsync,
+  searchAdminInformationAsync,
+  setSearchValueRedux,
+} from "../slice/admin-slice";
 import AdminForm from "./AdminForm";
 
-export default function AdminContainer({ data }) {
+export default function AdminContainer() {
   const [isAddMode, setIsAddMode] = useState(false);
   const dispatch = useDispatch();
+  const searchValue = useSelector(
+    (state) => state?.adminInformation?.searchValue
+  );
+
+  useEffect(() => {
+    dispatch(adminInformationAsync());
+  }, []);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      dispatch(searchAdminInformationAsync(searchValue));
+    }, 1000);
+
+    return () => {
+      console.log("cleanup");
+      clearTimeout(id);
+    };
+  }, [searchValue]);
+
+  const handleChange = (e) => {
+    // setSearchValue(e.target.value);
+    dispatch(setSearchValueRedux(e.target.value));
+  };
+
+  const adminInformationArr = useSelector(
+    (state) => state?.adminInformation?.adminInformationFilter
+  );
+
   return (
     <>
       <HeaderAdmin topic="Admin List" />
@@ -28,12 +62,17 @@ export default function AdminContainer({ data }) {
           เพิ่ม
         </button>
       )}
-
       <div className="bg-white rounded-md m-8 px-8 pt-6 pb-8 mt-0">
         <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>ค้นหา:</div>
           <div className="100px text-md">
-            <InputForm />
+            <InputForm
+              type="text"
+              className="header__search__input"
+              placeholder="ชื่อ/อีเมล"
+              onChange={handleChange}
+              value={searchValue}
+            />
           </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
@@ -47,7 +86,7 @@ export default function AdminContainer({ data }) {
                   ชื่อ
                 </th>
                 <th scope="col" class="px-6 py-5">
-                  Email
+                  อีเมล
                 </th>
                 <th scope="col" class="px-6 py-5">
                   สถานะ
@@ -58,7 +97,7 @@ export default function AdminContainer({ data }) {
               </tr>
             </thead>
             <tbody>
-              {data.map((el) => (
+              {adminInformationArr.map((el) => (
                 <AdminItem key={el.id} el={el} />
               ))}
             </tbody>

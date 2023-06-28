@@ -26,6 +26,7 @@ import AdminListPage from "../pages/AdminListPage";
 import AdminPurchasePage from "../pages/AdminPurchasePage";
 import AdminViewAgentPage from "../pages/AdminViewAgentPage";
 // import UserProfile from "../pages/UserProfile";
+import UserProfile from "../pages/UserProfile";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -112,6 +113,10 @@ export default function Router() {
       path: "/map",
       element: <GooglemapApi />,
       // children: [],
+    },
+    {
+      path: "/user",
+      element: <UserProfile />,
     },
   ]);
 

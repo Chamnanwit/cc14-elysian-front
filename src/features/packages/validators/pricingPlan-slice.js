@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as pricingPlanService from "../../../api/package-api";
 
 const initialState = {
-  pricingPlan: [],
-  pricingPlanFilter: [],
-  searchValue: "",
-  isLoading: true,
+    pricingPlan: [],
+    pricingPlanFilter: [],
+    searchValue: "",
+    isLoading: true
 };
 
 export const pricingPlanAsync = createAsyncThunk(
@@ -13,6 +13,7 @@ export const pricingPlanAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await pricingPlanService.getPricingPlan();
+      console.log(res.data)
       return res.data;
     } catch (err) {
       console.log(err);
@@ -34,11 +35,13 @@ export const createPricingPlanAsync = createAsyncThunk(
   }
 );
 
+
 export const updatePricingPlanAsync = createAsyncThunk(
   "pricingPlan/updatePricingPlanAsync",
   async (input, thunkApi) => {
     try {
       const res = await pricingPlanService.updatePricingPlan(input);
+      console.log("up",res.data)
       return res.data;
     } catch (err) {
       console.log(err);
@@ -64,10 +67,10 @@ export const searchPricingPlanAsync = createAsyncThunk(
   "pricingPlan/searchPricingPlanAsync",
   async (input, thunkApi) => {
     try {
-      const Value = input;
+      const Value  = input
       const res = await pricingPlanService.getPricingPlan();
-      if (Value.trim() === "") {
-        return res.data;
+      if (Value.trim()==="") {
+        return res.data
       } else {
         const filteredData = res.data.filter((el) =>
           el.name.toLowerCase().includes(Value.toLowerCase())
@@ -82,68 +85,66 @@ export const searchPricingPlanAsync = createAsyncThunk(
 );
 
 const pricingPlanSlice = createSlice({
-  name: "pricingPlan",
-  initialState,
-  reducers: {
-    setSearchValueRedux: (state, action) => {
-      state.searchValue = action.payload;
+    name: "pricingPlan",
+    initialState,
+    reducers:{ 
+      setSearchValueRedux :(state, action) => {
+      state.searchValue = action.payload
+    }
     },
-  },
-  extraReducers: (builder) =>
+    extraReducers: (builder) =>
     builder
-      .addCase(pricingPlanAsync.pending, (state) => {
-        // state.initialLoading = true;
-      })
-      .addCase(pricingPlanAsync.fulfilled, (state, action) => {
+    .addCase(pricingPlanAsync.pending, state => {
+      // state.initialLoading = true;
+    })
+    .addCase(pricingPlanAsync.fulfilled, (state, action) => {
         state.pricingPlan = action.payload;
-        if (state.searchValue.trim() === "")
-          state.pricingPlanFilter = state.pricingPlan;
-        else {
-          state.pricingPlanFilter = action.payload.filter((el) =>
-            el.name.toLowerCase().includes(state.searchValue.toLowerCase())
-          );
-        }
-        state.isLoading = false;
-      })
-      .addCase(pricingPlanAsync.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(createPricingPlanAsync.pending, (state) => {
-        // state.initialLoading = true;
-      })
-      .addCase(createPricingPlanAsync.fulfilled, (state, action) => {
-        state.isLoading = false;
-      })
-      .addCase(createPricingPlanAsync.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(updatePricingPlanAsync.pending, (state) => {
-        state.isLoading = false;
-      })
-      .addCase(updatePricingPlanAsync.fulfilled, (state, action) => {
-        // state.isAuthenticated = true;
-        state.isLoading = false;
-        //state.user = action.payload;
-      })
-      .addCase(updatePricingPlanAsync.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(searchPricingPlanAsync.pending, (state) => {
-        // state.initialLoading = true;
-      })
-      .addCase(searchPricingPlanAsync.fulfilled, (state, action) => {
         state.pricingPlanFilter = action.payload;
         state.isLoading = false;
-      })
-      .addCase(searchPricingPlanAsync.rejected, (state, action) => {
+    })
+    .addCase(pricingPlanAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
-      }),
+    })
+    .addCase(createPricingPlanAsync.pending, state => {
+      // state.initialLoading = true;
+    })
+    .addCase(createPricingPlanAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+    })
+    .addCase(createPricingPlanAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+    })
+    .addCase(updatePricingPlanAsync.pending, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(updatePricingPlanAsync.fulfilled, (state, action) => {
+      // state.isAuthenticated = true;
+      state.isLoading = false;
+      //state.user = action.payload;
+    })
+    .addCase(updatePricingPlanAsync.rejected, (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    })
+    .addCase(searchPricingPlanAsync.pending, state => {
+      // state.initialLoading = true;
+    })
+    .addCase(searchPricingPlanAsync.fulfilled, (state, action) => {
+      state.pricingPlanFilter = action.payload;
+      state.isLoading = false;
+    })
+    .addCase(searchPricingPlanAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+    })
 });
+
+
 
 export default pricingPlanSlice.reducer;
 
-export const { setSearchValueRedux } = pricingPlanSlice.actions;
+export const {
+  setSearchValueRedux,
+} = pricingPlanSlice.actions;
