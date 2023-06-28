@@ -10,7 +10,6 @@ import { ImProfile } from "react-icons/im";
 import PropertyContainer from "../features/createproperty/components/PropertyContainer";
 import Navbar from "../layouts/Navbar";
 import MyProfileContainer from "../features/myprofile/components/MyProfileContainer";
-<<<<<<< HEAD
 import MyPropertyContainer from "../features/myproperty/components/MyPropertyContainer";
 import EditPropertyContainer from "../features/editproperty/components/EditPropertyContainer";
 
@@ -189,23 +188,6 @@ export default function AgentPage() {
         <MyPropertyContainer />
         <EditPropertyContainer />
         <MyProfileContainer />
-=======
-import SidebarAgency from "../components/SidebarAgency";
-import AgentDb from "../features/createproperty/components/AgentDb";
-
-export default function AgentPage() {
-  return (
-    <div>
-      {/* <Navbar /> */}
-      <div className="max-w-[1440px] mx-auto min-h-screen flex">
-        <SidebarAgency />
-        <div className="flex-[4] bg-[#F4F6FF] text-lg">
-          <AgentDb />
-          <PropertyContainer />
-          <PropertyEditContainer />
-          <MyProfileContainer />
-        </div>
->>>>>>> 2586963f111f010d731a3a8475c9d8c6ba4321e0
       </div>
     </div>
   );
