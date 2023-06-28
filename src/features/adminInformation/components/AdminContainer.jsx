@@ -11,6 +11,7 @@ import {
   setSearchValueRedux,
 } from "../slice/admin-slice";
 import AdminForm from "./AdminForm";
+import Loading from "../../../components/Loading";
 
 export default function AdminContainer() {
   const [isAddMode, setIsAddMode] = useState(false);
@@ -18,6 +19,7 @@ export default function AdminContainer() {
   const searchValue = useSelector(
     (state) => state?.adminInformation?.searchValue
   );
+  const isLoading = useSelector((state) => state?.adminInformation?.isLoading);
 
   useEffect(() => {
     dispatch(adminInformationAsync());
@@ -42,6 +44,10 @@ export default function AdminContainer() {
   const adminInformationArr = useSelector(
     (state) => state?.adminInformation?.adminInformationFilter
   );
+  
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -83,7 +89,7 @@ export default function AdminContainer() {
                   ลำดับที่
                 </th>
                 <th scope="col" class="px-6 py-5">
-                  ชื่อ
+                  ชื่อ-สกุล
                 </th>
                 <th scope="col" class="px-6 py-5">
                   อีเมล
