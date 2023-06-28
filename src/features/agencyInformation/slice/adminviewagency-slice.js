@@ -21,6 +21,21 @@ export const agentAsync = createAsyncThunk(
 );
 
 
+
+export const deleteagentAsync = createAsyncThunk(
+  "agent/deleteagentAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await agentService.deleteฤgent(id);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+
 const adminViewAgentSlice = createSlice({
     name: "agent",
     initialState,
