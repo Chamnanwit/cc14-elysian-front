@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as propertyPlanService from "../../../api/property-api";
 import { Input } from "postcss";
-import { pricingPlanAsync } from "../../packages/slice/pricingPlan-slice";
 
 const initialState = {
   propertyPlan: [],
@@ -75,6 +74,28 @@ const propertyPlanSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(propertyPlanAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(createPropertyPlanAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(createPropertyPlanAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(createPropertyPlanAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(updatePropertyPlanAsync.pending, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePropertyPlanAsync.fulfilled, (state, action) => {
+        // state.isAuthenticated = true;
+        state.isLoading = false;
+        //state.user = action.payload;
+      })
+      .addCase(updatePropertyPlanAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       }),

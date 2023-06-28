@@ -1,24 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { checkMeAsync } from "../features/auth/slice/authSlice";
+import { checkMeAsync, loginAsync } from "../features/auth/slice/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../store";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../layouts/Navbar";
+import HeaderSearch from "../layouts/HeaderSearch";
 const UserProfile = () => {
   const { user, isAuthenticated } = useAuth0();
-  const [accessToken, setAccessToken] = useState("");
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
+  // const isLoading = useSelector(store.authre)
+  const isLoading = useSelector((state) => state?.auth?.isLoading);
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(checkMeAsync(user.email)).unwrap();
-      console.log(user.email);
+      // console.log(user.email);
     }
   });
 
   const emailstatus = useSelector((state) => state.auth.emailStatus);
+  // console.log("emailstatus", emailstatus);
 
-  console.log("--------*-*-*>", emailstatus);
+  useEffect(() => {
+    if (emailstatus) {
+      if (emailstatus === "Yes") {
+        const email = user.email;
+        const password = "123456";
+        const input = { email, password };
+        dispatch(loginAsync(input));
+        console.log("go to dashboard");
+        navigate("/");
+      } else {
+        console.log("Go to register");
+        navigate("/register");
+      }
+    }
+  }, [emailstatus, navigate]);
 
   //ส่งข้อมูลอีเมลไปเช็ค
   // const handleSubmitForm = async (e) => {
@@ -56,13 +75,14 @@ const UserProfile = () => {
   // }, [getAccessTokenSilently]);
 
   return (
-    isAuthenticated && (
-      <div>
-        {/* isAuthenticated {console.log("--------------->", user)} */}
-        <p>User email: {user.email}</p>
-        {/* แสดงข้อมูลผู้ใช้หรือทำงานอื่น ๆ ที่ต้องการสิทธิ์การเข้าถึง */}
+    <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
+      <div className=" pb-10">
+        <Navbar />
+        <div className="h-full bg-c-white1">
+          <HeaderSearch />
+        </div>
       </div>
-    )
+    </div>
   );
 };
 //test การดึงtokenมาใช้งานจากgoogle ออฟชั่น

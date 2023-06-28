@@ -15,7 +15,7 @@ export default function MyProfileContainer() {
     (state) => state?.profileAgncyAsync?.profileAgncy
   );
 
-  console.log("--*----*-*-----*->", userArr);
+  console.log("------------->", userArr);
   return (
     <>
       <HeaderAgent topic="My profile" />
