@@ -18,6 +18,7 @@ import PhoneNumberPage from "../pages/PhoneNumberPage";
 import RentDetailPage from "../pages/RentDetailPage";
 
 import GooglemapApi from "../pages/GooglemapPage";
+// import UserProfile from "../pages/UserProfile";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -72,7 +73,7 @@ export default function Router() {
       // children: [],
     },
     {
-      path: "/rentdetail",
+      path: `/rentdetail/:id`,
       element: <RentDetailPage />,
       // children: [],
     },

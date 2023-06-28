@@ -3,6 +3,7 @@ import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
 import InputBar from "../components/InputBar";
 import ButtonYellowM from "../components/ButtonYellowM";
+import { Link } from "react-router-dom";
 
 import RentCardBig from "../components/RentCardBig";
 import CarouselBig from "../components/CarouselBig";
@@ -10,6 +11,8 @@ import LogoWhite from "../components/LogoWhite";
 import AgencyCard from "../components/AgencyCard";
 import ButtonGhostWhite from "../components/ButtonGhostWhite";
 import RentCard from "../components/RentCard";
+import RentCardBigList from "../features/userProperties/components/RentCardBigList";
+import RentCardSmallList from "../features/userProperties/components/RentCardSmallList";
 
 export default function SearchPage() {
   return (
@@ -64,11 +67,7 @@ export default function SearchPage() {
               ผลการค้นหาของคำว่า "อยู่ๆไป" ทั้งหมด 180 รายการ
             </p>
             <div className="flex flex-col gap-16">
-              <RentCardBig />
-              <RentCardBig />
-              <RentCardBig />
-              <RentCardBig />
-              <RentCardBig />
+              <RentCardBigList />
             </div>
           </div>
           <div className=" px-5 mt-12 flex-[1] flex flex-col items-center border-l-1 border border-t-0 border-r-0 border-b-0 border-l-c-gray1 justify-start gap-5 text-center">
@@ -84,13 +83,7 @@ export default function SearchPage() {
           <div className="text-sm text-c-gray2">ดูทั้งหมด</div>
         </div>
         <div className=" flex w-full gap-5 px-5 py-5 overflow-auto">
-          <RentCard />
-          <RentCard />
-          <RentCard />
-          <RentCard />
-          <RentCard />
-          <RentCard />
-          <RentCard />
+          <RentCardSmallList />
         </div>
       </div>
 

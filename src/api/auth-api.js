@@ -1,4 +1,3 @@
 import axios from "axios";
 
-export const register = (input) => {return Api.post("/auth/register", input);};
-  
+export const register = (input) => axios.post("/auth/register", input);
