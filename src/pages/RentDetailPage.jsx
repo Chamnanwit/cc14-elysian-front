@@ -30,7 +30,7 @@ export default function RentDetailPage() {
 
         <div>
           <div className="w-full flex justify-center pb-10 pt-16 text-xl font-semibold">
-            {el.name}
+            {el?.name}
           </div>
           <div className="pb-10 shadow-xl">
             <div className="h-[330px] overflow-auto bg-c-gray3 flex justify-start gap-2 items-center">
