@@ -43,25 +43,6 @@ export default function Navbar() {
 
             <ul class=" fixed top-0 left-0 z-40 w-[25%] h-screen shadow-lg bg-c-green4 text-base text-c-white1 p-5 pl-10 py-10 flex-col flex gap-1 transition-transform duration-[400ms]">
               <li>
-                <details open>
-                  <summary class="flex items-center p-2  justify-between rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
-                    <div className="flex">
-                      {" "}
-                      <div className="text-[18pt]">
-                        <TbCards />
-                      </div>
-                      <span class="ml-3">แพ็คเกจ</span>
-                    </div>
-                    <BsChevronDown />
-                  </summary>
-                  <ul>
-                    <li className="flex items-center p-2 pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
-                      <p>level 2 item 1</p>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
                 <a
                   href="/"
                   class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"

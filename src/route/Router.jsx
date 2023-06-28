@@ -27,6 +27,7 @@ import AdminPurchasePage from "../pages/AdminPurchasePage";
 import AdminViewAgentPage from "../pages/AdminViewAgentPage";
 // import UserProfile from "../pages/UserProfile";
 import UserProfile from "../pages/UserProfile";
+import AdminViewAgentDashboard from "../pages/AdminViewAgentDashboard";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -70,6 +71,10 @@ export default function Router() {
     {
       path: "/admin/agent-list",
       element: <AdminViewAgentPage />,
+    },
+    {
+      path: '/admin/agencybyid/:id',
+      element: <AdminViewAgentDashboard />
     },
     {
       path: "/admin/purchase-history",

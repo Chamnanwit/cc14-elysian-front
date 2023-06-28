@@ -4,21 +4,38 @@ import AgentItem from "./AgentItem";
 import InputForm from "../../../components/InputForm";
 import AgencyProfile from "./AgencyProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { agentAsync } from "../slice/adminviewagency-slice";
+import { agentAsync, searchAgentAsync, setSearchValueRedux } from "../slice/adminviewagency-slice";
 import { useEffect } from "react";
+import Loading from "../../../components/Loading";
 
 export default function AgencyContainer() {
   
   const dispatch = useDispatch()
   const searchValue = useSelector((state) => state?.adminViewAgent?.searchValue);
+  const isLoading = useSelector((state) => state?.adminViewAgent?.isLoading);
   useEffect(() => {
     dispatch(agentAsync());
   }, []);
 
+  useEffect(() => {
+    const id = setTimeout(() => {
+      dispatch(searchAgentAsync(searchValue));
+    }, 1000);
+
+    return () => {
+      console.log("cleanup");
+      clearTimeout(id);
+    };
+  }, [searchValue]);
+
   const handleChange = (e) => {
-    // dispatch(setSearchValueRedux(e.target.value))
+    dispatch(setSearchValueRedux(e.target.value));
   };
-  const agentArr = useSelector((state) => state?.adminViewAgent?.agentList);
+  const agentArr = useSelector((state) => state?.adminViewAgent?.agentListFilter);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

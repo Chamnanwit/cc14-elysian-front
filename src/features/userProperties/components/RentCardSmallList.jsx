@@ -18,14 +18,14 @@ export default function RentCardSmallList() {
     <>
       {userPropertieslist.map((el) => (
         <RentCard
-          propName={el.name}
-          propDescription={el.description}
-          agencyName={el.User.firstName}
-          propPrice={el.price}
-          propRentPeriod={el.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
+          propName={el?.name}
+          propDescription={el?.description}
+          agencyName={el?.User?.firstName}
+          propPrice={el?.price}
+          propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
           propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
           propNearBY=""
-          link={el.id}
+          link={el?.id}
         />
       ))}
     </>

@@ -1,7 +1,5 @@
+import HeaderAgent from "../../../components/HeaderAgent";
+
 export default function SeoInformationContainer() {
-  return (
-    <div>
-      <h1>hi ja</h1>
-    </div>
-  );
+  return <HeaderAgent topic="SEO Information" />;
 }
