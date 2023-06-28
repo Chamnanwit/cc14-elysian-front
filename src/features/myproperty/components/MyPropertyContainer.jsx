@@ -6,8 +6,8 @@ import RentCard from "../../../components/RentCard";
 import { propertyPlanAsync } from "../../editproperty/slice/editProperty";
 
 export default function MyPropertyContainer() {
-  // const dispatch = useDispatch();
-  // const propertyData = useSelector((state) => state.propertyPlan);
+  const dispatch = useDispatch();
+  const propertyData = useSelector((state) => state.propertyPlan);
   const MockEditData = [
     {
       id: 10,
