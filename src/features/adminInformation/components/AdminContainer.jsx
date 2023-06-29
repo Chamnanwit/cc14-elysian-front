@@ -51,7 +51,7 @@ export default function AdminContainer() {
 
   return (
     <>
-      <HeaderAdmin topic="Admin List" />
+      <HeaderAdmin topic="รายชื่อแอดมิน" />
       {isAddMode? (
         <div className="m-8 mt-0">
           <AdminForm

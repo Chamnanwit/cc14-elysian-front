@@ -3,6 +3,7 @@ import * as agentService from "../../../api/agency-api";
 
 const initialState = {
     agentList: [],
+    agentById: {},
     agentListFilter: [],
     searchValue: "",
     isLoading: true
@@ -153,10 +154,10 @@ const adminViewAgentSlice = createSlice({
       state.isLoading = false;
     })
     .addCase(agentByIdAsync.pending, state => {
-      // state.initialLoading = true;
+        state.isLoading = true;
     })
     .addCase(agentByIdAsync.fulfilled, (state, action) => {
-        state.agentList = action.payload;
+        state.agentById = action.payload;
         state.isLoading = false;
     })
     .addCase(agentByIdAsync.rejected, (state, action) => {
