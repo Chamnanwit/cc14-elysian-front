@@ -105,6 +105,7 @@ const pricingPlanSlice = createSlice({
         }
         state.isLoading = false;
       })
+
       .addCase(pricingPlanAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
