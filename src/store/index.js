@@ -6,6 +6,7 @@ import adminViewAgentReducer from "../features/agencyInformation/slice/adminview
 import adminInformationReducer from "../features/adminInformation/slice/admin-slice";
 import authReducer from "../features/auth/slice/authSlice";
 import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
+import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     userProperties: userPropertiesReducer, //ดึงทั้งหน้าของ slice
     adminViewAgent: adminViewAgentReducer,
     auth: authReducer,
-    dashboard: dashboardReducer
+    dashboard: dashboardReducer,
+    profileAgncy: profileAgncyReducer,
   },
 });
 

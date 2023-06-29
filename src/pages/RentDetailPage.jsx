@@ -69,7 +69,7 @@ export default function RentDetailPage() {
                 </div> */}
                 <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
                   <p>ประเภทห้อง</p>
-                  <p>สตูดิโอ</p>
+                  <p>{el.RoomType?.name}</p>
                 </div>
                 <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
                   <p>ชั้น</p>
@@ -115,7 +115,7 @@ export default function RentDetailPage() {
                     {el?.name}
                   </div>
                   <div className=" text-c-blue1 text-xl py-5">
-                    ราคาเช่า ฿{el?.price} /{" "}
+                    ราคาเช่า ฿{el?.price?.toLocaleString()} /
                     {el.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
                   </div>
                   <div className=" text-sm text-c-gray2">
@@ -147,135 +147,27 @@ export default function RentDetailPage() {
                 />
               </div>
 
-              <div
-                id="accordion-flush"
-                data-accordion="collapse"
-                data-active-classes="bg-c-white1 dark:bg-gray-900 text-gray-900 dark:text-white"
-                data-inactive-classes="text-gray-500 dark:text-gray-400"
-              >
-                <h2 id="accordion-flush-heading-1">
-                  <button
-                    type="button"
-                    class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                    data-accordion-target="#accordion-flush-body-1"
-                    aria-expanded="true"
-                    aria-controls="accordion-flush-body-1"
-                  >
-                    <span>รายละเอียด</span>
-                    <svg
-                      data-accordion-icon
-                      class="w-6 h-6 rotate-180 shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </h2>
-                <div
-                  id="accordion-flush-body-1"
-                  class="hidden"
-                  aria-labelledby="accordion-flush-heading-1"
-                >
-                  <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                    <p class="mb-2 text-gray-500 dark:text-gray-400">
-                      ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์
-                      มีโปร วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัล ในน้ำมีปลา
-                      ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร
-                      วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัลในน้ำมีปลา ในนามีข้าว
-                      มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร วันเสาร์
-                      วันศุกร์พบเด็ก มีๆรเจอกัล
-                    </p>
+              <div className="join join-vertical w-full rounded-none mb-10 h-fit">
+                <div className="collapse collapse-arrow join-item border-b border-base-300">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-lg font-medium text-c-gray3">
+                    รายละเอียด
+                  </div>
+                  <div className="collapse-content">
+                    <p className=" text-c-gray2">{el.description}</p>
                   </div>
                 </div>
-                <h2 id="accordion-flush-heading-2">
-                  <button
-                    type="button"
-                    class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                    data-accordion-target="#accordion-flush-body-2"
-                    aria-expanded="false"
-                    aria-controls="accordion-flush-body-2"
-                  >
-                    <span>ข้อมูลโครงการ</span>
-                    <svg
-                      data-accordion-icon
-                      class="w-6 h-6 shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </h2>
-                <div
-                  id="accordion-flush-body-2"
-                  class="hidden"
-                  aria-labelledby="accordion-flush-heading-2"
-                >
-                  <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                    <p class="mb-2 text-gray-500 dark:text-gray-400">
-                      ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์
-                      มีโปร วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัล ในน้ำมีปลา
-                      ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร
-                      วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัลในน้ำมีปลา ในนามีข้าว
-                      มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร วันเสาร์
-                      วันศุกร์พบเด็ก มีๆรเจอกัล
-                    </p>
+                <div className="collapse collapse-arrow join-item border-b border-base-300">
+                  <input type="radio" name="my-accordion-4" />
+                  <div className="collapse-title text-lg font-medium text-c-gray3">
+                    สิ่งอำนวยความสะดวก
                   </div>
-                </div>
-                <h2 id="accordion-flush-heading-3">
-                  <button
-                    type="button"
-                    class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                    data-accordion-target="#accordion-flush-body-3"
-                    aria-expanded="false"
-                    aria-controls="accordion-flush-body-3"
-                  >
-                    <span>สิ่งอำนวยความสะดวก</span>
-                    <svg
-                      data-accordion-icon
-                      class="w-6 h-6 shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </h2>
-                <div
-                  id="accordion-flush-body-3"
-                  class="hidden"
-                  aria-labelledby="accordion-flush-heading-3"
-                >
-                  <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                    <p class="mb-2 text-gray-500 dark:text-gray-400">
-                      ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์
-                      มีโปร วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัล ในน้ำมีปลา
-                      ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร
-                      วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัลในน้ำมีปลา ในนามีข้าว
-                      มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร วันเสาร์
-                      วันศุกร์พบเด็ก มีๆรเจอกัล Learn more about these
-                      technologies:
-                    </p>
-                    <ul class="pl-5 text-gray-500 list-disc dark:text-gray-400">
-                      <li>co working space</li>
-                      <li>fitness</li>
-                    </ul>
+                  <div className="collapse-content">
+                    {el?.Optionals?.map((el) => (
+                      <li className=" text-c-gray2">
+                        {el?.OptionalType?.name}
+                      </li>
+                    ))}
                   </div>
                 </div>
               </div>
