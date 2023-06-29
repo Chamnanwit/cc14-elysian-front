@@ -4,7 +4,7 @@ import InputErrorMessage from "../components/InputErrorMessage";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import React, { useState } from "react";
-import OtpInput from "react-otp-input";
+// import OtpInput from "react-otp-input";
 
 export default function PhoneNumberPage() {
   const [otp, setOtp] = useState("");
@@ -40,7 +40,7 @@ export default function PhoneNumberPage() {
                   OTP REF: refe
                 </h3>
                 <div className="flex flex-col justify-center gap-5 items-center ">
-                  <OtpInput
+                  {/* <OtpInput
                     value={otp}
                     onChange={setOtp}
                     numInputs={6}
@@ -51,7 +51,7 @@ export default function PhoneNumberPage() {
                     renderSeparator={<span> </span>}
                     inputType={"text"}
                     renderInput={(props) => <input {...props} />}
-                  />
+                  /> */}
 
                   <InputErrorMessage message="testest" />
 
