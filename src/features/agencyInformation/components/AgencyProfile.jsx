@@ -8,14 +8,13 @@ import AgencyProfileForm from "./AgencyProfileForm";
 import { useNavigate } from "react-router-dom";
 
 export default function AgencyProfile({el}) {
-  console.log("dsfsdgdgdfg", el)
   const [isEditMode, setIsEditMode] = useState(false);
   const navigate = useNavigate()
   return (
     <>
       <HeaderAdmin topic="Agent details" />
       <div className='flex flex-col gap-6 m-8 mt-0'>
-            <div className="flex gap-2 items-center bg-blue-600 px-4 py-2 cursor-pointer text-white rounded-md w-fit" onClick={() => navigate(-1)}>
+            <div className="flex gap-2 items-center bg-blue-600 px-4 py-2 cursor-pointer text-white rounded-md w-fit" onClick={() => navigate("/admin/agent-list")}>
                 <FaChevronLeft />
                 <div>Agent list</div>
             </div>
@@ -27,18 +26,16 @@ export default function AgencyProfile({el}) {
             </div>
             <div className="flex gap-4">
                 <div className="w-3/5 bg-white rounded-lg p-6 relative mt-6">
-                    {!isEditMode? 
-                    <div className="absolute bg-blue-600 rounded-full w-[70px] h-[70px] -mt-8 ml-8 overflow-hidden">
-                        <img className="object-cover h-full" src={el?.profileImage} alt="" />
-                    </div> : <></>}
-                    <div className="flex justify-between text-lg gap-3">
-                      {!isEditMode? <div></div> : ""}
-                        <div className="flex gap-2">
-                            <div className="text-gray-600 font-medium">เข้าร่วม</div>
-                            <div className="text-gray-600">{el?.createdAt.slice(0,10)}</div>
+                    <div className="flex flex-col gap-4 items-center">
+                        <div className="bg-blue-600 rounded-full w-[70px] h-[70px] overflow-hidden">
+                            <img className="object-cover h-full" src={el?.profileImage} alt="" />
                         </div>
-                        {!isEditMode? <div className="text-gray-600 font-semibold text-md hover:underline cursor-pointer" onClick={()=>setIsEditMode(true)}>แก้ไข</div> :
-                            <div className="text-gray-600 font-semibold text-md hover:underline cursor-pointer" onClick={()=>setIsEditMode(false)}>Cancel</div>}
+                        <div className="flex justify-between text-lg gap-3">
+                            <div className="flex gap-2">
+                                <div className="text-gray-600 font-medium">เข้าร่วม</div>
+                                <div className="text-gray-600">{el?.createdAt?.slice(0,10)}</div>
+                            </div>
+                        </div>
                     </div>
                     {!isEditMode? <table className="border w-full border-collapse mt-6">
                         <tr>

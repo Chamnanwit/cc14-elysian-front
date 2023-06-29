@@ -4,10 +4,12 @@ import { HiEye } from "react-icons/hi";
 import AgencyProfile from "./AgencyProfile";
 import { agentAsync, deleteagentAsync, updateAgentAsync } from "../slice/adminviewagency-slice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function AgentItem({ el }) {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [isViewMode, setIsViewMode] = useState(false);
   const [locked, setStatus] = useState(el.locked);
 
@@ -52,7 +54,7 @@ export default function AgentItem({ el }) {
             className="bg-blue-700 p-[7px] rounded-md cursor-pointer flex items-center"
             onClick={(e) => {
               e.stopPropagation();
-              setIsViewMode(true);
+              navigate(`/admin/agencybyid/${el.id}`);
             }}
           >
             <HiEye fill="#ffffff" />
@@ -60,17 +62,6 @@ export default function AgentItem({ el }) {
           <div className="bg-red-700 p-[5px] rounded-md cursor-pointer" onClick={handleClickDeleteBox}>
             <TrashIcon />
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td colSpan={5}>
-          {isViewMode ? (
-            <>
-              <AgencyProfile el={el} />
-            </>
-          ) : (
-            <></>
-          )}
         </td>
       </tr>
     </>

@@ -21,7 +21,18 @@ export const agentAsync = createAsyncThunk(
     }
 );
 
-
+export const agentByIdAsync = createAsyncThunk(
+  "agent/agentByIdAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await agentService.getAgentById(id);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 
 export const deleteagentAsync = createAsyncThunk(
   "agent/deleteagentAsync",
@@ -140,7 +151,18 @@ const adminViewAgentSlice = createSlice({
     .addCase(searchAgentAsync.rejected, (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
-    }),
+    })
+    .addCase(agentByIdAsync.pending, state => {
+      // state.initialLoading = true;
+    })
+    .addCase(agentByIdAsync.fulfilled, (state, action) => {
+        state.agentList = action.payload;
+        state.isLoading = false;
+    })
+    .addCase(agentByIdAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+    })
 });
 
 export default adminViewAgentSlice.reducer;
