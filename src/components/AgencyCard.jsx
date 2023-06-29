@@ -22,7 +22,7 @@ export default function AgencyCard({
         className=" rounded-full w-20 h-20"
       />
       <div className="flex gap-1 text-c-gray3  w-full text-xs justify-center">
-        <div>ชื่อ</div>
+        {/* <div>ชื่อ</div> */}
         <div>
           {agencyfirstname} {agencylastname}
         </div>
@@ -30,11 +30,11 @@ export default function AgencyCard({
       <div className="flex flex-col items-center text-c-gray2 gap-2">
         <div className=" flex gap-2 items-center">
           <BsTelephoneFill className="text-sm" />
-          <p className="text-xs">028988776</p>
+          <p className="text-xs">{agencyphone}</p>
         </div>
         <div className=" flex gap-2 items-center">
           <MdEmail className="text-sm" />
-          <p className="text-xs">abcaskjdho@gmail.com</p>
+          <p className="text-xs">{agencyemail}</p>
         </div>
       </div>
 
@@ -51,14 +51,6 @@ export default function AgencyCard({
             <div>ยังไม่ได้ยืนยันตัวตน</div>
           </div>
         )}
-        {/* <div className=" flex gap-1 items-center text-c-green2">
-          <BsCheckCircleFill />
-          <div>ยืนยันตัวตนแล้ว</div>
-        </div>
-        <div className=" flex gap-1 items-center text-c-red1">
-          <BsFillXCircleFill />
-          <div>ยังไม่ได้ยืนยันตัวตน</div>
-        </div> */}
       </div>
     </div>
   );

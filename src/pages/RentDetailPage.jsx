@@ -69,7 +69,7 @@ export default function RentDetailPage() {
                 </div> */}
                 <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
                   <p>ประเภทห้อง</p>
-                  <p>สตูดิโอ</p>
+                  <p>{el.RoomType?.name}</p>
                 </div>
                 <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
                   <p>ชั้น</p>
@@ -115,7 +115,7 @@ export default function RentDetailPage() {
                     {el?.name}
                   </div>
                   <div className=" text-c-blue1 text-xl py-5">
-                    ราคาเช่า ฿{el?.price} /{" "}
+                    ราคาเช่า ฿{el?.price?.toLocaleString()} /
                     {el.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
                   </div>
                   <div className=" text-sm text-c-gray2">
@@ -163,16 +163,11 @@ export default function RentDetailPage() {
                     สิ่งอำนวยความสะดวก
                   </div>
                   <div className="collapse-content">
-                    <p className=" text-c-gray2">
-                      {" "}
-                      ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์
-                      มีโปร วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัล ในน้ำมีปลา
-                      ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร
-                      วันเสาร์ วันศุกร์พบเด็ก มีๆรเจอกัลในน้ำมีปลา ในนามีข้าว
-                      มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร วันเสาร์
-                      วันศุกร์พบเด็ก มีๆรเจอกัล Learn more about these
-                      technologies:
-                    </p>
+                    {el?.Optionals?.map((el) => (
+                      <li className=" text-c-gray2">
+                        {el?.OptionalType?.name}
+                      </li>
+                    ))}
                   </div>
                 </div>
               </div>
