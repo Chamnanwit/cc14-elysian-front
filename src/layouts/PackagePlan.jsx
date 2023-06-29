@@ -1,8 +1,18 @@
 import React from "react";
 import PromotionCard from "../components/PromotionCard";
 import ListCheckGreenTrue from "../components/ListCheckGreenTrue";
+import * as agencyService from "../api/agency-api"
+import { useNavigate, redirect } from "react-router-dom";
 
 export default function PackagePlan() {
+  // const navigate = useNavigate();
+  const hdlClickBuyPackage = async (id) => {
+    const res = await agencyService.paymentPackage({id})
+    console.log("-----------", res.data.url)
+    window.location.replace(res.data.url)
+    console.log(res)
+  }
+
   return (
     <div>
       <div className=" w-full justify-center flex flex-col items-center">
@@ -19,25 +29,21 @@ export default function PackagePlan() {
         </div>
       </div>
       <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
-        <PromotionCard price="฿0/เดือน" packname="ฟรี">
+        <PromotionCard price="฿0/เดือน" packname="ฟรี" onClick={hdlClickBuyPackage} >
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
         </PromotionCard>
-        <a href="https://buy.stripe.com/test_9AQ7uU0pm1mo9FK002">
-        <PromotionCard price="฿1,799/เดือน" packname="พื้นฐาน">
+        <PromotionCard price="฿1,799/เดือน" packname="พื้นฐาน" onClick={hdlClickBuyPackage} id={"price_1NMPY9Kiz6RxD96BaRuyuEhS"}>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
         </PromotionCard>
-        </a>
-        <a href="https://buy.stripe.com/test_9AQ9D22xu3uw05afYZ">
-        <PromotionCard price="฿3,599/เดือน" packname="ธุรกิจ">
+        <PromotionCard price="฿3,599/เดือน" packname="ธุรกิจ" onClick={hdlClickBuyPackage} id={"price_1NMPaoKiz6RxD96B583Xd2PI"}>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
           <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
         </PromotionCard>
-        </a>
       </div>
       <div className=" w-full flex flex-col items-center p-5">
         <p className=" text-lg font-semibold">แพ็คเกจ</p>
