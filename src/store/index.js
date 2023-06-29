@@ -7,6 +7,7 @@ import adminInformationReducer from "../features/adminInformation/slice/admin-sl
 import authReducer from "../features/auth/slice/authSlice";
 import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
 import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
+import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     auth: authReducer,
     dashboard: dashboardReducer,
     profileAgncy: profileAgncyReducer,
+    agencyOtp: agencyOtpReducer,
   },
 });
 
