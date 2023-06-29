@@ -39,7 +39,7 @@ export default function AgencyContainer() {
 
   return (
     <>
-      <HeaderAdmin topic="Agent List" />
+      <HeaderAdmin topic="รายชื่อผู้ปล่อยเช่า" />
       <div className="bg-white rounded-md m-8 px-8 pt-6 pb-8 mt-0">
         <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>ค้นหา:</div>
