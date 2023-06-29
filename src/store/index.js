@@ -5,6 +5,7 @@ import userPropertiesReducer from "../features/userProperties/slice/userProperti
 import adminViewAgentReducer from "../features/agencyInformation/slice/adminviewagency-slice";
 import adminInformationReducer from "../features/adminInformation/slice/admin-slice";
 import authReducer from "../features/auth/slice/authSlice";
+import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     userProperties: userPropertiesReducer, //ดึงทั้งหน้าของ slice
     adminViewAgent: adminViewAgentReducer,
     auth: authReducer,
+    profileAgncy: profileAgncyReducer,
   },
 });
 

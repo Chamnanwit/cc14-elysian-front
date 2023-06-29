@@ -2,23 +2,22 @@ import Joi from "joi";
 
 const registerSchema = Joi.object({
   firstName: Joi.string().trim().required().messages({
-    "string.empty": "First name is required.",
+    "string.empty": "กรุณากรอกชื่อ",
   }),
   lastName: Joi.string().trim().required().messages({
-    "string.empty": "Last name is required.",
+    "string.empty": "กรุณากรอกนามสกุล",
   }),
   phoneNumber: Joi.string()
     .pattern(new RegExp("^[0-9]{10}$"))
     .required()
     .messages({
-      "string.empty": "Your phone namber is required",
+      "string.empty": "กรุณากรอกหมายเลขโทรศัพท์",
       "string.pattern.base":
-        "Phone namber must be at least 10 characters and contain only number",
+        "หมายเลขโทรศัพท์จะต้องเป้นหมายเลขและมีจำนวน 10 หลัก",
     }),
   taxId: Joi.string().pattern(new RegExp("^[0-9]{13}$")).required().messages({
-    "string.empty": "TaxId is required",
-    "string.pattern.base":
-      "Password must be at least 13 characters and contain only number.",
+    "string.empty": "กรุณากรอกเลขบัตรประชาชน",
+    "string.pattern.base": "หมายเลขบัตรประชาชนจะเป็นตัวเลขและมีจำนวน 13 หลัก.",
   }),
 });
 const validateRegister = (input) => {

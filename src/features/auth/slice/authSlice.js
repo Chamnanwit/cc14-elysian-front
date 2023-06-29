@@ -21,7 +21,7 @@ export const registerAsync = createAsyncThunk(
       const res = await authService.register(input);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await authService.fetchMe();
-      console.log("***********>", resFetchMe);
+      console.log("resFetceMe", resFetchMe.data.user);
       return resFetchMe.data.user;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
