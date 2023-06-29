@@ -11,18 +11,14 @@ export default function MyProfileContainer() {
     dispatch(profileAgncyAsync());
   }, []);
 
-  const userArr = useSelector(
-    (state) => state?.profileAgncyAsync?.profileAgncy
-  );
+  const userObjects = useSelector((state) => state?.profileAgncy?.profileAgncy);
 
-  console.log("------------->", userArr);
+  // console.log("------------->", userObjects);
   return (
     <>
       <HeaderAgent topic="My profile" />
       <div className="flex flex-col gap-6  mt-0">
-        {/* {userArr.map((el) => (
-          <MyProfileForm key={el.id} oldProfile={el} />
-        ))} */}
+        <MyProfileForm key={userObjects.id} oldProfile={userObjects} />
       </div>
     </>
   );
