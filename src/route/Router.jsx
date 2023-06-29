@@ -18,9 +18,6 @@ import PhoneNumberPage from "../pages/PhoneNumberPage";
 import RentDetailPage from "../pages/RentDetailPage";
 
 import GooglemapApi from "../pages/GooglemapPage";
-<<<<<<< HEAD
-import UserProfile from "../pages/UserProfile";
-=======
 
 import AdminDashboardPage from "../pages/AdminDashboardPage";
 import AdminAnimityPage from "../pages/AdminAnimityPage";
@@ -28,7 +25,6 @@ import AdminPricingPlanPage from "../pages/AdminPricingPlanPage";
 import AdminListPage from "../pages/AdminListPage";
 import AdminPurchasePage from "../pages/AdminPurchasePage";
 import AdminViewAgentPage from "../pages/AdminViewAgentPage";
->>>>>>> bc25f73abcfe184a8419c93e19598c558a2eb27f
 // import UserProfile from "../pages/UserProfile";
 import UserProfile from "../pages/UserProfile";
 import AdminViewAgentDashboard from "../pages/AdminViewAgentDashboard";
@@ -77,8 +73,8 @@ export default function Router() {
       element: <AdminViewAgentPage />,
     },
     {
-      path: '/admin/agencybyid/:id',
-      element: <AdminViewAgentDashboard />
+      path: "/admin/agencybyid/:id",
+      element: <AdminViewAgentDashboard />,
     },
     {
       path: "/admin/purchase-history",
