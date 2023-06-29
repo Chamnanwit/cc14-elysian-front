@@ -14,9 +14,10 @@ import Loading from "../../../components/Loading";
 
 export default function PackageContainer() {
   const [isAddMode, setIsAddMode] = useState(false);
-  // const [searchValue, setSearchValue] = useState("")
+
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
+  const isLoading = useSelector((state) => state?.pricingPlan?.isLoading);
 
     useEffect(() => {
         dispatch(pricingPlanAsync());
@@ -60,6 +61,9 @@ export default function PackageContainer() {
     { id: 2, type: false, thaiType: "ปิดใช้งาน" },
   ];
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
         <>
             <HeaderAdmin topic="แพ็คเกจ"/>

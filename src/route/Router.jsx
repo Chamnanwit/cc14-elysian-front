@@ -75,8 +75,8 @@ export default function Router() {
       element: <AdminViewAgentPage />,
     },
     {
-      path: '/admin/agencybyid/:id',
-      element: <AdminViewAgentDashboard />
+      path: "/admin/agencybyid/:id",
+      element: <AdminViewAgentDashboard />,
     },
     {
       path: "/admin/purchase-history",

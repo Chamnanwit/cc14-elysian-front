@@ -6,11 +6,13 @@ import AgencyProfile from "./AgencyProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { agentAsync, searchAgentAsync, setSearchValueRedux } from "../slice/adminviewagency-slice";
 import { useEffect } from "react";
+import Loading from "../../../components/Loading";
 
 export default function AgencyContainer() {
   
   const dispatch = useDispatch()
   const searchValue = useSelector((state) => state?.adminViewAgent?.searchValue);
+  const isLoading = useSelector((state) => state?.adminViewAgent?.isLoading);
   useEffect(() => {
     dispatch(agentAsync());
   }, []);
@@ -31,9 +33,13 @@ export default function AgencyContainer() {
   };
   const agentArr = useSelector((state) => state?.adminViewAgent?.agentListFilter);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
-      <HeaderAdmin topic="Agent List" />
+      <HeaderAdmin topic="รายชื่อผู้ปล่อยเช่า" />
       <div className="bg-white rounded-md m-8 px-8 pt-6 pb-8 mt-0">
         <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>ค้นหา:</div>

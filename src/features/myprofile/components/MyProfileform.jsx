@@ -2,14 +2,19 @@ import { useState } from "react";
 import Modal from "../../../components/Modal";
 import InputForm from "../../../components/InputForm";
 import InputErrorMessage from "../../../components/InputErrorMessage";
-import { profileAgncyAsync } from "../slice/myProfile-slice";
+import {
+  profileAgncyAsync,
+  updateprofileAgncyAsync,
+} from "../slice/myProfile-slice";
 import { useDispatch, useSelector } from "react-redux";
+import validateMyProfile from "../validators/myprofileValidate";
+import ButtonYellowM from "../../../components/ButtonYellowM";
 
 export default function MyProfileForm({ oldProfile }) {
   const initialInput = {
-    firstName: oldProfile?.firstName || "",
-    lastName: oldProfile?.lastName || "",
-    profileimg: oldProfile?.profileimg || "",
+    firstName: oldProfile?.user?.firstName || "",
+    lastName: oldProfile?.user?.lastName || "",
+    profileimg: oldProfile?.user?.profileImage || "",
   };
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -21,15 +26,16 @@ export default function MyProfileForm({ oldProfile }) {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  //   const hdlSubmit = async e => {
-  //     try {
-  //       e.preventDefault();
-  //       // const result = await
-  // if ()
-  //     } catch (err) {
-
-  //     }
-  //   }
+  const hdlSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      // const result = await
+      await dispatch(updateprofileAgncyAsync(input)).unwrap();
+    } catch (err) {
+      console.log("Error in register", err);
+    }
+  };
+  // console.log("inProfile form", oldProfile);
 
   return (
     <>
@@ -48,8 +54,8 @@ export default function MyProfileForm({ oldProfile }) {
             <div className="md:w-1/2 mt-4 md:mt-0">
               <div className="mt-[30px]">
                 <h3 className="text-xl m-0 font-semibold">
-                  {oldProfile.firstName}
-                  {oldProfile.lastName}
+                  {oldProfile?.user?.firstName}
+                  {oldProfile?.user?.lastName}
                 </h3>
                 <p>Real Estate Broker</p>
               </div>
@@ -60,7 +66,7 @@ export default function MyProfileForm({ oldProfile }) {
                     alt="phone"
                     className="mr-2"
                   />
-                  {oldProfile.phonenumber}
+                  {oldProfile?.user?.phoneNumber}
                 </li>
                 <li className="flex items-center">
                   <img
@@ -68,7 +74,7 @@ export default function MyProfileForm({ oldProfile }) {
                     alt="email"
                     className="mr-2"
                   />
-                  <a href="#">{oldProfile.email}</a>
+                  <a href="#">{oldProfile?.user?.email}</a>
                 </li>
                 <li className="flex items-center">
                   <img
@@ -126,104 +132,111 @@ export default function MyProfileForm({ oldProfile }) {
       </div>
       {isEditMode ? (
         <>
-          <Modal
-            title="Edit profile"
-            width="50"
-            open={isEditMode}
-            onClose={() => setIsEditMode(false)}
-          >
-            <table className="border w-full border-collapse">
-              <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">ชื่อ</td>
-                <td className="w-1/2 p-3 border-b">
-                  <InputForm
-                    name="firstName"
-                    value={input.firstName}
-                    onChange={handleChangeInput}
-                    isInvalid={error.firstName}
-                  />
-                  {error.name && <InputErrorMessage message={error.name} />}
-                </td>
-              </tr>
-              <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">นามสกุล</td>
-                <td className="w-1/2 p-3 border-b">
-                  <InputForm
-                    name="lastName"
-                    value={input.lastName}
-                    onChange={handleChangeInput}
-                    isInvalid={error.lastName}
-                  />
-                  {error.lastName && <InputErrorMessage message={error.name} />}
-                </td>
-              </tr>
-              <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">
-                  เบอร์โทรศัพท์
-                </td>
-                <td className="w-1/2 p-3 border-b">
-                  <InputForm
-                    name="phonenumber"
-                    value={oldProfile.phonenumber}
-                    isInvalid={error.phonenumber}
-                    disabled={true}
-                  />
-                  {error.phonenumber && (
-                    <InputErrorMessage message={error.phonenumber} />
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">อีเมล</td>
-                <td className="w-1/2 p-3 border-b">
-                  <InputForm
-                    name="email"
-                    value={oldProfile.email}
-                    isInvalid={error.email}
-                    disabled={true}
-                  />
-                  {error.email && <InputErrorMessage message={error.email} />}
-                </td>
-              </tr>
-              <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">
-                  รูปโปรไฟล์
-                </td>
-                <td className="w-1/2 p-3 border-b">
-                  <label
-                    for="dropzone-file"
-                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  >
-                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                      <svg
-                        aria-hidden="true"
-                        class="w-10 h-10 mb-3 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                        ></path>
-                      </svg>
-                      <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span class="font-semibold">Click to upload</span> or
-                        drag and drop
-                      </p>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                      </p>
-                    </div>
-                    <input id="dropzone-file" type="file" class="hidden" />
-                  </label>
-                </td>
-              </tr>
-            </table>
-          </Modal>
+          <form onClick={hdlSubmit}>
+            <Modal
+              title="Edit profile"
+              width="50"
+              open={isEditMode}
+              onClose={() => setIsEditMode(false)}
+            >
+              <table className="border w-full border-collapse">
+                <tr>
+                  <td className="w-1/2 px-3 py-2 border-b border-r">ชื่อ</td>
+                  <td className="w-1/2 p-3 border-b">
+                    <InputForm
+                      name="firstName"
+                      value={input.firstName}
+                      onChange={handleChangeInput}
+                      isInvalid={error.firstName}
+                    />
+                    {error.firstName && (
+                      <InputErrorMessage message={error.name} />
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="w-1/2 px-3 py-2 border-b border-r">นามสกุล</td>
+                  <td className="w-1/2 p-3 border-b">
+                    <InputForm
+                      name="lastName"
+                      value={input.lastName}
+                      onChange={handleChangeInput}
+                      isInvalid={error.lastName}
+                    />
+                    {error.lastName && (
+                      <InputErrorMessage message={error.name} />
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="w-1/2 px-3 py-2 border-b border-r">
+                    เบอร์โทรศัพท์
+                  </td>
+                  <td className="w-1/2 p-3 border-b">
+                    <InputForm
+                      name="phonenumber"
+                      value={oldProfile?.user?.phoneNumber}
+                      isInvalid={error.phonenumber}
+                      disabled={true}
+                    />
+                    {error.phonenumber && (
+                      <InputErrorMessage message={error.phonenumber} />
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="w-1/2 px-3 py-2 border-b border-r">อีเมล</td>
+                  <td className="w-1/2 p-3 border-b">
+                    <InputForm
+                      name="email"
+                      value={oldProfile?.user?.email}
+                      isInvalid={error.email}
+                      disabled={true}
+                    />
+                    {error.email && <InputErrorMessage message={error.email} />}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="w-1/2 px-3 py-2 border-b border-r">
+                    รูปโปรไฟล์
+                  </td>
+                  <td className="w-1/2 p-3 border-b">
+                    <label
+                      for="dropzone-file"
+                      class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                    >
+                      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg
+                          aria-hidden="true"
+                          class="w-10 h-10 mb-3 text-gray-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                          ></path>
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span class="font-semibold">Click to upload</span> or
+                          drag and drop
+                        </p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </div>
+                      <input id="dropzone-file" type="file" class="hidden" />
+                    </label>
+                  </td>
+                </tr>
+                <ButtonYellowM type="submit">ยืนยัน</ButtonYellowM>
+              </table>
+            </Modal>
+          </form>
         </>
       ) : (
         <></>

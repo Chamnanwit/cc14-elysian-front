@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as profileAgncyService from "../../../api/auth-api";
+import * as profileAgncyService from "../../../api/agency-api";
+import * as authService from "../../../api/auth-api";
 
 const initialState = {
   profileAgncy: [],
@@ -10,8 +11,8 @@ export const profileAgncyAsync = createAsyncThunk(
   "profileAgncy/profileAgncyAsync",
   async (_, thunkApi) => {
     try {
-      const res = await profileAgncyService.getme();
-      console.log(res.data);
+      const res = await authService.fetchMe();
+      console.log("from my profileSlice", res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -23,9 +24,10 @@ export const profileAgncyAsync = createAsyncThunk(
 export const updateprofileAgncyAsync = createAsyncThunk(
   "profileAgncy/updateprofileAgncyAsync",
   async (input, thunkApi) => {
+    console.log(input);
     try {
-      console.log("update---------->");
-      const res = await profileAgncyService.updateprofileagency(input);
+      const res = await authService.updateAgency(input);
+      console.log("update---------->", res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -47,6 +49,17 @@ const profileAgncySlice = createSlice({
         state.isLoading = false;
       })
       .addCase(profileAgncyAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(updateprofileAgncyAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(updateprofileAgncyAsync.fulfilled, (state, action) => {
+        state.profileAgncy = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(updateprofileAgncyAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       }),
