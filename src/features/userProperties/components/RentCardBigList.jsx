@@ -21,7 +21,7 @@ export default function RentCardBigList() {
 
   return (
     <>
-      {userPropertieslist.map((el) => (
+      {userPropertieslist?.map((el) => (
         <Link to={`/rentdetail/${el?.id}`}>
           <RentCardBig
             propName={el?.name}

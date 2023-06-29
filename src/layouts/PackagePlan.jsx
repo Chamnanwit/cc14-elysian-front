@@ -18,6 +18,13 @@ export default function PackagePlan() {
     (state) => state?.pricingPlan?.pricingPlan
   );
 
+  const pricingPlanMonthly = pricingPlanAll.filter(
+    (item) => item.expiration === "MONTHLY"
+  );
+  const pricingPlanWeekly = pricingPlanAll.filter(
+    (item) => item.expiration === "WEEKLY"
+  );
+
   const hdlClickMonth = () => {
     return setToggle(true);
   };
@@ -82,33 +89,43 @@ export default function PackagePlan() {
 
       {toggle ? (
         <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
-          {pricingPlanAll.map((el) => (
-            <PromotionCard
-              price={el.price}
-              time={el.expiration}
-              packname={el.name}
-            >
-              <ListCheckGreenTrue>
-                เพิ่มห้องเช่าได้สูงสุด 4 ห้อง
-              </ListCheckGreenTrue>
-              <ListCheckGreenTrue>
-                เพิ่มห้องเช่าได้สูงสุด 4 ห้อง
-              </ListCheckGreenTrue>
-            </PromotionCard>
-          ))}
+          {pricingPlanMonthly
+            .slice()
+            .sort((a, b) => (a?.price > b?.price ? 1 : -1))
+            .map((el) => (
+              <PromotionCard
+                price={el?.price}
+                time={el?.expiration === "MONTHLY" ? "เดือน" : "error"}
+                packname={el?.name}
+              >
+                <ListCheckGreenTrue>
+                  เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง
+                </ListCheckGreenTrue>
+                <ListCheckGreenTrue>
+                  เพิ่มการติดอันดับ ระดับ {el?.numberOfTop}
+                </ListCheckGreenTrue>
+              </PromotionCard>
+            ))}
         </div>
       ) : (
-        <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
-          {pricingPlanAll.map((el) => (
-            <PromotionCard price="12000" time="สัปดาห์" packname="ฟรี">
-              <ListCheckGreenTrue>
-                เพิ่มห้องเช่าได้สูงสุด 4 ห้อง
-              </ListCheckGreenTrue>
-              <ListCheckGreenTrue>
-                เพิ่มห้องเช่าได้สูงสุด 4 ห้อง
-              </ListCheckGreenTrue>
-            </PromotionCard>
-          ))}
+        <div className="flex justify-center mt-5 gap-5 w-full h-fit p-5 text-c-gray3">
+          {pricingPlanWeekly
+            .slice()
+            .sort((a, b) => (a?.price > b?.price ? 1 : -1))
+            .map((el) => (
+              <PromotionCard
+                price={el?.price}
+                time={el?.expiration === "WEEKLY" ? "สัปดาห์" : "error"}
+                packname={el?.name}
+              >
+                <ListCheckGreenTrue>
+                  เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง
+                </ListCheckGreenTrue>
+                <ListCheckGreenTrue>
+                  เพิ่มการติดอันดับ ระดับ {el?.numberOfTop}
+                </ListCheckGreenTrue>
+              </PromotionCard>
+            ))}
         </div>
       )}
 
