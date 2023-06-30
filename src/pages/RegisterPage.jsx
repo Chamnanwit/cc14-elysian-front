@@ -10,31 +10,32 @@ import { registerAsync } from "../features/auth/slice/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const initialInput = {
-  firstName: "",
-  lastName: "",
-  phoneNumber: "",
-  password: "",
-  taxId: "",
-  email: "",
-  profileImage: "",
-  confirmPassword: "",
-  locked: "",
-};
+
 
 export default function RegisterPage() {
   const { user, isAuthenticated } = useAuth0();
+  const initialInput = {
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    // password: "123456",
+    taxId: "",
+    email: "",
+    // profileImage: "",
+    // confirmPassword: "123456",
+  };
   const [error, setError] = useState({});
   const [input, setInput] = useState(initialInput);
   const navigate = useNavigate(); // ใช้เพื่อ forward ไป หน้าที่ต้องการ
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     setInput((prevInput) => ({
       ...prevInput,
-      email: user.email || "",
+      email: user?.email || "",
     }));
-  }, [user.email]);
+  }, [user?.email]);
 
   const hdlChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -43,12 +44,16 @@ export default function RegisterPage() {
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
+      // console.log(input)
+      // console.log(error)
       const result = validateRegistration(input);
       if (result) {
+        console.log('error',result)
         return setError(result);
       }
       setError({});
-      await dispatch(registerAsync(input)).unwrap();
+      console.log(error)
+      await dispatch(registerAsync({...input, locked: true})).unwrap();
       navigate("/");
     } catch (err) {
       console.log("Error in register", err);
