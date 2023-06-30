@@ -1,12 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
-import * as agencyService from "../api/agency-api";
+// import * as agencyService from "../../../api/agency-api";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createPaymentAsync } from "../slice/payment-slice"
 
 export default function SuccessPaymentPage() {
+    const dispatch = useDispatch();
     const [search] = useSearchParams();
     const idSession = search.get("session_id");
-    console.log(idSession);
+
+    // console.log(idSession);
 
 //   const dataPayment = async () => {
 //     const res = await agencyService.createPaymentData();
@@ -15,10 +19,10 @@ export default function SuccessPaymentPage() {
 
   useEffect(() => {
     const listenSuccessSession = async () => {
-        const res = await agencyService.createPaymentData(idSession)
+        const res = await dispatch(createPaymentAsync(idSession)).unwrap();
         // console.log(res);
         // const res = await createPayment();
-        console.log(res);
+        // console.log(res);
     }
     listenSuccessSession()
   }, []);

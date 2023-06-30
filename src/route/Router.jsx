@@ -29,7 +29,7 @@ import AdminViewAgentPage from "../pages/AdminViewAgentPage";
 import UserProfile from "../pages/UserProfile";
 import AdminViewAgentDashboard from "../pages/AdminViewAgentDashboard";
 
-import SuccessPaymentPage from "../pages/SuccessPaymentPage";
+import SuccessPaymentPage from "../features/payment/component/SuccessPaymentPage";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();

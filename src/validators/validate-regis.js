@@ -19,6 +19,24 @@ const registerSchema = Joi.object({
     "string.empty": "กรุณากรอกเลขบัตรประชาชน",
     "string.pattern.base": "หมายเลขบัตรประชาชนจะเป็นตัวเลขและมีจำนวน 13 หลัก.",
   }),
+  email: Joi.string().email({ tlds: false }).messages({
+    "string.empty": "กรุณากรอกอีเมล",
+    'string.email': 'รูปแบบอีเมลไม่ถูกต้อง'
+ }),
+ locked: Joi.boolean(),
+ password: Joi.string()
+    .pattern(/^[a-zA-Z0-9]{6,30}$/)
+    .trim()
+    .required()
+    .messages({
+      'string.empty': 'กรุณากรอกรหัสผ่าน',
+      'string.pattern.base':
+        'รหัสผ่านต้องมีอย่างน้อย 6 ตัว แต่ไม่เกิน 30 ตัว และเป็นตัวเลขหรือตัวอักษรภาษาอังกฤษเท่านั้น'
+    }),
+    confirmPassword: Joi.string().valid(Joi.ref('password')).messages({
+        'any.only': 'รหัสผ่านไม่ตรงกัน',
+        'string.empty': 'กรุณากรอกยืนยันรหัสผ่าน',
+    })
 });
 const validateRegister = (input) => {
   const { error } = registerSchema.validate(input, { abortEarly: false });

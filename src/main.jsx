@@ -15,10 +15,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       redirect_uri: "http://localhost:5173/user",
     }}
   >
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <Provider store={store}>
         <App />
       </Provider>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </Auth0Provider>
 );

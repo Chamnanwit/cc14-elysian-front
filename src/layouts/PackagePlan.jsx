@@ -1,23 +1,23 @@
 import React from "react";
 import PromotionCard from "../components/PromotionCard";
 import ListCheckGreenTrue from "../components/ListCheckGreenTrue";
-import * as agencyService from "../api/agency-api"
+// import * as agencyService from "../api/agency-api"
+import { paymentPackageAsync } from "../features/payment/slice/payment-slice"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pricingPlanAsync } from "../features/packages/slice/pricingPlan-slice";
 import { useEffect } from "react";
 
 
-
 export default function PackagePlan() {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(true);
 
-  const hdlClickBuyPackage = async (id) => {
-    const res = await agencyService.paymentPackage({id})
-    console.log("-----------", res.data.url)
-    window.location.replace(res.data.url)
-    console.log(res)
+  const hdlClickBuyPackage = async (id, packageId) => {
+    const res = await dispatch(paymentPackageAsync({id, packageId})).unwrap();
+    // console.log("-----------", res.url)
+    window.location.replace(res.url)
+    // console.log("-----------res-----------------",res)
   }
 
   useEffect(() => {
@@ -107,6 +107,9 @@ export default function PackagePlan() {
                 price={el?.price}
                 time={el?.expiration === "MONTHLY" ? "เดือน" : "error"}
                 packname={el?.name}
+                onClick={hdlClickBuyPackage}
+                id={el?.priceCode}
+                packageId={el?.id}
               >
                 <ListCheckGreenTrue>
                   เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง
@@ -145,6 +148,9 @@ export default function PackagePlan() {
                 price={el?.price}
                 time={el?.expiration === "WEEKLY" ? "สัปดาห์" : "error"}
                 packname={el?.name}
+                onClick={hdlClickBuyPackage}
+                id={el?.priceCode}
+                packageId={el?.id}
               >
                 <ListCheckGreenTrue>
                   เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง

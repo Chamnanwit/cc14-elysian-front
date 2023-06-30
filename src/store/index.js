@@ -8,6 +8,7 @@ import authReducer from "../features/auth/slice/authSlice";
 import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
 import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
 import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
+import paymentReducer from "../features/payment/slice/payment-slice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     dashboard: dashboardReducer,
     profileAgncy: profileAgncyReducer,
     agencyOtp: agencyOtpReducer,
+    payment: paymentReducer,
   },
 });
 
