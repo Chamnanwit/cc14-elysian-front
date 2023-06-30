@@ -64,9 +64,9 @@ export default function RegisterPage() {
     <>
       <div className="w-full bg-c-white1 h-auto flex flex-col justify-between max-w-[1440px] m-auto">
         <Navbar />
-        <div className=" bg-[url('/src/assets/pic/cover1.jpg')]  h-fit w-full flex flex-col text-center items-center py-16 bg-cover">
+        <div className=" bg-[url('/src/assets/pic/cover1.jpg')]  h-fit w-full flex flex-col items-center py-16 bg-cover">
           <form
-            className=" w-[35%] h-fit flex flex-col text-center items-center gap-5 p-10 rounded-xl bg-c-white1 bg-opacity-50 backdrop-blur-sm"
+            className=" w-[35%] h-fit flex flex-col items-center gap-7 p-10 rounded-xl bg-c-white1 bg-opacity-50 backdrop-blur-sm"
             onSubmit={hdlSubmit}
           >
             <p className="text-lg font-semibold text-c-gray3">
@@ -74,6 +74,7 @@ export default function RegisterPage() {
             </p>
             {isAuthenticated && (
               <>
+              <div className="flex flex-col gap-[2px]">
                 <InputBar
                   value={input.firstName}
                   name="firstName"
@@ -87,6 +88,8 @@ export default function RegisterPage() {
                     <InputErrorMessage message={error.firstName} />
                   )}
                 </div>
+              </div>
+              <div className="flex flex-col gap-[2px]">
                 <InputBar
                   value={input.lastName}
                   name="lastName"
@@ -95,9 +98,13 @@ export default function RegisterPage() {
                 >
                   นามสกุล
                 </InputBar>
-                {error.lastName && (
-                  <InputErrorMessage message={error.lastName} />
-                )}
+                <div className='h-0 pl-5'>
+                  {error.lastName && (
+                    <InputErrorMessage message={error.lastName} />
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col gap-[2px]">
                 <InputBar
                   value={input.phoneNumber}
                   name="phoneNumber"
@@ -106,16 +113,23 @@ export default function RegisterPage() {
                 >
                   เบอร์โทรศัพท์
                 </InputBar>
-                {error.phoneNumber && (
-                  <InputErrorMessage message={error.phoneNumber} />
-                )}
+                <div className='h-0 pl-5'>
+                  {error.phoneNumber && (
+                    <InputErrorMessage message={error.phoneNumber} />
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col gap-[2px]">
                 <InputBar
                   type="text"
                   value={input.email}
                   name="email"
                   onChange={hdlChangeInput}
                   disabled={true}
-                ></InputBar>
+                >
+                </InputBar>
+              </div>
+                <div className="flex flex-col gap-[2px]">
                 <InputBar
                   value={input.taxId}
                   name="taxId"
@@ -124,7 +138,10 @@ export default function RegisterPage() {
                 >
                   เลขประจำตัวผู้เสียภาษี
                 </InputBar>
-                {error.taxId && <InputErrorMessage message={error.taxId} />}
+                <div className='h-0 pl-5'>
+                  {error.taxId && <InputErrorMessage message={error.taxId} />}
+                </div>
+                </div>
                 <input
                   className="hidden"
                   value={(input.password = "123456")}
