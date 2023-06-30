@@ -43,11 +43,11 @@ export default function RegisterPage() {
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-      // const result = validateRegistration(input);
-      // if (result) {
-      //   return setError(result);
-      // }
-      // setError({});
+      const result = validateRegistration(input);
+      if (result) {
+        return setError(result);
+      }
+      setError({});
       await dispatch(registerAsync(input)).unwrap();
       navigate("/");
     } catch (err) {

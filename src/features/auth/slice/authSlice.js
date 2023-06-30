@@ -147,6 +147,10 @@ const authSlice = createSlice({
       .addCase(fetchMe.rejected, (state, action) => {
         state.error = action.payload;
         state.initialLoading = false;
-      }),
+      })
+      .addCase(logout.fulfilled, state => {
+        state.isAuthenticated = false;
+        state.user = null;
+      })
 });
 export default authSlice.reducer;

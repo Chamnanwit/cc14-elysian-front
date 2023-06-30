@@ -4,7 +4,7 @@ import InputErrorMessage from "../components/InputErrorMessage";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import React, { useState } from "react";
-import { useEffect } from "react";
+
 import { Navigate, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import { useDispatch, useSelector } from "react-redux";
