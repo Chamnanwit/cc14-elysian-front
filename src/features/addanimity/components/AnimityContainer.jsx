@@ -26,7 +26,6 @@ export default function AnimityContainer() {
       }, 1000);
 
       return () => {
-          console.log('cleanup')
           clearTimeout(id)
       };
     }, [searchValueR])
@@ -38,18 +37,15 @@ export default function AnimityContainer() {
       }, 1000);
 
       return () => {
-          console.log('cleanup')
           clearTimeout(id)
       };
     }, [searchValueC])
 
   const handleChangeValueR = (e) => {
-      console.log(e.target.value)
       dispatch(setSearchValueRoom(e.target.value))
   };
   
   const handleChangeValueC = (e) => {
-      console.log(e.target.value)
       dispatch(setSearchValueCommon(e.target.value))
   };
 

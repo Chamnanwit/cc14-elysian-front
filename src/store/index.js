@@ -7,6 +7,7 @@ import adminInformationReducer from "../features/adminInformation/slice/admin-sl
 import authReducer from "../features/auth/slice/authSlice";
 import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
 import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
+import purchaseHistoryReducer from "../features/purchase-history/slice/purchase-slice";
 import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
 import paymentReducer from "../features/payment/slice/payment-slice";
 
@@ -20,8 +21,13 @@ const store = configureStore({
     auth: authReducer,
     dashboard: dashboardReducer,
     profileAgncy: profileAgncyReducer,
+<<<<<<< HEAD
     agencyOtp: agencyOtpReducer,
     payment: paymentReducer,
+=======
+    purchaseHistory: purchaseHistoryReducer,
+    requestOtpAsync: agencyOtpReducer,
+>>>>>>> ccb2bc9740524c5c269806ab07488121f3875b49
   },
 });
 

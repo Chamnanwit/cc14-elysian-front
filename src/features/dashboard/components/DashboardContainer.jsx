@@ -17,10 +17,11 @@ export default function DashboardContainer() {
     }, []);
 
     const dashboard = useSelector((state) => state?.dashboard?.dashboardResult);
-    console.log(dashboard)
+    
     if (isLoading) {
         return <Loading />;
     }
+
   return (
     <>
         <HeaderAdmin topic="Dashboard" />
@@ -28,49 +29,49 @@ export default function DashboardContainer() {
             <div className='flex flex-col gap-3'>
                 <div className='text-2xl font-medium'>วันนี้</div>
                 <div className=" grid grid-cols-3 gap-6 text-base">
-                    <DashboardItem bgColor="blue-600" title="จำนวนที่ขายได้" result={dashboard.dailyPurchaseResult[0].count}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
-                    <DashboardItem bgColor="blue-600" title="ยอดขายทั้งหมด" result={dashboard.dailyEarningResult[0].totaldailyEarningValue}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="จำนวนที่ขายได้" result={dashboard?.dailyPurchaseResult}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="ยอดขายทั้งหมด" result={dashboard?.dailyEarningResult}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
                     {/* <DashboardItem bgColor="blue" title="Pending Earning"><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem> */}
-                    <DashboardItem bgColor="blue-600" title="ลูกค้าใหม่" result={dashboard.dailyNewUserResult[0].count}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="ลูกค้าใหม่" result={dashboard?.dailyNewUserResult}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>
 
             <div className='flex flex-col gap-3'>
                 <div className='text-2xl font-medium'>เดือนนี้</div>
                 <div className=" grid grid-cols-3 gap-6 text-base">
-                    <DashboardItem bgColor="green-700" title="จำนวนที่ขายได้" result={dashboard.monthlyPurchaseResult[0].count}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
-                    <DashboardItem bgColor="green-700" title="ยอดขายทั้งหมด" result={dashboard.monthlyEarningResult[0].totalmonthlyEarningValue}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="green-600" title="จำนวนที่ขายได้" result={dashboard?.monthlyPurchaseResult}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="green-600" title="ยอดขายทั้งหมด" result={dashboard?.monthlyEarningResult}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
                     {/* <DashboardItem bgColor="green" title="Pending Earning"><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem> */}
-                    <DashboardItem bgColor="green-700" title="ลูกค้าใหม่" result={dashboard.monthlyNewUserResult[0].count}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="green-600" title="ลูกค้าใหม่" result={dashboard?.monthlyNewUserResult}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>
 
             <div className='flex flex-col gap-3'>
                 <div className='text-2xl font-medium'>ปีนี้</div>
                 <div className=" grid grid-cols-3 gap-6 text-base">
-                    <DashboardItem bgColor="blue-600" title="จำนวนที่ขายได้" result={dashboard.yearlyPurchaseResult[0].count}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
-                    <DashboardItem bgColor="blue-600" title="ยอดขายทั้งหมด" result={dashboard.yearlyEarningResult[0].totalyearlyEarningValue}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="จำนวนที่ขายได้" result={dashboard?.yearlyPurchaseResult}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="ยอดขายทั้งหมด" result={dashboard?.yearlyEarningResult}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
                     {/* <DashboardItem bgColor="blue" title="Pending Earning"><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem> */}
-                    <DashboardItem bgColor="blue-600" title="ลูกค้าใหม่" result={dashboard.yearlyNewUserResult[0].count}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="ลูกค้าใหม่" result={dashboard?.yearlyNewUserResult}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>
             <div className='flex flex-col gap-3'>
                 <div className='text-2xl font-medium'>ยอดรวมทั้งหมด</div>
                 <div className=" grid grid-cols-3 gap-6 text-base">
-                    <DashboardItem bgColor="green-700" title="จำนวนที่ขายได้" result={dashboard.totalPurchase[0].count}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
-                    <DashboardItem bgColor="green-700" title="ยอดขาย" result={dashboard.totalEarning[0].totalEarningValue}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="green-600" title="จำนวนที่ขายได้" result={dashboard?.totalPurchase}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="green-600" title="ยอดขาย" result={dashboard?.totalEarning}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
                     {/* <DashboardItem bgColor="green" title="Pending Earning"><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem> */}
-                    <DashboardItem bgColor="green-700" title="ลูกค้าใหม่" result={dashboard.totalNewUser[0].count}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="green-600" title="ลูกค้าใหม่" result={dashboard?.totalNewUser}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>
 
             <div className='flex flex-col gap-3'>
                 <div className='text-2xl font-medium'>ห้องเช่าทั้งหมด</div>
                 <div className='grid grid-cols-4 gap-6 text-base'>
-                    <DashboardItem bgColor="blue-600" title="ห้องเช่าทั้งหมด" result={dashboard.totalPropertyResult[0].count}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
-                    <DashboardItem bgColor="blue-600" title="ห้องเช่าที่เปิดอยู่" result={dashboard.activePropertyResult[0].count}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
-                    <DashboardItem bgColor="blue-600" title="ห้องเช่าที่ปิดอยู่" result={dashboard.inactivePropertyResult[0].count}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
-                    <DashboardItem bgColor="blue-600" title="จำนวนผู้ปล่อยเช่า" result={dashboard.agencyResult[0].count}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="ห้องเช่าทั้งหมด" result={dashboard?.totalPropertyResult}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="ห้องเช่าที่เปิดอยู่" result={dashboard?.activePropertyResult}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="ห้องเช่าที่ปิดอยู่" result={dashboard?.inactivePropertyResult}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
+                    <DashboardItem bgColor="blue-600" title="จำนวนผู้ปล่อยเช่า" result={dashboard?.agencyResult}><BsFillBuildingsFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>
         </div>

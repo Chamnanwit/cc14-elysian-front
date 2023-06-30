@@ -92,7 +92,7 @@ const pricingPlanSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(pricingPlanAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(pricingPlanAsync.fulfilled, (state, action) => {
         state.pricingPlan = action.payload;

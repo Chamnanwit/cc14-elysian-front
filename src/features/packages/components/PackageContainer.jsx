@@ -43,8 +43,7 @@ export default function PackageContainer() {
     (state) => state?.pricingPlan?.pricingPlanFilter
   );
 
-  const packageArr = useSelector((state) => state?.pricingPlan?.pricingPlan);
-
+  console.log("dddd", packageArrSearch)
   const pricingPlanType = [
     { id: 1, type: "FREE" },
     { id: 2, type: "GOLD" },

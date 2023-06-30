@@ -2,14 +2,31 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as otpService from "../../../api/otp-api";
 
 const initialState = {
-  agencyOtp: [],
+  requestOtp: [],
 };
 
-export const agencyOtpAsync = createAsyncThunk(
-  "agent/otpAsync",
+export const requestOtpAsync = createAsyncThunk(
+  "agencyOtp/requestOtpAsync",
+  async (phoneNumber, thunkApi) => {
+    try {
+      console.log("in slice", phoneNumber);
+      const res = await otpService.requestOtpService(phoneNumber);
+      //   console.log("check res.data", res.data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const verifyPlanAsync = createAsyncThunk(
+  "agencyOtp/verifyPlanAsync",
   async (input, thunkApi) => {
     try {
-      const res = await otpService.getAllAgent();
+      console.log("check input", input);
+      const res = await otpService.verifyOtp(input);
+      console.log("check res data", res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -19,25 +36,33 @@ export const agencyOtpAsync = createAsyncThunk(
 );
 
 const agencyOtpSlice = createSlice({
-  name: "otp",
+  name: "agencyOtp",
   initialState,
   reducers: {
     setSearchValueRedux: (state, action) => {
       state.searchValue = action.payload;
     },
   },
+
   extraReducers: (builder) =>
     builder
-      .addCase(agencyOtpAsync.pending, (state) => {
+      .addCase(requestOtpAsync.pending, (state) => {
         state.isLoading = false;
       })
-      .addCase(agencyOtpAsync.fulfilled, (state, action) => {
-        // state.isAuthenticated = true;
+      .addCase(requestOtpAsync.fulfilled, (state, action) => {
         state.isLoading = false;
-        //state.user = action.payload;
       })
-
-      .addCase(agencyOtpAsync.rejected, (state, action) => {
+      .addCase(requestOtpAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(verifyPlanAsync.pending, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(verifyPlanAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(verifyPlanAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       }),

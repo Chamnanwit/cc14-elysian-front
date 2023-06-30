@@ -1,5 +1,5 @@
 import axios from "./axios";
 
-export const getAdminInformation = () => axios.get("admin/all-admin");
-export const createAdminInformation = (input) =>
-  axios.post("/admin/admin-create-form", input);
+export const requestOtpService = (phoneNumber) =>
+  axios.post("/auth/otp", phoneNumber);
+export const verifyOtp = (input) => axios.post("/auth/verify", input);
