@@ -1,20 +1,7 @@
-import { motion } from "framer-motion";
-
 export default function BigFourButtonBar() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{
-        duration: 0.5,
-        ease: "easeInOut",
-      }}
-      className="w-full flex justify-center flex-wrap gap-10"
-    >
-      <a
-        href="/searchpage"
-        className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300"
-      >
+    <div className="w-full flex justify-center flex-wrap gap-10">
+      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg">
         <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
           <img
             src="src/assets/icon/officeBuilding.png"
@@ -28,8 +15,8 @@ export default function BigFourButtonBar() {
           />
         </div>
         <div className=" text-c-white1 text-xl">ค้นหาทั้งหมด</div>
-      </a>
-      {/* <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300">
+      </div>
+      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg">
         <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
           <img
             src="src/assets/icon/mapIcon.png"
@@ -43,8 +30,8 @@ export default function BigFourButtonBar() {
           />
         </div>
         <div className=" text-c-white1 text-xl">ค้นหาในแผนที่</div>
-      </div> */}
-      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300">
+      </div>
+      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg">
         <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
           <img
             src="src/assets/icon/union.png"
@@ -59,7 +46,7 @@ export default function BigFourButtonBar() {
         </div>
         <div className=" text-c-white1 text-xl">เพิ่มห้องเช่า</div>
       </div>
-      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300">
+      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg">
         <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
           <img
             src="src/assets/icon/docIcon.png"
@@ -69,6 +56,6 @@ export default function BigFourButtonBar() {
         </div>
         <div className=" text-c-white1 text-xl">รายการแนะนำ</div>
       </div>
-    </motion.div>
+    </div>
   );
 }

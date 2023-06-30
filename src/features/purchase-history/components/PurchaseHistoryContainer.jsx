@@ -24,28 +24,26 @@ export default function PurchaseHistoryContainer() {
       orderStatus: 0,
     },
     {
-      id: 3,
-      agent: "June",
-      planName: "Gold",
-      price: "49.99",
-      expiration: "monthly",
-      payment: 1,
-      orderStatus: 1,
-    },
+        id: 3,
+        agent: "June",
+        planName: "Gold",
+        price: "49.99",
+        expiration: "monthly",
+        payment: 1,
+        orderStatus: 1,
+      },
   ];
   return (
     <>
       <HeaderAdmin topic="Purchase history" />
-      <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
-        <div className="flex items-baseline gap-4 justify-end mb-6">
+      <div className="bg-white rounded-md m-8 px-8 pt-6 mt-0">
+      <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>Search:</div>
-          <div className="100px text-md">
-            <InputForm />
-          </div>
+          <div className="100px text-md"><InputForm /></div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
-          <table class="w-full text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-6 py-5">
                   SN
@@ -74,9 +72,7 @@ export default function PurchaseHistoryContainer() {
               </tr>
             </thead>
             <tbody>
-              {data.map((el) => (
-                <PurchaseHistoryItem key={el.id} el={el} />
-              ))}
+              { data.map( el => <PurchaseHistoryItem key={el.id} el={el}/>)}
             </tbody>
           </table>
         </div>
