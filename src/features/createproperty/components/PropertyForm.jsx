@@ -57,15 +57,21 @@ export default function PropertyForm({
     // console.log(input);
   };
   const hdlSubmit = async (e) => {
-    e.preventDefault();
-    // console.log("hdlSubmit--------->", input);
-    const result = await validateCreateProperty(input);
-    // const formdata = new FormData();
-    // formdata.append("imageLink", file[0]);
-    // const image = await creatImagePropperty(product.data.id, formdata);
-    if (result) {
-      console.log("---------------->", result);
-      return setError(result);
+    try {
+      e.preventDefault();
+      const result = await validateCreateProperty(input);
+
+      const formdata = new FormData();
+      // formdata.append("imageLink", file[0]);
+      console.log("submit");
+      const image = await creatImagePropperty(product.data.id, formdata);
+
+      if (result) {
+        return setError(result);
+      }
+      setError({});
+    } catch (err) {
+      console.log(err);
     }
     setError({});
 
@@ -294,26 +300,26 @@ export default function PropertyForm({
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
           Property Image
         </div>
-        <form className=" bg-white px-6 py-4">
+        <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
               <p>Image 1</p>
-              <PropertyImage />
+              <PropertyImage cls="Image1" />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 2</p>
-              <PropertyImage />
+              <PropertyImage cls="Image2" />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 3</p>
-              <PropertyImage />
+              <PropertyImage cls="Image3" />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 4</p>
-              <PropertyImage />
+              <PropertyImage cls="Image4" />
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
       <>

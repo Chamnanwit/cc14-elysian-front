@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 
 export default function RegisterPage() {
   const { user, isAuthenticated } = useAuth0();
+  
   const initialInput = {
     firstName: "",
     lastName: "",
