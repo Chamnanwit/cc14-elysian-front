@@ -28,6 +28,7 @@ import AdminViewAgentPage from "../pages/AdminViewAgentPage";
 // import UserProfile from "../pages/UserProfile";
 import UserProfile from "../pages/UserProfile";
 import AdminViewAgentDashboard from "../pages/AdminViewAgentDashboard";
+import AgentCreatePropertyPage from "../pages/AgentCreatePropertyPage";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -93,6 +94,10 @@ export default function Router() {
     {
       path: "/agent",
       element: <AgentPage />,
+    },
+    {
+      path: "/agent/createproperty",
+      element: <AgentCreatePropertyPage />,
     },
     {
       path: "/packageplan",

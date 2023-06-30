@@ -3,9 +3,11 @@ import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
-import validateCreateProperty from "../../../validators/validate-create-property";
+import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { creatImagePropperty } from "../../../api/property-api";
+import { creatImagePropperty, creatProperty } from "../../../api/property-api";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function PropertyForm({
   textConFirm,
@@ -13,22 +15,21 @@ export default function PropertyForm({
   oldProperty,
 }) {
   const initialInput = {
-    price: "",
-    floor: "",
-    totalArea: "",
-    totalUnit: "",
-    totalBedroom: "",
-    totalBathroom: "",
-    totalKitchen: "",
-    description: "",
-    latitude: "333.33",
-    longitude: "444.44",
-    rentPeriod: "",
-    locked: "YES",
-    published: "YES",
-    userId: "1",
-    roomTypeId: "",
-    subDistrictId: "3",
+    price: oldProperty?.price || "",
+    floor: oldProperty?.floor || "",
+    totalArea: oldProperty?.totalArea || "",
+    totalUnit: oldProperty?.totalUnit || "",
+    totalBedroom: oldProperty?.totalBedroom || "",
+    totalBathroom: oldProperty?.totalBathroom || "",
+    totalKitchen: oldProperty?.totalKitchen || "",
+    description: oldProperty?.description || "",
+    latitude: oldProperty?.latitude || "333.33",
+    longitude: oldProperty?.longitude || "444.44",
+    rentPeriod: oldProperty?.rentPeriod || "",
+    locked: oldProperty?.locked || "0",
+    published: oldProperty?.published || "0",
+    userId: oldProperty?.id || "",
+    subDistrictId: oldProperty?.subDistrictId || "3",
   };
 
   const data = [
@@ -46,7 +47,8 @@ export default function PropertyForm({
 
   const dataRoom = data.filter((el) => el.type === "ROOM");
   const dataCommon = data.filter((el) => el.type === "COMMON");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const handleChangeInput = (e) => {
@@ -54,21 +56,17 @@ export default function PropertyForm({
     console.log(input);
   };
   const hdlSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      const result = await validateCreateProperty(input);
-
-      const formdata = new FormData();
-      formdata.append("imageLink", file[0]);
-      const image = await creatImagePropperty(product.data.id, formdata);
-
-      if (result) {
-        return setError(result);
-      }
-      setError({});
-    } catch (err) {
-      console.log(err);
+    e.preventDefault();
+    const result = await validateCreateProperty(input);
+    // const formdata = new FormData();
+    // formdata.append("imageLink", file[0]);
+    // const image = await creatImagePropperty(product.data.id, formdata);
+    if (result) {
+      return setError(result);
     }
+    setError({});
+    await dispatch(creatProperty(input)).unwrap();
+    navigate("/agent");
   };
 
   const propertyType = [
