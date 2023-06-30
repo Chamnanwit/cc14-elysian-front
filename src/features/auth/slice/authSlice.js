@@ -29,6 +29,18 @@ export const registerAsync = createAsyncThunk(
   }
 );
 
+export const registerAdminAsync = createAsyncThunk(
+  "auth/registerAdminAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await authService.register(input);
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 export const loginAsync = createAsyncThunk(
   "auth/loginAsync",
   async (input, thunkApi) => {
@@ -99,6 +111,17 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(registerAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(registerAdminAsync.pending, (state) => {
+        // state.isLoading = true;
+      })
+      .addCase(registerAdminAsync.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(registerAdminAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       })

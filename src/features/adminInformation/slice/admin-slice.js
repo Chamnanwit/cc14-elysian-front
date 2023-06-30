@@ -99,7 +99,7 @@ const adminInformationSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(adminInformationAsync.pending, (state) => {
-        // state.initialLoading = true;
+        //  state.isLoading = true;
       })
       .addCase(adminInformationAsync.fulfilled, (state, action) => {
         state.adminInformation = action.payload;
@@ -124,7 +124,7 @@ const adminInformationSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(createAdminInformationAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(createAdminInformationAsync.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -134,10 +134,10 @@ const adminInformationSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deleteAdminInformationAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(deleteAdminInformationAsync.fulfilled, (state, action) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(deleteAdminInformationAsync.rejected, (state, action) => {
         state.error = action.payload;
@@ -154,7 +154,7 @@ const adminInformationSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(searchAdminInformationAsync.pending, (state) => {
-        // state.initialLoading = true;
+        // state.isLoading = true;
       })
       .addCase(searchAdminInformationAsync.fulfilled, (state, action) => {
         state.adminInformationFilter = action.payload;

@@ -8,14 +8,6 @@ export default function AdminPage() {
       <SidebarAdmin />
       <div className="w-3/4 flex flex-col bg-[#F4F6FF] text-lg">
       <div className="flex flex-col flex-[4] bg-[#F4F6FF] text-lg">
-        <PackageContainer />
-        <PurchaseHistoryContainer />
-        <DashboardContainer />
-        <PaymentContainer />
-        <AdminContainer data={dataAdmin} />
-        <AgencyContainer />
-        <AgencyProfile />
-        <AnimityContainer />
       </div>
     </div>
     </div>

@@ -31,7 +31,6 @@ export default function AdminContainer() {
     }, 1000);
 
     return () => {
-      console.log("cleanup");
       clearTimeout(id);
     };
   }, [searchValue]);
