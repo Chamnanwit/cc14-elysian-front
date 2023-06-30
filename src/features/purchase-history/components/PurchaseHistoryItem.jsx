@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { EditIcon, TrashIcon } from "../../../icons";
 import Modal from "../../../components/Modal";
+import { HiEye } from "react-icons/hi";
 
 export default function PurchaseHistoryItem({ el }) {
   const [isViewMode, setIsViewMode] = useState(false);
@@ -41,13 +42,13 @@ export default function PurchaseHistoryItem({ el }) {
                 </td>
                 <td class="px-3 py-4 flex gap-3">
                     <div
-                        className="bg-blue-700 p-[5px] rounded-md cursor-pointer"
+                        className="bg-blue-700 p-[7px] rounded-md cursor-pointer flex items-center"
                         onClick={(e) => {
                         e.stopPropagation();
                         setIsViewMode(true);
                         }}
                     >
-                        <EditIcon />
+                        <HiEye fill="#ffffff"/>
                     </div>
                     <div className="bg-red-700 p-[5px] rounded-md cursor-pointer">
                         <TrashIcon />
@@ -55,46 +56,46 @@ export default function PurchaseHistoryItem({ el }) {
                 </td>
         </tr>
         {isViewMode? 
-        <Modal title="Purchase history" width="50" open={isViewMode} onClose={()=> setIsViewMode(false)}>
+        <Modal title="ประวัติการซื้อ" width="50" open={isViewMode} onClose={()=> setIsViewMode(false)}>
             <table className="border w-full border-collapse">
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Agent</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">ผู้ปล่อยเช่า</td>
                 <td className="w-1/2 p-3 border-b">{el.agent}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Plan name</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">ชื่อแพ็คเกจ</td>
                 <td className="w-1/2 p-3 border-b">{el.planName}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Plan type</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">ประเภทแพ็คเกจ</td>
                 <td className="w-1/2 p-3 border-b">{el.planName}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Plan price</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">ราคา</td>
                 <td className="w-1/2 p-3 border-b">฿ {el.price}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Expiration</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">ระยะเวลา</td>
                 <td className="w-1/2 p-3 border-b">฿ {el.expiration}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Expired date</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">วันหมดอายุ</td>
                 <td className="w-1/2 p-3 border-b">฿ {el.price}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Remaining day</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">เวลาที่เหลือ</td>
                 <td className="w-1/2 p-3 border-b">฿ {el.price}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Number of property</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">จำนวนประกาศแบบธรรมดา</td>
                 <td className="w-1/2 p-3 border-b">฿ {el.price}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Number of top property</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">จำนวนประกาศแบบจัดอันดับ</td>
                 <td className="w-1/2 p-3 border-b">฿ {el.price}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Order status</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">สถานะแพ็คเกจ</td>
                 <td className="w-1/2 p-3 border-b">{el.orderStatus ? (
                     <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[100px]">
                         Active
@@ -106,7 +107,7 @@ export default function PurchaseHistoryItem({ el }) {
                 )}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Payment status</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">สถานะการจ่ายเงิน</td>
                 <td className="w-1/2 p-3 border-b">{el.payment ? (
                     <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[100px]">
                         Success
@@ -118,12 +119,8 @@ export default function PurchaseHistoryItem({ el }) {
                 )}</td>
               </tr>
               <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Payment method</td>
-                <td className="w-1/2 p-3 border-b">฿ {el.price}</td>
-              </tr>
-              <tr>
-                <td className="w-1/2 px-3 py-2 border-b border-r">Transaction Id</td>
-                <td className="w-1/2 p-3 border-b">฿ {el.price}</td>
+                <td className="w-1/2 px-3 py-2 border-b border-r">วิธีการจ่ายเงิน</td>
+                <td className="w-1/2 p-3 border-b">Stripe</td>
               </tr>
             </table>
             </Modal>

@@ -7,6 +7,9 @@ import adminInformationReducer from "../features/adminInformation/slice/admin-sl
 import authReducer from "../features/auth/slice/authSlice";
 import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
 import propertyPlanReducer from "../features/createproperty/slice/createproperty-slice";
+import purchaseHistoryReducer from "../features/purchase-history/slice/purchase-slice";
+import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
+import paymentReducer from "../features/payment/slice/payment-slice";
 
 const store = configureStore({
   reducer: {
@@ -19,6 +22,10 @@ const store = configureStore({
     dashboard: dashboardReducer,
     profileAgncy: profileAgncyReducer,
     propertyPlan: propertyPlanReducer,
+    agencyOtp: agencyOtpReducer,
+    payment: paymentReducer,
+    purchaseHistory: purchaseHistoryReducer,
+    requestOtpAsync: agencyOtpReducer,
   },
 });
 

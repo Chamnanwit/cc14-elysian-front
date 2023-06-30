@@ -2,12 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as adminService from "../../../api/admin-api";
 
 const initialState = {
-  dashboardResult: [],
+  dashboardResult: {},
   isLoading: true,
 };
 
 export const dashboardAsync = createAsyncThunk(
-  "pricingPlan/pricingPlanAsync",
+  "dashboard/dashboardAsync",
   async (_, thunkApi) => {
     try {
       const res = await adminService.getDashboard();
@@ -28,7 +28,7 @@ const dashboardSlice = createSlice({
     extraReducers: (builder) =>
       builder
         .addCase(dashboardAsync.pending, (state) => {
-          // state.initialLoading = true;
+          state.isLoading = true;
         })
         .addCase(dashboardAsync.fulfilled, (state, action) => {
           state.dashboardResult = action.payload;

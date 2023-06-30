@@ -16,9 +16,7 @@ export default function AdminItem({ el }) {
       setStatus(!status);
   };
 
-  // const searchValue = useSelector(
-  //   (state) => state?.adminInformation?.searchValue
-  // );
+  const user = useSelector(state => state.auth.user)
   const handleClickDeleteBox = async () => {
     await dispatch(deleteAdminInformationAsync(el.id)).unwrap();
     await dispatch(adminInformationAsync()).unwrap();
@@ -43,7 +41,7 @@ export default function AdminItem({ el }) {
                 type="checkbox"
                 value={status}
                 className="sr-only peer"
-                checked={status}
+                checked={!status}
                 onChange={handleClickChangeStatus}
               />
             <div className="w-11 h-6 bg-red-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
@@ -60,9 +58,9 @@ export default function AdminItem({ el }) {
           >
             <HiEye fill="#ffffff" />
           </div>
-          <div className="bg-red-700 p-[5px] rounded-md cursor-pointer" onClick={handleClickDeleteBox}>
+          {(el.id != user.id)? <div className="bg-red-700 p-[5px] rounded-md cursor-pointer" onClick={handleClickDeleteBox}>
             <TrashIcon />
-          </div>
+          </div> : <></>}
         </td>
       </tr>
       {isViewMode ? (

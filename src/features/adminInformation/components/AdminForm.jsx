@@ -3,6 +3,9 @@ import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import validateRegisterAdmin from '../validators/validate-admin';
+import { registerAdminAsync } from "../../auth/slice/authSlice";
+import { useDispatch } from "react-redux";
+import { adminInformationAsync } from "../slice/admin-slice";
 
 export default function AdminForm({
   textConFirm,
@@ -15,9 +18,10 @@ export default function AdminForm({
     taxId: "",
     phoneNumber: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   };
 
+  const dispatch = useDispatch()
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const handleChangeInput = (e) => {
@@ -25,13 +29,14 @@ export default function AdminForm({
   };
 
   const handleSubmitForm = async (e) => {
-    e.preventDefault();
+    e.preventDefault();   
     const result = validateRegisterAdmin(input);
     if (result) {
         return setError(result);
     }
     setError({});
-    await dispatch(registerAsync(input)).unwrap();
+    await dispatch(registerAdminAsync({...input, role: "ADMIN", locked: false})).unwrap();
+    await dispatch(adminInformationAsync()).unwrap();
     onIsAddMode(false);
   };
 
@@ -90,7 +95,7 @@ export default function AdminForm({
         <div>
           <InputForm
             labelName="เบอร์โทรศัพท์"
-            name="phone"
+            name="phoneNumber"
             placeholder=""
             value={input.phoneNumber}
             onChange={handleChangeInput}
