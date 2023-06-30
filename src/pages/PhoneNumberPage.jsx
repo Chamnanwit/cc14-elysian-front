@@ -44,7 +44,8 @@ export default function PhoneNumberPage() {
       // console.log("Check otp ", otp);
       const input = { phoneNumber: phoneNumber.phoneNumber, code: otp };
       await dispatch(verifyPlanAsync(input)).unwrap();
-      navigate("/");
+      await dispatch(fetchMe()).unwrap();
+      navigate("/agent");
       console.log("verlifile success");
     } catch (err) {
       console.log("Error to send", err);
