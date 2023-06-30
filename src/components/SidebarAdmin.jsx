@@ -8,6 +8,7 @@ import ListAdminMenuButton from "../components/ListAdminMenuButton";
 import LogoWhite from "./LogoWhite";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { logout } from "../features/auth/slice/authSlice";
 
 export default function SidebarAdmin() {
  
