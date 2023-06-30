@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as PropertyService from "../../../api/property-api";
-import { Input } from "postcss";
 
 const initialState = {
   propertyPlan: [],
@@ -12,6 +11,8 @@ export const PropertyAsync = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const res = await PropertyService.getPropertyById(id);
+      console.log("IN Slice ----->", res.data);
+
       return res.data;
     } catch (err) {
       console.log(err);
@@ -71,7 +72,7 @@ const propertyPlanSlice = createSlice({
         state.propertyPlan = action.payload;
         state.isLoading = false;
       })
-      .addCase(PropertyAsync.fulfilled, (state, action) => {
+      .addCase(PropertyAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       })

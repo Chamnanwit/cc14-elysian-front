@@ -10,6 +10,7 @@ import propertyPlanReducer from "../features/createproperty/slice/createproperty
 import purchaseHistoryReducer from "../features/purchase-history/slice/purchase-slice";
 import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
 import paymentReducer from "../features/payment/slice/payment-slice";
+import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
 
 const store = configureStore({
   reducer: {

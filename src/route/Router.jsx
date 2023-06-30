@@ -33,6 +33,9 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import RedirectedAdmin from "../components/RedirectedAdmin";
 
 import SuccessPaymentPage from "../features/payment/component/SuccessPaymentPage";
+import AgentDashBoardPage from "../pages/AgentDashBoardPage";
+import AgentAllPropertyPage from "../pages/AgentAllPropertyPage";
+import AgentProfilePage from "../pages/AgentProfilePage";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -125,12 +128,20 @@ export default function Router() {
       // children: [],
     },
     {
-      path: "/agent",
-      element: <AgentPage />,
-    },
-    {
       path: "/agent/createproperty",
       element: <AgentCreatePropertyPage />,
+    },
+    {
+      path: "/agent",
+      element: <AgentDashBoardPage />,
+    },
+    {
+      path: "/agent/myproperty/:id",
+      element: <AgentAllPropertyPage />,
+    },
+    {
+      path: "/agent/myprofile",
+      element: <AgentProfilePage />,
     },
     {
       path: "/packageplan",

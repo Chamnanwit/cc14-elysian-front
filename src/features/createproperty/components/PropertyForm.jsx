@@ -8,6 +8,7 @@ import PropertyImage from "../../../components/PropertyImage";
 import { creatImagePropperty, creatProperty } from "../../../api/property-api";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { createPropertyAsync } from "../slice/createproperty-slice";
 
 export default function PropertyForm({
   textConFirm,
@@ -23,11 +24,11 @@ export default function PropertyForm({
     totalBathroom: oldProperty?.totalBathroom || "",
     totalKitchen: oldProperty?.totalKitchen || "",
     description: oldProperty?.description || "",
-    latitude: oldProperty?.latitude || "333.33",
-    longitude: oldProperty?.longitude || "444.44",
+    latitude: oldProperty?.latitude || "99.999999",
+    longitude: oldProperty?.longitude || "444.440000",
     rentPeriod: oldProperty?.rentPeriod || "",
-    locked: oldProperty?.locked || "0",
-    published: oldProperty?.published || "0",
+    locked: oldProperty?.locked || true,
+    published: oldProperty?.published || true,
     userId: oldProperty?.id || "",
     subDistrictId: oldProperty?.subDistrictId || "3",
   };
@@ -53,19 +54,22 @@ export default function PropertyForm({
   const [error, setError] = useState({});
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
+    // console.log(input);
   };
   const hdlSubmit = async (e) => {
     e.preventDefault();
+    // console.log("hdlSubmit--------->", input);
     const result = await validateCreateProperty(input);
     // const formdata = new FormData();
     // formdata.append("imageLink", file[0]);
     // const image = await creatImagePropperty(product.data.id, formdata);
     if (result) {
+      console.log("---------------->", result);
       return setError(result);
     }
     setError({});
-    await dispatch(creatProperty(input)).unwrap();
+
+    await dispatch(createPropertyAsync(input)).unwrap();
     navigate("/agent");
   };
 
