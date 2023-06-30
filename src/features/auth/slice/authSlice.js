@@ -49,7 +49,7 @@ export const loginAsync = createAsyncThunk(
       const res = await authService.login(input);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await authService.fetchMe();
-      // console.log("res in slice", resFetchMe.data.user);
+      console.log("res in slice", resFetchMe.data.user);
       return resFetchMe.data.user;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -147,6 +147,10 @@ const authSlice = createSlice({
       .addCase(fetchMe.rejected, (state, action) => {
         state.error = action.payload;
         state.initialLoading = false;
-      }),
+      })
+      .addCase(logout.fulfilled, state => {
+        state.isAuthenticated = false;
+        state.user = null;
+      })
 });
 export default authSlice.reducer;

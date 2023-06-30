@@ -4,6 +4,7 @@ import InputErrorMessage from "../components/InputErrorMessage";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import React, { useState } from "react";
+// import OtpInput from "react-otp-input";
 import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
@@ -43,7 +44,8 @@ export default function PhoneNumberPage() {
       // console.log("Check otp ", otp);
       const input = { phoneNumber: phoneNumber.phoneNumber, code: otp };
       await dispatch(verifyPlanAsync(input)).unwrap();
-      navigate("/");
+      await dispatch(fetchMe()).unwrap();
+      navigate("/agent");
       console.log("verlifile success");
     } catch (err) {
       console.log("Error to send", err);

@@ -29,7 +29,6 @@ export default function PackageContainer() {
     }, 1000);
 
     return () => {
-      console.log("cleanup");
       clearTimeout(id);
     };
   }, [searchValue]);
@@ -43,7 +42,6 @@ export default function PackageContainer() {
     (state) => state?.pricingPlan?.pricingPlanFilter
   );
 
-  console.log("dddd", packageArrSearch)
   const pricingPlanType = [
     { id: 1, type: "FREE" },
     { id: 2, type: "GOLD" },

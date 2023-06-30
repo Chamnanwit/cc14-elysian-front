@@ -32,6 +32,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import RedirectedAdmin from "../components/RedirectedAdmin";
 
 import SuccessPaymentPage from "../features/payment/component/SuccessPaymentPage";
+import RedirectedAgent from "../components/RedirectedAgent";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -110,7 +111,9 @@ export default function Router() {
     },
     {
       path: "/agent",
-      element: <AgentPage />,
+      element: (<RedirectedAgent>
+                  <AgentPage />,
+                </RedirectedAgent>)
     },
     {
       path: "/packageplan",
