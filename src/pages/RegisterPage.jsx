@@ -77,9 +77,11 @@ export default function RegisterPage() {
                 >
                   ชื่อ
                 </InputBar>
-                {error.firstName && (
-                  <InputErrorMessage message={error.firstName} />
-                )}
+                <div className='h-0 pl-5'>
+                  {error.firstName && (
+                    <InputErrorMessage message={error.firstName} />
+                  )}
+                </div>
                 <InputBar
                   value={input.lastName}
                   name="lastName"
