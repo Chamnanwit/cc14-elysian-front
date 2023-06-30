@@ -20,7 +20,7 @@ const store = configureStore({
     auth: authReducer,
     dashboard: dashboardReducer,
     profileAgncy: profileAgncyReducer,
-    purchaseHistory: purchaseHistoryReducer
+    purchaseHistory: purchaseHistoryReducer,
     requestOtpAsync: agencyOtpReducer,
   },
 });
