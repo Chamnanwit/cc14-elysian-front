@@ -89,6 +89,7 @@ export default function RegisterPage() {
                   )}
                 </div>
               </div>
+              <div className="flex flex-col gap-[2px]">
                 <InputBar
                   value={input.lastName}
                   name="lastName"
@@ -97,9 +98,13 @@ export default function RegisterPage() {
                 >
                   นามสกุล
                 </InputBar>
-                {error.lastName && (
-                  <InputErrorMessage message={error.lastName} />
-                )}
+                <div className='h-0 pl-5'>
+                  {error.lastName && (
+                    <InputErrorMessage message={error.lastName} />
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col gap-[2px]">
                 <InputBar
                   value={input.phoneNumber}
                   name="phoneNumber"
@@ -108,16 +113,23 @@ export default function RegisterPage() {
                 >
                   เบอร์โทรศัพท์
                 </InputBar>
-                {error.phoneNumber && (
-                  <InputErrorMessage message={error.phoneNumber} />
-                )}
+                <div className='h-0 pl-5'>
+                  {error.phoneNumber && (
+                    <InputErrorMessage message={error.phoneNumber} />
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col gap-[2px]">
                 <InputBar
                   type="text"
                   value={input.email}
                   name="email"
                   onChange={hdlChangeInput}
                   disabled={true}
-                ></InputBar>
+                >
+                </InputBar>
+              </div>
+                <div className="flex flex-col gap-[2px]">
                 <InputBar
                   value={input.taxId}
                   name="taxId"
@@ -126,7 +138,10 @@ export default function RegisterPage() {
                 >
                   เลขประจำตัวผู้เสียภาษี
                 </InputBar>
-                {error.taxId && <InputErrorMessage message={error.taxId} />}
+                <div className='h-0 pl-5'>
+                  {error.taxId && <InputErrorMessage message={error.taxId} />}
+                </div>
+                </div>
                 <input
                   className="hidden"
                   value={(input.password = "123456")}

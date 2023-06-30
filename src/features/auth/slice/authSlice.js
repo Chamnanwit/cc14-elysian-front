@@ -49,7 +49,7 @@ export const loginAsync = createAsyncThunk(
       const res = await authService.login(input);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await authService.fetchMe();
-      // console.log("res in slice", resFetchMe.data.user);
+      console.log("res in slice", resFetchMe.data.user);
       return resFetchMe.data.user;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);

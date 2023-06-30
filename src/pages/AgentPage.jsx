@@ -17,7 +17,6 @@ import AgentDb from "../features/createproperty/components/AgentDb";
 export default function AgentPage() {
   return (
     <div>
-      {/* <Navbar /> */}
       <div className="max-w-[1440px] mx-auto min-h-screen flex">
         <SidebarAgency />
         <div className="flex-[4] bg-[#F4F6FF] text-lg">
