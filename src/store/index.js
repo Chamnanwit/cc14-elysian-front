@@ -8,6 +8,7 @@ import authReducer from "../features/auth/slice/authSlice";
 import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
 import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
 import purchaseHistoryReducer from "../features/purchase-history/slice/purchase-slice";
+import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     dashboard: dashboardReducer,
     profileAgncy: profileAgncyReducer,
     purchaseHistory: purchaseHistoryReducer
+    requestOtpAsync: agencyOtpReducer,
   },
 });
 

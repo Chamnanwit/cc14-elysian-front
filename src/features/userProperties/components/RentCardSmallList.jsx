@@ -16,7 +16,7 @@ export default function RentCardSmallList() {
   /// (state) => state?.ชื่อหน้าจากในstore?.ชื่อจาก int stage ใน slice นั้น
   return (
     <>
-      {userPropertieslist.map((el) => (
+      {userPropertieslist?.map((el) => (
         <RentCard
           propName={el?.name}
           propDescription={el?.description}
