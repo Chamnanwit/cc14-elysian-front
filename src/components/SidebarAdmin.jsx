@@ -10,8 +10,13 @@ import { BsChevronDown } from "react-icons/bs";
 import ListAdminMenuButton from "../components/ListAdminMenuButton";
 import LogoWhite from "./LogoWhite";
 import { Link } from "react-router-dom";
+import { removeAccessToken } from "../utils/localstorage";
 
 export default function SidebarAdmin() {
+
+  const handleOnClick = () => {
+    removeAccessToken()
+  }
   return (
     <div class="sticky top-0 flex flex-col flex-1 h-screen p-10 px-10 bg-c-blue2 duration-[400ms]">
       <div className="w-full flex justify-center mb-5">
@@ -97,12 +102,12 @@ export default function SidebarAdmin() {
             </details>
           </li>
 
-          <ListAdminMenuButton link="" icon={<FaSignOutAlt />}>
+          <ListAdminMenuButton link="/adminLogin" icon={<FaSignOutAlt />} onClick={handleOnClick}>
             ออกจากระบบ
           </ListAdminMenuButton>
-          <ListAdminMenuButton link="/" icon={<AiFillHome />}>
+          {/* <ListAdminMenuButton link="/" icon={<AiFillHome />}>
             กลับหน้าแรก
-          </ListAdminMenuButton>
+          </ListAdminMenuButton> */}
         </ul>
       </div>
     </div>

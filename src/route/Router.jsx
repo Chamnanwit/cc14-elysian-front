@@ -28,6 +28,8 @@ import AdminViewAgentPage from "../pages/AdminViewAgentPage";
 // import UserProfile from "../pages/UserProfile";
 import UserProfile from "../pages/UserProfile";
 import AdminViewAgentDashboard from "../pages/AdminViewAgentDashboard";
+import ProtectedRoute from "../components/ProtectedRoute";
+import RedirectedAdmin from "../components/RedirectedAdmin";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -45,42 +47,56 @@ export default function Router() {
     {
       path: "/",
       element: <HomePage />,
-      // children: [],
     },
     {
       path: "/adminlogin",
-      element: <AdminLoginPage />,
-      // children: [],
+      element: (<RedirectedAdmin >
+                  <AdminLoginPage />,
+                </RedirectedAdmin>
+                )
     },
     {
       path: "/admin/dashboard",
-      element: <AdminDashboardPage />,
+      element: (<ProtectedRoute>
+                  <AdminDashboardPage />
+                </ProtectedRoute>)
     },
     {
       path: "/admin/pricing-plan",
-      element: <AdminPricingPlanPage />,
+      element: (<ProtectedRoute>
+                  <AdminPricingPlanPage />  
+                </ProtectedRoute>)
     },
     {
       path: "/admin/animity",
-      element: <AdminAnimityPage />,
+      element: (<ProtectedRoute>
+                  <AdminAnimityPage />
+                </ProtectedRoute>)
     },
     {
       path: "/admin/admin-list",
-      element: <AdminListPage />,
+      element: (<ProtectedRoute>
+                  <AdminListPage />
+                </ProtectedRoute>)
     },
     {
       path: "/admin/agent-list",
-      element: <AdminViewAgentPage />,
+      element: (<ProtectedRoute>
+                  <AdminViewAgentPage />
+                </ProtectedRoute>)
     },
     {
       path: "/admin/agencybyid/:id",
-      element: <AdminViewAgentDashboard />,
+      element: (<ProtectedRoute>
+                  <AdminViewAgentDashboard />
+                </ProtectedRoute>)
     },
     {
       path: "/admin/purchase-history",
-      element: <AdminPurchasePage />,
+      element: (<ProtectedRoute>
+                  <AdminPurchasePage />,
+                </ProtectedRoute>)
     },
-
     {
       path: "/register",
       element: <RegisterPage />,

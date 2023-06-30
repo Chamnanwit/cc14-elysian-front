@@ -35,8 +35,8 @@ const registerAdminSchema = Joi.object({
     confirmPassword: Joi.string().valid(Joi.ref('password')).messages({
         'any.only': 'รหัสผ่านไม่ตรงกัน',
         'string.empty': 'กรุณากรอกยืนยันรหัสผ่าน',
-    })
-    
+    }),
+    locked: Joi.boolean()
   });
   const validateRegisterAdmin = (input) => {
     const { error } = registerAdminSchema.validate(input, { abortEarly: false });
