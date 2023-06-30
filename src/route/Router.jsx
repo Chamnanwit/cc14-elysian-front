@@ -28,10 +28,14 @@ import AdminViewAgentPage from "../pages/AdminViewAgentPage";
 // import UserProfile from "../pages/UserProfile";
 import UserProfile from "../pages/UserProfile";
 import AdminViewAgentDashboard from "../pages/AdminViewAgentDashboard";
+import AgentCreatePropertyPage from "../pages/AgentCreatePropertyPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RedirectedAdmin from "../components/RedirectedAdmin";
 
 import SuccessPaymentPage from "../features/payment/component/SuccessPaymentPage";
+import AgentDashBoardPage from "../pages/AgentDashBoardPage";
+import AgentAllPropertyPage from "../pages/AgentAllPropertyPage";
+import AgentProfilePage from "../pages/AgentProfilePage";
 import RedirectedAgent from "../components/RedirectedAgent";
 
 export default function Router() {
@@ -53,52 +57,67 @@ export default function Router() {
     },
     {
       path: "/adminlogin",
-      element: (<RedirectedAdmin >
-                  <AdminLoginPage />,
-                </RedirectedAdmin>
-                )
+      element: (
+        <RedirectedAdmin>
+          <AdminLoginPage />,
+        </RedirectedAdmin>
+      ),
     },
     {
       path: "/admin/dashboard",
-      element: (<ProtectedRoute>
-                  <AdminDashboardPage />
-                </ProtectedRoute>)
+      element: (
+        <ProtectedRoute>
+          <AdminDashboardPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/pricing-plan",
-      element: (<ProtectedRoute>
-                  <AdminPricingPlanPage />  
-                </ProtectedRoute>)
+      element: (
+        <ProtectedRoute>
+          <AdminPricingPlanPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/animity",
-      element: (<ProtectedRoute>
-                  <AdminAnimityPage />
-                </ProtectedRoute>)
+      element: (
+        <ProtectedRoute>
+          <AdminAnimityPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/admin-list",
-      element: (<ProtectedRoute>
-                  <AdminListPage />
-                </ProtectedRoute>)
+      element: (
+        <ProtectedRoute>
+          <AdminListPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/agent-list",
-      element: (<ProtectedRoute>
-                  <AdminViewAgentPage />
-                </ProtectedRoute>)
+      element: (
+        <ProtectedRoute>
+          <AdminViewAgentPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/agencybyid/:id",
-      element: (<ProtectedRoute>
-                  <AdminViewAgentDashboard />
-                </ProtectedRoute>)
+      element: (
+        <ProtectedRoute>
+          <AdminViewAgentDashboard />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/purchase-history",
-      element: (<ProtectedRoute>
-                  <AdminPurchasePage />,
-                </ProtectedRoute>)
+      element: (
+        <ProtectedRoute>
+          <AdminPurchasePage />,
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/register",
@@ -110,10 +129,25 @@ export default function Router() {
       // children: [],
     },
     {
+      path: "/agent/createproperty",
+      element: <AgentCreatePropertyPage />,
+    },
+    {
       path: "/agent",
-      element: (<RedirectedAgent>
-                  <AgentPage />,
-                </RedirectedAgent>)
+
+      element: (
+        <RedirectedAgent>
+          <AgentDashBoardPage />,
+        </RedirectedAgent>
+      ),
+    },
+    {
+      path: "/agent/myproperty/:id",
+      element: <AgentAllPropertyPage />,
+    },
+    {
+      path: "/agent/myprofile",
+      element: <AgentProfilePage />,
     },
     {
       path: "/packageplan",

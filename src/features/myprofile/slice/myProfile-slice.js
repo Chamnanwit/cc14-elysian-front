@@ -12,7 +12,7 @@ export const profileAgncyAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await authService.fetchMe();
-      console.log("from my profileSlice", res.data);
+      // console.log("from my profileSlice", res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -24,10 +24,9 @@ export const profileAgncyAsync = createAsyncThunk(
 export const updateprofileAgncyAsync = createAsyncThunk(
   "profileAgncy/updateprofileAgncyAsync",
   async (input, thunkApi) => {
-    console.log(input);
+    // console.log(input);
     try {
       const res = await authService.updateAgency(input);
-      console.log("update---------->", res.data);
       return res.data;
     } catch (err) {
       console.log(err);

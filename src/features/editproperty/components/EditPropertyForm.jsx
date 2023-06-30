@@ -3,7 +3,7 @@ import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
-import validateCreateProperty from "../../../validators/validate-create-property";
+import validateCreateProperty from "../../createproperty/validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
 import { creatImagePropperty } from "../../../api/property-api";
 

@@ -44,6 +44,12 @@ const CreatePropertySchema = Joi.object({
   description: Joi.string().trim().messages({
     "string.empty": "กรุณากรอกรายละเอียดเพิ่มเติม",
   }),
+  latitude: Joi.string(),
+  longitude: Joi.string(),
+  locked: Joi.string(),
+  published: Joi.string(),
+  userId: Joi.number(),
+  subDistrictId: Joi.string(),
 });
 const validateCreateProperty = (input) => {
   const { error } = CreatePropertySchema.validate(input, { abortEarly: false });

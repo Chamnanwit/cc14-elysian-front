@@ -3,9 +3,12 @@ import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
-import validateCreateProperty from "../../../validators/validate-create-property";
+import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { creatImagePropperty } from "../../../api/property-api";
+import { creatImagePropperty, creatProperty } from "../../../api/property-api";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createPropertyAsync } from "../slice/createproperty-slice";
 
 export default function PropertyForm({
   textConFirm,
@@ -13,22 +16,21 @@ export default function PropertyForm({
   oldProperty,
 }) {
   const initialInput = {
-    price: "",
-    floor: "",
-    totalArea: "",
-    totalUnit: "",
-    totalBedroom: "",
-    totalBathroom: "",
-    totalKitchen: "",
-    description: "",
-    latitude: "333.33",
-    longitude: "444.44",
-    rentPeriod: "",
-    locked: "YES",
-    published: "YES",
-    userId: "1",
-    roomTypeId: "",
-    subDistrictId: "3",
+    price: oldProperty?.price || "",
+    floor: oldProperty?.floor || "",
+    totalArea: oldProperty?.totalArea || "",
+    totalUnit: oldProperty?.totalUnit || "",
+    totalBedroom: oldProperty?.totalBedroom || "",
+    totalBathroom: oldProperty?.totalBathroom || "",
+    totalKitchen: oldProperty?.totalKitchen || "",
+    description: oldProperty?.description || "",
+    latitude: oldProperty?.latitude || "99.999999",
+    longitude: oldProperty?.longitude || "444.440000",
+    rentPeriod: oldProperty?.rentPeriod || "",
+    locked: oldProperty?.locked || true,
+    published: oldProperty?.published || true,
+    userId: oldProperty?.id || "",
+    subDistrictId: oldProperty?.subDistrictId || "3",
   };
 
   const data = [
@@ -46,12 +48,13 @@ export default function PropertyForm({
 
   const dataRoom = data.filter((el) => el.type === "ROOM");
   const dataCommon = data.filter((el) => el.type === "COMMON");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
+    // console.log(input);
   };
   const hdlSubmit = async (e) => {
     try {
@@ -60,7 +63,7 @@ export default function PropertyForm({
 
       const formdata = new FormData();
       // formdata.append("imageLink", file[0]);
-      console.log("submit")
+      console.log("submit");
       const image = await creatImagePropperty(product.data.id, formdata);
 
       if (result) {
@@ -70,6 +73,10 @@ export default function PropertyForm({
     } catch (err) {
       console.log(err);
     }
+    setError({});
+
+    await dispatch(createPropertyAsync(input)).unwrap();
+    navigate("/agent");
   };
 
   const propertyType = [
@@ -295,21 +302,21 @@ export default function PropertyForm({
         </div>
         <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
-              <div className="flex flex-col gap-2">
-                <p>Image 1</p>
-                <PropertyImage cls='Image1'/>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p>Image 2</p>
-                <PropertyImage cls='Image2'/>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p>Image 3</p>
-                <PropertyImage cls='Image3'/>
-              </div>
+            <div className="flex flex-col gap-2">
+              <p>Image 1</p>
+              <PropertyImage cls="Image1" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Image 2</p>
+              <PropertyImage cls="Image2" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Image 3</p>
+              <PropertyImage cls="Image3" />
+            </div>
             <div className="flex flex-col gap-2">
               <p>Image 4</p>
-              <PropertyImage cls='Image4'/>
+              <PropertyImage cls="Image4" />
             </div>
           </div>
         </div>

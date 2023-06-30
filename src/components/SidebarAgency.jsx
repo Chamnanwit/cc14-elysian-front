@@ -10,8 +10,20 @@ import { RiAdminLine } from "react-icons/ri";
 import { ImProfile } from "react-icons/im";
 import ListAdminMenuButton from "../components/ListAdminMenuButton";
 import LogoWhite from "./LogoWhite";
+import { useDispatch, useSelector } from "react-redux";
+import { profileAgncyAsync } from "../features/myprofile/slice/myProfile-slice";
+import { useEffect } from "react";
 
 export default function SidebarAgency() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(profileAgncyAsync());
+  }, []);
+  const keyid = useSelector(
+    (state) => state?.profileAgncy?.profileAgncy?.user?.id
+  );
+
   return (
     <div class="sticky top-0 flex  flex-col flex-1 h-screen p-10 px-10 bg-c-green4 duration-[400ms]">
       <div className="w-full flex justify-center mb-5">
@@ -33,14 +45,14 @@ export default function SidebarAgency() {
             </summary>
             <ul>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to={`/agent/myproperty/${keyid}`}
                   class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
 
                   //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
                   ห้องเช่าทั้งหมด
-                </a>
+                </Link>
               </li>
               <li>
                 <Link
