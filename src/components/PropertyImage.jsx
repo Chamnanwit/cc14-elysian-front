@@ -1,21 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 
-export default function PropertyImage() {
+export default function PropertyImage({cls}) {
   const [file, setFile] = useState([]);
+  const inputRef = useRef()
 
+  console.log("Global",cls)
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile([selectedFile]);
+   // e.stopPropagation() 
+  //  e.stopPropagation()
+    if (e.target.files.length) {
+      const selectedFile = e.target.files[0];
+      setFile([selectedFile]);
+    }
   };
 
+  const onChangeImage = () => {
+    console.log(inputRef.current)
+    inputRef.current.click()
+  }
+
+
   return (
-    <div className="flex items-center justify-center w-full">
+    <button className="flex items-center justify-center w-full" type='button' >
       {file.length > 0 ? (
-        <img src={URL.createObjectURL(file[0])} alt="Uploaded" />
+        <img src={URL.createObjectURL(file[0])} alt="Uploaded" onClick={onChangeImage}/>
       ) : (
+        <>
         <label
-          htmlFor="dropzone-file"
+          onClick={onChangeImage}
           className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+         
+          type="button"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
@@ -41,14 +56,17 @@ export default function PropertyImage() {
               SVG, PNG, JPG or GIF (MAX. 800x400px)
             </p>
           </div>
-          <input
-            id="dropzone-file"
-            type="file"
-            className="hidden"
-            onChange={handleFileChange}
-          />
         </label>
+       
+     </>
       )}
-    </div>
+       <input
+       type="file"
+       ref={inputRef}
+       className={`hidden ${cls}`}
+       onChange={handleFileChange}
+     />
+      
+    </button>
   );
 }
