@@ -4,6 +4,9 @@ import InputErrorMessage from "../components/InputErrorMessage";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
 import React, { useState } from "react";
+<<<<<<< HEAD
+// import OtpInput from "react-otp-input";
+=======
 import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
@@ -13,6 +16,7 @@ import {
   verifyPlanAsync,
 } from "../features/agencyotp/slice/agencyotp-slice";
 // import { useEffect, useState } from "react";
+>>>>>>> ccb2bc9740524c5c269806ab07488121f3875b49
 
 export default function PhoneNumberPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -85,7 +89,7 @@ export default function PhoneNumberPage() {
                   กรอก OTP
                 </h3>
                 <div className="flex flex-col justify-center gap-5 items-center ">
-                  <OtpInput
+                  {/* <OtpInput
                     value={otp}
                     onChange={setOtp}
                     numInputs={6}
@@ -95,7 +99,7 @@ export default function PhoneNumberPage() {
                     renderSeparator={<span> </span>}
                     inputType={"text"}
                     renderInput={(props) => <input {...props} />}
-                  />
+                  /> */}
 
                   <InputErrorMessage message="testest" />
 

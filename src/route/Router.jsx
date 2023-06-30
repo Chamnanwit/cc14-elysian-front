@@ -31,6 +31,8 @@ import AdminViewAgentDashboard from "../pages/AdminViewAgentDashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RedirectedAdmin from "../components/RedirectedAdmin";
 
+import SuccessPaymentPage from "../features/payment/component/SuccessPaymentPage";
+
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
 
@@ -138,6 +140,10 @@ export default function Router() {
     {
       path: "/user",
       element: <UserProfile />,
+    },
+    {
+      path: "/successpay",
+      element: <SuccessPaymentPage />,
     },
   ]);
 
