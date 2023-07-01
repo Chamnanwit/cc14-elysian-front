@@ -12,9 +12,9 @@ import ButtonYellowM from "../../../components/ButtonYellowM";
 
 export default function MyProfileForm({ oldProfile }) {
   const initialInput = {
-    firstName: oldProfile?.user?.firstName || "",
-    lastName: oldProfile?.user?.lastName || "",
-    profileimg: oldProfile?.user?.profileImage || "",
+    firstName: oldProfile?.firstName || "",
+    lastName: oldProfile?.lastName || "",
+    profileimg: oldProfile?.profileImage || "",
   };
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -30,7 +30,13 @@ export default function MyProfileForm({ oldProfile }) {
     try {
       e.preventDefault();
       // const result = await
-      await dispatch(updateprofileAgncyAsync(input)).unwrap();
+      const formData = new FormData();
+      formData.append("profileimg", input);
+      await dispatch(
+        updateprofileAgncyAsync({ id: oldProfile.id, ...input })
+      ).unwrap();
+
+      await dispatch(profileAgncyAsync());
     } catch (err) {
       console.log("Error in register", err);
     }
@@ -54,8 +60,8 @@ export default function MyProfileForm({ oldProfile }) {
             <div className="md:w-1/2 mt-4 md:mt-0">
               <div className="mt-[30px]">
                 <h3 className="text-xl m-0 font-semibold">
-                  {oldProfile?.user?.firstName}
-                  {oldProfile?.user?.lastName}
+                  {oldProfile?.firstName}
+                  {oldProfile?.lastName}
                 </h3>
                 <p>Real Estate Broker</p>
               </div>
@@ -66,7 +72,7 @@ export default function MyProfileForm({ oldProfile }) {
                     alt="phone"
                     className="mr-2"
                   />
-                  {oldProfile?.user?.phoneNumber}
+                  {oldProfile?.phoneNumber}
                 </li>
                 <li className="flex items-center">
                   <img
@@ -74,7 +80,7 @@ export default function MyProfileForm({ oldProfile }) {
                     alt="email"
                     className="mr-2"
                   />
-                  <a href="#">{oldProfile?.user?.email}</a>
+                  <a href="#">{oldProfile?.email}</a>
                 </li>
                 <li className="flex items-center">
                   <img
@@ -132,7 +138,7 @@ export default function MyProfileForm({ oldProfile }) {
       </div>
       {isEditMode ? (
         <>
-          <form onClick={hdlSubmit}>
+          <form onSubmit={hdlSubmit}>
             <Modal
               title="Edit profile"
               width="50"
@@ -175,7 +181,7 @@ export default function MyProfileForm({ oldProfile }) {
                   <td className="w-1/2 p-3 border-b">
                     <InputForm
                       name="phonenumber"
-                      value={oldProfile?.user?.phoneNumber}
+                      value={oldProfile?.phoneNumber}
                       isInvalid={error.phonenumber}
                       disabled={true}
                     />
@@ -189,7 +195,7 @@ export default function MyProfileForm({ oldProfile }) {
                   <td className="w-1/2 p-3 border-b">
                     <InputForm
                       name="email"
-                      value={oldProfile?.user?.email}
+                      value={oldProfile?.email}
                       isInvalid={error.email}
                       disabled={true}
                     />

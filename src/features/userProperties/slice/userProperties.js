@@ -15,7 +15,7 @@ export const userPropertiesAsync = createAsyncThunk(
       const res = await userPropertiesService.getAllProperty(); ///3. ยิง axios เพื่อขอข้อมูลหลังบ้าน
       // setAccessToken(res.data.accessToken);
       // const resFetchMe = await groupService.fetchMe();
-      console.log(res.data);
+      // console.log(res.data);
       return res.data; // ส่งไป set ค่าใน reducer
     } catch (err) {
       console.log(err);
@@ -30,7 +30,7 @@ export const userPropertiesByIdAsync = createAsyncThunk(
     try {
       const res = await userPropertiesService.getPropertyById(id);
 
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } catch (err) {
       console.log(err);
