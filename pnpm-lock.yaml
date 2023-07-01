@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   '@auth0/auth0-react':
     specifier: ^2.1.1
@@ -23,6 +19,9 @@ dependencies:
   draft-js:
     specifier: 0.10.5
     version: 0.10.5(react-dom@18.2.0)(react@18.2.0)
+  draft-js-export-html:
+    specifier: ^1.4.1
+    version: 1.4.1(draft-js@0.10.5)(immutable@3.7.6)
   draftail:
     specifier: ^1.4.1
     version: 1.4.1(draft-js@0.10.5)(react-dom@18.2.0)(react@18.2.0)
@@ -1189,6 +1188,17 @@ packages:
       esutils: 2.0.3
     dev: true
 
+  /draft-js-export-html@1.4.1(draft-js@0.10.5)(immutable@3.7.6):
+    resolution: {integrity: sha512-G4VGBSalPowktIE4wp3rFbhjs+Ln9IZ2FhXeHjsZDSw0a2+h+BjKu5Enq+mcsyVb51RW740GBK8Xbf7Iic51tw==}
+    peerDependencies:
+      draft-js: '>=0.10.0'
+      immutable: 3.x.x
+    dependencies:
+      draft-js: 0.10.5(react-dom@18.2.0)(react@18.2.0)
+      draft-js-utils: 1.4.1(draft-js@0.10.5)(immutable@3.7.6)
+      immutable: 3.7.6
+    dev: false
+
   /draft-js-plugins-editor@2.1.1(draft-js@0.10.5)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-fKGe71irNvFHJ5L/lUrh+3vPkBNq0de6x+cgiZUJ9zQERc5KPBtGXIFiarLFVHyrRTCPq+K6xmgfFSAERaFHPw==}
     deprecated: use @draft-js-plugins/editor >=v4 instead
@@ -1205,6 +1215,16 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       union-class-names: 1.0.0
+    dev: false
+
+  /draft-js-utils@1.4.1(draft-js@0.10.5)(immutable@3.7.6):
+    resolution: {integrity: sha512-xE81Y+z/muC5D5z9qWmKfxEW1XyXfsBzSbSBk2JRsoD0yzMGGHQm/0MtuqHl/EUDkaBJJLjJ2EACycoDMY/OOg==}
+    peerDependencies:
+      draft-js: '>=0.10.0'
+      immutable: 3.x.x
+    dependencies:
+      draft-js: 0.10.5(react-dom@18.2.0)(react@18.2.0)
+      immutable: 3.7.6
     dev: false
 
   /draft-js@0.10.5(react-dom@18.2.0)(react@18.2.0):
@@ -2988,3 +3008,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

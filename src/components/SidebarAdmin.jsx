@@ -44,14 +44,14 @@ export default function SidebarAdmin() {
                 <BsChevronDown />
               </summary>
               <ul>
-                <li>
+                {/* <li>
                   <div
                     class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                     //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                   >
                     ห้องเช่าทั้งหมด
                   </div>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to="/admin/animity"
