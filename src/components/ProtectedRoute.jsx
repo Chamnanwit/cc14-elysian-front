@@ -5,8 +5,6 @@ export default function ProtectedRoute({ children }) {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const user = useSelector(state => state.auth.user);
 
-  console.log("dfsjfdhgduhgdh", isAuthenticated, user)
-
   if (!isAuthenticated || user.role != "ADMIN") {
     return <Navigate to="/" />;
   }

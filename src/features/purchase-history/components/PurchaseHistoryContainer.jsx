@@ -40,8 +40,6 @@ export default function PurchaseHistoryContainer() {
     (state) => state?.purchaseHistory?.purchaseFilter
   );
 
-  console.log(historyArr);
-
   const pricingPlanType = [
     { id: 1, type: "FREE" },
     { id: 2, type: "GOLD" },
