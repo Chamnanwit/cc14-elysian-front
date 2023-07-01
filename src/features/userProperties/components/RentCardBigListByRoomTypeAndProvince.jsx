@@ -36,28 +36,21 @@ export default function RentCardBigListByRoomTypeAndProvince() {
     <>
       {userPropertieslist
         .filter((el) => {
-          // Filter by room type and province
           if (state.roomtype && state.province) {
             return (
               el?.RoomType?.name === state.roomtype &&
               el?.SubDistrict?.District?.Province?.nameInThai === state.province
             );
-          }
-          // Filter by province
-          else if (state.province) {
+          } else if (state.province) {
             return (
               el?.SubDistrict?.District?.Province?.nameInThai === state.province
             );
-          }
-          // Filter by room type
-          else if (state.roomtype) {
+          } else if (state.roomtype) {
             return el?.RoomType?.name === state.roomtype;
           }
-          // No filters applied
           return true;
         })
         .filter((el) => {
-          // Filter by area range
           if (state.areaRange) {
             const [minArea, maxArea] = state.areaRange.split(" > ");
             if (maxArea) {
@@ -69,11 +62,10 @@ export default function RentCardBigListByRoomTypeAndProvince() {
               return el?.totalArea >= parseFloat(minArea);
             }
           }
-          // No area range filter applied
+
           return true;
         })
         .filter((el) => {
-          // Filter by price range
           if (state.priceRange) {
             const [minPrice, maxPrice] = state.priceRange.split(" > ");
             if (maxPrice) {
@@ -85,7 +77,7 @@ export default function RentCardBigListByRoomTypeAndProvince() {
               return el?.price >= parseFloat(minPrice);
             }
           }
-          // No price range filter applied
+
           return true;
         })
         .filter((el) => {
