@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { profileAgncyAsync } from "../../myprofile/slice/myProfile-slice";
 import { PropertyAsync } from "../../createproperty/slice/createproperty-slice";
 import { useSearchParams } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 export default function MyPropertyContainer() {
   const dispatch = useDispatch();
@@ -18,22 +19,18 @@ export default function MyPropertyContainer() {
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       await dispatch(PropertyAsync(id)).unwrap();
       setPageLoading(false);
     };
-    fetch();
+    fetchData();
   }, [id]);
 
   const userproperty = useSelector(
     (state) => state?.propertyPlan?.propertyPlan?.Properties
   );
 
-  console.log("--------*----->");
-
-  // useEffect(() => {
-  //   dispatch(propertyPlanAsync());
-  // }, [dispatch]);
+  // console.log("--------*----->", userproperty);
   return (
     <>
       <HeaderAgent topic="My Properties" />
@@ -42,13 +39,13 @@ export default function MyPropertyContainer() {
         whileInView={{ opacity: 1 }}
         className=" flex w-full gap-5 px-10 py-5 overflow-auto"
       >
-        {userproperty.map((property) => (
+        {userproperty?.map((property) => (
           <AgentRentCard
             propName={property?.name}
             propDescription={property?.description}
-            agencyName={property.firstName}
-            propPrice={property.price}
-            propRentPeriod={property.rentPeriod}
+            agencyName={property?.firstName}
+            propPrice={property?.price}
+            propRentPeriod={property?.rentPeriod}
             propLocation=""
             propNearBY=""
           />

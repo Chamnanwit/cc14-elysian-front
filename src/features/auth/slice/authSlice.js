@@ -70,7 +70,7 @@ export const checkMeAsync = createAsyncThunk(
   "auth/checkMeAsync",
   async (email, thunkApi) => {
     try {
-      console.log("email in slice", email);
+      // console.log("email in slice", email);
       const res = await authService.checkMe({ email });
       console.log("emailStatus IN Slice", res.data.emailStatus);
       return res.data.emailStatus;
@@ -148,9 +148,9 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.initialLoading = false;
       })
-      .addCase(logout.fulfilled, state => {
+      .addCase(logout.fulfilled, (state) => {
         state.isAuthenticated = false;
         state.user = null;
-      })
+      }),
 });
 export default authSlice.reducer;
