@@ -1,27 +1,28 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import HeaderAgent from "../../../components/HeaderAgent";
-import MyProfileForm from "./MYProfileform";
+import MyProfileForm from "./MyProfileform";
+import { profileAgncyAsync } from "../slice/myProfile-slice";
+import { useParams } from "react-router-dom";
 
 export default function MyProfileContainer() {
-  const data = [
-    {
-      id: 1,
-      profileimg: "",
-      firstName: "suthee",
-      lastName: "namsiri",
-      phonenumber: "0812561518",
-      email: "makemake@gmail.com",
-      role: "",
-      locked: "",
-    },
-  ];
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(profileAgncyAsync());
+  }, []);
+
+  const userObjects = useSelector((state) => state?.profileAgncy?.profileAgncy);
+  // console.log(userObjects);
 
   return (
     <>
       <HeaderAgent topic="My profile" />
       <div className="flex flex-col gap-6  mt-0">
-        {data.map((el) => (
-          <MyProfileForm key={el.id} oldProfile={el} />
-        ))}
+        <MyProfileForm
+          key={userObjects?.user?.id}
+          oldProfile={userObjects?.user}
+        />
       </div>
     </>
   );

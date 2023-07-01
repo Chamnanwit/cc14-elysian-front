@@ -2,24 +2,41 @@ import Joi from "joi";
 
 const registerSchema = Joi.object({
   firstName: Joi.string().trim().required().messages({
-    "string.empty": "First name is required.",
+    "string.empty": "กรุณากรอกชื่อ",
   }),
   lastName: Joi.string().trim().required().messages({
-    "string.empty": "Last name is required.",
+    "string.empty": "กรุณากรอกนามสกุล",
   }),
   phoneNumber: Joi.string()
     .pattern(new RegExp("^[0-9]{10}$"))
     .required()
     .messages({
-      "string.empty": "Your phone namber is required",
+      "string.empty": "กรุณากรอกหมายเลขโทรศัพท์",
       "string.pattern.base":
-        "Phone namber must be at least 10 characters and contain only number",
+        "หมายเลขโทรศัพท์จะต้องเป้นหมายเลขและมีจำนวน 10 หลัก",
     }),
   taxId: Joi.string().pattern(new RegExp("^[0-9]{13}$")).required().messages({
-    "string.empty": "TaxId is required",
-    "string.pattern.base":
-      "Password must be at least 13 characters and contain only number.",
+    "string.empty": "กรุณากรอกเลขบัตรประชาชน",
+    "string.pattern.base": "หมายเลขบัตรประชาชนจะเป็นตัวเลขและมีจำนวน 13 หลัก.",
   }),
+  email: Joi.string().email({ tlds: false }).messages({
+    "string.empty": "กรุณากรอกอีเมล",
+    'string.email': 'รูปแบบอีเมลไม่ถูกต้อง'
+ }),
+ locked: Joi.boolean(),
+ password: Joi.string()
+    .pattern(/^[a-zA-Z0-9]{6,30}$/)
+    .trim()
+    .required()
+    .messages({
+      'string.empty': 'กรุณากรอกรหัสผ่าน',
+      'string.pattern.base':
+        'รหัสผ่านต้องมีอย่างน้อย 6 ตัว แต่ไม่เกิน 30 ตัว และเป็นตัวเลขหรือตัวอักษรภาษาอังกฤษเท่านั้น'
+    }),
+    confirmPassword: Joi.string().valid(Joi.ref('password')).messages({
+        'any.only': 'รหัสผ่านไม่ตรงกัน',
+        'string.empty': 'กรุณากรอกยืนยันรหัสผ่าน',
+    })
 });
 const validateRegister = (input) => {
   const { error } = registerSchema.validate(input, { abortEarly: false });

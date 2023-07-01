@@ -1,13 +1,36 @@
+import React from "react";
 import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
-import Checkbox from "../../createproperty/components/Checkbox";
+import Checkbox from "./Checkbox";
+import validateCreateProperty from "../../createproperty/validators/validate-create-property";
+import PropertyImage from "../../../components/PropertyImage";
+import { creatImagePropperty } from "../../../api/property-api";
 
-export default function PropertyEditForm({
+export default function EditPropertyForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
 }) {
+  const initialInput = {
+    price: "",
+    floor: "",
+    totalArea: "",
+    totalUnit: "",
+    totalBedroom: "",
+    totalBathroom: "",
+    totalKitchen: "",
+    description: "",
+    latitude: "333.33",
+    longitude: "444.44",
+    rentPeriod: "",
+    locked: "YES",
+    published: "YES",
+    userId: "1",
+    roomTypeId: "",
+    subDistrictId: "3",
+  };
+
   const data = [
     { id: 1, name: "เครื่องปรับอากาศ", type: "ROOM" },
     { id: 2, name: "TV", type: "ROOM" },
@@ -20,27 +43,34 @@ export default function PropertyEditForm({
     { id: 9, name: "ครัว", type: "COMMON" },
     { id: 10, name: "Co-working Space", type: "COMMON" },
   ];
+
   const dataRoom = data.filter((el) => el.type === "ROOM");
   const dataCommon = data.filter((el) => el.type === "COMMON");
 
-  const initialInput = {
-    price: oldProperty?.price || "",
-    floor: oldProperty?.floor || "",
-    totalArea: oldProperty?.totalArea || "",
-    totalUnit: oldProperty?.totalUnit || "",
-    totalBedroom: oldProperty?.totalBedroom || "",
-    totalBathroom: oldProperty?.totalBathroom || "",
-    totalKitchen: oldProperty?.totalKitchen || "",
-    description: oldProperty?.description || "",
-    latitude: oldProperty?.latitude || "",
-    longitude: oldProperty?.longitude || "",
-    rentPeriod: oldProperty?.rentPeriod || "",
-    locked: oldProperty?.locked || "",
-    published: oldProperty?.published || "",
-    userId: oldProperty?.userId || "",
-    roomTypeId: oldProperty?.roomTypeId || "",
-    subDistrictId: oldProperty?.subDistrictId || "",
+  const [input, setInput] = useState(initialInput);
+  const [error, setError] = useState({});
+  const handleChangeInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+    console.log(input);
   };
+  const hdlSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const result = await validateCreateProperty(input);
+
+      const formdata = new FormData();
+      formdata.append("imageLink", file[0]);
+      const image = await creatImagePropperty(product.data.id, formdata);
+
+      if (result) {
+        return setError(result);
+      }
+      setError({});
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const propertyType = [
     { id: 1, name: "สตูดิโอ" },
     { id: 2, name: "ห้องเพดานสูง" },
@@ -54,19 +84,11 @@ export default function PropertyEditForm({
     { id: 2, thaiName: "รายเดือน", engName: "MONTHLY" },
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
-
-  const [input, setInput] = useState(initialInput);
-  const [error, setError] = useState({});
-
-  const handleChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
-
   return (
     <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          ข้อมูลห้องเช่า
+          ข้อมูลพื้นฐาน
         </div>
         <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
@@ -268,79 +290,25 @@ export default function PropertyEditForm({
 
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          รูปภาพห้อง
+          Property Image
         </div>
         <form className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
               <p>Image 1</p>
-              <div class="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      class="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="font-semibold">Click to upload</span> or drag
-                      and drop
-                    </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" class="hidden" />
-                </label>
-              </div>
+              <PropertyImage />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 2</p>
-              <div class="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      class="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="font-semibold">Click to upload</span> or drag
-                      and drop
-                    </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" class="hidden" />
-                </label>
-              </div>
+              <PropertyImage />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Image 3</p>
+              <PropertyImage />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Image 4</p>
+              <PropertyImage />
             </div>
           </div>
         </form>
@@ -377,7 +345,7 @@ export default function PropertyEditForm({
             type="submit"
             className="p-2 min-w-[80px] text-white bg-yellow-400 rounded-md w-full"
           >
-            แก้ไขห้องเช่า
+            สร้างห้องเช่า
           </button>
         </div>
       </>

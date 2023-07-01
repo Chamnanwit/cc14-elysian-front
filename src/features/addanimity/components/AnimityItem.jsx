@@ -2,9 +2,18 @@ import React from 'react'
 import { EditIcon, TrashIcon } from '../../../icons';
 import { useState } from 'react';
 import AnimityForm from './AnimityForm';
+import { useDispatch } from 'react-redux';
+import { animityAsync, deleteAnimityAsync } from '../slice/aminity-slice';
+import ModalDeleteBox from '../../../components/ModalDelete';
 
-export default function AnimityItem({el}) {
+export default function AnimityItem({el, type}) {
     const [isEditMode, setIsEditMode] = useState(false);
+    const [clickDeleteBox, setClickDeleteBox] = useState(false);
+    const dispatch = useDispatch()
+    const handleClickDeleteBox = async () => {
+        await dispatch(deleteAnimityAsync(el.id))
+        await dispatch(animityAsync())
+  };
   return (
     <>
         <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -27,15 +36,39 @@ export default function AnimityItem({el}) {
                         >
                             <EditIcon fill="#ffffff"/>
                         </div>
-                        <div className="bg-red-700 p-[5px] rounded-md cursor-pointer">
+                        <div className="bg-red-700 p-[5px] rounded-md cursor-pointer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setClickDeleteBox(true);
+                        }}
+                        >
                             <TrashIcon />
                         </div>
                     </td>
                     </>
                     :
-                    <AnimityForm textConFirm={`Edit`} onIsAddMode={setIsEditMode} oldAnimity={el} key={el.id}/>}
+                    <AnimityForm textConFirm={`Edit`} onIsAddMode={setIsEditMode} oldAnimity={el} key={el.id} type={type}/>}
         </tr>
-
+        {clickDeleteBox ? (
+        <ModalDeleteBox
+          open={clickDeleteBox}
+          onClose={() => setClickDeleteBox(false)}
+        >
+          <div className="flex flex-col gap-8">
+            <div className="text-center">คุณแน่ใจว่าจะลบใช่หรือไม่</div>
+            <div className="flex justify-between gap-6">
+              <div className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer" onClick={handleClickDeleteBox}>
+                ตกลง
+              </div>
+              <div className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer" onClick={() => setClickDeleteBox(false)}>
+                ยกเลิก
+              </div>
+            </div>
+          </div>
+        </ModalDeleteBox>
+      ) : (
+        <></>
+      )}                    
     </>
   )
 }

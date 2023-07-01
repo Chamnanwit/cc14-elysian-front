@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import "draft-js/dist/Draft.css";
+import "draftail/dist/draftail.css";
 import { useState } from "react";
+import { EditorState } from "draft-js";
+import { DraftailEditor, BLOCK_TYPE, INLINE_STYLE } from "draftail";
+import { stateToHTML } from "draft-js-export-html";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
-import validateCreateProperty from "../../../validators/validate-create-property";
+import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { creatImagePropperty } from "../../../api/property-api";
+import { creatImagePropperty, creatProperty } from "../../../api/property-api";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createPropertyAsync } from "../slice/createproperty-slice";
+import { animityAsync } from "../../addanimity/slice/aminity-slice";
 
 export default function PropertyForm({
   textConFirm,
@@ -13,45 +22,48 @@ export default function PropertyForm({
   oldProperty,
 }) {
   const initialInput = {
-    price: "",
-    floor: "",
-    totalArea: "",
-    totalUnit: "",
-    totalBedroom: "",
-    totalBathroom: "",
-    totalKitchen: "",
-    description: "",
-    latitude: "333.33",
-    longitude: "444.44",
-    rentPeriod: "",
-    locked: "YES",
-    published: "YES",
-    userId: "1",
-    roomTypeId: "",
-    subDistrictId: "3",
+    price: oldProperty?.price || "",
+    floor: oldProperty?.floor || "",
+    totalArea: oldProperty?.totalArea || "",
+    totalUnit: oldProperty?.totalUnit || "",
+    totalBedroom: oldProperty?.totalBedroom || "",
+    totalBathroom: oldProperty?.totalBathroom || "",
+    totalKitchen: oldProperty?.totalKitchen || "",
+    description: oldProperty?.description || "",
+    latitude: oldProperty?.latitude || "99.999999",
+    longitude: oldProperty?.longitude || "444.440000",
+    rentPeriod: oldProperty?.rentPeriod || "",
+    locked: oldProperty?.locked || true,
+    published: oldProperty?.published || true,
+    userId: oldProperty?.id || "",
+    subDistrictId: oldProperty?.subDistrictId || "3",
   };
 
-  const data = [
-    { id: 1, name: "เครื่องปรับอากาศ", type: "ROOM" },
-    { id: 2, name: "TV", type: "ROOM" },
-    { id: 3, name: "ตู้เย็น", type: "ROOM" },
-    { id: 4, name: "เครื่องทำน้ำอุ่น", type: "ROOM" },
-    { id: 5, name: "เครื่องซักผ้า", type: "ROOM" },
-    { id: 6, name: "สระว่ายน้ำ", type: "COMMON" },
-    { id: 7, name: "ฟิตเนส", type: "COMMON" },
-    { id: 8, name: "สวน", type: "COMMON" },
-    { id: 9, name: "ครัว", type: "COMMON" },
-    { id: 10, name: "Co-working Space", type: "COMMON" },
-  ];
-
-  const dataRoom = data.filter((el) => el.type === "ROOM");
-  const dataCommon = data.filter((el) => el.type === "COMMON");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+
+  useEffect(() => {
+    dispatch(animityAsync());
+  }, []);
+
+  const animityRoomArrSearch = useSelector(
+    (state) => state?.animity?.animityRoomFilter
+  );
+  const animityCommonArrSearch = useSelector(
+    (state) => state?.animity?.animityCommonFilter
+  );
+
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const onEditorStateChange = (newEditorState) => {
+    setEditorState(newEditorState);
+  };
+
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
+    // console.log(input);
   };
   const hdlSubmit = async (e) => {
     try {
@@ -59,7 +71,8 @@ export default function PropertyForm({
       const result = await validateCreateProperty(input);
 
       const formdata = new FormData();
-      formdata.append("imageLink", file[0]);
+      // formdata.append("imageLink", file[0]);
+      console.log("submit");
       const image = await creatImagePropperty(product.data.id, formdata);
 
       if (result) {
@@ -69,6 +82,10 @@ export default function PropertyForm({
     } catch (err) {
       console.log(err);
     }
+    setError({});
+    input.description = stateToHTML(editorState.getCurrentContent());
+    await dispatch(createPropertyAsync(input)).unwrap();
+    navigate("/agent");
   };
 
   const propertyType = [
@@ -274,13 +291,55 @@ export default function PropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            <textarea
+            {/* <InputForm
               name="description"
+              placeholder=""
               value={input.description}
               onChange={handleChangeInput}
-              className="w-full rounded-md border-gray-300"
-              rows="4"
+              isInvalid={error.description}
+            /> */}
+            <DraftailEditor
+              editorState={editorState}
+              onChange={onEditorStateChange}
+              blockTypes={[
+                { type: "header-one" },
+                { type: "header-two" },
+                { type: "header-three" },
+                { type: "unstyled" },
+                { type: "blockquote" },
+                { type: "code" },
+                { type: "unordered-list-item" },
+                { type: "ordered-list-item" },
+              ]}
+              inlineStyles={[
+                { type: "BOLD" },
+                { type: "ITALIC" },
+                { type: "UNDERLINE" },
+                { type: "STRIKETHROUGH" },
+                { type: "CODE" },
+              ]}
             />
+            {/* <DraftailEditor
+              editorState={editorState}
+              onChange={handleEditorChange}
+              blockTypes={[
+                { type: "header-one" },
+                { type: "header-two" },
+                { type: "header-three" },
+                { type: "unstyled" },
+                { type: "blockquote" },
+                { type: "code" },
+                { type: "unordered-list-item" },
+                { type: "ordered-list-item" },
+              ]}
+              inlineStyles={[
+                { type: "BOLD" },
+                { type: "ITALIC" },
+                { type: "UNDERLINE" },
+                { type: "STRIKETHROUGH" },
+                { type: "CODE" },
+              ]}
+            /> */}
             {error.description && (
               <InputErrorMessage message={error.description} />
             )}
@@ -292,26 +351,26 @@ export default function PropertyForm({
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
           Property Image
         </div>
-        <form className=" bg-white px-6 py-4">
+        <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
               <p>Image 1</p>
-              <PropertyImage />
+              <PropertyImage cls="Image1" />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 2</p>
-              <PropertyImage />
+              <PropertyImage cls="Image2" />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 3</p>
-              <PropertyImage />
+              <PropertyImage cls="Image3" />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 4</p>
-              <PropertyImage />
+              <PropertyImage cls="Image4" />
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
       <>
@@ -321,7 +380,7 @@ export default function PropertyForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataRoom.map((el) => (
+              {animityRoomArrSearch.map((el) => (
                 <Checkbox el={el} key={el.id} />
               ))}
             </form>
@@ -334,7 +393,7 @@ export default function PropertyForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataCommon.map((el) => (
+              {animityCommonArrSearch.map((el) => (
                 <Checkbox el={el} key={el.id} />
               ))}
             </form>
