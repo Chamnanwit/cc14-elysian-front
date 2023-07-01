@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as PropertyService from "../../../api/property-api";
+import * as animityService from "../../../api/animity-api";
 
 const initialState = {
   propertyPlan: [],
+  animity: [],
   isLoading: true,
 };
 
@@ -11,8 +13,7 @@ export const PropertyAsync = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const res = await PropertyService.getPropertyById(id);
-      console.log("IN Slice ----->", res.data);
-
+      // console.log("IN Slice ----->", res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -57,6 +58,19 @@ export const deletePropertyAsync = createAsyncThunk(
     }
   }
 );
+// export const animityAsync = createAsyncThunk(
+//   "propertyPlan/animityAsync",
+//   async (_, thunkApi) => {
+//     try {
+//       const res = await animityService.getAnimityAll();
+//       // console.log("IN SLICE animityAsync ----> ", res.data);
+//       return res.data;
+//     } catch (err) {
+//       console.log(err);
+//       return thunkApi.rejectWithValue(err.response.data.message);
+//     }
+//   }
+// );
 
 const propertyPlanSlice = createSlice({
   name: "propertyPlan",
@@ -65,8 +79,19 @@ const propertyPlanSlice = createSlice({
 
   extraReducers: (builder) =>
     builder
+      // .addCase(animityAsync.pending, (state) => {
+      //   // state.initialLoading = true;
+      // })
+      // .addCase(animityAsync.fulfilled, (state, action) => {
+      //   state.animity = action.payload;
+      //   state.isLoading = false;
+      // })
+      // .addCase(animityAsync.rejected, (state, action) => {
+      //   state.error = action.payload;
+      //   state.isLoading = false;
+      // })
       .addCase(PropertyAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(PropertyAsync.fulfilled, (state, action) => {
         state.propertyPlan = action.payload;

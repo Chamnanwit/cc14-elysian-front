@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import "draft-js/dist/Draft.css";
+import "draftail/dist/draftail.css";
 import { useState } from "react";
+import { EditorState } from "draft-js";
+import { DraftailEditor, BLOCK_TYPE, INLINE_STYLE } from "draftail";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
 import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
 import { creatImagePropperty, creatProperty } from "../../../api/property-api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
+import { animityAsync } from "../../addanimity/slice/aminity-slice";
 
 export default function PropertyForm({
   textConFirm,
@@ -33,25 +38,28 @@ export default function PropertyForm({
     subDistrictId: oldProperty?.subDistrictId || "3",
   };
 
-  const data = [
-    { id: 1, name: "เครื่องปรับอากาศ", type: "ROOM" },
-    { id: 2, name: "TV", type: "ROOM" },
-    { id: 3, name: "ตู้เย็น", type: "ROOM" },
-    { id: 4, name: "เครื่องทำน้ำอุ่น", type: "ROOM" },
-    { id: 5, name: "เครื่องซักผ้า", type: "ROOM" },
-    { id: 6, name: "สระว่ายน้ำ", type: "COMMON" },
-    { id: 7, name: "ฟิตเนส", type: "COMMON" },
-    { id: 8, name: "สวน", type: "COMMON" },
-    { id: 9, name: "ครัว", type: "COMMON" },
-    { id: 10, name: "Co-working Space", type: "COMMON" },
-  ];
-
-  const dataRoom = data.filter((el) => el.type === "ROOM");
-  const dataCommon = data.filter((el) => el.type === "COMMON");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+
+  useEffect(() => {
+    dispatch(animityAsync());
+  }, []);
+
+  const animityRoomArrSearch = useSelector(
+    (state) => state?.animity?.animityRoomFilter
+  );
+  const animityCommonArrSearch = useSelector(
+    (state) => state?.animity?.animityCommonFilter
+  );
+
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const onEditorStateChange = (newEditorState) => {
+    setEditorState(newEditorState);
+  };
+
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     // console.log(input);
@@ -74,7 +82,8 @@ export default function PropertyForm({
       console.log(err);
     }
     setError({});
-
+    // const textContent = editorState.getCurrentContent().getPlainText();
+    // console.log("textContent------>", textContent);
     await dispatch(createPropertyAsync(input)).unwrap();
     navigate("/agent");
   };
@@ -282,13 +291,55 @@ export default function PropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            <textarea
+            <InputForm
               name="description"
+              placeholder=""
               value={input.description}
               onChange={handleChangeInput}
-              className="w-full rounded-md border-gray-300"
-              rows="4"
+              isInvalid={error.description}
             />
+            {/* <DraftailEditor
+              editorState={editorState}
+              onChange={onEditorStateChange}
+              blockTypes={[
+                { type: "header-one" },
+                { type: "header-two" },
+                { type: "header-three" },
+                { type: "unstyled" },
+                { type: "blockquote" },
+                { type: "code" },
+                { type: "unordered-list-item" },
+                { type: "ordered-list-item" },
+              ]}
+              inlineStyles={[
+                { type: "BOLD" },
+                { type: "ITALIC" },
+                { type: "UNDERLINE" },
+                { type: "STRIKETHROUGH" },
+                { type: "CODE" },
+              ]}
+            /> */}
+            {/* <DraftailEditor
+              editorState={editorState}
+              onChange={handleEditorChange}
+              blockTypes={[
+                { type: "header-one" },
+                { type: "header-two" },
+                { type: "header-three" },
+                { type: "unstyled" },
+                { type: "blockquote" },
+                { type: "code" },
+                { type: "unordered-list-item" },
+                { type: "ordered-list-item" },
+              ]}
+              inlineStyles={[
+                { type: "BOLD" },
+                { type: "ITALIC" },
+                { type: "UNDERLINE" },
+                { type: "STRIKETHROUGH" },
+                { type: "CODE" },
+              ]}
+            /> */}
             {error.description && (
               <InputErrorMessage message={error.description} />
             )}
@@ -329,7 +380,7 @@ export default function PropertyForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataRoom.map((el) => (
+              {animityRoomArrSearch.map((el) => (
                 <Checkbox el={el} key={el.id} />
               ))}
             </form>
@@ -342,7 +393,7 @@ export default function PropertyForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataCommon.map((el) => (
+              {animityCommonArrSearch.map((el) => (
                 <Checkbox el={el} key={el.id} />
               ))}
             </form>
