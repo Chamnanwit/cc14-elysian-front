@@ -23,6 +23,7 @@ export default function RentDetailPage() {
   );
 
   const el = { ...userPropertiesIdlist };
+  // console.log("-----------9-------------------",el)
 
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
@@ -173,7 +174,7 @@ export default function RentDetailPage() {
                 </div>
               </div>
               <div className="">
-                  <GoogleMap name={el?.name} lat={el?.latitude} long={el?.longitude}/>
+                  {el.name && <GoogleMap name={el?.name} lat={el?.latitude} long={el?.longitude}/>}
               </div>
             </div>
           </div>

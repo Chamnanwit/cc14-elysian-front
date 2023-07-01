@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function ShowMap({ name, lat, long }) {
   let map;
   const [init, setInit] = useState(true);
   const [latitude, setLatitude] = useState(null);
   const [logtitude, setLongitude] = useState(null);
-  const navigate = useNavigate();
+  const navigate = Navigate;
   async function initMap() {
+    console.log("........................", name);
     const position = { lat: 13.7513, lng: 100.4897 };
 
     const { Map } = await google.maps.importLibrary("maps");
@@ -33,7 +34,10 @@ function ShowMap({ name, lat, long }) {
 
     marker.addListener("click", (mapsMouseEvent) => {
       console.log(mapsMouseEvent.latLng.toJSON());
-      navigate(
+      //   navigate(
+      //     `https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`
+      //   );
+      window.location.replace(
         `https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`
       );
     });

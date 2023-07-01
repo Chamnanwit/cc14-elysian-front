@@ -10,7 +10,7 @@ export const PropertyAsync = createAsyncThunk(
   "propertyPlan/pricingPlanAsync",
   async (id, thunkApi) => {
     try {
-      const res = await PropertyService.getPropertyById(id);
+      const res = await PropertyService.getPropertyUserById(id);
       console.log("IN Slice ----->", res.data);
 
       return res.data;
