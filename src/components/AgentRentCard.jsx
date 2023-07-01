@@ -37,9 +37,12 @@ export default function AgentRentCard({
     <div className="flex flex-col w-[270px] h-fit justify-start">
       {/* edit delete text */}
       <div className="flex justify-end w-[270px] py-2">
-        <div className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer">
+        <Link
+          to={"/agent/"}
+          className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer"
+        >
           Edit
-        </div>
+        </Link>
         <div
           className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer"
           onClick={handleDeleteProperty}

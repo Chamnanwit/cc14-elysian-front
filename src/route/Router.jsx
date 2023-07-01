@@ -54,9 +54,11 @@ export default function Router() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (<RedirectedAgentOrAdmin>
-                  <HomePage />
-                </RedirectedAgentOrAdmin>)
+      element: (
+        <RedirectedAgentOrAdmin>
+          <HomePage />
+        </RedirectedAgentOrAdmin>
+      ),
     },
     {
       path: "/adminlogin",
@@ -136,7 +138,7 @@ export default function Router() {
       element: <AgentCreatePropertyPage />,
     },
     {
-      path: "/agent",
+      path: "/agent/",
 
       element: (
         <RedirectedAgent>

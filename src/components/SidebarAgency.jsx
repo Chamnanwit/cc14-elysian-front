@@ -31,7 +31,7 @@ export default function SidebarAgency() {
       </div>
       <div class="py-4 overflow-y-auto  text-c-white1">
         <ul class="space-y-2 font-medium">
-          <ListAdminMenuButton link="/agent" icon={<AiFillDashboard />}>
+          <ListAdminMenuButton link={`/agent`} icon={<AiFillDashboard />}>
             ภาพรวม
           </ListAdminMenuButton>
           <details open>
