@@ -4,6 +4,7 @@ import "draftail/dist/draftail.css";
 import { useState } from "react";
 import { EditorState } from "draft-js";
 import { DraftailEditor, BLOCK_TYPE, INLINE_STYLE } from "draftail";
+import { stateToHTML } from "draft-js-export-html";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
@@ -82,8 +83,7 @@ export default function PropertyForm({
       console.log(err);
     }
     setError({});
-    // const textContent = editorState.getCurrentContent().getPlainText();
-    // console.log("textContent------>", textContent);
+    input.description = stateToHTML(editorState.getCurrentContent());
     await dispatch(createPropertyAsync(input)).unwrap();
     navigate("/agent");
   };
@@ -291,14 +291,14 @@ export default function PropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            <InputForm
+            {/* <InputForm
               name="description"
               placeholder=""
               value={input.description}
               onChange={handleChangeInput}
               isInvalid={error.description}
-            />
-            {/* <DraftailEditor
+            /> */}
+            <DraftailEditor
               editorState={editorState}
               onChange={onEditorStateChange}
               blockTypes={[
@@ -318,7 +318,7 @@ export default function PropertyForm({
                 { type: "STRIKETHROUGH" },
                 { type: "CODE" },
               ]}
-            /> */}
+            />
             {/* <DraftailEditor
               editorState={editorState}
               onChange={handleEditorChange}

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as PropertyService from "../../../api/property-api";
-import * as animityService from "../../../api/animity-api";
 
 const initialState = {
   propertyPlan: [],
@@ -12,7 +11,7 @@ export const PropertyAsync = createAsyncThunk(
   "propertyPlan/pricingPlanAsync",
   async (id, thunkApi) => {
     try {
-      const res = await PropertyService.getPropertyById(id);
+      const res = await PropertyService.getPropertyUserById(id);
       // console.log("IN Slice ----->", res.data);
       return res.data;
     } catch (err) {
