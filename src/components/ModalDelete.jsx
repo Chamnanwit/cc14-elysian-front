@@ -1,4 +1,4 @@
-export default function Modal({ title, children, width = 27, open, onClose }) {
+export default function ModalDeleteBox({ title, children, width = 24, open, onClose }) {
   return (
     <>
       {open && (
@@ -13,7 +13,7 @@ export default function Modal({ title, children, width = 27, open, onClose }) {
               >
                 <div className="flex justify-between items-center p-4 border-b text-xl">
                   <div className="invisible">&#10005;</div>
-                  <div className="font-semibold">{title}</div>
+                  <div className="font-semibold">การลบรายการ</div>
                   <div
                     className="text-gray-500 font-semibold hover:text-gray-600"
                     role="button"
@@ -22,7 +22,9 @@ export default function Modal({ title, children, width = 27, open, onClose }) {
                     &#10005;
                   </div>
                 </div>
-                <div className="p-4 overflow-auto">{children}</div>
+                <div className="p-6 overflow-auto">
+                  {children}  
+                </div>
               </div>
             </div>
           </div>

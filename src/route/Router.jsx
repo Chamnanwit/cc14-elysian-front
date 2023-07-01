@@ -33,6 +33,7 @@ import RedirectedAdmin from "../components/RedirectedAdmin";
 
 import SuccessPaymentPage from "../features/payment/component/SuccessPaymentPage";
 import RedirectedAgent from "../components/RedirectedAgent";
+import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -49,7 +50,9 @@ export default function Router() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage />,
+      element: (<RedirectedAgentOrAdmin>
+                  <HomePage />
+                </RedirectedAgentOrAdmin>)
     },
     {
       path: "/adminlogin",

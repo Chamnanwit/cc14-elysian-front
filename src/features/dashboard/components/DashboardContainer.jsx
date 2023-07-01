@@ -17,7 +17,7 @@ export default function DashboardContainer() {
     }, []);
 
     const dashboard = useSelector((state) => state?.dashboard?.dashboardResult);
-    
+    console.log(dashboard)
     if (isLoading) {
         return <Loading />;
     }
@@ -31,7 +31,6 @@ export default function DashboardContainer() {
                 <div className=" grid grid-cols-3 gap-6 text-base">
                     <DashboardItem bgColor="blue-600" title="จำนวนที่ขายได้" result={dashboard?.dailyPurchaseResult}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
                     <DashboardItem bgColor="blue-600" title="ยอดขายทั้งหมด" result={dashboard?.dailyEarningResult}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
-                    {/* <DashboardItem bgColor="blue" title="Pending Earning"><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem> */}
                     <DashboardItem bgColor="blue-600" title="ลูกค้าใหม่" result={dashboard?.dailyNewUserResult}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>
@@ -41,7 +40,6 @@ export default function DashboardContainer() {
                 <div className=" grid grid-cols-3 gap-6 text-base">
                     <DashboardItem bgColor="green-600" title="จำนวนที่ขายได้" result={dashboard?.monthlyPurchaseResult}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
                     <DashboardItem bgColor="green-600" title="ยอดขายทั้งหมด" result={dashboard?.monthlyEarningResult}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
-                    {/* <DashboardItem bgColor="green" title="Pending Earning"><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem> */}
                     <DashboardItem bgColor="green-600" title="ลูกค้าใหม่" result={dashboard?.monthlyNewUserResult}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>
@@ -51,7 +49,6 @@ export default function DashboardContainer() {
                 <div className=" grid grid-cols-3 gap-6 text-base">
                     <DashboardItem bgColor="blue-600" title="จำนวนที่ขายได้" result={dashboard?.yearlyPurchaseResult}><FaShoppingCart fill='#ffffff' size={28}/></DashboardItem>
                     <DashboardItem bgColor="blue-600" title="ยอดขายทั้งหมด" result={dashboard?.yearlyEarningResult}><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem>
-                    {/* <DashboardItem bgColor="blue" title="Pending Earning"><MdOutlineAttachMoney fill='#ffffff' size={28}/></DashboardItem> */}
                     <DashboardItem bgColor="blue-600" title="ลูกค้าใหม่" result={dashboard?.yearlyNewUserResult}><BsPeopleFill fill='#ffffff' size={28}/></DashboardItem>
                 </div>
             </div>

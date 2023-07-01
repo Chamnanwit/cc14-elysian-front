@@ -46,7 +46,7 @@ const userPropertiesSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(userPropertiesAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(userPropertiesAsync.fulfilled, (state, action) => {
         state.userProperties = action.payload; ///5.action.payload; มาจากหลังบ้าน
@@ -58,7 +58,7 @@ const userPropertiesSlice = createSlice({
       })
 
       .addCase(userPropertiesByIdAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(userPropertiesByIdAsync.fulfilled, (state, action) => {
         state.userProperties = action.payload; ///5.action.payload; มาจากหลังบ้าน
