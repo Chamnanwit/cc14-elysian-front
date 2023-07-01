@@ -127,11 +127,6 @@ export default function Router() {
       element: <RegisterPage />,
     },
     {
-      path: "/admin",
-      element: <AdminPage />,
-      // children: [],
-    },
-    {
       path: "/agent/createproperty",
       element: <AgentCreatePropertyPage />,
     },
