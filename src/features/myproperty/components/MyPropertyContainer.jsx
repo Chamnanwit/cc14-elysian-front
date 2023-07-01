@@ -23,8 +23,10 @@ export default function MyPropertyContainer() {
       await dispatch(PropertyAsync(id)).unwrap();
       setPageLoading(false);
     };
+
     fetchData();
   }, [id]);
+  // console.log("MyPropertyContainer", id);
 
   const userproperty = useSelector(
     (state) => state?.propertyPlan?.propertyPlan?.Properties
@@ -41,6 +43,7 @@ export default function MyPropertyContainer() {
       >
         {userproperty?.map((property) => (
           <AgentRentCard
+            id={property?.id}
             propName={property?.name}
             propDescription={property?.description}
             agencyName={property?.firstName}

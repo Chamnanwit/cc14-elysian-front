@@ -48,6 +48,7 @@ export const updatePropertyAsync = createAsyncThunk(
 export const deletePropertyAsync = createAsyncThunk(
   "propertyPlan/deletePropertyAsync",
   async (id, thunkApi) => {
+    console.log("IN SLICE ID--->", id);
     try {
       const res = await PropertyService.deleteProperty(id);
       return res.data;
@@ -57,19 +58,6 @@ export const deletePropertyAsync = createAsyncThunk(
     }
   }
 );
-// export const animityAsync = createAsyncThunk(
-//   "propertyPlan/animityAsync",
-//   async (_, thunkApi) => {
-//     try {
-//       const res = await animityService.getAnimityAll();
-//       // console.log("IN SLICE animityAsync ----> ", res.data);
-//       return res.data;
-//     } catch (err) {
-//       console.log(err);
-//       return thunkApi.rejectWithValue(err.response.data.message);
-//     }
-//   }
-// );
 
 const propertyPlanSlice = createSlice({
   name: "propertyPlan",
@@ -78,17 +66,6 @@ const propertyPlanSlice = createSlice({
 
   extraReducers: (builder) =>
     builder
-      // .addCase(animityAsync.pending, (state) => {
-      //   // state.initialLoading = true;
-      // })
-      // .addCase(animityAsync.fulfilled, (state, action) => {
-      //   state.animity = action.payload;
-      //   state.isLoading = false;
-      // })
-      // .addCase(animityAsync.rejected, (state, action) => {
-      //   state.error = action.payload;
-      //   state.isLoading = false;
-      // })
       .addCase(PropertyAsync.pending, (state) => {
         state.isLoading = true;
       })

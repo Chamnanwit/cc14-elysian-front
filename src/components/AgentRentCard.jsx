@@ -4,8 +4,14 @@ import { FaCrown } from "react-icons/fa";
 import { AiFillEye } from "react-icons/ai";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePropertyAsync } from "../features/createproperty/slice/createproperty-slice";
+import { getAllProperty } from "../api/property-api";
+import { userPropertiesAsync } from "../features/userProperties/slice/userProperties";
 
 export default function AgentRentCard({
+  id,
   propName,
   propDescription,
   agencyName,
@@ -15,6 +21,19 @@ export default function AgentRentCard({
   propNearBY,
   link,
 }) {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state?.auth?.user);
+
+  const userid = user?.id;
+
+  console.log("------*----*---*>", user);
+
+  const handleDeleteProperty = async () => {
+    await dispatch(deletePropertyAsync(id)).unwrap();
+    await dispatch(userPropertiesAsync(userid)).unwrap();
+  };
+
   return (
     <div className="flex flex-col w-[270px] h-fit justify-start">
       {/* edit delete text */}
@@ -22,7 +41,10 @@ export default function AgentRentCard({
         <div className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer">
           Edit
         </div>
-        <div className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer">
+        <div
+          className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer"
+          onClick={handleDeleteProperty}
+        >
           Delete
         </div>
       </div>
