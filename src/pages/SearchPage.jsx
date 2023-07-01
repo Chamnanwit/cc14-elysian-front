@@ -40,7 +40,7 @@ export default function SearchPage() {
   };
   const hdlChangeRentPeriodInput = (e) => {
     setRentPeriod(e.target.value);
-    // console.log("Check area", areaRange);
+    // console.log("Check area", rentPeriod);
   };
 
   // console.log(price);
@@ -79,7 +79,7 @@ export default function SearchPage() {
                   <select
                     className="flex-1 select text-[8pt] w-full h-fit  text-c-gray3 rounded-lg ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
                     value={rentPeriod}
-                    onChange={hdlChangePriceRangeInput}
+                    onChange={hdlChangeRentPeriodInput}
                   >
                     <option value="">ระยะเวลาทั้งหมด</option>
                     <option key="" value="MONTHLY" className="text-2xl">
@@ -92,7 +92,7 @@ export default function SearchPage() {
                   <select
                     className="flex-1 select text-[8pt] w-full h-fit  text-c-gray3 rounded-lg ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
                     value={priceRange}
-                    onChange={hdlChangeRentPeriodInput}
+                    onChange={hdlChangePriceRangeInput}
                   >
                     <option value="">ราคาทั้งหมด</option>
                     <option key="" value="0 > 3000" className="text-2xl">
@@ -128,7 +128,11 @@ export default function SearchPage() {
           <div className="flex-[3] px-10 gap-5 flex flex-col my-12">
             {/* <BigFourButtonBar /> */}
             <div className="flex gap-5 w-full">
-              <MainSearchBar areaRange={areaRange} priceRange={priceRange} />
+              <MainSearchBar
+                areaRange={areaRange}
+                priceRange={priceRange}
+                rentPeriod={rentPeriod}
+              />
               {/* <InputBar>ค้นหา</InputBar>
               <ButtonYellowM>ค้นหา</ButtonYellowM> */}
             </div>
@@ -143,8 +147,8 @@ export default function SearchPage() {
               {state?.roomtype ||
               state?.province ||
               state?.priceRange ||
-              state?.areaRange ? (
-                // <div>sdfsdf</div>
+              state?.areaRange ||
+              state?.rentPeriod ? (
                 <RentCardBigListByRoomTypeAndProvince />
               ) : (
                 <RentCardBigList />
