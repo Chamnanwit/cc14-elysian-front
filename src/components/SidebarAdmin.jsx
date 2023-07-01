@@ -2,16 +2,17 @@ import { AiFillHome, AiFillDashboard } from "react-icons/ai";
 import { FaSearch, FaSignOutAlt, FaUserTie, FaUser } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { TbCards } from "react-icons/tb";
-import { MdPassword } from "react-icons/md";
-import { RiAdminLine } from "react-icons/ri";
-import { ImProfile } from "react-icons/im";
 import { BsChevronDown } from "react-icons/bs";
 
 import ListAdminMenuButton from "../components/ListAdminMenuButton";
 import LogoWhite from "./LogoWhite";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../features/auth/slice/authSlice";
 
 export default function SidebarAdmin() {
+ 
+  const dispatch = useDispatch()
   return (
     <div class="sticky top-0 flex flex-col flex-1 h-screen p-10 px-10 bg-c-blue2 duration-[400ms]">
       <div className="w-full flex justify-center mb-5">
@@ -97,12 +98,12 @@ export default function SidebarAdmin() {
             </details>
           </li>
 
-          <ListAdminMenuButton link="" icon={<FaSignOutAlt />}>
+          <ListAdminMenuButton link="/adminlogin" icon={<FaSignOutAlt />} onClick={() => dispatch(logout())}>
             ออกจากระบบ
           </ListAdminMenuButton>
-          <ListAdminMenuButton link="/" icon={<AiFillHome />}>
+          {/* <ListAdminMenuButton link="/" icon={<AiFillHome />}>
             กลับหน้าแรก
-          </ListAdminMenuButton>
+          </ListAdminMenuButton> */}
         </ul>
       </div>
     </div>

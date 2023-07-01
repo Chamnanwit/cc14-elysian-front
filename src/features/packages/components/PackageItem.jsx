@@ -17,7 +17,7 @@ export default function PackageItem({
   const [isEditMode, setIsEditMode] = useState(false);
   const dispatch = useDispatch();
   const handleClickDeleteBox = async () => {
-    await dispatch(deletePricingPlanAsync(el.id)).unwrap();
+    await dispatch(deletePricingPlanAsync(el?.id)).unwrap();
     await dispatch(pricingPlanAsync()).unwrap();
   };
   return (
@@ -29,15 +29,15 @@ export default function PackageItem({
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              {el.id}
+              {el?.id}
             </th>
-            <td class="px-6 py-4">{el.name}</td>
-            <td class="px-6 py-4">฿ {el.price}</td>
+            <td class="px-6 py-4">{el?.name}</td>
+            <td class="px-6 py-4">฿ {el?.price}</td>
             <td class="px-6 py-4">
-              {el.expiration === "WEEKLY" ? "รายสัปดาห์" : "รายเดือน"}
+              {el?.expiration === "WEEKLY" ? "รายสัปดาห์" : "รายเดือน"}
             </td>
             <td class="px-6 py-4 w-[180px]">
-              {el.locked ? (
+              {el?.locked ? (
                 <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[100px]">
                   เปิดใช้งาน
                 </div>
@@ -71,7 +71,7 @@ export default function PackageItem({
           <tr>
             <td>
               <div className="mt-6 ml-6 bg-gray-300 w-[50px] flex justify-center">
-                {el.id}
+                {el?.id}
               </div>
             </td>
           </tr>

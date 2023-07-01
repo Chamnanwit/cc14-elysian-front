@@ -4,17 +4,24 @@ import { AiFillHome } from "react-icons/ai";
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { TbCards } from "react-icons/tb";
-import { MdPassword } from "react-icons/md";
-import { RiAdminLine } from "react-icons/ri";
-import { ImProfile } from "react-icons/im";
-import { BsChevronDown } from "react-icons/bs";
+// import { MdPassword } from "react-icons/md";
+// import { RiAdminLine } from "react-icons/ri";
+// import { ImProfile } from "react-icons/im";
+// import { BsChevronDown } from "react-icons/bs";
 import LoginButton from "../features/auth/components/LoginButton";
 import LogoutButton from "../features/auth/components/LogoutButton";
 import Logo from "../components/logo";
 import LogoWhite from "../components/LogoWhite";
+import { useDispatch, useSelector } from "react-redux";
+import {Link} from 'react-router-dom'
+import { logout } from "../features/auth/slice/authSlice";
+
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth0();
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.auth.user)
+
   return (
     <div className="mx-auto bg-c-white1 h-[60px] w-full flex items-center p-5 px-10 shadow-lg sticky top-0 z-50">
       <div class="text-center text-c-gray1 text-[25px] flex-1 flex justify-start ">
@@ -41,51 +48,38 @@ export default function Navbar() {
           <div className="drawer-side ">
             <label htmlFor="my-drawer" className="drawer-overlay "></label>
 
-            <ul class=" fixed top-0 left-0 z-40 w-[25%] h-screen shadow-lg bg-c-green4 text-base text-c-white1 p-5 pl-10 py-10 flex-col flex gap-1 transition-transform duration-[400ms]">
-              <li>
-                <a
-                  href="/"
-                  class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+            <ul className=" fixed top-0 left-0 z-40 w-[25%] h-screen shadow-lg bg-c-green4 text-base text-c-white1 p-5 pl-10 py-10 flex-col flex gap-1 transition-transform duration-[400ms]">
+              <Link to="/">
+                <div
+                  className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   <div className="text-[18pt]">
                     <AiFillHome />
                   </div>
-                  <span class="ml-3">หน้าแรก</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/searchpage"
+                  <span className="ml-3">หน้าแรก</span>
+                </div>
+              </Link>
+              <Link to="/searchpage">
+                <div
                   class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   <div className="text-[18pt]">
                     <FaSearch />
                   </div>
-                  <span class="ml-3">ค้นหาทั้งหมด</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/packageplan"
+                  <span className="ml-3">ค้นหาทั้งหมด</span>
+                </div>
+              </Link>
+              <Link to="/packageplan">
+                <div
                   class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   <div className="text-[18pt]">
                     <TbCards />
                   </div>
                   <span class="ml-3">แพ็คเกจ</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/phonenumber"
-                  class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-                >
-                  <div className="text-[18pt]">
-                    <RiAdminLine />
-                  </div>
-                  <span class="ml-3">ยืนยันตัวตน</span>
-                </a>
-              </li>
+                </div>
+              </Link>
+              
               {/* <li>
         <a
           href="#ก"
@@ -159,61 +153,28 @@ export default function Navbar() {
         </ul>
       </li> */}
 
-              <li>
-                <a
-                  href="/agent"
+              <Link to="/agent">
+                <span
                   class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   <div className="text-[18pt]">
                     <RxDashboard />
                   </div>
                   <span class="ml-3">จัดการห้องเช่า</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#ก"
-                  class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-                >
-                  <div className="text-[18pt]">
-                    <ImProfile />
-                  </div>
-                  <span class="ml-3">ข้อมูลส่วนตัว</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#ก"
-                  class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-                >
-                  <div className="text-[18pt]">
-                    <MdPassword />
-                  </div>
-                  <span class="ml-3">เปลี่ยนรหัสผ่าน</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#ก"
+                </span>
+              </Link>
+              
+              <Link to="/" onClick={() => dispatch(logout())}>
+                <div
                   class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   <div className="text-[18pt]">
                     <FaSignOutAlt />
                   </div>
                   <span class="ml-3">ออกจากระบบ</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/adminlogin"
-                  class="flex items-center p-2 my-10 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-                >
-                  <div className="text-[18pt]">
-                    <RiAdminLine />
-                  </div>
-                  <span class="ml-3">ADMIN</span>
-                </a>
-              </li>
+                </div>
+              </Link>
+              
             </ul>
           </div>
         </div>

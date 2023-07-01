@@ -35,10 +35,10 @@ export default function PurchaseHistoryContainer() {
   ];
   return (
     <>
-      <HeaderAdmin topic="Purchase history" />
+      <HeaderAdmin topic="ประวัติการซื้อ" />
       <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
         <div className="flex items-baseline gap-4 justify-end mb-6">
-          <div>Search:</div>
+          <div>ค้นหา:</div>
           <div className="100px text-md">
             <InputForm />
           </div>
@@ -48,25 +48,25 @@ export default function PurchaseHistoryContainer() {
             <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-6 py-5">
-                  SN
+                  ลำดับที่
                 </th>
                 <th scope="col" class="px-3 py-5">
-                  Agent
+                  ผู้ปล่อยเช่า
                 </th>
                 <th scope="col" class="px-3 py-5">
-                  Plan Name
+                  แพ็คเกจ
                 </th>
                 <th scope="col" class="px-3 py-5">
-                  Price
+                  ราคา
                 </th>
                 <th scope="col" class="px-3 py-5">
-                  Expiration
+                  ระยะเวลา
                 </th>
                 <th scope="col" class="px-3 py-5">
-                  Payment
+                  การจ่ายเงิน
                 </th>
                 <th scope="col" class="px-3 py-5">
-                  Order Status
+                  สถานะแพ็คเกจ
                 </th>
                 <th scope="col" class="px-3 py-5">
                   Action
