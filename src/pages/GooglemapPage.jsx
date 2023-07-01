@@ -1,102 +1,78 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
+function ShowMap({ name, lat, long }) {
+  let map;
+  const [init, setInit] = useState(true);
+  const [latitude, setLatitude] = useState(null);
+  const [logtitude, setLongitude] = useState(null);
+  const navigate = Navigate;
+  async function initMap() {
+    console.log("........................", name);
+    const position = { lat: 13.7513, lng: 100.4897 };
 
-function MapPage() {
-    let map;
-    const [init, setInit] = useState(true)
-    const [latitude, setLatitude] = useState(null)
-    const [logtitude, setLongitude] = useState(null)
-    async function initMap() {
-        // The location of Uluru
-        // console.log(position.coords)
-        // const position = { lat: latitude, lng: logtitude, };
-        const position = { lat: 13.7513, lng: 100.4897, };
-        // Request needed libraries.
-        //@ts-ignore
-        const { Map } = await google.maps.importLibrary("maps");
-        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-        // The map, centered at Uluru
-        map = new Map(document.getElementById("map"), {
-            zoom: 12,
-            center: position,
-            mapId: "DEMO_MAP_ID",
-        });
-        let infoWindow = new google.maps.InfoWindow({
-            content: "Click the map to get Lat/Lng!", // เอา link มาแปะ
-            position: position,
-        });
-        // infoWindow.open(map);
-        const marker = new google.maps.Marker({
-            position: position,
-            map,
-            title: "Click to zoom",
-        });
-        infoWindow.open(map, marker);
+    map = new Map(document.getElementById("map"), {
+      zoom: 17,
+      center: position,
+      mapId: "DEMO_MAP_ID",
+    });
+    let infoWindow = new google.maps.InfoWindow({
+      content: `${name}`,
+      position: position,
+    });
 
-        // Configure the click listener.
-        map.addListener("click", (mapsMouseEvent) => {
-            /*    // Close the current InfoWindow.
-               infoWindow.close();
-               // Create a new InfoWindow.
-               infoWindow = new google.maps.InfoWindow({
-                   position: mapsMouseEvent.latLng,
-               });
-               infoWindow.setContent(
-                   JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-               );
-               infoWindow.open(map); */
-            // const marker = new AdvancedMarkerElement({
-            //     map,
-            //     position: { lat: mapsMouseEvent.latLng.lat, lng: mapsMouseEvent.latLng.lng },
-            // });
-            console.log(mapsMouseEvent.latLng.toJSON())
-            // new google.maps.Marker({
-            //     position: { lat: mapsMouseEvent.latLng.toJSON().lat, lng: mapsMouseEvent.latLng.toJSON().lng },
-            //     map,
-            //     title: "Hello World!",
-            // });
-            marker.setPosition(mapsMouseEvent.latLng.toJSON())
+    const marker = new google.maps.Marker({
+      position: position,
+      map,
+      title: "Click to zoom",
+    });
+    infoWindow.open(map, marker);
 
+    marker.addListener("click", (mapsMouseEvent) => {
+      console.log(mapsMouseEvent.latLng.toJSON());
+      //   navigate(
+      //     `https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`
+      //   );
+      window.location.replace(
+        `https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`
+      );
+    });
+  }
 
-            setLatitude(mapsMouseEvent.latLng.toJSON().lat)
-            setLongitude(mapsMouseEvent.latLng.toJSON().lng)
-        });
-
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        setLatitude(pos.coords.latitude);
+        setLongitude(pos.coords.longitude);
+      });
     }
+  }
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((pos) => {
-                setLatitude(pos.coords.latitude)
-                setLongitude(pos.coords.longitude)
-            });
-        }
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  useEffect(() => {
+    if (logtitude && init) {
+      console.log(init);
+      initMap();
+      setInit(false);
     }
+  }, [logtitude, latitude]);
 
-    useEffect(() => {
-        getLocation()
-    }, [])
-
-    useEffect(() => {
-
-        if (logtitude && init) {
-            console.log(init)
-            initMap()
-            setInit(false)
-        }
-    }, [logtitude, latitude])
-
-    return (
-        <div className="w-screen h-screen flex justify-center items-center">
-
-            <div className="w-[500px] h-[500px]" id="map">MapPage</div>
-        </div>
-    )
+  return (
+    <div className="">
+      {/* <a href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`}> */}
+      <div className="w-[90%] h-[500px]" id="map">
+        MapPage
+      </div>
+      {/* </a> */}
+    </div>
+  );
 }
 
-
-
-
-export default MapPage
+export default ShowMap;
