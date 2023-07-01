@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
@@ -13,42 +13,38 @@ export default function EditPropertyForm({
   oldProperty,
 }) {
   const initialInput = {
-    price: "",
-    floor: "",
-    totalArea: "",
-    totalUnit: "",
-    totalBedroom: "",
-    totalBathroom: "",
-    totalKitchen: "",
-    description: "",
-    latitude: "333.33",
-    longitude: "444.44",
-    rentPeriod: "",
-    locked: "YES",
-    published: "YES",
-    userId: "1",
-    roomTypeId: "",
-    subDistrictId: "3",
+    price: oldProperty?.price || "",
+    floor: oldProperty?.floor || "",
+    totalArea: oldProperty?.totalArea || "",
+    totalUnit: oldProperty?.totalUnit || "",
+    totalBedroom: oldProperty?.totalBedroom || "",
+    totalBathroom: oldProperty?.totalBathroom || "",
+    totalKitchen: oldProperty?.totalKitchen || "",
+    description: oldProperty?.description || "",
+    latitude: oldProperty?.latitude || "99.999999",
+    longitude: oldProperty?.longitude || "444.440000",
+    rentPeriod: oldProperty?.rentPeriod || "",
+    locked: oldProperty?.locked || true,
+    published: oldProperty?.published || true,
+    userId: oldProperty?.id || "",
+    subDistrictId: oldProperty?.subDistrictId || "3",
   };
-
-  const data = [
-    { id: 1, name: "เครื่องปรับอากาศ", type: "ROOM" },
-    { id: 2, name: "TV", type: "ROOM" },
-    { id: 3, name: "ตู้เย็น", type: "ROOM" },
-    { id: 4, name: "เครื่องทำน้ำอุ่น", type: "ROOM" },
-    { id: 5, name: "เครื่องซักผ้า", type: "ROOM" },
-    { id: 6, name: "สระว่ายน้ำ", type: "COMMON" },
-    { id: 7, name: "ฟิตเนส", type: "COMMON" },
-    { id: 8, name: "สวน", type: "COMMON" },
-    { id: 9, name: "ครัว", type: "COMMON" },
-    { id: 10, name: "Co-working Space", type: "COMMON" },
-  ];
-
-  const dataRoom = data.filter((el) => el.type === "ROOM");
-  const dataCommon = data.filter((el) => el.type === "COMMON");
 
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(animityAsync());
+  }, []);
+
+  const animityRoomArrSearch = useSelector(
+    (state) => state?.animity?.animityRoomFilter
+  );
+  const animityCommonArrSearch = useSelector(
+    (state) => state?.animity?.animityCommonFilter
+  );
+
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     console.log(input);
@@ -321,7 +317,7 @@ export default function EditPropertyForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataRoom.map((el) => (
+              {animityRoomArrSearch.map((el) => (
                 <Checkbox el={el} key={el.id} />
               ))}
             </form>
@@ -334,7 +330,7 @@ export default function EditPropertyForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataCommon.map((el) => (
+              {animityCommonArrSearch.map((el) => (
                 <Checkbox el={el} key={el.id} />
               ))}
             </form>
