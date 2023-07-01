@@ -31,7 +31,7 @@ export default function SidebarAgency() {
       </div>
       <div class="py-4 overflow-y-auto  text-c-white1">
         <ul class="space-y-2 font-medium">
-          <ListAdminMenuButton link="/" icon={<AiFillDashboard />}>
+          <ListAdminMenuButton link={`/agent`} icon={<AiFillDashboard />}>
             ภาพรวม
           </ListAdminMenuButton>
           <details open>
@@ -62,16 +62,6 @@ export default function SidebarAgency() {
                   //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
                   เพิ่มห้องเช่า
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin/animity"
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
-
-                  //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                >
-                  สิ่งอำนวยความสะดวก
                 </Link>
               </li>
             </ul>
@@ -107,7 +97,7 @@ export default function SidebarAgency() {
             </ul>
           </details>
 
-          <ListAdminMenuButton link="" icon={<ImProfile />}>
+          <ListAdminMenuButton link="/agent/myprofile" icon={<ImProfile />}>
             ข้อมูลส่วนตัว
           </ListAdminMenuButton>
           {/* <ListAdminMenuButton link="" icon={<MdPassword />}>
