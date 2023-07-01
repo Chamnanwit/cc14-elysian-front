@@ -4,10 +4,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-export default function MainSearchBar() {
+export default function MainSearchBar({ areaRange, priceRange }) {
   const dispatch = useDispatch();
   const [roomtype, setRoomtype] = useState("");
   const [province, setProvince] = useState("");
+  // const [areaRange, setAreaRange] = useState("");
+  // const [priceRange, setPriceRange] = useState("");
+
   let { state } = useLocation();
 
   const checkRoomtype = state?.roomtype;
@@ -29,6 +32,13 @@ export default function MainSearchBar() {
   const hdlChangeProvinceInput = (e) => {
     setProvince(e.target.value);
   };
+  // const hdlChangeAreaRangeInput = (e) => {
+  //   setAreaRange(e.target.value);
+  // };
+
+  // const hdlChangePriceRangeInput = (e) => {
+  //   setPriceRange(e.target.value);
+  // };
 
   // const hdlSubmit = (e) => {
   //   try {
@@ -79,7 +89,15 @@ export default function MainSearchBar() {
         ))}
       </select>
 
-      <Link to="/searchpage" state={{ roomtype: roomtype, province: province }}>
+      <Link
+        to="/searchpage"
+        state={{
+          roomtype: roomtype,
+          province: province,
+          areaRange: areaRange,
+          priceRange: priceRange,
+        }}
+      >
         <button className="w-fit px-7 py-2 rounded-r-full h-full bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-105 active:scale-95 active:bg-c-yellow3 hover:z-50">
           ค้นหา
         </button>
