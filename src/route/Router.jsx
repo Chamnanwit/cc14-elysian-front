@@ -37,6 +37,7 @@ import AgentDashBoardPage from "../pages/AgentDashBoardPage";
 import AgentAllPropertyPage from "../pages/AgentAllPropertyPage";
 import AgentProfilePage from "../pages/AgentProfilePage";
 import RedirectedAgent from "../components/RedirectedAgent";
+import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -53,7 +54,9 @@ export default function Router() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage />,
+      element: (<RedirectedAgentOrAdmin>
+                  <HomePage />
+                </RedirectedAgentOrAdmin>)
     },
     {
       path: "/adminlogin",

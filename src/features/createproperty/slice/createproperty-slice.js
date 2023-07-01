@@ -12,7 +12,8 @@ export const PropertyAsync = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const res = await PropertyService.getPropertyUserById(id);
-      // console.log("IN Slice ----->", res.data);
+      console.log("IN Slice ----->", res.data);
+
       return res.data;
     } catch (err) {
       console.log(err);

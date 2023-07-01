@@ -1,5 +1,6 @@
 import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
+import GoogleMap from "../pages/GooglemapPage";
 import { BiTime } from "react-icons/bi";
 import { MdEmail, MdLocationOn } from "react-icons/md";
 import { useEffect } from "react";
@@ -18,10 +19,13 @@ export default function RentDetailPage() {
   }, [id]);
 
   const userPropertiesIdlist = useSelector(
-    (state) => state?.userProperties?.userProperties
+    (state) => state?.userProperties?.userPropertiesById
   );
 
   const el = { ...userPropertiesIdlist };
+  // console.log("-----------9-------------------",el)
+
+  console.log(userPropertiesIdlist);
 
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
@@ -69,7 +73,7 @@ export default function RentDetailPage() {
                 </div> */}
                 <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
                   <p>ประเภทห้อง</p>
-                  <p>{el.RoomType?.name}</p>
+                  <p>{el?.RoomType?.name}</p>
                 </div>
                 <div className="flex justify-between w-full text-c-gray2 border-b-1 border py-2 border-r-0 border-l-0 border-t-0">
                   <p>ชั้น</p>
@@ -99,7 +103,7 @@ export default function RentDetailPage() {
               </div>
             </div>
             <div className="flex-[3] p-5 flex flex-col gap-5">
-              <div className="flex justify-between text-c-gray3">
+              <div className="flex justify-between text-c-gray3 gap-2">
                 <div>
                   <div className="flex gap-2  text-c-gray2 pt-4">
                     <BiTime />
@@ -115,15 +119,19 @@ export default function RentDetailPage() {
                     {el?.name}
                   </div>
                   <div className=" text-c-blue1 text-xl py-5">
-                    ราคาเช่า ฿{el?.price?.toLocaleString()} /
-                    {el.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
+                    ราคาเช่า{" "}
+                    {Number(el?.price).toLocaleString("th-TH", {
+                      style: "currency",
+                      currency: "THB",
+                    })}{" "}
+                    /{el.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
                   </div>
-                  <div className=" text-sm text-c-gray2">
+                  {/* <div className=" text-sm text-c-gray2">
                     มัดจำ/ประกัน: 2 เดือน
                   </div>
                   <div className=" text-sm text-c-gray2">
                     จ่ายล่วงหน้า 2 เดือน
-                  </div>
+                  </div> */}
                   <div className="text-lg mt-5 text-c-gray2 flex gap-1">
                     <div>
                       <MdLocationOn />
@@ -154,7 +162,7 @@ export default function RentDetailPage() {
                     รายละเอียด
                   </div>
                   <div className="collapse-content">
-                    <p className=" text-c-gray2">{el.description}</p>
+                    <div dangerouslySetInnerHTML={{ __html: el.description }} />
                   </div>
                 </div>
                 <div className="collapse collapse-arrow join-item border-b border-base-300">
@@ -170,6 +178,9 @@ export default function RentDetailPage() {
                     ))}
                   </div>
                 </div>
+              </div>
+              <div className="">
+                  {el.name && <GoogleMap name={el?.name} lat={el?.latitude} long={el?.longitude}/>}
               </div>
             </div>
           </div>
