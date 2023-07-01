@@ -15,7 +15,7 @@ export default function AgencyCard({
   agencyemail,
 }) {
   return (
-    <div className=" bg-gray-100 gap-2 w-[200px] h-fit border rounded-lg shadow-md p-5 py-8 flex flex-col items-center text-c-white1">
+    <div className=" bg-gray-100 gap-2 w-[180px] p-5 h-fit border rounded-lg shadow-md flex flex-col items-center text-c-white1">
       <img
         src={agencyImage || "/src/assets/blank.png"}
         alt="avatar"
@@ -38,7 +38,7 @@ export default function AgencyCard({
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-1 border-b-gray1  w-full text-sm justify-center">
+      <div className="flex flex-col items-center gap-1 border-b-gray1  w-full text-[8pt] justify-center">
         {/* <div>สถานะ</div> */}
         {agencystatus === "1" ? (
           <div className=" flex gap-1 items-center text-c-green2">
