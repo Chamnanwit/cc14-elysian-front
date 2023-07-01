@@ -58,7 +58,7 @@ export default function RentCard({
             <div className="flex justify-between"></div>
             <div className="text-xs text-c-gray2 ">{agencyName}</div>
             <div className="text-c-gray3 text-sm">
-              ฿{propPrice} / {propRentPeriod}
+              {propPrice} / {propRentPeriod}
             </div>
           </div>
 

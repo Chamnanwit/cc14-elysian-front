@@ -19,7 +19,7 @@ import { useLocation } from "react-router-dom";
 import RentCardBigListByRoomTypeAndProvince from "../features/userProperties/components/RentCardBigListByRoomTypeAndProvince";
 
 export default function SearchPage() {
-  const [price, setPrice] = useState();
+  const [priceRange, setPriceRange] = useState(500);
   let { state } = useLocation();
   // console.log("show state", state);
   // console.log("show state roomt", state.roomtype);
@@ -31,8 +31,8 @@ export default function SearchPage() {
   // console.log(state);
 
   const hdlChangeInput = (e) => {
-    setPrice(Number(e.target.value));
-    console.log(price);
+    setPriceRange(Number(e.target.value));
+    console.log(priceRange);
   };
 
   // console.log(price);
@@ -45,18 +45,24 @@ export default function SearchPage() {
         <div className=" bg-c-white1 shadow-xl"></div>
         <div className="flex w-full h-auto">
           <div className="flex-[1]">
-            <div className=" bg-c-green4 h-screen shadow-xl p-5 pb-20 rounded-br-lg pt-20 items-center text-center flex flex-col justify-between gap-3 sticky top-10">
+            <div className=" bg-c-green4 h-screen shadow-xl p-5 pb-20 rounded-br-lg pt-12 items-center text-center flex flex-col justify-between gap-3 sticky top-10">
               <div className="w-full flex flex-col gap-5">
-                <input
-                  type="range"
-                  min={0}
-                  max="100"
-                  value={price}
-                  className="range range-xs  range-info"
-                  onChange={hdlChangeInput}
-                  // changeScrollBar(this.value)
-                  // step="25"
-                />
+                <div className=" bg-c-white1 p-5 rounded-lg">
+                  <input
+                    type="range"
+                    min={0}
+                    max="10000"
+                    value={priceRange}
+                    className="range range-xs  range-warning"
+                    onChange={hdlChangeInput}
+                    // changeScrollBar={hdlChangeInput}
+                    // step="25"
+                  />
+                  <div className="flex justify-between">
+                    <p>0</p>
+                    <p>{priceRange} ตร.ว.</p>
+                  </div>
+                </div>
 
                 {/* <ButtonGhostWhite>ห้องเช่าแนะนำ</ButtonGhostWhite>
                 <ButtonGhostWhite>ห้องเช่าใกล้รถไฟฟ้า</ButtonGhostWhite>
@@ -75,11 +81,13 @@ export default function SearchPage() {
               <ButtonYellowM>ค้นหา</ButtonYellowM> */}
             </div>
             <p className="text-sm text-c-gray2">
-              ผลการค้นหาของคำว่า {state?.roomtype} {state?.province} ทั้งหมด 180
-              รายการ
+              ผลการค้นหา ประเภทห้อง {state?.roomtype || "ทั้งหมด"} จังหวัด{" "}
+              {state?.province || "ทั้งหมด"}
             </p>
             <div className="flex flex-col gap-8">
               {/* <RentCardBigList /> */}
+              {/* <RentCardBigListByRoomTypeAndProvince /> */}
+
               {state?.roomtype || state?.province ? (
                 // <div>sdfsdf</div>
                 <RentCardBigListByRoomTypeAndProvince />
