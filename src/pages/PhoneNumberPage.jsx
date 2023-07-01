@@ -97,19 +97,19 @@ export default function PhoneNumberPage() {
                     renderInput={(props) => <input {...props} />}
                   />
 
-                  <InputErrorMessage message="testest" />
+                  <InputErrorMessage message="" />
 
                   <ButtonYellowM onClick={hdlSubmitOtp} type="submit">
                     ยืนยัน
                   </ButtonYellowM>
                   <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                     หากยังไม่ได้ข้อความ{" "}
-                    <a
-                      href="#"
+                    <button
+                      onClick={hdlSubmit}
                       class="text-blue-700 hover:underline dark:text-blue-500"
                     >
                       ขอรหัสอีกครั้ง
-                    </a>
+                    </button>
                   </div>
                 </div>
 
