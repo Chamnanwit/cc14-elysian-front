@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesAsync } from "../slice/userProperties";
 import { Link } from "react-router-dom";
-import BadgeDarkBlue from "../../../components/BadgeDarkBlue";
+import BadgeGreen from "../../../components/BadgeGreen";
+import BadgeYellow from "../../../components/BadgeYellow";
 
 export default function RentCardBigList() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -17,7 +18,7 @@ export default function RentCardBigList() {
   );
 
   const timestamp = {};
-  const date = new Date(timestamp).toLocaleDateString();
+  const date = new Date(timestamp)?.toLocaleDateString();
 
   return (
     <>
@@ -27,7 +28,10 @@ export default function RentCardBigList() {
             propName={el?.name}
             propDescription={el?.description}
             agencyName={el?.User?.firstName}
-            propPrice={el?.price}
+            propPrice={Number(el?.price).toLocaleString("th-TH", {
+              style: "currency",
+              currency: "THB",
+            })}
             propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
             propLocation={
               el?.SubDistrict?.nameInThai +
@@ -40,8 +44,9 @@ export default function RentCardBigList() {
             agencyemail={el?.User?.email || "00"}
             createTime={el?.createdAt?.slice(0, 10)}
             badge={el?.Optionals?.map((el) => (
-              <BadgeDarkBlue>{el?.OptionalType?.name}</BadgeDarkBlue>
+              <BadgeYellow>{el?.OptionalType?.name}</BadgeYellow>
             ))}
+            rootype={<BadgeGreen>{el?.RoomType?.name}</BadgeGreen>}
           />
         </Link>
       ))}

@@ -9,6 +9,7 @@ import profileAgncyReducer from "../features/myprofile/slice/myProfile-slice";
 import propertyPlanReducer from "../features/createproperty/slice/createproperty-slice";
 import purchaseHistoryReducer from "../features/purchase-history/slice/purchase-slice";
 import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
+import searchListReducer from "../features/search/slice/search-slice";
 import paymentReducer from "../features/payment/slice/payment-slice";
 import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
 
@@ -27,6 +28,7 @@ const store = configureStore({
     payment: paymentReducer,
     purchaseHistory: purchaseHistoryReducer,
     requestOtpAsync: agencyOtpReducer,
+    searchList: searchListReducer,
   },
 });
 
