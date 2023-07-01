@@ -19,7 +19,7 @@ export default function RentDetailPage() {
   }, [id]);
 
   const userPropertiesIdlist = useSelector(
-    (state) => state?.userProperties?.userProperties
+    (state) => state?.userProperties?.userPropertiesById
   );
 
   const el = { ...userPropertiesIdlist };

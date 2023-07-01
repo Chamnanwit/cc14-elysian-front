@@ -57,12 +57,12 @@ export default function PackageItem({
               >
                 <EditIcon />
               </div>
-              <div
+              {/* <div
                 className="bg-red-700 p-[5px] rounded-md cursor-pointer"
                 onClick={handleClickDeleteBox}
               >
                 <TrashIcon />
-              </div>
+              </div> */}
             </td>
           </tr>
         </>

@@ -5,12 +5,14 @@ import AgencyProfile from "./AgencyProfile";
 import { agentAsync, deleteagentAsync, updateAgentAsync } from "../slice/adminviewagency-slice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ModalDeleteBox from "../../../components/ModalDelete";
 
 export default function AgentItem({ el }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const [isViewMode, setIsViewMode] = useState(false);
+  // const [isViewMode, setIsViewMode] = useState(false);
+  const [clickDeleteBox, setClickDeleteBox] = useState(false);
   const [locked, setStatus] = useState(el?.locked);
 
   const handleClickChangeStatus = async (e) => {
@@ -59,11 +61,36 @@ export default function AgentItem({ el }) {
           >
             <HiEye fill="#ffffff" />
           </div>
-          <div className="bg-red-700 p-[5px] rounded-md cursor-pointer" onClick={handleClickDeleteBox}>
+          <div className="bg-red-700 p-[5px] rounded-md cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setClickDeleteBox(true);
+            }}
+          >
             <TrashIcon />
           </div>
         </td>
       </tr>
+      {clickDeleteBox ? (
+        <ModalDeleteBox
+          open={clickDeleteBox}
+          onClose={() => setClickDeleteBox(false)}
+        >
+          <div className="flex flex-col gap-8">
+            <div className="text-center">คุณแน่ใจว่าจะลบใช่หรือไม่</div>
+            <div className="flex justify-between gap-6">
+              <div className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer" onClick={handleClickDeleteBox}>
+                ตกลง
+              </div>
+              <div className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer" onClick={() => setClickDeleteBox(false)}>
+                ยกเลิก
+              </div>
+            </div>
+          </div>
+        </ModalDeleteBox>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

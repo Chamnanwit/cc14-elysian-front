@@ -55,16 +55,16 @@ export default function AgencyProfile() {
           <div>Agent list</div>
         </div>
         <div className=" grid grid-cols-4 gap-6 text-base">
-          <DashboardItem bgColor="blue" title="Total Property">
+          <DashboardItem bgColor="blue-600" title="ห้องเช่าทั้งหมด">
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="gray" title="Inactive Property">
+          <DashboardItem bgColor="green-600" title="ห้องเช่าที่เปิดอยู่">
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="orange" title="Active Property">
+          <DashboardItem bgColor="gray-500" title="ห้องเช่าที่ปิดอยู่">
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="green" title="Total Purchase">
+          <DashboardItem bgColor="blue-600" title="ยอดซื้อแพ็คเกจ">
             <FaRegMoneyBillAlt fill="#ffffff" size={28} />
           </DashboardItem>
         </div>

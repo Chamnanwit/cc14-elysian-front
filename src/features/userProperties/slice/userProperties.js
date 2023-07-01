@@ -3,6 +3,7 @@ import * as userPropertiesService from "../../../api/property-api";
 
 const initialState = {
   userProperties: [], ///1. สร้างเพื่อเก็บข้อมูลที่มาจากหลังบ้าน
+  userPropertiesById: {}, ///1. สร้างเพื่อเก็บข้อมูลที่มาจากหลังบ้าน
   isLoading: true,
 };
 
@@ -46,7 +47,7 @@ const userPropertiesSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(userPropertiesAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(userPropertiesAsync.fulfilled, (state, action) => {
         state.userProperties = action.payload; ///5.action.payload; มาจากหลังบ้าน
@@ -58,10 +59,10 @@ const userPropertiesSlice = createSlice({
       })
 
       .addCase(userPropertiesByIdAsync.pending, (state) => {
-        // state.initialLoading = true;
+        state.isLoading = true;
       })
       .addCase(userPropertiesByIdAsync.fulfilled, (state, action) => {
-        state.userProperties = action.payload; ///5.action.payload; มาจากหลังบ้าน
+        state.userPropertiesById = action.payload; ///5.action.payload; มาจากหลังบ้าน
         state.isLoading = false;
       })
       .addCase(userPropertiesByIdAsync.rejected, (state, action) => {

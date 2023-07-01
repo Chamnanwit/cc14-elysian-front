@@ -6,5 +6,6 @@ export const updateAdminInformation = (input) => axios.patch('/admin/admin-edit-
 export const deleteAdminInformation = (id) => axios.delete(`/admin/admin-delete-form/${id}`);
 
 export const getDashboard = () => axios.get(`/admin/get-report`);
+export const getAllHistory = () => axios.get(`/admin/get-all-purchase-history`);
 
 

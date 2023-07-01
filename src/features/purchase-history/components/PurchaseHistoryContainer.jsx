@@ -2,37 +2,61 @@ import React from "react";
 import HeaderAdmin from "../../../components/HeaderAdmin";
 import PurchaseHistoryItem from "./PurchaseHistoryItem";
 import InputForm from "../../../components/InputForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  purchaseHistoryAsync,
+  searchPurchaseHistoryAsync,
+  setSearchValueRedux,
+} from "../slice/purchase-slice";
+import Loading from "../../../components/Loading";
+import { useEffect } from "react";
 
 export default function PurchaseHistoryContainer() {
-  const data = [
-    {
-      id: 1,
-      agent: "July",
-      planName: "Premium",
-      price: "99.99",
-      expiration: "monthly",
-      payment: 1,
-      orderStatus: 1,
-    },
-    {
-      id: 2,
-      agent: "John",
-      planName: "Gold",
-      price: "49.99",
-      expiration: "yearly",
-      payment: 0,
-      orderStatus: 0,
-    },
-    {
-      id: 3,
-      agent: "June",
-      planName: "Gold",
-      price: "49.99",
-      expiration: "monthly",
-      payment: 1,
-      orderStatus: 1,
-    },
+  const dispatch = useDispatch();
+  const searchValue = useSelector(
+    (state) => state?.purchaseHistory?.searchValue
+  );
+  const isLoading = useSelector((state) => state?.purchaseHistory?.isLoading);
+
+  useEffect(() => {
+    dispatch(purchaseHistoryAsync());
+  }, []);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      dispatch(searchPurchaseHistoryAsync(searchValue));
+    }, 1000);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }, [searchValue]);
+
+  const handleChange = (e) => {
+    dispatch(setSearchValueRedux(e.target.value));
+  };
+
+  const historyArr = useSelector(
+    (state) => state?.purchaseHistory?.purchaseFilter
+  );
+
+  console.log(historyArr);
+
+  const pricingPlanType = [
+    { id: 1, type: "FREE" },
+    { id: 2, type: "GOLD" },
+    { id: 3, type: "PREMIUM" },
   ];
+
+  const expirationType = [
+    { id: 1, type: "WEEKLY", thaiType: "รายสัปดาห์" },
+    { id: 2, type: "MONTHLY", thaiType: "รายเดือน" },
+  ];
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <HeaderAdmin topic="ประวัติการซื้อ" />
@@ -40,7 +64,13 @@ export default function PurchaseHistoryContainer() {
         <div className="flex items-baseline gap-4 justify-end mb-6">
           <div>ค้นหา:</div>
           <div className="100px text-md">
-            <InputForm />
+            <InputForm
+              type="text"
+              className="header__search__input"
+              placeholder="ชื่อ/นามสกุล"
+              onChange={handleChange}
+              value={searchValue}
+            />
           </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
@@ -48,7 +78,7 @@ export default function PurchaseHistoryContainer() {
             <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-6 py-5">
-                  ลำดับที่
+                  ที่
                 </th>
                 <th scope="col" class="px-3 py-5">
                   ผู้ปล่อยเช่า
@@ -74,7 +104,7 @@ export default function PurchaseHistoryContainer() {
               </tr>
             </thead>
             <tbody>
-              {data.map((el) => (
+              {historyArr.map((el) => (
                 <PurchaseHistoryItem key={el.id} el={el} />
               ))}
             </tbody>
