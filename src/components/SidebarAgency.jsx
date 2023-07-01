@@ -31,7 +31,7 @@ export default function SidebarAgency() {
       </div>
       <div class="py-4 overflow-y-auto  text-c-white1">
         <ul class="space-y-2 font-medium">
-          <ListAdminMenuButton link="/" icon={<AiFillDashboard />}>
+          <ListAdminMenuButton link="/agent" icon={<AiFillDashboard />}>
             ภาพรวม
           </ListAdminMenuButton>
           <details open>
@@ -97,7 +97,7 @@ export default function SidebarAgency() {
             </ul>
           </details>
 
-          <ListAdminMenuButton link="" icon={<ImProfile />}>
+          <ListAdminMenuButton link="/agent/myprofile" icon={<ImProfile />}>
             ข้อมูลส่วนตัว
           </ListAdminMenuButton>
           {/* <ListAdminMenuButton link="" icon={<MdPassword />}>

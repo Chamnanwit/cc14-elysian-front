@@ -6,9 +6,10 @@ import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePropertyAsync } from "../features/createproperty/slice/createproperty-slice";
-import { getAllProperty } from "../api/property-api";
-import { userPropertiesAsync } from "../features/userProperties/slice/userProperties";
+import {
+  PropertyAsync,
+  deletePropertyAsync,
+} from "../features/createproperty/slice/createproperty-slice";
 
 export default function AgentRentCard({
   id,
@@ -27,11 +28,9 @@ export default function AgentRentCard({
 
   const userid = user?.id;
 
-  console.log("------*----*---*>", user);
-
   const handleDeleteProperty = async () => {
     await dispatch(deletePropertyAsync(id)).unwrap();
-    await dispatch(userPropertiesAsync(userid)).unwrap();
+    await dispatch(PropertyAsync(userid)).unwrap();
   };
 
   return (

@@ -13,9 +13,6 @@ export default function MyPropertyContainer() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  // console.log("TEST----->", id);
-
-  // const el = useSelector((state) => state?.adminViewAgent?.agentById);
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
@@ -26,13 +23,11 @@ export default function MyPropertyContainer() {
 
     fetchData();
   }, [id]);
-  // console.log("MyPropertyContainer", id);
 
   const userproperty = useSelector(
     (state) => state?.propertyPlan?.propertyPlan?.Properties
   );
 
-  // console.log("--------*----->", userproperty);
   return (
     <>
       <HeaderAgent topic="My Properties" />

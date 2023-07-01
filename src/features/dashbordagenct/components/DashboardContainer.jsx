@@ -4,8 +4,26 @@ import HeaderAgent from "../../../components/HeaderAgent";
 import AgentShowBox from "../../createproperty/components/AgentShowBox";
 import { AiFillEye } from "react-icons/ai";
 import { IoIosAlert } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { dashboardAsync } from "../../dashboard/slice/dashboard-slice";
+import Loading from "../../../components/Loading";
 
 export default function DashboardAgenctContainer() {
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state?.dashboard?.isLoading);
+  useEffect(() => {
+    dispatch(dashboardAsync());
+  }, []);
+
+  const dashboard = useSelector((state) => state?.dashboard?.dashboardResult);
+
+  console.log("dashboard------->", dashboard);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <HeaderAgent topic="ภาพรวม" />
