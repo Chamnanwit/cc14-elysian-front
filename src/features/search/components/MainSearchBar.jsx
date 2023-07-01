@@ -62,7 +62,6 @@ export default function MainSearchBar() {
             </option>
           )
         )}
-        <option value="">ทั้งหมด</option>
       </select>
 
       <select
