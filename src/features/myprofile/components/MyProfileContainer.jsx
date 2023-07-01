@@ -7,8 +7,7 @@ import { useParams } from "react-router-dom";
 
 export default function MyProfileContainer() {
   const dispatch = useDispatch();
-  const { id } = useParams();
-  console.log("--------->", id);
+  
   useEffect(() => {
     dispatch(profileAgncyAsync());
   }, []);
