@@ -8,16 +8,13 @@ import BadgeYellow from "../../../components/BadgeYellow";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-export default function RentCardBigListByRoomTypeAndProvince({
-  areaRange,
-  priceRange,
-}) {
+export default function RentCardBigListByRoomTypeAndProvince() {
   let { state } = useLocation();
   //   console.log("search na ja", state.areaRange);
   //   console.log("search na ja pro", state.priceRange);
 
-  console.log("testt1", state.areaRange);
-  console.log("testt", state.priceRange);
+  //   console.log("testt1", state.areaRange);
+  //   console.log("testt", state.priceRange);
 
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
 

@@ -92,10 +92,10 @@ export default function MainSearchBar({ areaRange, priceRange }) {
       <Link
         to="/searchpage"
         state={{
-          roomtype: roomtype,
-          province: province,
-          areaRange: areaRange,
-          priceRange: priceRange,
+          roomtype: roomtype || "",
+          province: province || "",
+          areaRange: areaRange || "",
+          priceRange: priceRange || "",
         }}
       >
         <button className="w-fit px-7 py-2 rounded-r-full h-full bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-105 active:scale-95 active:bg-c-yellow3 hover:z-50">
