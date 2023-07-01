@@ -19,7 +19,7 @@ import { useLocation } from "react-router-dom";
 import RentCardBigListByRoomTypeAndProvince from "../features/userProperties/components/RentCardBigListByRoomTypeAndProvince";
 
 export default function SearchPage() {
-  const [price, setPrice] = useState();
+  const [priceRange, setPriceRange] = useState();
   let { state } = useLocation();
   // console.log("show state", state);
   // console.log("show state roomt", state.roomtype);
@@ -31,8 +31,8 @@ export default function SearchPage() {
   // console.log(state);
 
   const hdlChangeInput = (e) => {
-    setPrice(Number(e.target.value));
-    console.log(price);
+    setPriceRange(Number(e.target.value));
+    console.log(priceRange);
   };
 
   // console.log(price);
@@ -50,11 +50,11 @@ export default function SearchPage() {
                 <input
                   type="range"
                   min={0}
-                  max="100"
-                  value={price}
+                  max="10000"
+                  value={priceRange}
                   className="range range-xs  range-info"
                   onChange={hdlChangeInput}
-                  // changeScrollBar(this.value)
+                  // changeScrollBar={hdlChangeInput}
                   // step="25"
                 />
 
@@ -75,11 +75,13 @@ export default function SearchPage() {
               <ButtonYellowM>ค้นหา</ButtonYellowM> */}
             </div>
             <p className="text-sm text-c-gray2">
-              ผลการค้นหาของคำว่า {state?.roomtype} {state?.province} ทั้งหมด 180
-              รายการ
+              ผลการค้นหา ประเภทห้อง {state?.roomtype || "ทั้งหมด"} จังหวัด{" "}
+              {state?.province || "ทั้งหมด"}
             </p>
             <div className="flex flex-col gap-8">
               {/* <RentCardBigList /> */}
+              {/* <RentCardBigListByRoomTypeAndProvince /> */}
+
               {state?.roomtype || state?.province ? (
                 // <div>sdfsdf</div>
                 <RentCardBigListByRoomTypeAndProvince />

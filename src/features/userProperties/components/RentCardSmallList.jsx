@@ -21,7 +21,10 @@ export default function RentCardSmallList() {
           propName={el?.name}
           propDescription={el?.description}
           agencyName={el?.User?.firstName}
-          propPrice={el?.price}
+          propPrice={Number(el?.price).toLocaleString("th-TH", {
+            style: "currency",
+            currency: "THB",
+          })}
           propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
           propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
           propNearBY=""
