@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as agentService from "../../../api/agency-api";
+import * as adminService from "../../../api/admin-api";
 
 const initialState = {
     purchase: [],
@@ -12,7 +12,7 @@ export const purchaseHistoryAsync = createAsyncThunk(
     "purchaseHistory/purchaseHistoryAsync",
     async (_, thunkApi) => {
       try {
-        const res = await agentService.getAllAgent();
+        const res = await adminService.getAllHistory();
         return res.data;
       } catch (err) {
         console.log(err);
@@ -27,15 +27,14 @@ export const searchPurchaseHistoryAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const Value = input;
-      const res = await agentService.getAllAgent();
+      const res = await adminService.getAllHistory();
       if (Value.trim() === "") {
         return res.data;
       } else {
         const filteredData = res.data.filter(
           (el) =>
-            el.firstName.toLowerCase().includes(Value.toLowerCase()) ||
-            el.lastName.toLowerCase().includes(Value.toLowerCase()) ||
-            el.email.toLowerCase().includes(Value.toLowerCase())
+            el?.User?.firstName.toLowerCase().includes(Value.toLowerCase()) ||
+            el?.User?.lastName.toLowerCase().includes(Value.toLowerCase())
         );
         return filteredData;
       }
@@ -62,17 +61,16 @@ const purchaseHistorySlice = createSlice({
     .addCase(purchaseHistoryAsync.fulfilled, (state, action) => {
         state.purchase = action.payload;
         if (state.searchValue.trim() === "")
-          state.purchaseFilter = state.agentList;
+          state.purchaseFilter = state.purchase;
         else {
           state.purchaseFilter = action.payload.filter(
             (el) =>
-              el.firstName
+              el?.User?.firstName
                 .toLowerCase()
                 .includes(state.searchValue.toLowerCase()) ||
-              el.lastName
+              el?.User?.lastName
                 .toLowerCase()
-                .includes(state.searchValue.toLowerCase()) ||
-              el.email.toLowerCase().includes(state.searchValue.toLowerCase())
+                .includes(state.searchValue.toLowerCase())
           );
       }
         state.isLoading = false;

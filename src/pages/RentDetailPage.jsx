@@ -1,5 +1,6 @@
 import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
+import GoogleMap from "../pages/GooglemapPage";
 import { BiTime } from "react-icons/bi";
 import { MdEmail, MdLocationOn } from "react-icons/md";
 import { useEffect } from "react";
@@ -18,10 +19,11 @@ export default function RentDetailPage() {
   }, [id]);
 
   const userPropertiesIdlist = useSelector(
-    (state) => state?.userProperties?.userProperties
+    (state) => state?.userProperties?.userPropertiesById
   );
 
   const el = { ...userPropertiesIdlist };
+  // console.log("-----------9-------------------",el)
 
   console.log(userPropertiesIdlist);
 
@@ -176,6 +178,9 @@ export default function RentDetailPage() {
                     ))}
                   </div>
                 </div>
+              </div>
+              <div className="">
+                  {el.name && <GoogleMap name={el?.name} lat={el?.latitude} long={el?.longitude}/>}
               </div>
             </div>
           </div>
