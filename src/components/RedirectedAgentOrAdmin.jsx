@@ -10,6 +10,6 @@ export default function RedirectedAgentOrAdmin({children}) {
     // console.log("sssss", user)
     if (user?.role === "ADMIN") {
         return <Navigate to="/adminlogin" />;
-      }
+    } else if (user.role === "AGENCY" && user.locked === false) return <Navigate to="/agent" />
     return children;
 }
