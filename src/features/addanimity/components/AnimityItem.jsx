@@ -2,9 +2,16 @@ import React from 'react'
 import { EditIcon, TrashIcon } from '../../../icons';
 import { useState } from 'react';
 import AnimityForm from './AnimityForm';
+import { useDispatch } from 'react-redux';
+import { animityAsync, deleteAnimityAsync } from '../slice/aminity-slice';
 
-export default function AnimityItem({el}) {
+export default function AnimityItem({el, type}) {
     const [isEditMode, setIsEditMode] = useState(false);
+    const dispatch = useDispatch()
+    const handleClickDeleteBox = async () => {
+        await dispatch(deleteAnimityAsync(el.id))
+        await dispatch(animityAsync())
+  };
   return (
     <>
         <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -27,13 +34,13 @@ export default function AnimityItem({el}) {
                         >
                             <EditIcon fill="#ffffff"/>
                         </div>
-                        <div className="bg-red-700 p-[5px] rounded-md cursor-pointer">
+                        <div className="bg-red-700 p-[5px] rounded-md cursor-pointer" onClick={handleClickDeleteBox}>
                             <TrashIcon />
                         </div>
                     </td>
                     </>
                     :
-                    <AnimityForm textConFirm={`Edit`} onIsAddMode={setIsEditMode} oldAnimity={el} key={el.id}/>}
+                    <AnimityForm textConFirm={`Edit`} onIsAddMode={setIsEditMode} oldAnimity={el} key={el.id} type={type}/>}
         </tr>
 
     </>

@@ -3,6 +3,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { FaCrown } from "react-icons/fa";
 import { AiFillEye } from "react-icons/ai";
 import { MdLocationOn } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export default function RentCard({
   propName,
@@ -12,210 +13,22 @@ export default function RentCard({
   propRentPeriod,
   propLocation,
   propNearBY,
+  link,
 }) {
-  // const MockData = [
-  //   {
-  //       "id": 10,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   },
-  //   {
-  //       "id": 11,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   },
-  //   {
-  //       "id": 12,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   },
-  //   {
-  //       "id": 13,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   },
-  //   {
-  //       "id": 14,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   },
-  //   {
-  //       "id": 15,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   },
-  //   {
-  //       "id": 16,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   },
-  //   {
-  //       "id": 17,
-  //       "name": "job3",
-  //       "price": "1003.00",
-  //       "floor": 3,
-  //       "totalArea": 3,
-  //       "totalUnit": 300,
-  //       "totalBedroom": 3,
-  //       "totalBathroom": 3,
-  //       "totalKitchen": 3,
-  //       "description": "ccc",
-  //       "latitude": "99.999999",
-  //       "longitude": "444.440000",
-  //       "rentPeriod": "MONTHLY",
-  //       "locked": false,
-  //       "published": false,
-  //       "userId": 1,
-  //       "roomTypeId": 2,
-  //       "subDistrictId": 3
-  //   }
-  // ]
-
-  // const [course, setCourse] = useState([]);
-  // const { user } = useAuth();
-  // // const [course, setCourse] = useState([]);
-
-  // const hdlRemove = (index) => {
-  //   const list = [...course];
-  //   // console.log(list[1].id);
-  //   deleteCourse(list[index].id);
-  //   list.splice(index, 1);
-  //   setCourse(list);
-  //   // console.log(list);
-  // };
-
-  // // const hdlRemove
-
-  // useEffect(() => {
-  //   getAllCourse().then((rs) => {
-  //     console.log(rs.data);
-  //     setCourse(rs.data);
-  //   });
-  // }, []);
-
-  // {MockData.map((el, index) => (
-
-  //   ))}
-
   return (
     <div className="flex flex-col w-[270px] h-fit justify-start">
       {/* edit delete text */}
-      <div className="flex justify-end w-[270px] py-2">
+      {/* <div className="flex justify-end w-[270px] py-2">
         <div className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer">
           Edit
         </div>
         <div className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer">
           Delete
         </div>
-      </div>
+      </div> */}
 
       <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105  duration-500 cursor-pointer">
-        <a href="/rentdetail">
+        <Link to={`/rentdetail/${link}`}>
           <div>
             <img
               src="/src/assets/pic/pictest1.jpg"
@@ -224,7 +37,7 @@ export default function RentCard({
             />
           </div>
           <div className="flex flex-col px-5 py-3 gap-1 w-full">
-            <div className=" flex gap-2">
+            {/* <div className=" flex gap-2">
               <div className="text-[6pt] text-c-white1 p-1 rounded-md bg-c-blue2 text-center h-auto align-middle my-auto ">
                 สวน
               </div>
@@ -234,13 +47,8 @@ export default function RentCard({
               <div className="text-[6pt] text-c-white1 p-1 rounded-md bg-c-blue2  text-center h-auto align-middle my-auto ">
                 ฟิสเนส
               </div>
-              {/* <div className="text-xs text-c-white1 p-1 rounded-md bg-c-blue4">
-              สระว่ายน้ำ
-            </div>
-            <div className="text-xs text-c-white1 p-1 rounded-md bg-c-orange1">
-              ฟิสเนส
+     
             </div> */}
-            </div>
             <div className="flex align-middle  items-center overflow-hidden h-10 text-sm text-c-gray3">
               {propName}
             </div>
@@ -263,15 +71,9 @@ export default function RentCard({
             </div>
             <div>{propNearBY || "0.45km"}</div>
           </div>
-        </a>
+        </Link>
 
-        <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray2 bg-c-white1 border">
-          {/* <button className=" hover:scale-125 hover:text-c-red1 active:scale-95 transition-all duration-200">
-            <ImBin2 />
-          </button>
-          <button className="  hover:scale-125 hover:text-c-red1 active:scale-95 transition-all duration-200">
-            <BsPencilSquare />
-          </button> */}
+        {/* <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray2 bg-c-white1 border">
 
           <label class="relative inline-flex items-center cursor-pointer">
             <input type="checkbox" value="" class="sr-only peer" checked />
@@ -287,7 +89,7 @@ export default function RentCard({
               <FaCrown />
             </span>
           </label>
-        </div>
+        </div> */}
       </div>
     </div>
   );

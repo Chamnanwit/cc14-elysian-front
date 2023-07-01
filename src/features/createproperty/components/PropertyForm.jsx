@@ -3,7 +3,12 @@ import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
-import validateCreateProperty from "../../../validators/validate-create-property";
+import validateCreateProperty from "../validators/validate-create-property";
+import PropertyImage from "../../../components/PropertyImage";
+import { creatImagePropperty, creatProperty } from "../../../api/property-api";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createPropertyAsync } from "../slice/createproperty-slice";
 
 export default function PropertyForm({
   textConFirm,
@@ -11,22 +16,21 @@ export default function PropertyForm({
   oldProperty,
 }) {
   const initialInput = {
-    price: "",
-    floor: "",
-    totalArea: "",
-    totalUnit: "",
-    totalBedroom: "",
-    totalBathroom: "",
-    totalKitchen: "",
-    description: "",
-    latitude: "333.33",
-    longitude: "444.44",
-    rentPeriod: "",
-    locked: "YES",
-    published: "YES",
-    userId: "1",
-    roomTypeId: "",
-    subDistrictId: "3",
+    price: oldProperty?.price || "",
+    floor: oldProperty?.floor || "",
+    totalArea: oldProperty?.totalArea || "",
+    totalUnit: oldProperty?.totalUnit || "",
+    totalBedroom: oldProperty?.totalBedroom || "",
+    totalBathroom: oldProperty?.totalBathroom || "",
+    totalKitchen: oldProperty?.totalKitchen || "",
+    description: oldProperty?.description || "",
+    latitude: oldProperty?.latitude || "99.999999",
+    longitude: oldProperty?.longitude || "444.440000",
+    rentPeriod: oldProperty?.rentPeriod || "",
+    locked: oldProperty?.locked || true,
+    published: oldProperty?.published || true,
+    userId: oldProperty?.id || "",
+    subDistrictId: oldProperty?.subDistrictId || "3",
   };
 
   const data = [
@@ -44,17 +48,24 @@ export default function PropertyForm({
 
   const dataRoom = data.filter((el) => el.type === "ROOM");
   const dataCommon = data.filter((el) => el.type === "COMMON");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
+    // console.log(input);
   };
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-      const result = validateCreateProperty(input);
+      const result = await validateCreateProperty(input);
+
+      const formdata = new FormData();
+      // formdata.append("imageLink", file[0]);
+      console.log("submit");
+      const image = await creatImagePropperty(product.data.id, formdata);
+
       if (result) {
         return setError(result);
       }
@@ -62,6 +73,10 @@ export default function PropertyForm({
     } catch (err) {
       console.log(err);
     }
+    setError({});
+
+    await dispatch(createPropertyAsync(input)).unwrap();
+    navigate("/agent");
   };
 
   const propertyType = [
@@ -285,80 +300,26 @@ export default function PropertyForm({
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
           Property Image
         </div>
-        <form className=" bg-white px-6 py-4">
+        <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
               <p>Image 1</p>
-              <div class="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      class="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="font-semibold">Click to upload</span> or drag
-                      and drop
-                    </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" class="hidden" />
-                </label>
-              </div>
+              <PropertyImage cls="Image1" />
             </div>
             <div className="flex flex-col gap-2">
               <p>Image 2</p>
-              <div class="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      class="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="font-semibold">Click to upload</span> or drag
-                      and drop
-                    </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" class="hidden" />
-                </label>
-              </div>
+              <PropertyImage cls="Image2" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Image 3</p>
+              <PropertyImage cls="Image3" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Image 4</p>
+              <PropertyImage cls="Image4" />
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
       <>
