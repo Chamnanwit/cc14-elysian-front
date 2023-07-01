@@ -13,6 +13,7 @@ import {
   requestOtpAsync,
   verifyPlanAsync,
 } from "../features/agencyotp/slice/agencyotp-slice";
+import { fetchMe } from "../features/auth/slice/authSlice";
 // import { useEffect, useState } from "react";
 
 export default function PhoneNumberPage() {
