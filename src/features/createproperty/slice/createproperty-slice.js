@@ -4,6 +4,7 @@ import * as PropertyService from "../../../api/property-api";
 const initialState = {
   propertyPlan: [],
   animity: [],
+  imageProperty: [],
   isLoading: true,
 };
 
@@ -58,6 +59,19 @@ export const deletePropertyAsync = createAsyncThunk(
     }
   }
 );
+export const getImageByPropertyIdAsync = createAsyncThunk(
+  "propertyPlan/getImageByPropertyIdAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await PropertyService.getAllImagePropertyById(id);
+      // console.log("------res-------", res.data)
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+)
 // export const animityAsync = createAsyncThunk(
 //   "propertyPlan/animityAsync",
 //   async (_, thunkApi) => {
@@ -120,6 +134,17 @@ const propertyPlanSlice = createSlice({
         //state.user = action.payload;
       })
       .addCase(updatePropertyAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getImageByPropertyIdAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(getImageByPropertyIdAsync.fulfilled, (state, action) => {
+        state.imageProperty = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getImageByPropertyIdAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       }),
