@@ -19,20 +19,22 @@ import { useLocation } from "react-router-dom";
 import RentCardBigListByRoomTypeAndProvince from "../features/userProperties/components/RentCardBigListByRoomTypeAndProvince";
 
 export default function SearchPage() {
-  const [priceRange, setPriceRange] = useState(500);
+  const [priceRange, setPriceRange] = useState("");
+  const [areaRange, setAreaRange] = useState("");
   let { state } = useLocation();
-  // console.log("show state", state);
-  // console.log("show state roomt", state.roomtype);
-  // console.log("show state pro", state.province);
 
   useEffect(() => {}, []);
 
   // let { state } = useLocation();
   // console.log(state);
 
-  const hdlChangeInput = (e) => {
-    setPriceRange(Number(e.target.value));
-    console.log(priceRange);
+  const hdlChangePriceRangeInput = (e) => {
+    setPriceRange(e.target.value);
+    // console.log("Check pricer", priceRange);
+  };
+  const hdlChangeAreaRangeInput = (e) => {
+    setAreaRange(e.target.value);
+    // console.log("Check area", areaRange);
   };
 
   // console.log(price);
@@ -47,22 +49,57 @@ export default function SearchPage() {
           <div className="flex-[1]">
             <div className=" bg-c-green4 h-screen shadow-xl p-5 pb-20 rounded-br-lg pt-12 items-center text-center flex flex-col justify-between gap-3 sticky top-10">
               <div className="w-full flex flex-col gap-5">
-                <div className=" bg-c-white1 p-5 rounded-lg">
-                  <input
-                    type="range"
-                    min={0}
-                    max="10000"
+                <form className=" flex flex-col gap-2 rounded-lg text-sm mt-5">
+                  <p className="text-c-white1 text-base">ตัวเลือกเพิ่มเติม</p>
+                  <select
+                    className="flex-1 select w-full h-10 text-[8pt] text-c-gray3 rounded-lg ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
+                    value={areaRange}
+                    onChange={hdlChangeAreaRangeInput}
+                  >
+                    <option disabled value="">
+                      เลือกขนาดห้อง
+                    </option>
+                    <option key="" value="0 > 20" className="text-2xl">
+                      0 - 20 ตร.ว.
+                    </option>
+                    <option key="" value="0 > 40" className="text-2xl">
+                      20 - 40 ตร.ว.
+                    </option>
+                    <option key="" value="0 > 60" className="text-2xl">
+                      40 - 60 ตร.ว.
+                    </option>
+                    <option key="" value="60 <" className="text-2xl">
+                      มากกว่า 60 ตร.ว.
+                    </option>
+                  </select>
+                  <select
+                    className="flex-1 select text-[8pt] w-full h-fit  text-c-gray3 rounded-lg ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
                     value={priceRange}
-                    className="range range-xs  range-warning"
-                    onChange={hdlChangeInput}
-                    // changeScrollBar={hdlChangeInput}
-                    // step="25"
-                  />
-                  <div className="flex justify-between">
-                    <p>0</p>
-                    <p>{priceRange} ตร.ว.</p>
-                  </div>
-                </div>
+                    onChange={hdlChangePriceRangeInput}
+                  >
+                    <option disabled value="">
+                      เลือกช่วงราคา
+                    </option>
+                    <option key="" value="0 > 3000" className="text-2xl">
+                      0 - 3,000 บาท
+                    </option>
+                    <option key="" value="3000 > 5000" className="text-2xl">
+                      3,000 - 5,000 บาท
+                    </option>
+                    <option key="" value="5000 > 10000" className="text-2xl">
+                      5,000 - 10,000 บาท
+                    </option>
+                    <option key="" value="10000 > 20000" className="text-2xl">
+                      10,000 - 20,000 บาท
+                    </option>
+                    <option key="" value="20000 > 40000" className="text-2xl">
+                      20,000 - 40,000 บาท
+                    </option>
+                    <option key="" value="40000 < " className="text-2xl">
+                      มากกว่า 40,000 บาท
+                    </option>
+                  </select>
+                </form>
 
                 {/* <ButtonGhostWhite>ห้องเช่าแนะนำ</ButtonGhostWhite>
                 <ButtonGhostWhite>ห้องเช่าใกล้รถไฟฟ้า</ButtonGhostWhite>
@@ -76,7 +113,7 @@ export default function SearchPage() {
           <div className="flex-[3] px-10 gap-5 flex flex-col my-12">
             {/* <BigFourButtonBar /> */}
             <div className="flex gap-5 w-full">
-              <MainSearchBar />
+              <MainSearchBar areaRange={areaRange} priceRange={priceRange} />
               {/* <InputBar>ค้นหา</InputBar>
               <ButtonYellowM>ค้นหา</ButtonYellowM> */}
             </div>
