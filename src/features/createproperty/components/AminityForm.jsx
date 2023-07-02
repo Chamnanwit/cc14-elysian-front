@@ -28,9 +28,18 @@ export default function AminityForm({
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const handleChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    if (e.target.checked) {
+      setInput({ ...input, [e.target.name]: e.target.checked });
+      
+    }
+    else{
+      const arr = {...input}
+      delete arr[e.target.name]
+      setInput({...arr})
+    }
   };
 
+  console.log("input", input)
   return (
     <>
       <div className="rounded-md overflow-hidden flex flex-col">
@@ -38,9 +47,9 @@ export default function AminityForm({
             สิ่งอำนวยความสะดวกภายในห้อง
         </div>
         <div>
-          <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataRoom.map(el => <Checkbox el={el} key={el.id}/>)}
-          </form>
+          <div className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
+              {dataRoom.map(el => <Checkbox el={el} key={el.id} onChange={handleChangeInput}/>)}
+          </div>
         </div>
       </div>
 
@@ -49,9 +58,9 @@ export default function AminityForm({
           สิ่งอำนวยความสะดวกส่วนกลาง
         </div>
         <div>
-          <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataCommon.map(el => <Checkbox el={el} key={el.id}/>)}
-          </form>
+          <div className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
+              {dataCommon.map(el => <Checkbox el={el} key={el.id} onChange={handleChangeInput}/>)}
+          </div>
         </div>
       </div>
       <div className="flex">
