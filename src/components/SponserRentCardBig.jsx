@@ -20,17 +20,20 @@ export default function SponserRentCardBig({
   badge,
   rootype,
   propArea,
+  src,
 }) {
   return (
     <div className=" flex flex-col bg-white w-full rounded-lg overflow-hidden shadow-lg transition-all active:scale-100 duration-[400ms] hover:scale-[101%]">
       <div className="flex">
         <div className="flex-[1.5] h-[180px] overflow-auto bg-white ml-2 flex  justify-start gap-2 items-center">
-          <img
-            src="/src/assets/pic/pictest1.jpg"
-            alt="pic test1"
-            className="h-[160px] w-auto"
-          />
-          <img
+        {src.map((im) => (
+                <img
+                  src={im.imageLink}
+                  alt="pic test1"
+                  className="h-[300px] w-auto"
+                />
+              ))}
+          {/* <img
             src="/src/assets/pic/pictest2.jpg"
             alt="pic test1"
             className="h-[160px] w-auto"
@@ -44,7 +47,7 @@ export default function SponserRentCardBig({
             src="/src/assets/pic/mainpic.jpeg"
             alt="pic test1"
             className="h-[160px] w-auto"
-          />
+          /> */}
         </div>
         <div className="flex-[2] flex flex-col px-5 py-3 gap-1 w-full justify-between">
           <div className=" flex gap-2 justify-between ">

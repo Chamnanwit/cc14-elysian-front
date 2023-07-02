@@ -46,6 +46,7 @@ export default function SponserRentCardSmallList() {
               style: "currency",
               currency: "THB",
             })}
+            src={el?.Images[0]?.imageLink}
             propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
             propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
             propArea={el.totalArea}

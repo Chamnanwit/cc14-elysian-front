@@ -26,6 +26,7 @@ export default function RentCardBigListByRoomTypeAndProvince() {
   const userPropertieslist = useSelector(
     (state) => state?.userProperties?.userProperties
   );
+  // console.log("------------------------------------->>>>", userPropertieslist)
   const rentPeriodFilter = state.rentPeriod;
   //   console.log("asds", rentPeriodFilter);
   //   console.log("tettt", state.rentPeriod);
@@ -97,6 +98,7 @@ export default function RentCardBigListByRoomTypeAndProvince() {
                 style: "currency",
                 currency: "THB",
               })}
+              src={el?.Images}
               propRentPeriod={
                 el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
               }

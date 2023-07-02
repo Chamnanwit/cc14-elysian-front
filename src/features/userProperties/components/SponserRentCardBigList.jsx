@@ -113,6 +113,7 @@ export default function SponserRentCardBigList() {
                 style: "currency",
                 currency: "THB",
               })}
+              src={el.Images}
               propRentPeriod={
                 el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
               }

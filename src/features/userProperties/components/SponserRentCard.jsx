@@ -14,6 +14,7 @@ export default function SponserRentCard({
   propLocation,
   propArea,
   link,
+  src,
 }) {
   return (
     <div className="flex flex-col w-[270px] h-fit justify-start">
@@ -31,7 +32,7 @@ export default function SponserRentCard({
         <Link to={`/rentdetail/${link}`}>
           <div>
             <img
-              src="/src/assets/pic/pictest1.jpg"
+              src={src}
               alt="pic test1"
               className="h-[180px] w-full"
             />
