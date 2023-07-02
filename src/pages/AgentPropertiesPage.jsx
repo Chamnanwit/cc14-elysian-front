@@ -31,6 +31,11 @@ export default function AgentPropertiesPage() {
     (state) => state?.propertyPlan?.propertyPlan?.Properties
   );
 
+  const el = { ...userproperty };
+
+  console.log("see me ", el);
+  console.log("see me id ", id);
+
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
       <div>
@@ -44,7 +49,13 @@ export default function AgentPropertiesPage() {
               <div className="w-full flex items-center flex-col gap-5">
                 <p className="text-c-white1 text-base">ตัวเลือกเพิ่มเติม</p>
 
-                <AgencyCard />
+                <AgencyCard
+                  agencyfirstname={el?.User?.firstName}
+                  agencylastname={el?.User?.lastName}
+                  agencystatus={el?.User?.locked}
+                  agencyphone={el?.User?.phoneNumber}
+                  agencyemail={el?.User?.email || "00"}
+                />
               </div>
               <LogoWhite />
             </div>

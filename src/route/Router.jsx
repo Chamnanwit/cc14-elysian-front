@@ -194,7 +194,7 @@ export default function Router() {
       element: <SuccessPaymentPage />,
     },
     {
-      path: "/agentproperties/",
+      path: "/agentproperties/:id",
       element: <AgentPropertiesPage />,
     },
   ]);
