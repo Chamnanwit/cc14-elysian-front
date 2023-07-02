@@ -27,8 +27,8 @@ export default function RentCardBigListByRoomTypeAndProvince() {
     (state) => state?.userProperties?.userProperties
   );
   const rentPeriodFilter = state.rentPeriod;
-  console.log("asds", rentPeriodFilter);
-  console.log("tettt", state.rentPeriod);
+  //   console.log("asds", rentPeriodFilter);
+  //   console.log("tettt", state.rentPeriod);
   //   const timestamp = {};
   //   const date = new Date(timestamp).toLocaleDateString();
 

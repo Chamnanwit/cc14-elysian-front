@@ -115,12 +115,6 @@ export default function SearchPage() {
                     </option>
                   </select>
                 </form>
-
-                {/* <ButtonGhostWhite>ห้องเช่าแนะนำ</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่าใกล้รถไฟฟ้า</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่ามีฟิสเนส</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่าอะไรดี</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่าแนะนำ</ButtonGhostWhite> */}
               </div>
               <LogoWhite />
             </div>
@@ -133,8 +127,6 @@ export default function SearchPage() {
                 priceRange={priceRange}
                 rentPeriod={rentPeriod}
               />
-              {/* <InputBar>ค้นหา</InputBar>
-              <ButtonYellowM>ค้นหา</ButtonYellowM> */}
             </div>
             <p className="text-sm text-c-gray2">
               ผลการค้นหา ประเภทห้อง: {state?.roomtype || "ทั้งหมด"}, จังหวัด:{" "}
