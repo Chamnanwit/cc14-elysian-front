@@ -4,6 +4,7 @@ import * as PropertyService from "../../../api/property-api";
 const initialState = {
   propertyPlan: [],
   animity: [],
+  imageProperty: [],
   isLoading: true,
 };
 
@@ -59,6 +60,44 @@ export const deletePropertyAsync = createAsyncThunk(
     }
   }
 );
+export const getImageByPropertyIdAsync = createAsyncThunk(
+  "propertyPlan/getImageByPropertyIdAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await PropertyService.getAllImagePropertyById(id);
+      // console.log("------res-------", res.data)
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+export const editImagePropertyAsync = createAsyncThunk(
+  "propertyPlan/editImagePropertyAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await PropertyService.editImageProperty(id);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+// export const animityAsync = createAsyncThunk(
+//   "propertyPlan/animityAsync",
+//   async (_, thunkApi) => {
+//     try {
+//       const res = await animityService.getAnimityAll();
+//       // console.log("IN SLICE animityAsync ----> ", res.data);
+//       return res.data;
+//     } catch (err) {
+//       console.log(err);
+//       return thunkApi.rejectWithValue(err.response.data.message);
+//     }
+//   }
+// );
 
 const propertyPlanSlice = createSlice({
   name: "propertyPlan",
@@ -97,6 +136,27 @@ const propertyPlanSlice = createSlice({
         //state.user = action.payload;
       })
       .addCase(updatePropertyAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getImageByPropertyIdAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(getImageByPropertyIdAsync.fulfilled, (state, action) => {
+        state.imageProperty = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getImageByPropertyIdAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(editImagePropertyAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(editImagePropertyAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(editImagePropertyAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       }),

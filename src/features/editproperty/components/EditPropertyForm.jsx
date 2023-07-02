@@ -5,7 +5,8 @@ import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
 import validateCreateProperty from "../../createproperty/validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { creatImagePropperty } from "../../../api/property-api";
+import { creatImagePropperty, editImageProperty } from "../../../api/property-api";
+import { useDispatch } from "react-redux";
 
 export default function EditPropertyForm({
   textConFirm,
@@ -54,9 +55,12 @@ export default function EditPropertyForm({
       e.preventDefault();
       const result = await validateCreateProperty(input);
 
-      const formdata = new FormData();
-      formdata.append("imageLink", file[0]);
-      const image = await creatImagePropperty(product.data.id, formdata);
+      if (file.length > 0) {
+        const deleteFile = await editImageProperty(id);
+        const formdata = new FormData();
+        formdata.append("imageLink", file[0]);
+        const image = await creatImagePropperty(product.data.id, formdata);
+      }
 
       if (result) {
         return setError(result);
@@ -286,28 +290,28 @@ export default function EditPropertyForm({
 
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          Property Image
+          รูปภาพห้องของคุณ
         </div>
-        <form className=" bg-white px-6 py-4">
+        <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
-              <p>Image 1</p>
-              <PropertyImage />
+              <p>รูปภาพที่ 1</p>
+              <PropertyImage cls="Image1" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 2</p>
-              <PropertyImage />
+              <p>รูปภาพที่ 2</p>
+              <PropertyImage cls="Image2" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 3</p>
-              <PropertyImage />
+              <p>รูปภาพที่ 3</p>
+              <PropertyImage cls="Image3" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 4</p>
-              <PropertyImage />
+              <p>รูปภาพที่ 4</p>
+              <PropertyImage cls="Image4" />
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
       <>

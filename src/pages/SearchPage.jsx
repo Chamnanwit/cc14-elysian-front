@@ -127,8 +127,8 @@ export default function SearchPage() {
                 areaRange={areaRange}
                 priceRange={priceRange}
                 rentPeriod={rentPeriod}
-                roomtypeName={state.roomtype}
-                provinceName={state.province}
+                roomtypeName={state?.roomtype}
+                provinceName={state?.province}
               />
             </div>
             <p className="text-sm text-c-gray2">

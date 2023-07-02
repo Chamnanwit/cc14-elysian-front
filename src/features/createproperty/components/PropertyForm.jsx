@@ -322,24 +322,24 @@ export default function PropertyForm({
 
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          Property Image
+          รูปภาพห้องของคุณ
         </div>
         <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
-              <p>Image 1</p>
+              <p>รูปภาพที่ 1</p>
               <PropertyImage cls="Image1" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 2</p>
+              <p>รูปภาพที่ 2</p>
               <PropertyImage cls="Image2" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 3</p>
+              <p>รูปภาพที่ 3</p>
               <PropertyImage cls="Image3" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 4</p>
+              <p>รูปภาพที่ 4</p>
               <PropertyImage cls="Image4" />
             </div>
           </div>
