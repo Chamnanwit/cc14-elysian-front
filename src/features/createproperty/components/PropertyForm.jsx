@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
+import AminityForm from "./AminityForm";
 
 export default function PropertyForm({
   textConFirm,
@@ -410,6 +411,7 @@ export default function PropertyForm({
             สร้างห้องเช่า
           </button>
         </div>
+        <AminityForm />
       </>
     </form>
   );
