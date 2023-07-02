@@ -2,23 +2,22 @@ import React from "react";
 import PromotionCard from "../components/PromotionCard";
 import ListCheckGreenTrue from "../components/ListCheckGreenTrue";
 // import * as agencyService from "../api/agency-api"
-import { paymentPackageAsync } from "../features/payment/slice/payment-slice"
+import { paymentPackageAsync } from "../features/payment/slice/payment-slice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pricingPlanAsync } from "../features/packages/slice/pricingPlan-slice";
 import { useEffect } from "react";
-
 
 export default function PackagePlan() {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(true);
 
   const hdlClickBuyPackage = async (id, packageId) => {
-    const res = await dispatch(paymentPackageAsync({id, packageId})).unwrap();
+    const res = await dispatch(paymentPackageAsync({ id, packageId })).unwrap();
     // console.log("-----------", res.url)
-    window.location.replace(res.url)
+    window.location.replace(res.url);
     // console.log("-----------res-----------------",res)
-  }
+  };
 
   useEffect(() => {
     dispatch(pricingPlanAsync()); /// เอามาจาก slice
@@ -120,25 +119,25 @@ export default function PackagePlan() {
               </PromotionCard>
             ))}
         </div>
-      // </div>
-      // <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
-      //   <PromotionCard price="฿0/เดือน" packname="ฟรี" onClick={hdlClickBuyPackage} >
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //   </PromotionCard>
-      //   <PromotionCard price="฿1,799/เดือน" packname="พื้นฐาน" onClick={hdlClickBuyPackage} id={"price_1NMPY9Kiz6RxD96BaRuyuEhS"}>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //   </PromotionCard>
-      //   <PromotionCard price="฿3,599/เดือน" packname="ธุรกิจ" onClick={hdlClickBuyPackage} id={"price_1NMPaoKiz6RxD96B583Xd2PI"}>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-      //   </PromotionCard>
-      // </div>
       ) : (
+        // </div>
+        // <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
+        //   <PromotionCard price="฿0/เดือน" packname="ฟรี" onClick={hdlClickBuyPackage} >
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //   </PromotionCard>
+        //   <PromotionCard price="฿1,799/เดือน" packname="พื้นฐาน" onClick={hdlClickBuyPackage} id={"price_1NMPY9Kiz6RxD96BaRuyuEhS"}>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //   </PromotionCard>
+        //   <PromotionCard price="฿3,599/เดือน" packname="ธุรกิจ" onClick={hdlClickBuyPackage} id={"price_1NMPaoKiz6RxD96B583Xd2PI"}>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
+        //   </PromotionCard>
+        // </div>
         <div className="flex justify-center mt-5 gap-5 w-full h-fit p-5 text-c-gray3">
           {pricingPlanWeekly
             .slice()

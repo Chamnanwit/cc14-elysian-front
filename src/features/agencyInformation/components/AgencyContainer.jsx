@@ -23,7 +23,6 @@ export default function AgencyContainer() {
     }, 1000);
 
     return () => {
-      console.log("cleanup");
       clearTimeout(id);
     };
   }, [searchValue]);

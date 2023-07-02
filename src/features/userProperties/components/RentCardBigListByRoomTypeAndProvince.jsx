@@ -10,16 +10,15 @@ import { useLocation } from "react-router-dom";
 
 export default function RentCardBigListByRoomTypeAndProvince() {
   let { state } = useLocation();
-  console.log("search na ja", state);
-  console.log("search na ja pro", state.province);
+  //   console.log("search na ja", state.areaRange);
+  //   console.log("search na ja pro", state.priceRange);
+
+  //   console.log("testt1", state.areaRange);
+  //   console.log("testt", state.priceRange);
+  // console.log("testt", state.state);
 
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
-  //   const [searchRoomType, setSearchRoomType] = useState(roomtype);
 
-  //   const hdlsearchRoomTypeChange = (e) => {
-  //     setSearchRoomType(roomtype);
-  //   };
-  //   console.log(roomtype);
   useEffect(() => {
     dispatch(userPropertiesAsync()); /// เอามาจาก slice
   }, []);
@@ -27,9 +26,11 @@ export default function RentCardBigListByRoomTypeAndProvince() {
   const userPropertieslist = useSelector(
     (state) => state?.userProperties?.userProperties
   );
-
-  const timestamp = {};
-  const date = new Date(timestamp).toLocaleDateString();
+  const rentPeriodFilter = state.rentPeriod;
+  //   console.log("asds", rentPeriodFilter);
+  //   console.log("tettt", state.rentPeriod);
+  //   const timestamp = {};
+  //   const date = new Date(timestamp).toLocaleDateString();
 
   return (
     <>
@@ -47,9 +48,46 @@ export default function RentCardBigListByRoomTypeAndProvince() {
           } else if (state.roomtype) {
             return el?.RoomType?.name === state.roomtype;
           }
+          return true;
+        })
+        .filter((el) => {
+          if (state.areaRange) {
+            const [minArea, maxArea] = state.areaRange.split(" > ");
+            if (maxArea) {
+              return (
+                el?.totalArea >= parseFloat(minArea) &&
+                el?.totalArea < parseFloat(maxArea)
+              );
+            } else {
+              return el?.totalArea >= parseFloat(minArea);
+            }
+          }
+
+          return true;
+        })
+        .filter((el) => {
+          if (state.priceRange) {
+            const [minPrice, maxPrice] = state.priceRange.split(" > ");
+            if (maxPrice) {
+              return (
+                el?.price >= parseFloat(minPrice) &&
+                el?.price < parseFloat(maxPrice)
+              );
+            } else {
+              return el?.price >= parseFloat(minPrice);
+            }
+          }
+
+          return true;
+        })
+        .filter((el) => {
+          if (state?.rentPeriod) {
+            return el?.rentPeriod === state?.rentPeriod;
+          }
+          return true;
         })
         .map((el) => (
-          <Link to={`/rentdetail/${el?.id}`}>
+          <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
             <RentCardBig
               propName={el?.name}
               propDescription={el?.description}

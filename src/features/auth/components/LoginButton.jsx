@@ -7,6 +7,7 @@ function LoginButton() {
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
 
+  console.log(isAuthenticated, user)
   const handleLogin = async () => {
     if (isAuthenticated) {
       const email = user?.email;

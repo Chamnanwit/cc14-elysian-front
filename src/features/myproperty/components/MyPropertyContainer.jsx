@@ -13,9 +13,6 @@ export default function MyPropertyContainer() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  // console.log("TEST----->", id);
-
-  // const el = useSelector((state) => state?.adminViewAgent?.agentById);
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
@@ -23,6 +20,7 @@ export default function MyPropertyContainer() {
       await dispatch(PropertyAsync(id)).unwrap();
       setPageLoading(false);
     };
+
     fetchData();
   }, [id]);
 
@@ -30,7 +28,6 @@ export default function MyPropertyContainer() {
     (state) => state?.propertyPlan?.propertyPlan?.Properties
   );
 
-  // console.log("--------*----->", userproperty);
   return (
     <>
       <HeaderAgent topic="My Properties" />
@@ -41,6 +38,7 @@ export default function MyPropertyContainer() {
       >
         {userproperty?.map((property) => (
           <AgentRentCard
+            id={property?.id}
             propName={property?.name}
             propDescription={property?.description}
             agencyName={property?.firstName}
