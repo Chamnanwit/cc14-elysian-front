@@ -7,8 +7,9 @@ import BadgeGreen from "../../../components/BadgeGreen";
 import BadgeYellow from "../../../components/BadgeYellow";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import SponserRentCardBig from "../../../components/SponserRentCardBig";
 
-export default function RentCardBigListByRoomTypeAndProvince() {
+export default function SponserRentCardBigList() {
   let { state } = useLocation();
   //   console.log("search na ja", state.areaRange);
   //   console.log("search na ja pro", state.priceRange);
@@ -26,33 +27,35 @@ export default function RentCardBigListByRoomTypeAndProvince() {
   const userPropertieslist = useSelector(
     (state) => state?.userProperties?.userProperties
   );
-  const rentPeriodFilter = state.rentPeriod;
+  //   const rentPeriodFilter = state.rentPeriod;
   //   console.log("asds", rentPeriodFilter);
   //   console.log("tettt", state.rentPeriod);
   //   const timestamp = {};
   //   const date = new Date(timestamp).toLocaleDateString();
+  console.log("reresr", userPropertieslist?.User);
+  //   userPropertieslist?.User?.PurchaseHistories?.pricingPlanId
 
   return (
     <>
       {userPropertieslist
         .filter((el) => {
-          if (state.roomtype && state.province) {
+          if (state?.roomtype && state?.province) {
             return (
-              el?.RoomType?.name === state.roomtype &&
+              el?.RoomType?.name === state?.roomtype &&
               el?.SubDistrict?.District?.Province?.nameInThai === state.province
             );
-          } else if (state.province) {
+          } else if (state?.province) {
             return (
               el?.SubDistrict?.District?.Province?.nameInThai === state.province
             );
-          } else if (state.roomtype) {
-            return el?.RoomType?.name === state.roomtype;
+          } else if (state?.roomtype) {
+            return el?.RoomType?.name === state?.roomtype;
           }
           return true;
         })
         .filter((el) => {
-          if (state.areaRange) {
-            const [minArea, maxArea] = state.areaRange.split(" > ");
+          if (state?.areaRange) {
+            const [minArea, maxArea] = state?.areaRange.split(" > ");
             if (maxArea) {
               return (
                 el?.totalArea >= parseFloat(minArea) &&
@@ -66,8 +69,8 @@ export default function RentCardBigListByRoomTypeAndProvince() {
           return true;
         })
         .filter((el) => {
-          if (state.priceRange) {
-            const [minPrice, maxPrice] = state.priceRange.split(" > ");
+          if (state?.priceRange) {
+            const [minPrice, maxPrice] = state?.priceRange.split(" > ");
             if (maxPrice) {
               return (
                 el?.price >= parseFloat(minPrice) &&
@@ -86,9 +89,22 @@ export default function RentCardBigListByRoomTypeAndProvince() {
           }
           return true;
         })
+        .filter((el) => {
+          if (el?.User?.PurchaseHistories[0]?.orderStatus)
+            return el?.User?.PurchaseHistories[0]?.orderStatus === "ACTIVE";
+        })
+        .filter((el) => {
+          if (el?.User?.PurchaseHistories[0]?.pricingPlanId)
+            return (
+              el?.User?.PurchaseHistories[0]?.pricingPlanId == 3 ||
+              el?.User?.PurchaseHistories[0]?.pricingPlanId == 7
+            );
+          //   console.log("see el", el);
+        })
+
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
-            <RentCardBig
+            <SponserRentCardBig
               propName={el?.name}
               propDescription={el?.description}
               agencyName={el?.User?.firstName}

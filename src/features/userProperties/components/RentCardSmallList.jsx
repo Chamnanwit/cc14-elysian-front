@@ -14,6 +14,8 @@ export default function RentCardSmallList() {
   const userPropertieslist = useSelector(
     (state) => state?.userProperties?.userProperties
   );
+  // console.log("888888888888888", userPropertieslist)
+
   const isLoading = useSelector((state) => state?.userProperties?.isLoading);
   /// (state) => state?.ชื่อหน้าจากในstore?.ชื่อจาก int stage ใน slice นั้น
   if (isLoading) {
@@ -32,8 +34,9 @@ export default function RentCardSmallList() {
           })}
           propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
           propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
-          propNearBY=""
+          propArea={el.totalArea}
           link={el?.id}
+          src={el?.Images[0]?.imageLink}
         />
       ))}
     </>

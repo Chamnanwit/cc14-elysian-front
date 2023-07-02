@@ -43,10 +43,10 @@ import AgentPackagePlanPage from "../pages/AgentPackagePlanPage";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
-
+  
   // const requireAuth = (link) => {
   //   if (!isAuthenticated) {
-  //     console.log(isAuthenticated);
+    //     console.log(isAuthenticated);
   //     loginWithRedirect(link);
   //     return null;
   //   }
@@ -135,7 +135,7 @@ export default function Router() {
       element: <AgentCreatePropertyPage />,
     },
     {
-      path: "/agent/",
+      path: "/agent",
 
       element: (
         <RedirectedAgent>

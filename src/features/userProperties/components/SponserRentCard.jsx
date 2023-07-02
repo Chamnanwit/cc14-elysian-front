@@ -5,7 +5,7 @@ import { AiFillEye } from "react-icons/ai";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-export default function RentCard({
+export default function SponserRentCard({
   propName,
   propDescription,
   agencyName,
@@ -14,7 +14,6 @@ export default function RentCard({
   propLocation,
   propArea,
   link,
-  src,
 }) {
   return (
     <div className="flex flex-col w-[270px] h-fit justify-start">
@@ -31,7 +30,11 @@ export default function RentCard({
       <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105  duration-500 cursor-pointer">
         <Link to={`/rentdetail/${link}`}>
           <div>
-            <img src={src} alt="pic test1" className="h-[180px] w-full" />
+            <img
+              src="/src/assets/pic/pictest1.jpg"
+              alt="pic test1"
+              className="h-[180px] w-full"
+            />
           </div>
           <div className="flex flex-col px-5 py-3 gap-1 w-full">
             {/* <div className=" flex gap-2">
@@ -60,8 +63,8 @@ export default function RentCard({
             </div>
           </div>
 
-          <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray2 bg-c-white1">
-            <div className="text-xs text-c-gray2 flex gap-1">
+          <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray3 bg-c-yellow2">
+            <div className="text-xs text-c-gray3 flex gap-1">
               <div>
                 <MdLocationOn />
               </div>
@@ -70,24 +73,6 @@ export default function RentCard({
             <div>{propArea || ""} ตร.ม.</div>
           </div>
         </Link>
-
-        {/* <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray2 bg-c-white1 border">
-
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" class="sr-only peer" checked />
-            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-c-blue1"></div>
-            <span class="ml-3 text-lg font-medium text-c-blue1 dark:text-gray-300 ">
-              <AiFillEye />
-            </span>
-          </label>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" class="sr-only peer" checked />
-            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-c-yellow1"></div>
-            <span class="ml-3 text-lg font-medium text-c-yellow2 dark:text-gray-300">
-              <FaCrown />
-            </span>
-          </label>
-        </div> */}
       </div>
     </div>
   );
