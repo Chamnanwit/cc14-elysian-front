@@ -26,16 +26,16 @@ export default function AgencyProfile() {
       fetch()
     }, [id]);
     
-    const [locked, setStatus] = useState(el?.locked);
+    const [locked, setStatus] = useState(el?.result?.locked);
 
     useEffect(() => {
-      setStatus(el.locked)
+      setStatus(el?.result?.locked)
     }, [el])
 
     const navigate = useNavigate();
 
     const handleClickChangeStatus = async (e) => {
-      await dispatch(updateAgentAsync({ id: el.id, locked: !locked })).unwrap();
+      await dispatch(updateAgentAsync({ id: el.result?.id, locked: !locked })).unwrap();
       await dispatch(agentAsync()).unwrap();
       setStatus(!locked);
     };
@@ -55,16 +55,16 @@ export default function AgencyProfile() {
           <div>Agent list</div>
         </div>
         <div className=" grid grid-cols-4 gap-6 text-base">
-          <DashboardItem bgColor="blue-600" title="ห้องเช่าทั้งหมด">
+          <DashboardItem bgColor="blue-600" title="ห้องเช่าทั้งหมด" result={el?.totalPropertyById}>
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="green-600" title="ห้องเช่าที่เปิดอยู่">
+          <DashboardItem bgColor="green-600" title="ห้องเช่าที่เปิดอยู่" result={el?.totalActiveProperty}>
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="gray-500" title="ห้องเช่าที่ปิดอยู่">
+          <DashboardItem bgColor="gray-500" title="ห้องเช่าที่ปิดอยู่" result={el?.totalInactiveProperty}>
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="blue-600" title="ยอดซื้อแพ็คเกจ">
+          <DashboardItem bgColor="blue-600" title="ยอดซื้อแพ็คเกจ" result={el?.totalPurchase}>
             <FaRegMoneyBillAlt fill="#ffffff" size={28} />
           </DashboardItem>
         </div>
@@ -74,7 +74,7 @@ export default function AgencyProfile() {
               <div className="rounded-full w-[70px] h-[70px] overflow-hidden">
                 <img
                   className="object-cover h-full"
-                  src={el?.profileImage || pic}
+                  src={el?.result?.profileImage || pic}
                   alt=""
                 />
               </div>
@@ -82,7 +82,7 @@ export default function AgencyProfile() {
                 <div className="flex gap-2">
                   <div className="text-gray-600 font-medium">เข้าร่วม</div>
                   <div className="text-gray-600">
-                    {el?.createdAt?.slice(0, 10)}
+                    {el?.result?.createdAt?.slice(0, 10)}
                   </div>
                 </div>
               </div>
@@ -93,18 +93,18 @@ export default function AgencyProfile() {
                   ชื่อ-นามสกุล
                 </td>
                 <td className="w-1/2 p-3 border-b">
-                  {el?.firstName} {el?.lastName}
+                  {el?.result?.firstName} {el?.result?.lastName}
                 </td>
               </tr>
               <tr className="bg-gray-100">
                 <td className="w-1/2 px-3 py-2 border-b border-r">Email</td>
-                <td className="w-1/2 p-3 border-b">{el?.email}</td>
+                <td className="w-1/2 p-3 border-b">{el?.result?.email}</td>
               </tr>
               <tr>
                 <td className="w-1/2 px-3 py-2 border-b border-r">
                   เบอร์โทรศัพท์
                 </td>
-                <td className="w-1/2 p-3 border-b"> {el?.phoneNumber}</td>
+                <td className="w-1/2 p-3 border-b"> {el?.result?.phoneNumber}</td>
               </tr>
               <tr className="bg-gray-100">
                 <td className="w-1/2 px-3 py-2 border-b border-r">สถานะ</td>

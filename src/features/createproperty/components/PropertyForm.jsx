@@ -3,14 +3,14 @@ import "draft-js/dist/Draft.css";
 import "draftail/dist/draftail.css";
 import { useState } from "react";
 import { EditorState } from "draft-js";
-import { DraftailEditor, BLOCK_TYPE, INLINE_STYLE } from "draftail";
+import { DraftailEditor } from "draftail";
 import { stateToHTML } from "draft-js-export-html";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
 import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { creatImagePropperty, creatProperty } from "../../../api/property-api";
+import { creatImagePropperty } from "../../../api/property-api";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
@@ -68,6 +68,7 @@ export default function PropertyForm({
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
+      console.log("------------>***", input);
       const result = await validateCreateProperty(input);
 
       const formdata = new FormData();
@@ -291,13 +292,6 @@ export default function PropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            {/* <InputForm
-              name="description"
-              placeholder=""
-              value={input.description}
-              onChange={handleChangeInput}
-              isInvalid={error.description}
-            /> */}
             <DraftailEditor
               editorState={editorState}
               onChange={onEditorStateChange}
@@ -319,27 +313,6 @@ export default function PropertyForm({
                 { type: "CODE" },
               ]}
             />
-            {/* <DraftailEditor
-              editorState={editorState}
-              onChange={handleEditorChange}
-              blockTypes={[
-                { type: "header-one" },
-                { type: "header-two" },
-                { type: "header-three" },
-                { type: "unstyled" },
-                { type: "blockquote" },
-                { type: "code" },
-                { type: "unordered-list-item" },
-                { type: "ordered-list-item" },
-              ]}
-              inlineStyles={[
-                { type: "BOLD" },
-                { type: "ITALIC" },
-                { type: "UNDERLINE" },
-                { type: "STRIKETHROUGH" },
-                { type: "CODE" },
-              ]}
-            /> */}
             {error.description && (
               <InputErrorMessage message={error.description} />
             )}

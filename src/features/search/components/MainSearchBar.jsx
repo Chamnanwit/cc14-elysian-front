@@ -4,10 +4,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-export default function MainSearchBar() {
+export default function MainSearchBar({ areaRange, priceRange, rentPeriod, roomtypeName, provinceName }) {
   const dispatch = useDispatch();
-  const [roomtype, setRoomtype] = useState("");
-  const [province, setProvince] = useState("");
+  const [roomtype, setRoomtype] = useState(roomtypeName || "");
+  const [province, setProvince] = useState(provinceName || "");
+  // const [areaRange, setAreaRange] = useState("");
+  // const [priceRange, setPriceRange] = useState("");
+
   let { state } = useLocation();
 
   const checkRoomtype = state?.roomtype;
@@ -29,6 +32,13 @@ export default function MainSearchBar() {
   const hdlChangeProvinceInput = (e) => {
     setProvince(e.target.value);
   };
+  // const hdlChangeAreaRangeInput = (e) => {
+  //   setAreaRange(e.target.value);
+  // };
+
+  // const hdlChangePriceRangeInput = (e) => {
+  //   setPriceRange(e.target.value);
+  // };
 
   // const hdlSubmit = (e) => {
   //   try {
@@ -53,12 +63,12 @@ export default function MainSearchBar() {
         </option>
         {searchList?.roomtype?.map((el) =>
           el?.name === checkRoomtype ? (
-            <option key={el.id} selected value={el.name} className="text-2xl">
-              {el.name}
+            <option key={el?.id} selected value={el?.name} className="text-2xl">
+              {el?.name}
             </option>
           ) : (
-            <option key={el.id} value={el.name} className="text-2xl">
-              {el.name}
+            <option key={el?.id} value={el?.name} className="text-2xl">
+              {el?.name}
             </option>
           )
         )}
@@ -73,13 +83,22 @@ export default function MainSearchBar() {
           เลือกจังหวัด
         </option>
         {searchList?.province?.map((el) => (
-          <option key={el.id} value={el.nameInThai} className="text-2xl">
-            {el.nameInThai}
+          <option key={el?.id} value={el?.nameInThai} className="text-2xl">
+            {el?.nameInThai}
           </option>
         ))}
       </select>
 
-      <Link to="/searchpage" state={{ roomtype: roomtype, province: province }}>
+      <Link
+        to="/searchpage"
+        state={{
+          roomtype: roomtype || "",
+          province: province || "",
+          areaRange: areaRange || "",
+          priceRange: priceRange || "",
+          rentPeriod: rentPeriod || "",
+        }}
+      >
         <button className="w-fit px-7 py-2 rounded-r-full h-full bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-105 active:scale-95 active:bg-c-yellow3 hover:z-50">
           ค้นหา
         </button>

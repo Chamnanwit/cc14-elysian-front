@@ -25,8 +25,8 @@ export default function DashboardContainer() {
   return (
     <>
       <HeaderAdmin topic="Dashboard" />
-      <div className="flex flex-col gap-[36px] m-8 mt-0">
-        <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-[18px] m-8 mt-0">
+        <div className="flex flex-col gap-2">
           <div className="text-2xl font-medium">วันนี้</div>
           <div className=" grid grid-cols-3 gap-6 text-base">
             <DashboardItem
@@ -54,7 +54,7 @@ export default function DashboardContainer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <div className="text-2xl font-medium">เดือนนี้</div>
           <div className=" grid grid-cols-3 gap-6 text-base">
             <DashboardItem
@@ -82,7 +82,7 @@ export default function DashboardContainer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <div className="text-2xl font-medium">ปีนี้</div>
           <div className=" grid grid-cols-3 gap-6 text-base">
             <DashboardItem
@@ -109,7 +109,7 @@ export default function DashboardContainer() {
             </DashboardItem>
           </div>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <div className="text-2xl font-medium">ยอดรวมทั้งหมด</div>
           <div className=" grid grid-cols-3 gap-6 text-base">
             <DashboardItem
@@ -137,7 +137,7 @@ export default function DashboardContainer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <div className="text-2xl font-medium">ห้องเช่าทั้งหมด</div>
           <div className="grid grid-cols-4 gap-6 text-base">
             <DashboardItem
