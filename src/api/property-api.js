@@ -19,3 +19,4 @@ export const creatImagePropperty = (id, files) => {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };
+export const editImageProperty = (id) => axios.delete(`agent/deleteImage/${id}`)

@@ -29,7 +29,6 @@ export default function RentDetailPage() {
   );
 
   const imageProp = [ ...imageProperty?.result??[] ];
-  // console.log("--**--**--**--**--**--**--", imageProperty.result);
 
   const el = { ...userPropertiesIdlist };
 
