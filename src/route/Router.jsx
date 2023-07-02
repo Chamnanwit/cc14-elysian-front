@@ -38,6 +38,7 @@ import AgentAllPropertyPage from "../pages/AgentAllPropertyPage";
 import AgentProfilePage from "../pages/AgentProfilePage";
 import RedirectedAgent from "../components/RedirectedAgent";
 import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
+import AgentPropertiesPage from "../pages/AgentPropertiesPage";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -181,6 +182,10 @@ export default function Router() {
     {
       path: "/successpay",
       element: <SuccessPaymentPage />,
+    },
+    {
+      path: "/agentproperties/:id",
+      element: <AgentPropertiesPage />,
     },
   ]);
 
