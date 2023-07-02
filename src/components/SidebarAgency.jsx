@@ -13,9 +13,11 @@ import LogoWhite from "./LogoWhite";
 import { useDispatch, useSelector } from "react-redux";
 import { profileAgncyAsync } from "../features/myprofile/slice/myProfile-slice";
 import { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function SidebarAgency() {
   const dispatch = useDispatch();
+  const { logout } = useAuth0();
 
   useEffect(() => {
     dispatch(profileAgncyAsync());
@@ -80,15 +82,15 @@ export default function SidebarAgency() {
             <ul>
               <li>
                 <Link
-                  to="/admin/pricing-plan"
+                  to="/agent/package"
                   class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
-                  แพ็คเกจ
+                  ซื้อแพ็คเกจ
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/admin/purchase-history"
+                  to={`/agent/purchase-history/${keyid}`}
                   class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   ประวัติการซื้อ
@@ -96,20 +98,19 @@ export default function SidebarAgency() {
               </li>
             </ul>
           </details>
-
           <ListAdminMenuButton link="/agent/myprofile" icon={<ImProfile />}>
             ข้อมูลส่วนตัว
           </ListAdminMenuButton>
           {/* <ListAdminMenuButton link="" icon={<MdPassword />}>
             เปลี่ยนรหัสผ่าน
           </ListAdminMenuButton> */}
-          <ListAdminMenuButton link="" icon={<FaSignOutAlt />}>
+
+          <ListAdminMenuButton link="" icon={<FaSignOutAlt />} onClick={logout}>
             ออกจากระบบ
           </ListAdminMenuButton>
           <ListAdminMenuButton link="/" icon={<AiFillHome />}>
             กลับหน้าแรก
           </ListAdminMenuButton>
-
           {/* <ListAdminMenuButton link="/phonenumber" icon={<RiAdminLine />}>
             ยืนยันตัวตน
           </ListAdminMenuButton> */}

@@ -52,7 +52,7 @@ export default function AgentRentCard({
       </div>
 
       <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105  duration-500 cursor-pointer">
-        <Link to={`/rentdetail/${link}`}>
+        <Link to={`/rentdetail/${id}`}>
           <div>
             <img
               src="/src/assets/pic/pictest1.jpg"
@@ -61,7 +61,7 @@ export default function AgentRentCard({
             />
           </div>
           <div className="flex flex-col px-5 py-3 gap-1 w-full">
-            <div className=" flex gap-2">
+            {/* <div className=" flex gap-2">
               <div className="text-[6pt] text-c-white1 p-1 rounded-md bg-c-blue2 text-center h-auto align-middle my-auto ">
                 สวน
               </div>
@@ -71,7 +71,7 @@ export default function AgentRentCard({
               <div className="text-[6pt] text-c-white1 p-1 rounded-md bg-c-blue2  text-center h-auto align-middle my-auto ">
                 ฟิสเนส
               </div>
-            </div>
+            </div> */}
             <div className="flex align-middle  items-center overflow-hidden h-10 text-sm text-c-gray3">
               {propName}
             </div>
