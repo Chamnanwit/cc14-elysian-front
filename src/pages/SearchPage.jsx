@@ -21,6 +21,8 @@ import RentCardBigListByRoomTypeAndProvince from "../features/userProperties/com
 export default function SearchPage() {
   const [priceRange, setPriceRange] = useState("");
   const [areaRange, setAreaRange] = useState("");
+  const [rentPeriod, setRentPeriod] = useState("");
+
   let { state } = useLocation();
 
   useEffect(() => {}, []);
@@ -35,6 +37,10 @@ export default function SearchPage() {
   const hdlChangeAreaRangeInput = (e) => {
     setAreaRange(e.target.value);
     // console.log("Check area", areaRange);
+  };
+  const hdlChangeRentPeriodInput = (e) => {
+    setRentPeriod(e.target.value);
+    // console.log("Check area", rentPeriod);
   };
 
   // console.log(price);
@@ -56,16 +62,14 @@ export default function SearchPage() {
                     value={areaRange}
                     onChange={hdlChangeAreaRangeInput}
                   >
-                    <option disabled value="">
-                      เลือกขนาดห้อง
-                    </option>
+                    <option value="">ขนาดห้องทั้งหมด</option>
                     <option key="" value="0 > 20" className="text-2xl">
                       0 - 20 ตร.ว.
                     </option>
-                    <option key="" value="0 > 40" className="text-2xl">
+                    <option key="" value="20 > 40" className="text-2xl">
                       20 - 40 ตร.ว.
                     </option>
-                    <option key="" value="0 > 60" className="text-2xl">
+                    <option key="" value="40 > 60" className="text-2xl">
                       40 - 60 ตร.ว.
                     </option>
                     <option key="" value="60 <" className="text-2xl">
@@ -74,12 +78,23 @@ export default function SearchPage() {
                   </select>
                   <select
                     className="flex-1 select text-[8pt] w-full h-fit  text-c-gray3 rounded-lg ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
+                    value={rentPeriod}
+                    onChange={hdlChangeRentPeriodInput}
+                  >
+                    <option value="">ระยะเวลาทั้งหมด</option>
+                    <option key="" value="MONTHLY" className="text-2xl">
+                      รายเดือน
+                    </option>
+                    <option key="" value="WEEKLY" className="text-2xl">
+                      รายสัปดาห์
+                    </option>
+                  </select>
+                  <select
+                    className="flex-1 select text-[8pt] w-full h-fit  text-c-gray3 rounded-lg ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
                     value={priceRange}
                     onChange={hdlChangePriceRangeInput}
                   >
-                    <option disabled value="">
-                      เลือกช่วงราคา
-                    </option>
+                    <option value="">ราคาทั้งหมด</option>
                     <option key="" value="0 > 3000" className="text-2xl">
                       0 - 3,000 บาท
                     </option>
@@ -100,12 +115,6 @@ export default function SearchPage() {
                     </option>
                   </select>
                 </form>
-
-                {/* <ButtonGhostWhite>ห้องเช่าแนะนำ</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่าใกล้รถไฟฟ้า</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่ามีฟิสเนส</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่าอะไรดี</ButtonGhostWhite>
-                <ButtonGhostWhite>ห้องเช่าแนะนำ</ButtonGhostWhite> */}
               </div>
               <LogoWhite />
             </div>
@@ -113,20 +122,25 @@ export default function SearchPage() {
           <div className="flex-[3] px-10 gap-5 flex flex-col my-12">
             {/* <BigFourButtonBar /> */}
             <div className="flex gap-5 w-full">
-              <MainSearchBar areaRange={areaRange} priceRange={priceRange} />
-              {/* <InputBar>ค้นหา</InputBar>
-              <ButtonYellowM>ค้นหา</ButtonYellowM> */}
+              <MainSearchBar
+                areaRange={areaRange}
+                priceRange={priceRange}
+                rentPeriod={rentPeriod}
+              />
             </div>
             <p className="text-sm text-c-gray2">
-              ผลการค้นหา ประเภทห้อง {state?.roomtype || "ทั้งหมด"} จังหวัด{" "}
+              ผลการค้นหา ประเภทห้อง: {state?.roomtype || "ทั้งหมด"}, จังหวัด:{" "}
               {state?.province || "ทั้งหมด"}
             </p>
             <div className="flex flex-col gap-8">
               {/* <RentCardBigList /> */}
               {/* <RentCardBigListByRoomTypeAndProvince /> */}
 
-              {state?.roomtype || state?.province ? (
-                // <div>sdfsdf</div>
+              {state?.roomtype ||
+              state?.province ||
+              state?.priceRange ||
+              state?.areaRange ||
+              state?.rentPeriod ? (
                 <RentCardBigListByRoomTypeAndProvince />
               ) : (
                 <RentCardBigList />

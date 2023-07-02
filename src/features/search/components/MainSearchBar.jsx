@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-export default function MainSearchBar({ areaRange, priceRange }) {
+export default function MainSearchBar({ areaRange, priceRange, rentPeriod }) {
   const dispatch = useDispatch();
   const [roomtype, setRoomtype] = useState("");
   const [province, setProvince] = useState("");
@@ -63,12 +63,12 @@ export default function MainSearchBar({ areaRange, priceRange }) {
         </option>
         {searchList?.roomtype?.map((el) =>
           el?.name === checkRoomtype ? (
-            <option key={el.id} selected value={el.name} className="text-2xl">
-              {el.name}
+            <option key={el?.id} selected value={el?.name} className="text-2xl">
+              {el?.name}
             </option>
           ) : (
-            <option key={el.id} value={el.name} className="text-2xl">
-              {el.name}
+            <option key={el?.id} value={el?.name} className="text-2xl">
+              {el?.name}
             </option>
           )
         )}
@@ -83,8 +83,8 @@ export default function MainSearchBar({ areaRange, priceRange }) {
           เลือกจังหวัด
         </option>
         {searchList?.province?.map((el) => (
-          <option key={el.id} value={el.nameInThai} className="text-2xl">
-            {el.nameInThai}
+          <option key={el?.id} value={el?.nameInThai} className="text-2xl">
+            {el?.nameInThai}
           </option>
         ))}
       </select>
@@ -92,10 +92,11 @@ export default function MainSearchBar({ areaRange, priceRange }) {
       <Link
         to="/searchpage"
         state={{
-          roomtype: roomtype,
-          province: province,
-          areaRange: areaRange,
-          priceRange: priceRange,
+          roomtype: roomtype || "",
+          province: province || "",
+          areaRange: areaRange || "",
+          priceRange: priceRange || "",
+          rentPeriod: rentPeriod || "",
         }}
       >
         <button className="w-fit px-7 py-2 rounded-r-full h-full bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-105 active:scale-95 active:bg-c-yellow3 hover:z-50">
