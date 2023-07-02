@@ -7,8 +7,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesByIdAsync } from "../features/userProperties/slice/userProperties";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { getImageByPropertyIdAsync } from "../features/createproperty/slice/createproperty-slice";
 
 import AgencyCard from "../components/AgencyCard";
+import SponserRentbar from "../layouts/SponserRentbar";
 
 export default function RentDetailPage() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -16,16 +18,20 @@ export default function RentDetailPage() {
 
   useEffect(() => {
     dispatch(userPropertiesByIdAsync(id)); /// เอามาจาก slice
+    dispatch(getImageByPropertyIdAsync(id));
   }, [id]);
 
   const userPropertiesIdlist = useSelector(
     (state) => state?.userProperties?.userPropertiesById
   );
 
-  const el = { ...userPropertiesIdlist };
-  // console.log("-----------9-------------------",el)
+  const imageProperty = useSelector(
+    (state) => state?.propertyPlan?.imageProperty
+  );
 
-  console.log(userPropertiesIdlist);
+  const imageProp = [ ...imageProperty?.result??[] ];
+
+  const el = { ...userPropertiesIdlist };
 
   return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
@@ -38,26 +44,28 @@ export default function RentDetailPage() {
           </div>
           <div className="pb-10 shadow-xl">
             <div className="h-[330px] overflow-auto bg-c-gray3 flex justify-start gap-2 items-center">
-              <img
-                src="/src/assets/pic/pictest1.jpg"
-                alt="pic test1"
-                className="h-[300px] w-auto"
-              />
-              <img
+              {imageProp.map((im) => (
+                <img
+                  src={im.imageLink}
+                  alt="pic test1"
+                  className="h-[300px] w-auto"
+                />
+              ))}
+              {/* <img
                 src="/src/assets/pic/pictest2.jpg"
-                alt="pic test1"
+                alt="pic test2"
                 className="h-[300px] w-auto"
               />
               <img
                 src="/src/assets/pic/pictest3.jpg"
-                alt="pic test1"
+                alt="pic test3"
                 className="h-[300px] w-auto"
               />
               <img
                 src="/src/assets/pic/mainpic.jpeg"
-                alt="pic test1"
+                alt="pic test3"
                 className="h-[300px] w-auto"
-              />
+              /> */}
             </div>
           </div>
           <div className="flex w-full mt-10">
@@ -180,11 +188,18 @@ export default function RentDetailPage() {
                 </div>
               </div>
               <div className="">
-                  {el.name && <GoogleMap name={el?.name} lat={el?.latitude} long={el?.longitude}/>}
+                {el.name && (
+                  <GoogleMap
+                    name={el?.name}
+                    lat={el?.latitude}
+                    long={el?.longitude}
+                  />
+                )}
               </div>
             </div>
           </div>
         </div>
+        <SponserRentbar />
       </div>
       <Footer />
     </div>
