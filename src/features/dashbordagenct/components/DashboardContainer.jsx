@@ -11,11 +11,8 @@ import Loading from "../../../components/Loading";
 
 export default function DashboardAgenctContainer() {
   const dispatch = useDispatch();
-<<<<<<< HEAD
   const [pageLoading, setPageLoading] = useState(true);
-=======
   const isLoading = useSelector((state) => state?.dashboard?.isLoading);
->>>>>>> e6a27ab1bc0ae0f09bfeed872abda9aa96319884
 
   const user = useSelector((state) => state?.auth?.user);
 
@@ -32,7 +29,7 @@ export default function DashboardAgenctContainer() {
 
   // console.log("dashboard------->", dashboardAgent);
 
-  if (pageLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
