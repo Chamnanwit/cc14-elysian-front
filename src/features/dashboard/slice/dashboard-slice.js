@@ -21,7 +21,7 @@ export const dashboardAsync = createAsyncThunk(
 );
 
 export const dashboardAgentAsync = createAsyncThunk(
-  "dashboardAgen/dashboardAgentAsync",
+  "dashboard/dashboardAgentAsync",
   async (id, thunkApi) => {
     try {
       const res = await adminService.getDashboardAgent(id);

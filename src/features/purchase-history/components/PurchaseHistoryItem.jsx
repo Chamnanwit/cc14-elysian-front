@@ -30,7 +30,7 @@ export default function PurchaseHistoryItem({ el }) {
                 )}
                 </td>
                 <td class="px-3 py-4">
-                {el.orderStatus ? (
+                {el.orderStatus === "ACTIVE" ? (
                     <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[80px]">
                         Active
                     </div>
@@ -50,9 +50,9 @@ export default function PurchaseHistoryItem({ el }) {
                     >
                         <HiEye fill="#ffffff"/>
                     </div>
-                    <div className="bg-red-700 p-[5px] rounded-md cursor-pointer">
+                    {/* <div className="bg-red-700 p-[5px] rounded-md cursor-pointer">
                         <TrashIcon />
-                    </div>
+                    </div> */}
                 </td>
         </tr>
         {isViewMode? 

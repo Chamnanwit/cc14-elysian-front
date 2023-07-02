@@ -11,7 +11,7 @@ import Loading from "../../../components/Loading";
 
 export default function DashboardAgenctContainer() {
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state?.adminViewAgent?.isLoading);
+  const isLoading = useSelector((state) => state?.dashboard?.isLoading);
 
   const user = useSelector((state) => state?.auth?.user);
 
