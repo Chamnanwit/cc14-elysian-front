@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-export default function MainSearchBar({ areaRange, priceRange, rentPeriod }) {
+export default function MainSearchBar({ areaRange, priceRange, rentPeriod, roomtypeName, provinceName }) {
   const dispatch = useDispatch();
-  const [roomtype, setRoomtype] = useState("");
-  const [province, setProvince] = useState("");
+  const [roomtype, setRoomtype] = useState(roomtypeName || "");
+  const [province, setProvince] = useState(provinceName || "");
   // const [areaRange, setAreaRange] = useState("");
   // const [priceRange, setPriceRange] = useState("");
 
