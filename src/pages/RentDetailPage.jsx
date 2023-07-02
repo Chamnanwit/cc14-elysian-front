@@ -10,6 +10,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { getImageByPropertyIdAsync } from "../features/createproperty/slice/createproperty-slice";
 
 import AgencyCard from "../components/AgencyCard";
+import SponserRentbar from "../layouts/SponserRentbar";
 
 export default function RentDetailPage() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -198,6 +199,7 @@ export default function RentDetailPage() {
             </div>
           </div>
         </div>
+        <SponserRentbar />
       </div>
       <Footer />
     </div>

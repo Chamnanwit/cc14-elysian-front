@@ -4,6 +4,7 @@ import Footer from "../layouts/Footer";
 import InputBar from "../components/InputBar";
 import ButtonYellowM from "../components/ButtonYellowM";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import RentCardBig from "../components/RentCardBig";
 import CarouselBig from "../components/CarouselBig";
@@ -17,6 +18,9 @@ import MainSearchBar from "../features/search/components/mainSearchBar";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import RentCardBigListByRoomTypeAndProvince from "../features/userProperties/components/RentCardBigListByRoomTypeAndProvince";
+import SponserRentCardBigList from "../features/userProperties/components/SponserRentCardBigList";
+import SponserRentCardSmallList from "../features/userProperties/components/SponserRentCardSmallList";
+import SponserRentbar from "../layouts/SponserRentbar";
 
 export default function SearchPage() {
   const [priceRange, setPriceRange] = useState("");
@@ -138,7 +142,7 @@ export default function SearchPage() {
             <div className="flex flex-col gap-8">
               {/* <RentCardBigList /> */}
               {/* <RentCardBigListByRoomTypeAndProvince /> */}
-
+              <SponserRentCardBigList />
               {state?.roomtype ||
               state?.province ||
               state?.priceRange ||
@@ -158,13 +162,7 @@ export default function SearchPage() {
             <AgencyCard />
           </div>
         </div>
-        <div className="flex justify-between px-5 pt-5">
-          <div className="text-xl text-c-gray3">ยอดนิยม</div>
-          <div className="text-sm text-c-gray2">ดูทั้งหมด</div>
-        </div>
-        <div className=" flex w-full gap-5 px-5 py-5 overflow-auto">
-          <RentCardSmallList />
-        </div>
+        <SponserRentbar />
       </div>
 
       <Footer />

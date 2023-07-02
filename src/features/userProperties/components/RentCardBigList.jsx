@@ -28,6 +28,7 @@ export default function RentCardBigList() {
             propName={el?.name}
             propDescription={el?.description}
             agencyName={el?.User?.firstName}
+            propArea={el.totalArea}
             propPrice={Number(el?.price).toLocaleString("th-TH", {
               style: "currency",
               currency: "THB",
