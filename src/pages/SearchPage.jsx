@@ -24,6 +24,7 @@ export default function SearchPage() {
   const [rentPeriod, setRentPeriod] = useState("");
 
   let { state } = useLocation();
+  console.log(state)
 
   useEffect(() => {}, []);
 
@@ -122,10 +123,12 @@ export default function SearchPage() {
           <div className="flex-[3] px-10 gap-5 flex flex-col my-12">
             {/* <BigFourButtonBar /> */}
             <div className="flex gap-5 w-full">
-              <MainSearchBar
+              <MainSearchBar 
                 areaRange={areaRange}
                 priceRange={priceRange}
                 rentPeriod={rentPeriod}
+                roomtypeName={state.roomtype}
+                provinceName={state.province}
               />
             </div>
             <p className="text-sm text-c-gray2">
