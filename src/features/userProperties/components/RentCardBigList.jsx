@@ -17,8 +17,8 @@ export default function RentCardBigList() {
     (state) => state?.userProperties?.userProperties
   );
 
-  const timestamp = {};
-  const date = new Date(timestamp)?.toLocaleDateString();
+  // const timestamp = {};
+  // const date = new Date(timestamp)?.toLocaleDateString();
 
   return (
     <>

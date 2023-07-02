@@ -1,6 +1,6 @@
 import React from "react";
 import HeaderAgent from "../../../components/HeaderAgent";
-import AminityForm from "./AminityForm";
+
 import PropertyForm from "./PropertyForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -14,8 +14,6 @@ export default function PropertyContainer() {
   }, []);
 
   const userCreate = useSelector((state) => state?.profileAgncy?.profileAgncy);
-
-  // console.log("In Property", userCreate);
 
   return (
     <>

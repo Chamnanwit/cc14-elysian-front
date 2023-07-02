@@ -38,15 +38,16 @@ import AgentAllPropertyPage from "../pages/AgentAllPropertyPage";
 import AgentProfilePage from "../pages/AgentProfilePage";
 import RedirectedAgent from "../components/RedirectedAgent";
 import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
+import AgentPropertiesPage from "../pages/AgentPropertiesPage";
 import AgentPurchasePage from "../pages/AgentPurchasePage";
 import AgentPackagePlanPage from "../pages/AgentPackagePlanPage";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
-  
+
   // const requireAuth = (link) => {
   //   if (!isAuthenticated) {
-    //     console.log(isAuthenticated);
+  //     console.log(isAuthenticated);
   //     loginWithRedirect(link);
   //     return null;
   //   }
@@ -191,6 +192,10 @@ export default function Router() {
     {
       path: "/successpay",
       element: <SuccessPaymentPage />,
+    },
+    {
+      path: "/agentproperties/",
+      element: <AgentPropertiesPage />,
     },
   ]);
 

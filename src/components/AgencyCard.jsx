@@ -13,9 +13,10 @@ export default function AgencyCard({
   agencystatus,
   agencyphone,
   agencyemail,
+  agencyId,
 }) {
   return (
-    <div className=" bg-gray-100 gap-2 w-[180px] p-5 h-fit border rounded-lg shadow-md flex flex-col items-center text-c-white1">
+    <div className=" bg-gray-100 gap-2 w-[200px] p-5 h-fit border rounded-lg shadow-md flex flex-col items-center text-c-white1">
       <img
         src={agencyImage || "/src/assets/blank.png"}
         alt="avatar"
@@ -33,14 +34,14 @@ export default function AgencyCard({
           <p className="text-xs">{agencyphone}</p>
         </div>
         <div className=" flex gap-2 items-center">
-          <MdEmail className="text-sm" />
-          <p className="text-xs">{agencyemail}</p>
+          <MdEmail className="text-xs" />
+          <p className="text-[8pt]">{agencyemail}</p>
         </div>
       </div>
 
       <div className="flex flex-col items-center gap-1 border-b-gray1  w-full text-[8pt] justify-center">
         {/* <div>สถานะ</div> */}
-        {agencystatus === "1" ? (
+        {agencystatus === false ? (
           <div className=" flex gap-1 items-center text-c-green2">
             <BsCheckCircleFill />
             <div>ยืนยันตัวตนแล้ว</div>

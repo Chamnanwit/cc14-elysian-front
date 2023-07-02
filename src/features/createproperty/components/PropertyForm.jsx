@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
+import AminityForm from "./AminityForm";
 
 export default function PropertyForm({
   textConFirm,
@@ -202,6 +203,36 @@ export default function PropertyForm({
             <div>
               <div>
                 <InputForm
+                  labelName="ละติจูด"
+                  name="latitude"
+                  placeholder=""
+                  value={input.latitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.floor}
+                />
+                {error.latitude && (
+                  <InputErrorMessage message={error.latitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
+                  labelName="longitude"
+                  name="longitude"
+                  placeholder=""
+                  value={input.longitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.longitude}
+                />
+                {error.longitude && (
+                  <InputErrorMessage message={error.longitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
                   labelName="ชั้น"
                   name="floor"
                   placeholder=""
@@ -380,6 +411,7 @@ export default function PropertyForm({
             สร้างห้องเช่า
           </button>
         </div>
+        <AminityForm />
       </>
     </form>
   );
