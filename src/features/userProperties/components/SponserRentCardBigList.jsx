@@ -8,6 +8,7 @@ import BadgeYellow from "../../../components/BadgeYellow";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import SponserRentCardBig from "../../../components/SponserRentCardBig";
+import PictureNone from "../../../components/PictureNone";
 
 export default function SponserRentCardBigList() {
   let { state } = useLocation();
@@ -113,6 +114,7 @@ export default function SponserRentCardBigList() {
                 style: "currency",
                 currency: "THB",
               })}
+              src={el.Images || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
               propRentPeriod={
                 el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
               }
