@@ -71,7 +71,19 @@ export const getImageByPropertyIdAsync = createAsyncThunk(
       return thunkApi.rejectWithValue(err.response.data.message);
     }
   }
-)
+);
+export const editImagePropertyAsync = createAsyncThunk(
+  "propertyPlan/editImagePropertyAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await PropertyService.editImageProperty(id);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 // export const animityAsync = createAsyncThunk(
 //   "propertyPlan/animityAsync",
 //   async (_, thunkApi) => {
@@ -145,6 +157,16 @@ const propertyPlanSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getImageByPropertyIdAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(editImagePropertyAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(editImagePropertyAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(editImagePropertyAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       }),

@@ -5,7 +5,8 @@ import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
 import validateCreateProperty from "../../createproperty/validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { creatImagePropperty } from "../../../api/property-api";
+import { creatImagePropperty, editImageProperty } from "../../../api/property-api";
+import { useDispatch } from "react-redux";
 
 export default function EditPropertyForm({
   textConFirm,
@@ -49,6 +50,7 @@ export default function EditPropertyForm({
 
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const dispatch = useDispatch();
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     console.log(input);
@@ -58,9 +60,12 @@ export default function EditPropertyForm({
       e.preventDefault();
       const result = await validateCreateProperty(input);
 
-      const formdata = new FormData();
-      formdata.append("imageLink", file[0]);
-      const image = await creatImagePropperty(product.data.id, formdata);
+      if (file.length > 0) {
+        const deleteFile = await editImageProperty(id);
+        const formdata = new FormData();
+        formdata.append("imageLink", file[0]);
+        const image = await creatImagePropperty(product.data.id, formdata);
+      }
 
       if (result) {
         return setError(result);
