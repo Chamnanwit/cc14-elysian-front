@@ -202,6 +202,36 @@ export default function PropertyForm({
             <div>
               <div>
                 <InputForm
+                  labelName="ละติจูด"
+                  name="latitude"
+                  placeholder=""
+                  value={input.latitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.floor}
+                />
+                {error.latitude && (
+                  <InputErrorMessage message={error.latitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
+                  labelName="longitude"
+                  name="longitude"
+                  placeholder=""
+                  value={input.longitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.longitude}
+                />
+                {error.longitude && (
+                  <InputErrorMessage message={error.longitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
                   labelName="ชั้น"
                   name="floor"
                   placeholder=""
