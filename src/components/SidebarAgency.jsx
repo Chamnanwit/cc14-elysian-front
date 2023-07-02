@@ -98,7 +98,7 @@ export default function SidebarAgency() {
               </li>
               <li>
                 <Link
-                  to="/admin/purchase-history"
+                  to={`/agent/purchase-history/${keyid}`}
                   class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   ประวัติการซื้อ

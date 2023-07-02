@@ -38,6 +38,7 @@ import AgentAllPropertyPage from "../pages/AgentAllPropertyPage";
 import AgentProfilePage from "../pages/AgentProfilePage";
 import RedirectedAgent from "../components/RedirectedAgent";
 import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
+import AgentPurchasePage from "../pages/AgentPurchasePage";
 
 export default function Router() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -54,9 +55,11 @@ export default function Router() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (<RedirectedAgentOrAdmin>
-                  <HomePage />
-                </RedirectedAgentOrAdmin>)
+      element: (
+        <RedirectedAgentOrAdmin>
+          <HomePage />
+        </RedirectedAgentOrAdmin>
+      ),
     },
     {
       path: "/adminlogin",
@@ -151,6 +154,10 @@ export default function Router() {
     {
       path: "/agent/myprofile",
       element: <AgentProfilePage />,
+    },
+    {
+      path: "/agent/purchase-history/:id",
+      element: <AgentPurchasePage />,
     },
     {
       path: "/packageplan",
