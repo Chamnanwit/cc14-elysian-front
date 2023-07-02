@@ -7,7 +7,7 @@ import PopOverButton from "../components/PopOverButton";
 
 import BadgeDarkBlue from "./BadgeYellow";
 
-export default function RentCardBig({
+export default function SponserRentCardBig({
   propName,
   propDescription,
   agencyName,
@@ -63,7 +63,6 @@ export default function RentCardBig({
           </div>
           <div className="text-[8pt] text-c-gray2 h-12  overflow-y-auto">
             <div dangerouslySetInnerHTML={{ __html: propDescription }} />
-
             {/* {propDescription ||
               "   ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรร์ มีโปร ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรร์ มีโปร ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรร์ มีโปร ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรร์ มีโปร ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรร์ มีโปร ในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปรในน้ำมีปลา ในนามีข้าว มีเหล้าข้าวสารและขนม ลมเย็นกินเบียร์ มีโปร"} */}
           </div>
@@ -78,9 +77,9 @@ export default function RentCardBig({
         </div>
       </div>
 
-      <div className="flex justify-between items-center w-full px-5 py-2 align-middle text-xs  text-c-gray2 bg-c-white1">
-        <div className="flex  items-center text-c-gray2 gap-5">
-          <div className="text-xs text-c-gray2  ">โดย {agencyName}</div>
+      <div className="flex justify-between items-center w-full px-5 py-2 align-middle text-xs  text-c-gray2 bg-c-yellow1">
+        <div className="flex  items-center text-c-gray3 gap-5">
+          <div className="text-xs text-c-gray3  ">โดย {agencyName}</div>
 
           <div className=" flex gap-2 items-center">
             <BsTelephoneFill className="text-sm" />
@@ -91,7 +90,6 @@ export default function RentCardBig({
             <p className="text-xs">{agencyemail}</p>
           </div>
         </div>
-
         <div className=" flex gap-2 items-center">
           <div className="text-sm text-c-gray3">{propArea} ตร.ว. |</div>
           <div className="text-lg text-c-gray3">

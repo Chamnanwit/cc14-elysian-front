@@ -32,7 +32,7 @@ export default function RentCardSmallList() {
           })}
           propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
           propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
-          propNearBY=""
+          propArea={el.totalArea}
           link={el?.id}
         />
       ))}

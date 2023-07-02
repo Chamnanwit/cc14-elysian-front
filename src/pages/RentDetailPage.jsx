@@ -9,6 +9,7 @@ import { userPropertiesByIdAsync } from "../features/userProperties/slice/userPr
 import { useNavigate, useParams, Link } from "react-router-dom";
 
 import AgencyCard from "../components/AgencyCard";
+import SponserRentbar from "../layouts/SponserRentbar";
 
 export default function RentDetailPage() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -180,11 +181,18 @@ export default function RentDetailPage() {
                 </div>
               </div>
               <div className="">
-                  {el.name && <GoogleMap name={el?.name} lat={el?.latitude} long={el?.longitude}/>}
+                {el.name && (
+                  <GoogleMap
+                    name={el?.name}
+                    lat={el?.latitude}
+                    long={el?.longitude}
+                  />
+                )}
               </div>
             </div>
           </div>
         </div>
+        <SponserRentbar />
       </div>
       <Footer />
     </div>
