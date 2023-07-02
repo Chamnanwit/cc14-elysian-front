@@ -5,13 +5,13 @@ import AgentShowBox from "../../createproperty/components/AgentShowBox";
 import { AiFillEye } from "react-icons/ai";
 import { IoIosAlert } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { dashboardAgentAsync } from "../../dashboard/slice/dashboard-slice";
 import Loading from "../../../components/Loading";
 
 export default function DashboardAgenctContainer() {
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state?.adminViewAgent?.isLoading);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const user = useSelector((state) => state?.auth?.user);
 
@@ -19,15 +19,16 @@ export default function DashboardAgenctContainer() {
 
   useEffect(() => {
     dispatch(dashboardAgentAsync(userid));
+    setPageLoading(false);
   }, []);
 
   const dashboardAgent = useSelector(
     (state) => state?.dashboard?.dashboardAgentResult
   );
 
-  console.log("dashboard------->", dashboardAgent);
+  // console.log("dashboard------->", dashboardAgent);
 
-  if (isLoading) {
+  if (pageLoading) {
     return <Loading />;
   }
 
@@ -51,7 +52,7 @@ export default function DashboardAgenctContainer() {
         />
         <AgentShowBox
           icon={<IoIosAlert />}
-          title="แพ็คเกจ"
+          title="ราคาแพ็คเกจ"
           number={dashboardAgent?.totalPurchase}
         />
       </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { EditIcon, TrashIcon } from "../../../icons";
 import Modal from "../../../components/Modal";
 import { HiEye } from "react-icons/hi";
 
@@ -8,15 +7,6 @@ export default function PurchaseAgentHistoryItem({ el }) {
   return (
     <>
       <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-        {/* <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
-          {el?.id}
-        </th> */}
-        <td class="px-3 py-4">
-          {el?.User?.firstName} {el?.User?.lastName}
-        </td>
         <td class="px-3 py-4">{el?.PricingPlan?.planType}</td>
         <td class="px-3 py-4">฿ {el?.PricingPlan?.price}</td>
         <td class="px-3 py-4">
@@ -36,7 +26,7 @@ export default function PurchaseAgentHistoryItem({ el }) {
           )}
         </td>
         <td class="px-3 py-4">
-          {el.orderStatus ? (
+          {el.orderStatus === "ACTIVE" ? (
             <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[80px]">
               Active
             </div>
@@ -130,7 +120,7 @@ export default function PurchaseAgentHistoryItem({ el }) {
                 สถานะแพ็คเกจ
               </td>
               <td className="w-1/2 p-3 border-b">
-                {el.orderStatus ? (
+                {el.orderStatus === "ACTIVE" ? (
                   <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[100px]">
                     Active
                   </div>

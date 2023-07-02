@@ -33,36 +33,10 @@ export default function PurchaseAgentHistoryContainer() {
     (state) => state?.purchaseHistory?.purchaseAgent
   );
   console.log("purchaseAgent--->", purchaseAgent);
-  // useEffect(() => {
-  //   const id = setTimeout(() => {
-  //     dispatch(searchPurchaseHistoryAsync(searchValue));
-  //   }, 1000);
 
-  //   return () => {
-  //     clearTimeout(id);
-  //   };
-  // }, [searchValue]);
-
-  // const handleChange = (e) => {
-  //   dispatch(setSearchValueRedux(e.target.value));
-  // };
-
-  const historyArr = useSelector(
-    (state) => state?.purchaseHistory?.purchaseFilter
-  );
-
-  // console.log(historyArr);
-
-  const pricingPlanType = [
-    { id: 1, type: "FREE" },
-    { id: 2, type: "GOLD" },
-    { id: 3, type: "PREMIUM" },
-  ];
-
-  const expirationType = [
-    { id: 1, type: "WEEKLY", thaiType: "รายสัปดาห์" },
-    { id: 2, type: "MONTHLY", thaiType: "รายเดือน" },
-  ];
+  // const historyArr = useSelector(
+  //   (state) => state?.purchaseHistory?.purchaseFilter
+  // );
 
   if (isLoading) {
     return <Loading />;
@@ -115,7 +89,7 @@ export default function PurchaseAgentHistoryContainer() {
               </tr>
             </thead>
             <tbody>
-              {historyArr.map((el) => (
+              {purchaseAgent.map((el) => (
                 <PurchaseAgentHistoryItem key={el.id} el={el} />
               ))}
             </tbody>
