@@ -20,7 +20,6 @@ export default function DashboardAgenctContainer() {
 
   useEffect(() => {
     dispatch(dashboardAgentAsync(userid));
-    setPageLoading(false);
   }, []);
 
   const dashboardAgent = useSelector(
