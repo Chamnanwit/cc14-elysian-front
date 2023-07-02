@@ -26,28 +26,39 @@ export default function SponserRentCardBig({
     <div className=" flex flex-col bg-white w-full rounded-lg overflow-hidden shadow-lg transition-all active:scale-100 duration-[400ms] hover:scale-[101%]">
       <div className="flex">
         <div className="flex-[1.5] h-[180px] overflow-auto bg-white ml-2 flex  justify-start gap-2 items-center">
-        {src.map((im) => (
-                <img
-                  src={im.imageLink}
-                  alt="pic test1"
-                  className="h-[300px] w-auto"
-                />
-              ))}
-          {/* <img
-            src="/src/assets/pic/pictest2.jpg"
-            alt="pic test1"
-            className="h-[160px] w-auto"
-          />
-          <img
-            src="/src/assets/pic/pictest3.jpg"
-            alt="pic test1"
-            className="h-[160px] w-auto"
-          />
-          <img
-            src="/src/assets/pic/mainpic.jpeg"
-            alt="pic test1"
-            className="h-[160px] w-auto"
-          /> */}
+        {src.length > 0 ? (
+            src.map((im) => (
+              <img
+                key={im.id} // ใส่ key ให้แตกต่างกันสำหรับแต่ละรูปภาพ
+                src={im.imageLink}
+                alt="pic test1"
+                className="h-[300px] w-auto"
+              />
+            ))
+          ) : (
+            <>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+                alt="pic test2"
+                className="h-[300px] w-auto"
+              />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+                alt="pic test3"
+                className="h-[300px] w-auto"
+              />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+                alt="pic test4"
+                className="h-[300px] w-auto"
+              />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+                alt="pic test5"
+                className="h-[300px] w-auto"
+              />
+            </>
+          )}
         </div>
         <div className="flex-[2] flex flex-col px-5 py-3 gap-1 w-full justify-between">
           <div className=" flex gap-2 justify-between ">

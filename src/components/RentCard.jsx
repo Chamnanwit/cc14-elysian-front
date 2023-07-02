@@ -31,7 +31,7 @@ export default function RentCard({
       <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105  duration-500 cursor-pointer">
         <Link to={`/rentdetail/${link}`}>
           <div>
-            <img src={src} alt="pic test1" className="h-[180px] w-full" />
+            <img src={src || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"} alt="pic test1" className="h-[180px] w-full" />
           </div>
           <div className="flex flex-col px-5 py-3 gap-1 w-full">
             {/* <div className=" flex gap-2">

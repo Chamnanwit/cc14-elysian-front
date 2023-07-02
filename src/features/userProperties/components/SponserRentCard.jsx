@@ -32,7 +32,7 @@ export default function SponserRentCard({
         <Link to={`/rentdetail/${link}`}>
           <div>
             <img
-              src={src}
+              src={src || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
               alt="pic test1"
               className="h-[180px] w-full"
             />
