@@ -28,12 +28,9 @@ export default function MyProfileForm() {
     profileImage: "",
   };
 
-<<<<<<< HEAD
   const inputEl = useRef();
   const [file, setFile] = useState(null);
 
-=======
->>>>>>> a5da7bae62184006c9eea66ee100a6bf42f62ff2
   const initialImage = user?.profileImage;
   const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
