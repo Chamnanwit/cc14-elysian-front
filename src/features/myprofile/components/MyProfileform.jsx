@@ -18,6 +18,7 @@ import { useMemo } from "react";
 import { useEffect } from "react";
 import { fetchMe } from "../../auth/slice/authSlice";
 import validateAgentProfile from "../validators/myprofileValidate";
+import { useRef } from "react";
 
 export default function MyProfileForm() {
   const user = useSelector((state) => state?.auth?.user);
@@ -27,23 +28,15 @@ export default function MyProfileForm() {
     profileImage: "",
   };
 
-  const initialImage = user?.profileImage
+  const inputEl = useRef();
+  const [file, setFile] = useState(null);
+
+  const initialImage = user?.profileImage;
   const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const dispatch = useDispatch();
-
-  const updateProfileImage = async (input) => {
-    const formData = new FormData();
-    console.log("formData", formData);
-    formData.append("profileImage", input);
-    setIsLoading(true);
-    const res = await profileAgncyService.updateAgentImage(formData);
-    setInput({ ...user, profileImage: res.data.profileImage });
-    await dispatch(fetchMe()).unwrap();
-    setIsLoading(false);
-  };
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -63,11 +56,11 @@ export default function MyProfileForm() {
       }
       setError({});
       const formData = new FormData();
-      if (input.profileImage)
-        formData.append("profileImage", input.profileImage);
+      if (input.profileImage) formData.append("profileImage", input.profileImage);
       formData.append("id", user.id);
       formData.append("firstName", input.firstName);
       formData.append("lastName", input.lastName);
+      console.log("dddddd", formData)
       setIsLoading(true);
       await dispatch(updateprofileAgncyAsync(formData)).unwrap();
       await dispatch(fetchMe()).unwrap();
@@ -76,7 +69,6 @@ export default function MyProfileForm() {
       console.log("Error in register", err);
     }
   };
-  // console.log("inProfile form", oldProfile);
 
   return (
     <>
@@ -114,14 +106,6 @@ export default function MyProfileForm() {
                     />
                     <div>{user?.email}</div>
                   </li>
-                  {/* <li className="flex items-center">
-                  <img
-                    src="https://datacraft.app/frontend/img/agent-location.svg"
-                    alt="location"
-                    className="mr-2"
-                  />
-                  Los Angeles, CA, USA
-                </li> */}
                 </ul>
               </div>
               <div className="row">
@@ -140,34 +124,9 @@ export default function MyProfileForm() {
                   </button>
                 </div>
               </div>
-              {/* <ul className="relative opacity-100 visible flex flex-row top-0 left-0 mt-[25px] gap-4">
-                <li>
-                  <a href="https://www.linkedin.com">
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.twitter.com">
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com">
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.facebook.com">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-              </ul> */}
             </div>
           </div>
         </div>
-        {/* <div className="top-0 m-0 p-0 mt-[30px]">
-          <div className=" p-4 border-radius-4 overflow-hidden"></div>
-        </div> */}
       </div>
 
       {isEditMode ? (
@@ -239,57 +198,32 @@ export default function MyProfileForm() {
                 <tr>
                   <td className="w-1/2 px-3 py-2 border-b border-r">
                     รูปโปรไฟล์
-                  </td>
+                  </td>                 
                   <td className="w-1/2 p-3 border-b">
-                    {/* <td className="w-1/2 p-3 border-b">
-                    <label
-                      for="dropzone-file"
-                      class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                    >
-                      <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                        <svg
-                          aria-hidden="true"
-                          class="w-10 h-10 mb-3 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                          ></path>
-                        </svg>
-                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                          <span class="font-semibold">Click to upload</span> or
-                          drag and drop
-                        </p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">
-                          SVG, PNG, JPG or GIF (MAX. 800x400px)
-                        </p>
-                      </div>
-                      <input id="dropzone-file" type="file" class="hidden" />
-                    </label>
-                  </td> */}
-                    <PictureForm
-                      onSave={handleChangeImage}
-                      title="Picture"
-                      initialSrc={initialImage}
-                      input={input}
-                    >
-                      {(src, onClick) => (
-                        <div className="flex justify-center" onClick={onClick}>
-                          <Avatar
-                            src={src}
-                            className="h-[10.5rem] w-[10.5rem]"
-                          />
-                        </div>
-                      )}
-                    </PictureForm>
+                    <div>
+                      <input
+                        type="file"
+                        className="hidden"
+                        name="profileImage"
+                        ref={inputEl}
+                        onChange={(e) => {
+                          if (e.target.files[0]) {
+                            handleChangeImage(e);
+                          }
+                        }}
+                      />
+                     
+                    </div>
+                    <div className="flex justify-end" onClick={() => inputEl.current.click()}>
+                      <img src={input.profileImage ? URL.createObjectURL(input.profileImage) : initialImage} />
+                    </div>
                   </td>
+                  
+
                 </tr>
+                
+                  
+                
                 <tr>
                   <td colSpan={2}>
                     <div className="flex justify-end p-6">
