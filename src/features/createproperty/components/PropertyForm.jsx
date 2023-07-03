@@ -45,20 +45,53 @@ export default function PropertyForm({
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const selectProvice = listProvice;
 
-  const [province, setProvince] = useState();
-  const [district, setDistrict] = useState();
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
 
-  const selectProvince = (e) => {
-    const selectedProvince = listProvice.find(
-      (entry) => entry.province === e.target.value
-    );
-    setDistrict("");
-    setProvince(selectedProvince);
+  const handleProvinceChange = (event) => {
+    const province = event.target.value;
+    setSelectedProvince(province);
+    setSelectedDistrict("");
+    setSelectedSubDistrict("");
   };
 
-  const selectDistrict = (e) => {
-    setDistrict(e.target.value);
+  const handleDistrictChange = (event) => {
+    const district = event.target.value;
+    setSelectedDistrict(district);
+    setSelectedSubDistrict("");
+  };
+
+  const handleSubDistrictChange = (event) => {
+    const subDistrict = event.target.value;
+    setSelectedSubDistrict(subDistrict);
+  };
+
+  const getDistrictsByProvince = () => {
+    const provinceData = selectProvice.find(
+      (item) => item.nameInThai === selectedProvince
+    );
+    if (provinceData && provinceData.Districts) {
+      return provinceData.Districts;
+    }
+    return [];
+  };
+
+  const getSubDistrictsByDistrict = () => {
+    const provinceData = selectProvice.find(
+      (item) => item.nameInThai === selectedProvince
+    );
+    if (provinceData && provinceData.Districts) {
+      const districtData = provinceData.Districts.find(
+        (item) => item.nameInThai === selectedDistrict
+      );
+      if (districtData && districtData.SubDistricts) {
+        return districtData.SubDistricts;
+      }
+    }
+    return [];
   };
 
   useEffect(() => {
@@ -211,53 +244,82 @@ export default function PropertyForm({
             </div>
             <div>
               <label
-                htmlFor="subDistrictId"
+                htmlFor="province"
                 className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
               >
-                จังหวัด
+                เลือกจังหวัด
               </label>
               <select
-                id="subDistrictId"
+                id="province"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
-                value={input.subDistrictId}
-                onChange={selectProvince}
+                value={selectedProvince}
+                onChange={handleProvinceChange}
               >
                 <option selected hidden value={""}>
                   เลือกจังหวัด
                 </option>
-                {listProvice.map((el) => (
-                  <option key={el.id} value={el.Name}>
-                    {el.nameInThai}
+                {listProvice.map((province) => (
+                  <option key={province.id} value={province.nameInThai}>
+                    {province.nameInThai}
                   </option>
                 ))}
               </select>
               <div className="h-6 pb-2">
-                {error.rentPeriod && (
-                  <InputErrorMessage message={error.rentPeriod} />
+                {error.province && (
+                  <InputErrorMessage message={error.province} />
                 )}
               </div>
             </div>
             <div>
               <label
-                htmlFor="subDistrictId"
+                htmlFor="district"
                 className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
               >
-                เขต
+                เลือกอำเภอ
               </label>
               <select
-                id="subDistrictId"
+                id="district"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
-                value={input.subDistrictId}
-                onChange={selectDistrict}
+                value={selectedDistrict}
+                onChange={handleDistrictChange}
               >
                 <option selected hidden value={""}>
                   เลือกเขต
                 </option>
-                {listProvice.map((el) => (
-                  <option key={el?.district} value={el.district}>
-                    {el.nameInThai}
+                {getDistrictsByProvince().map((district) => (
+                  <option key={district?.id} value={district.nameInThai}>
+                    {district.nameInThai}
+                  </option>
+                ))}
+              </select>
+              <div className="h-6 pb-2">
+                {error.district && (
+                  <InputErrorMessage message={error.district} />
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="subDistrict"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >
+                ตำบล
+              </label>
+              <select
+                id="subDistrict"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="subDistrictId"
+                value={selectedSubDistrict}
+                onChange={handleSubDistrictChange}
+              >
+                <option selected hidden value={""}>
+                  เลือกตำบล
+                </option>
+                {getSubDistrictsByDistrict().map((subDistrict) => (
+                  <option key={subDistrict.id} value={subDistrict.nameInThai}>
+                    {subDistrict.nameInThai}
                   </option>
                 ))}
               </select>
@@ -267,35 +329,6 @@ export default function PropertyForm({
                 )}
               </div>
             </div>
-            {/* <div>
-              <label
-                htmlFor="subDistrictId"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
-              >
-                ตำบล
-              </label>
-              <select
-                id="subDistrictId"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                name="subDistrictId"
-                value={input.subDistrictId}
-                onChange={handleChangeInput}
-              >
-                <option selected hidden value={""}>
-                  เลือกตำบล
-                </option>
-                {listProvice.map((el) => (
-                  <option key={el.id} value={el.Name}>
-                    {el.nameInThai}
-                  </option>
-                ))}
-              </select>
-              <div className="h-6 pb-2">
-                {error.rentPeriod && (
-                  <InputErrorMessage message={error.rentPeriod} />
-                )}
-              </div>
-            </div>  */}
 
             <div>
               <div>
