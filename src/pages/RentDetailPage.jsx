@@ -8,12 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesByIdAsync } from "../features/userProperties/slice/userProperties";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { getImageByPropertyIdAsync } from "../features/createproperty/slice/createproperty-slice";
+// import Loading from "../components/Loading";
 
 import AgencyCard from "../components/AgencyCard";
 import SponserRentbar from "../layouts/SponserRentbar";
 
 export default function RentDetailPage() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
+  // const isLoading = useSelector((state) => state?.userProperties?.isLoading);
   const { id } = useParams();
 
   const pageTopRef = useRef(null);
@@ -38,13 +40,12 @@ export default function RentDetailPage() {
   const imageProperty = useSelector(
     (state) => state?.propertyPlan?.imageProperty
   );
-
+console.log(userPropertiesIdlist,"userPropertiesIdlist")
   const imageProp = [...(imageProperty?.result ?? [])];
 
   const el = { ...userPropertiesIdlist };
-  console.log("111111111111", el)
 
-  console.log({lat: el.latitude, lng: el.longitude})
+  console.log({ lat: el?.latitude, lng: el?.longitude });
 
   return (
     <div
@@ -216,15 +217,11 @@ export default function RentDetailPage() {
                   </div>
                 </div>
               </div>
-              <div className="">
-                {/* {el.name && ( */}
+                <div className="">
                   <GoogleMap
-                    name={el?.name? el.name : ""}
-                    lat={el?.latitude?+el.latitude: 14.041204}
-                    long={el?.longitude?+el.longitude: 100.079655}
+                    name={el?.name}
                   />
-                {/* // )} */}
-              </div>
+                </div>
             </div>
           </div>
         </div>
@@ -232,5 +229,5 @@ export default function RentDetailPage() {
       </div>
       <Footer />
     </div>
-  );
+  )
 }
