@@ -17,7 +17,7 @@ function ShowMap({ name, lat, long }) {
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
     map = new Map(document.getElementById("map"), {
-      zoom: 17,
+      zoom: 14,
       center: position,
       mapId: "DEMO_MAP_ID",
     });
