@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
+import * as fireProvider from "../../../geography.json";
 
 export default function PropertyForm({
   textConFirm,
@@ -31,30 +32,43 @@ export default function PropertyForm({
     totalBathroom: oldProperty?.totalBathroom || "",
     totalKitchen: oldProperty?.totalKitchen || "",
     description: oldProperty?.description || "",
-    latitude: oldProperty?.latitude || "99.999999",
-    longitude: oldProperty?.longitude || "444.440000",
+    latitude: oldProperty?.latitude || "",
+    longitude: oldProperty?.longitude || "",
     rentPeriod: oldProperty?.rentPeriod || "",
     locked: oldProperty?.locked || true,
     published: oldProperty?.published || true,
     userId: oldProperty?.id || "",
-    subDistrictId: oldProperty?.subDistrictId || "3",
+    subDistrictId: oldProperty?.subDistrictId || "",
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedSubdistrict, setSelectedSubdistrict] = useState("");
+
+  const listProvice = fireProvider?.default;
+
+  const handleProvinceChange = (event) => {
+    setSelectedProvince(event.target.value);
+    setSelectedDistrict("");
+    setSelectedSubdistrict("");
+  };
+
+  const handleDistrictChange = (event) => {
+    setSelectedDistrict(event.target.value);
+    setSelectedSubdistrict("");
+  };
+
+  const handleSubdistrictChange = (event) => {
+    setSelectedSubdistrict(event.target.value);
+  };
 
   useEffect(() => {
     dispatch(animityAsync());
   }, []);
-
-  const animityRoomArrSearch = useSelector(
-    (state) => state?.animity?.animityRoomFilter
-  );
-  const animityCommonArrSearch = useSelector(
-    (state) => state?.animity?.animityCommonFilter
-  );
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -103,6 +117,65 @@ export default function PropertyForm({
     { id: 2, thaiName: "รายเดือน", engName: "MONTHLY" },
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
+
+  const renderProvinceOptions = () => {
+    const uniqueProvinces = {};
+
+    listProvice.forEach((province) => {
+      if (!uniqueProvinces[province.idProvince]) {
+        uniqueProvinces[province.idProvince] = province;
+      }
+    });
+
+    return Object.values(uniqueProvinces).map((province) => (
+      <option key={province.idProvince} value={province.idProvince}>
+        {province.provinceNameEn}
+      </option>
+    ));
+  };
+
+  const renderDistrictOptions = () => {
+    const selectedProvinceData = listProvice.find(
+      (province) => province.provinceCode === selectedProvince
+    );
+
+    if (selectedProvinceData) {
+      const filteredDistricts = listProvice.filter(
+        (district) =>
+          district.districtCode === selectedProvinceData.districtCode
+      );
+
+      return filteredDistricts.map((district) => (
+        <option key={district.id} value={district.districtCode}>
+          {district.districtNameEn}
+        </option>
+      ));
+    }
+
+    return null;
+  };
+
+  const renderSubdistrictOptions = () => {
+    const selectedDistrictData = listProvice.find(
+      (district) => district.districtCode === selectedDistrict
+    );
+
+    if (selectedDistrictData) {
+      const filteredSubdistricts = listProvice.filter(
+        (subdistrict) =>
+          subdistrict.subdistrictCode === selectedDistrictData.subdistrictCode
+      );
+
+      return filteredSubdistricts.map((subdistrict) => (
+        <option key={subdistrict.id} value={subdistrict.subdistrictCode}>
+          {subdistrict.subdistrictNameEn}
+        </option>
+      ));
+    }
+
+    return null;
+  };
+
   return (
     <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
       <div className="rounded-md overflow-hidden flex flex-col">
@@ -188,8 +261,91 @@ export default function PropertyForm({
                   เลือกระยะเวลา
                 </option>
                 {period.map((el) => (
-                  <option key={el.id} value={el.engName}>
+                  <option key={el.id} value={el.Name}>
                     {el.thaiName}
+                  </option>
+                ))}
+              </select>
+              <div className="h-6 pb-2">
+                {error.rentPeriod && (
+                  <InputErrorMessage message={error.rentPeriod} />
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="subDistrictId"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >
+                จังหวัด
+              </label>
+              <select
+                id="subDistrictId"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="subDistrictId"
+                value={input.subDistrictId}
+                onChange={handleProvinceChange}
+              >
+                <option selected hidden value={""}>
+                  เลือกจังหวัด
+                </option>
+                {renderProvinceOptions()}
+              </select>
+              <div className="h-6 pb-2">
+                {error.rentPeriod && (
+                  <InputErrorMessage message={error.rentPeriod} />
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="subDistrictId"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >
+                เขต
+              </label>
+              <select
+                id="subDistrictId"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="subDistrictId"
+                value={input.subDistrictId}
+                onChange={handleChangeInput}
+              >
+                <option selected hidden value={""}>
+                  เลือกเขต
+                </option>
+                {listProvice.map((el) => (
+                  <option key={el.id} value={el.Name}>
+                    {el.nameInThai}
+                  </option>
+                ))}
+              </select>
+              <div className="h-6 pb-2">
+                {error.rentPeriod && (
+                  <InputErrorMessage message={error.rentPeriod} />
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="subDistrictId"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >
+                ตำบล
+              </label>
+              <select
+                id="subDistrictId"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="subDistrictId"
+                value={input.subDistrictId}
+                onChange={handleChangeInput}
+              >
+                <option selected hidden value={""}>
+                  เลือกตำบล
+                </option>
+                {listProvice.map((el) => (
+                  <option key={el.id} value={el.Name}>
+                    {el.nameInThai}
                   </option>
                 ))}
               </select>
@@ -378,31 +534,7 @@ export default function PropertyForm({
       </div>
 
       <>
-        <div className="rounded-md overflow-hidden flex flex-col">
-          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-            สิ่งอำนวยความสะดวกภายในห้อง
-          </div>
-          <div>
-            <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {animityRoomArrSearch.map((el) => (
-                <Checkbox el={el} key={el.id} />
-              ))}
-            </form>
-          </div>
-        </div>
-
-        <div className="rounded-md overflow-hidden flex flex-col">
-          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-            สิ่งอำนวยความสะดวกส่วนกลาง
-          </div>
-          <div>
-            <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {animityCommonArrSearch.map((el) => (
-                <Checkbox el={el} key={el.id} />
-              ))}
-            </form>
-          </div>
-        </div>
+        <AminityForm />
         <div className="flex">
           <button
             type="submit"
@@ -411,7 +543,6 @@ export default function PropertyForm({
             สร้างห้องเช่า
           </button>
         </div>
-        <AminityForm />
       </>
     </form>
   );

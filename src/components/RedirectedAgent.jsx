@@ -12,7 +12,6 @@ export default function RedirectedAgent({ children }) {
   const user = useSelector((state) => state.auth.user);
   console.log("sssss", isAuthenticated, user);
   if (!isAuthenticated) {
-    
   }
   if (isAuthenticated && user.role === "AGENCY" && user.locked === true) {
     return <Navigate to="/phonenumber" />;
