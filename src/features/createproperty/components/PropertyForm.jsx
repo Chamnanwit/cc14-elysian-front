@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
+import GoogleMap from "../../../components/ShowGooglemap";
 
 export default function PropertyForm({
   textConFirm,
@@ -44,6 +45,12 @@ export default function PropertyForm({
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const [position, setPosition] = useState({});
+  console.log('position', position)
+
+  const handleChangeMap = (newPosition) => {
+    setPosition(newPosition);
+  };
 
   useEffect(() => {
     dispatch(animityAsync());
@@ -170,6 +177,7 @@ export default function PropertyForm({
                 )}
               </div>
             </div>
+
             <div>
               <label
                 htmlFor="rentPeriod"
@@ -200,36 +208,43 @@ export default function PropertyForm({
               </div>
             </div>
 
+            <div className="">
+              <GoogleMap location={position} handleChangeMap={handleChangeMap}/>
+            </div>
+
             <div>
               <div>
-                <InputForm
-                  labelName="ละติจูด"
-                  name="latitude"
-                  placeholder=""
-                  value={input.latitude}
-                  onChange={handleChangeInput}
-                  isInvalid={error.floor}
-                />
-                {error.latitude && (
-                  <InputErrorMessage message={error.latitude} />
-                )}
+                <div>
+                  <InputForm
+                    labelName="ละติจูด"
+                    name="latitude"
+                    placeholder=""
+                    value={position?.lat ? position.lat.toFixed(3) : ""}
+                    onChange={handleChangeMap}
+                    isInvalid={error.floor}
+                  />
+                  {error.latitude && (
+                    <InputErrorMessage message={error.latitude} />
+                  )}
+                </div>
               </div>
-            </div>
-            <div>
               <div>
-                <InputForm
-                  labelName="longitude"
-                  name="longitude"
-                  placeholder=""
-                  value={input.longitude}
-                  onChange={handleChangeInput}
-                  isInvalid={error.longitude}
-                />
-                {error.longitude && (
-                  <InputErrorMessage message={error.longitude} />
-                )}
+                <div>
+                  <InputForm
+                    labelName="ลองจิจูด"
+                    name="longitude"
+                    placeholder=""
+                    value={position?.lng ? position.lng.toFixed(3) : ""}
+                    onChange={handleChangeMap}
+                    isInvalid={error.longitude}
+                  />
+                  {error.longitude && (
+                    <InputErrorMessage message={error.longitude} />
+                  )}
+                </div>
               </div>
             </div>
+
             <div>
               <div>
                 <InputForm
