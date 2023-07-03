@@ -105,6 +105,7 @@ export default function SponserRentCardBigList() {
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
             <SponserRentCardBig
+              key={el?.id}
               propName={el?.name}
               propDescription={el?.description}
               agencyName={el?.User?.firstName}
@@ -113,7 +114,10 @@ export default function SponserRentCardBigList() {
                 style: "currency",
                 currency: "THB",
               })}
-              src={el.Images || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
+              src={
+                el.Images ||
+                "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+              }
               propRentPeriod={
                 el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
               }

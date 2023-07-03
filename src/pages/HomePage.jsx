@@ -8,13 +8,27 @@ import AdverBar from "../layouts/AdverBar";
 
 import PackagePlan from "../layouts/PackagePlan";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 import RentCardSmallList from "../features/userProperties/components/RentCardSmallList";
 import SponserRentCardSmallList from "../features/userProperties/components/SponserRentCardSmallList";
 
 export default function HomePage() {
+  const pageTopRef = useRef(null);
+  useEffect(() => {
+    if (pageTopRef.current) {
+      window.scrollTo({
+        top: pageTopRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
   return (
-    <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
+    <div
+      ref={pageTopRef}
+      className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto"
+    >
       <div className=" pb-10">
         <Navbar />
         <div className="h-full bg-c-white1">

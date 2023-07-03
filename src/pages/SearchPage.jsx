@@ -15,7 +15,7 @@ import RentCard from "../components/RentCard";
 import RentCardBigList from "../features/userProperties/components/RentCardBigList";
 import RentCardSmallList from "../features/userProperties/components/RentCardSmallList";
 import MainSearchBar from "../features/search/components/mainSearchBar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import RentCardBigListByRoomTypeAndProvince from "../features/userProperties/components/RentCardBigListByRoomTypeAndProvince";
 import SponserRentCardBigList from "../features/userProperties/components/SponserRentCardBigList";
@@ -33,16 +33,24 @@ export default function SearchPage() {
   const [rentPeriod, setRentPeriod] = useState("");
 
   let { state } = useLocation();
-  console.log("what", state);
+  // console.log("what", state);
 
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
-
+  const pageTopRef = useRef(null);
+  useEffect(() => {
+    if (pageTopRef.current) {
+      window.scrollTo({
+        top: pageTopRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  }, []);
   useEffect(() => {
     dispatch(agentAsync()); /// เอามาจาก slice
   }, []);
 
   const agentlist = useSelector((state) => state?.adminViewAgent?.agentList);
-  console.log("Check ag", agentlist);
+  // console.log("Check ag", agentlist);
   const hdlChangePriceRangeInput = (e) => {
     setPriceRange(e.target.value);
     // console.log("Check pricer", priceRange);
@@ -64,7 +72,10 @@ export default function SearchPage() {
 
   // console.log(price);
   return (
-    <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
+    <div
+      ref={pageTopRef}
+      className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto"
+    >
       <div>
         <Navbar />
         {/* <CarouselBig /> */}
@@ -176,6 +187,7 @@ export default function SearchPage() {
             <p className=" text-c-gray3">ผู้ให้เช่าแนะนำ</p>
             {agentlist?.map((el) => (
               <AgencyCard
+                key={el?.id}
                 agencyImage={el?.profileImage}
                 agencyfirstname={el?.firstName}
                 agencylastname={el?.lastName}

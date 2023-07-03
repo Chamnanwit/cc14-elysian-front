@@ -38,7 +38,7 @@ export default function AminityForm({ textConFirm, onIsAddMode, oldProperty }) {
             onClick={handleChangeInput}
           >
             {animityRoomArrSearch.map((el) => (
-              <Checkbox el={el} key={el.id} />
+              <Checkbox el={el} key={el?.id} />
             ))}
           </form>
         </div>
@@ -54,7 +54,7 @@ export default function AminityForm({ textConFirm, onIsAddMode, oldProperty }) {
             onClick={handleChangeInput}
           >
             {animityCommonArrSearch.map((el) => (
-              <Checkbox el={el} key={el.id} />
+              <Checkbox el={el} key={el?.id} />
             ))}
           </form>
         </div>

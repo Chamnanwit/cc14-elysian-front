@@ -3,7 +3,7 @@ import Footer from "../layouts/Footer";
 import GoogleMap from "../pages/GooglemapPage";
 import { BiTime } from "react-icons/bi";
 import { MdEmail, MdLocationOn } from "react-icons/md";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesByIdAsync } from "../features/userProperties/slice/userProperties";
 import { useNavigate, useParams, Link } from "react-router-dom";
@@ -15,6 +15,16 @@ import SponserRentbar from "../layouts/SponserRentbar";
 export default function RentDetailPage() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
   const { id } = useParams();
+
+  const pageTopRef = useRef(null);
+  useEffect(() => {
+    if (pageTopRef.current) {
+      window.scrollTo({
+        top: pageTopRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(userPropertiesByIdAsync(id)); /// เอามาจาก slice
@@ -34,7 +44,10 @@ export default function RentDetailPage() {
   const el = { ...userPropertiesIdlist };
 
   return (
-    <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
+    <div
+      ref={pageTopRef}
+      className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto"
+    >
       <div>
         <Navbar />
 
@@ -193,7 +206,7 @@ export default function RentDetailPage() {
                   </div>
                   <div className="collapse-content">
                     {el?.Optionals?.map((el) => (
-                      <li className=" text-c-gray2">
+                      <li key={el?.id} className=" text-c-gray2">
                         {el?.OptionalType?.name}
                       </li>
                     ))}

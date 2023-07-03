@@ -23,9 +23,9 @@ export default function Navbar() {
 
   return (
     <div className="mx-auto bg-c-white1 h-[60px] w-full flex items-center p-5 px-10 shadow-lg sticky top-0 z-50">
-      <div class="text-center text-c-gray1 text-[25px] flex-1 flex justify-start ">
+      <div className="text-center text-c-gray1 text-[25px] flex-1 flex justify-start ">
         {/* <button
-          class="hover:scale-105 transition-all duration-200 hover:bg-white p-1 rounded-lg"
+          className="hover:scale-105 transition-all duration-200 hover:bg-white p-1 rounded-lg"
           type="button"
           data-drawer-target="drawer-navigation"
           data-drawer-show="drawer-navigation"
@@ -57,7 +57,7 @@ export default function Navbar() {
                 </div>
               </Link>
               <Link to="/searchpage">
-                <div class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
+                <div className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
                   <div className="text-[18pt]">
                     <FaSearch />
                   </div>
@@ -65,20 +65,20 @@ export default function Navbar() {
                 </div>
               </Link>
               <Link to="/packageplan">
-                <div class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
+                <div className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
                   <div className="text-[18pt]">
                     <TbCards />
                   </div>
-                  <span class="ml-3">แพ็คเกจ</span>
+                  <span className="ml-3">แพ็คเกจ</span>
                 </div>
               </Link>
 
               <Link to="/agent">
-                <span class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
+                <span className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
                   <div className="text-[18pt]">
                     <RxDashboard />
                   </div>
-                  <span class="ml-3">จัดการห้องเช่าของคุณ</span>
+                  <span className="ml-3">จัดการห้องเช่าของคุณ</span>
                 </span>
               </Link>
 
@@ -93,11 +93,11 @@ export default function Navbar() {
                     dispatch(logout());
                   }}
                 >
-                  <div class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
+                  <div className="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
                     <div className="text-[18pt]">
                       <FaSignOutAlt />
                     </div>
-                    <span class="ml-3">ออกจากระบบ</span>
+                    <span className="ml-3">ออกจากระบบ</span>
                   </div>
                 </Link>
               ) : (

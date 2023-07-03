@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import "draft-js/dist/Draft.css";
 // import "draftail/dist/draftail.css";
-import { useState, useRef  } from "react";
+import { useState, useRef } from "react";
 // import { EditorState } from "draft-js";
 // import { DraftailEditor } from "draftail";
 // import { stateToHTML } from "draft-js-export-html";
@@ -17,7 +17,7 @@ import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
 
-import { Editor } from '@tinymce/tinymce-react';
+import { Editor } from "@tinymce/tinymce-react";
 
 export default function PropertyForm({
   textConFirm,
@@ -64,21 +64,15 @@ export default function PropertyForm({
   //   setEditorState(newEditorState);
   // };
 
+  //-----------tiny mce
 
-
-//-----------tiny mce
-
-
-const editorRef = useRef(null);
-// const log = () => {
-//   if (editorRef.current) {
-//     console.log(editorRef.current.getContent());
-//   }
-// };
-//-----------tiny mce
-
-
-
+  const editorRef = useRef(null);
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     console.log(editorRef.current.getContent());
+  //   }
+  // };
+  //-----------tiny mce
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -103,10 +97,10 @@ const editorRef = useRef(null);
       console.log(err);
     }
     setError({});
-    
+
     // console.log('ttttttny',editorRef.current.getContent());
-    input.description =  editorRef.current.getContent()
-    console.log('input with tiny mce',input)
+    input.description = editorRef.current.getContent();
+    console.log("input with tiny mce", input);
     // input.description = stateToHTML(editorState.getCurrentContent());
     await dispatch(createPropertyAsync(input)).unwrap();
     navigate("/agent");
@@ -160,7 +154,7 @@ const editorRef = useRef(null);
             <div>
               <label
                 htmlFor="roomTypeId"
-                class="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
               >
                 ประเภทที่พัก
               </label>
@@ -176,11 +170,11 @@ const editorRef = useRef(null);
                 </option>
                 {propertyType.map((el) =>
                   el.id === input.roomTypeId ? (
-                    <option selected key={el.id} value={el.id}>
+                    <option selected key={el?.id} value={el.id}>
                       {el.name}
                     </option>
                   ) : (
-                    <option key={el.id} value={el.id}>
+                    <option key={el?.id} value={el.id}>
                       {el.name}
                     </option>
                   )
@@ -210,7 +204,7 @@ const editorRef = useRef(null);
                   เลือกระยะเวลา
                 </option>
                 {period.map((el) => (
-                  <option key={el.id} value={el.engName}>
+                  <option key={el?.id} value={el.engName}>
                     {el.thaiName}
                   </option>
                 ))}
@@ -347,27 +341,42 @@ const editorRef = useRef(null);
             </div>
 
             <Editor
-        apiKey='beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm'
-        onInit={(evt, editor) => editorRef.current = editor}
-        // initialValue="<p>This is the initial content of the editor.</p>"
-        init={{
-          height: 500,
-          menubar: false,
-          plugins: [
-            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-            'insertdatetime', 'media', 'table', 'code', 'wordcount', 'emoticons', 'preview'
-          ],
-          toolbar: 'undo redo | blocks | ' +
-            'bold italic forecolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | emoticons | preview ',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        }}
-      />
-
-
-
+              apiKey="beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm"
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              // initialValue="<p>This is the initial content of the editor.</p>"
+              init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "code",
+                  "wordcount",
+                  "emoticons",
+                  "preview",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | emoticons | preview ",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
+            />
 
             {/* <DraftailEditor
               editorState={editorState}
@@ -431,7 +440,7 @@ const editorRef = useRef(null);
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
               {animityRoomArrSearch.map((el) => (
-                <Checkbox el={el} key={el.id} />
+                <Checkbox el={el} key={el?.id} />
               ))}
             </form>
           </div>
@@ -444,7 +453,7 @@ const editorRef = useRef(null);
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
               {animityCommonArrSearch.map((el) => (
-                <Checkbox el={el} key={el.id} />
+                <Checkbox el={el} key={el?.id} />
               ))}
             </form>
           </div>

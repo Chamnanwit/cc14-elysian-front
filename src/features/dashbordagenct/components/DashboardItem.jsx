@@ -9,7 +9,7 @@ export default function DashboardAgentItem({
 }) {
   return (
     <div className="bg-white rounded-sm w-full">
-      <div class="flex gap-3 max-w-sm p-3 border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="flex gap-3 max-w-sm p-3 border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
         <div
           className={`rounded-sm w-[70px] h-[70px] flex justify-center items-center bg-${bgColor}`}
         >
