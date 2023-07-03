@@ -6,15 +6,15 @@ export default function PurchaseAgentHistoryItem({ el }) {
   const [isViewMode, setIsViewMode] = useState(false);
   return (
     <>
-      <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-        <td class="px-3 py-4">{el?.PricingPlan?.planType}</td>
-        <td class="px-3 py-4">฿ {el?.PricingPlan?.price}</td>
-        <td class="px-3 py-4">
+      <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+        <td className="px-3 py-4">{el?.PricingPlan?.planType}</td>
+        <td className="px-3 py-4">฿ {el?.PricingPlan?.price}</td>
+        <td className="px-3 py-4">
           {el?.PricingPlan?.expiration === "MONTHLY"
             ? "รายเดือน"
             : "รายสัปดาห์"}
         </td>
-        <td class="px-3 py-4">
+        <td className="px-3 py-4">
           {el.paymentStatus === "complete" ? (
             <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[110px]">
               Success
@@ -25,7 +25,7 @@ export default function PurchaseAgentHistoryItem({ el }) {
             </div>
           )}
         </td>
-        <td class="px-3 py-4">
+        <td className="px-3 py-4">
           {el.orderStatus === "ACTIVE" ? (
             <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[80px]">
               Active
@@ -36,7 +36,7 @@ export default function PurchaseAgentHistoryItem({ el }) {
             </div>
           )}
         </td>
-        <td class="px-3 py-4 flex gap-3">
+        <td className="px-3 py-4 flex gap-3">
           <div
             className="bg-blue-700 p-[7px] rounded-md cursor-pointer flex items-center"
             onClick={(e) => {

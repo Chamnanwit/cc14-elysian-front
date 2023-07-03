@@ -43,6 +43,7 @@ import AgentPurchasePage from "../pages/AgentPurchasePage";
 import AgentPackagePlanPage from "../pages/AgentPackagePlanPage";
 import ProtectedAgentRoute from "../components/ProtectedAgentRoute";
 import { useSelector } from "react-redux";
+import RecommendPage from "../pages/RecommendPage";
 
 export default function Router() {
   const user = useSelector((state) => state.auth.user);
@@ -133,7 +134,11 @@ export default function Router() {
     },
     {
       path: "/register",
-      element: <RegisterPage />,
+      element: (
+        <RedirectedAgent>
+          <RegisterPage />,
+        </RedirectedAgent>
+      ),
     },
     {
       path: "/agent/createproperty",
@@ -148,9 +153,7 @@ export default function Router() {
 
       element: (
         <RedirectedAgent>
-          <ProtectedAgentRoute>
-            <AgentDashBoardPage />,
-          </ProtectedAgentRoute>
+          <AgentDashBoardPage />
         </RedirectedAgent>
       ),
     },
@@ -189,27 +192,26 @@ export default function Router() {
     {
       path: "/packageplan",
       element: <PackagePlanPage />,
-      // children: [],
     },
     {
       path: "/searchpage",
       element: <SearchPage />,
-      // children: [],
     },
     {
       path: "/phonenumber",
-      element: <PhoneNumberPage />,
-      // children: [],
+      element: (
+        <RedirectedAgent>
+          <PhoneNumberPage />,
+        </RedirectedAgent>
+      ),
     },
     {
       path: `/rentdetail/:id`,
       element: <RentDetailPage />,
-      // children: [],
     },
     {
       path: "/map",
       element: <GooglemapApi />,
-      // children: [],
     },
     {
       path: "/user",
@@ -222,6 +224,10 @@ export default function Router() {
     {
       path: "/agentproperties/:id",
       element: <AgentPropertiesPage />,
+    },
+    {
+      path: "/recommendpage",
+      element: <RecommendPage />,
     },
   ]);
 

@@ -27,21 +27,21 @@ export default function SidebarAgency() {
   );
 
   return (
-    <div class="sticky top-0 flex  flex-col flex-1 h-screen p-10 px-10 bg-c-green4 duration-[400ms]">
+    <div className="sticky top-0 flex  flex-col flex-1 h-screen p-10 px-10 bg-c-green4 duration-[400ms]">
       <div className="w-full flex justify-center mb-5">
         <LogoWhite />
       </div>
-      <div class="py-4 overflow-y-auto  text-c-white1">
-        <ul class="space-y-2 font-medium">
+      <div className="py-4 overflow-y-auto  text-c-white1">
+        <ul className="space-y-2 font-medium">
           <ListAdminMenuButton link={`/agent`} icon={<AiFillDashboard />}>
             ภาพรวม
           </ListAdminMenuButton>
           <details open>
-            <summary class="flex items-center p-2  justify-between rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
+            <summary className="flex items-center p-2  justify-between rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
               <div className="flex">
                 {" "}
                 <div className="text-[18pt]">{<RxDashboard />}</div>
-                <span class="ml-3">จัดการห้องเช่า</span>
+                <span className="ml-3">จัดการห้องเช่า</span>
               </div>
               <BsChevronDown />
             </summary>
@@ -49,9 +49,9 @@ export default function SidebarAgency() {
               <li>
                 <Link
                   to={`/agent/myproperty/${keyid}`}
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+                  className="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
 
-                  //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  //   className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
                   ห้องเช่าทั้งหมด
                 </Link>
@@ -59,9 +59,9 @@ export default function SidebarAgency() {
               <li>
                 <Link
                   to="/agent/createproperty"
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+                  className="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
 
-                  //   class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  //   className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
                   เพิ่มห้องเช่า
                 </Link>
@@ -69,13 +69,13 @@ export default function SidebarAgency() {
             </ul>
           </details>
           <details open>
-            <summary class="flex items-center p-2  justify-between rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
+            <summary className="flex items-center p-2  justify-between rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
               <div className="flex">
                 {" "}
                 <div className="text-[18pt]">
                   <TbCards />
                 </div>
-                <span class="ml-3">จัดการแพ็คเกจ</span>
+                <span className="ml-3">จัดการแพ็คเกจ</span>
               </div>
               <BsChevronDown />
             </summary>
@@ -83,7 +83,7 @@ export default function SidebarAgency() {
               <li>
                 <Link
                   to="/agent/package"
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+                  className="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   ซื้อแพ็คเกจ
                 </Link>
@@ -91,7 +91,7 @@ export default function SidebarAgency() {
               <li>
                 <Link
                   to={`/agent/purchase-history/${keyid}`}
-                  class="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
+                  className="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   ประวัติการซื้อ
                 </Link>

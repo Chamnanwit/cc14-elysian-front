@@ -60,7 +60,7 @@ export default function MainSearchBar({
   return (
     <form className="text-lg w-full flex">
       <select
-        className="flex-1 pl-10 select w-full h-full rounded-l-full ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
+        className="flex-1 pl-10 select w-full h-full text-c-gray3 rounded-l-full ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-50"
         value={roomtype}
         onChange={hdlChangeRoomTypeInput}
       >

@@ -87,6 +87,7 @@ export default function PackagePlan() {
             .sort((a, b) => (a?.price > b?.price ? 1 : -1))
             .map((el) => (
               <PromotionCard
+                key={el?.id}
                 price={el?.price}
                 time={el?.expiration === "MONTHLY" ? "เดือน" : "error"}
                 packname={el?.name}
@@ -128,6 +129,7 @@ export default function PackagePlan() {
             .sort((a, b) => (a?.price > b?.price ? 1 : -1))
             .map((el) => (
               <PromotionCard
+                key={el?.id}
                 price={el?.price}
                 time={el?.expiration === "WEEKLY" ? "สัปดาห์" : "error"}
                 packname={el?.name}
