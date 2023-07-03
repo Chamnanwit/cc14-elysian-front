@@ -44,7 +44,6 @@ export default function PropertyForm({
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [file, setFile] = useState([]);
-  const [file, setFile] = useState([]);
 
   const selectProvice = listProvice;
 
