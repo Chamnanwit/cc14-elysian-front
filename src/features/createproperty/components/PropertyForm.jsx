@@ -13,6 +13,7 @@ import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
 import GoogleMap from "../../../components/ShowGooglemap";
+import InputLockeFrom from "./InputLockeFrom";
 
 export default function PropertyForm({
   textConFirm,
@@ -32,9 +33,9 @@ export default function PropertyForm({
     latitude: "",
     longitude: "",
     rentPeriod: "",
-    locked: "",
-    published: "",
-    userId: oldProperty?.userId || "",
+    locked: false,
+    published: true,
+    userId: oldProperty?.id || "",
     subDistrictId: "",
   };
 
@@ -42,6 +43,8 @@ export default function PropertyForm({
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const [file, setFile] = useState([]);
+
   const selectProvice = listProvice;
 
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -104,6 +107,13 @@ export default function PropertyForm({
     dispatch(animityAsync());
   }, []);
 
+  const handleLockChange = (event) => {
+    setInput((prevInput) => ({
+      ...prevInput,
+      locked: event.target.value === "show",
+    }));
+  };
+
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     // console.log(input);
@@ -111,14 +121,8 @@ export default function PropertyForm({
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-
+      input.description = editorRef.current.getContent();
       const result = await validateCreateProperty(input);
-
-      const formdata = new FormData();
-      // formdata.append("imageLink", file[0]);
-      // console.log("submit");
-      const image = await creatImagePropperty(product.data.id, formdata);
-
       if (result) {
         return setError(result);
       }
@@ -126,10 +130,23 @@ export default function PropertyForm({
     } catch (err) {
       console.log(err);
     }
-    setError({});
-    console.log("------------>***", input);
-    input.description = editorRef.current.getContent();
-    await dispatch(createPropertyAsync(input)).unwrap();
+    console.log("------------>***", {
+      ...input,
+      latitude: position.lat,
+      longitude: position.lng,
+    });
+
+    const property = await dispatch(
+      createPropertyAsync({
+        ...input,
+        latitude: position.lat,
+        longitude: position.lng,
+      })
+    ).unwrap();
+    const formdata = new FormData();
+    formdata.append("imageLink", file[0]);
+    console.log("---------property---------", property);
+    const image = await creatImagePropperty(property.id, formdata);
     navigate("/agent");
   };
 
@@ -284,7 +301,7 @@ export default function PropertyForm({
                 id="district"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="district"
-                value={selectedSubDistrict}
+                value={selectedDistrict}
                 onChange={handleDistrictChange}
                 disabled={!selectedProvince}
               >
@@ -577,6 +594,30 @@ export default function PropertyForm({
 
       <>
         <AminityForm />
+        <div className="rounded-md overflow-hidden flex flex-col">
+          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
+            ตั้งค่าห้องเช่า
+          </div>
+          <div>
+            <label
+              htmlFor="option"
+              className="block mb-2 text-lg font-medium text-gray-900 dark:text-white p-5"
+            >
+              แสดงห้องเช่าทันที
+            </label>
+            <select
+              id="option"
+              name="option"
+              className="bg-gray-50 border p-5 mx-5 w-[50%] border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={input.locked ? "show" : "hide"}
+              onChange={handleLockChange}
+            >
+              <option value="show">แสดง</option>
+              <option value="hide ">ไม่แสดง</option>
+            </select>
+          </div>
+        </div>
+
         <div className="flex">
           <button
             type="submit"

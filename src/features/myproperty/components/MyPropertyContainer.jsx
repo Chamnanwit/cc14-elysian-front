@@ -27,6 +27,7 @@ export default function MyPropertyContainer() {
   const userproperty = useSelector(
     (state) => state?.propertyPlan?.propertyPlan?.Properties
   );
+  console.log("userproperty--->", userproperty);
 
   return (
     <>

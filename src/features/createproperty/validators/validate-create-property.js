@@ -44,9 +44,13 @@ const CreatePropertySchema = Joi.object({
   description: Joi.string().trim().messages({
     "string.empty": "กรุณากรอกรายละเอียดเพิ่มเติม",
   }),
-  latitude: Joi.string(),
-  longitude: Joi.string(),
-  locked: Joi.string(),
+  latitude: Joi.string().message({
+    "string.empty": "กรุณาเพิ่มละติจูด",
+  }),
+  longitude: Joi.string().message({
+    "string.empty": "กรุณาเพิ่มลองจิจูด",
+  }),
+  locked: Joi.boolean(),
   published: Joi.string(),
   userId: Joi.number(),
   subDistrictId: Joi.string(),
