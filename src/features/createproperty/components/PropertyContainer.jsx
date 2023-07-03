@@ -19,29 +19,7 @@ export default function PropertyContainer() {
     (state) => state?.adminViewAgent?.districtlist
   );
 
-  console.log("--------->", listProvice);
-  const [stateData, setStateData] = useState();
-  const [districtData, setDistrictData] = useState();
-
-  const [provice, setProvice] = useState(listProvice[0]);
-  const [state, setState] = useState();
-  const [district, setdistrict] = useState();
-
-  useEffect(() => {
-    setStateData(provice?.Districts);
-  }, [provice]);
-
-  useEffect(() => {
-    setDistrictData(state?.SubDistricts);
-  }, [state]);
-
-  useEffect(() => {
-    stateData && setState(stateData[0]);
-  }, [stateData]);
-
-  useEffect(() => {
-    districtData && setDistrict(districtData[0]);
-  }, [districtData]);
+  // console.log("--------->", listProvice);
 
   return (
     <>

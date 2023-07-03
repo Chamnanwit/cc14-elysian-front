@@ -11,11 +11,12 @@ import Checkbox from "./Checkbox";
 import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
 import { creatImagePropperty } from "../../../api/property-api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
+import EditorForm from "./EditorForm";
 
 export default function PropertyForm({
   textConFirm,
@@ -67,6 +68,7 @@ export default function PropertyForm({
   const handleSubDistrictChange = (event) => {
     const subDistrict = event.target.value;
     setSelectedSubDistrict(subDistrict);
+    setInput({ ...input, subDistrictId: subDistrict });
   };
 
   const getDistrictsByProvince = () => {
@@ -97,12 +99,6 @@ export default function PropertyForm({
   useEffect(() => {
     dispatch(animityAsync());
   }, []);
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-  const onEditorStateChange = (newEditorState) => {
-    setEditorState(newEditorState);
-  };
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -146,6 +142,7 @@ export default function PropertyForm({
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
 
+  console.log("initialInput----->", initialInput);
   return (
     <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
       <div className="rounded-md overflow-hidden flex flex-col">
@@ -282,8 +279,9 @@ export default function PropertyForm({
                 id="district"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
-                value={selectedDistrict}
+                value={input.subDistrictId || selectedSubDistrict}
                 onChange={handleDistrictChange}
+                disabled={!selectedProvince}
               >
                 <option selected hidden value={""}>
                   เลือกเขต
@@ -313,12 +311,13 @@ export default function PropertyForm({
                 name="subDistrictId"
                 value={selectedSubDistrict}
                 onChange={handleSubDistrictChange}
+                disabled={!selectedDistrict}
               >
                 <option selected hidden value={""}>
                   เลือกตำบล
                 </option>
                 {getSubDistrictsByDistrict().map((subDistrict) => (
-                  <option key={subDistrict.id} value={subDistrict.nameInThai}>
+                  <option key={subDistrict.id} value={subDistrict.id}>
                     {subDistrict.nameInThai}
                   </option>
                 ))}
@@ -453,26 +452,11 @@ export default function PropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            <DraftailEditor
-              editorState={editorState}
-              onChange={onEditorStateChange}
-              blockTypes={[
-                { type: "header-one" },
-                { type: "header-two" },
-                { type: "header-three" },
-                { type: "unstyled" },
-                { type: "blockquote" },
-                { type: "code" },
-                { type: "unordered-list-item" },
-                { type: "ordered-list-item" },
-              ]}
-              inlineStyles={[
-                { type: "BOLD" },
-                { type: "ITALIC" },
-                { type: "UNDERLINE" },
-                { type: "STRIKETHROUGH" },
-                { type: "CODE" },
-              ]}
+            <EditorForm
+              name="description"
+              value={input.description}
+              onChange={handleChangeInput}
+              isInvalid={error.description}
             />
             {error.description && (
               <InputErrorMessage message={error.description} />
