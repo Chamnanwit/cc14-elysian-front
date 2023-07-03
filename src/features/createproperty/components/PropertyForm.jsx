@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
-import "draft-js/dist/Draft.css";
-import "draftail/dist/draftail.css";
-import { useState } from "react";
-import { EditorState } from "draft-js";
-import { DraftailEditor } from "draftail";
-import { stateToHTML } from "draft-js-export-html";
+import { Editor } from "@tinymce/tinymce-react";
+import { useState, useRef } from "react";
+
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
-import Checkbox from "./Checkbox";
 import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
 import { creatImagePropperty } from "../../../api/property-api";
@@ -16,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
-import EditorForm from "./EditorForm";
 import GoogleMap from "../../../components/ShowGooglemap";
 
 export default function PropertyForm({
@@ -26,21 +21,21 @@ export default function PropertyForm({
   listProvice,
 }) {
   const initialInput = {
-    price: oldProperty?.price || "",
-    floor: oldProperty?.floor || "",
-    totalArea: oldProperty?.totalArea || "",
-    totalUnit: oldProperty?.totalUnit || "",
-    totalBedroom: oldProperty?.totalBedroom || "",
-    totalBathroom: oldProperty?.totalBathroom || "",
-    totalKitchen: oldProperty?.totalKitchen || "",
-    description: oldProperty?.description || "",
-    latitude: oldProperty?.latitude || "",
-    longitude: oldProperty?.longitude || "",
-    rentPeriod: oldProperty?.rentPeriod || "",
-    locked: oldProperty?.locked || true,
-    published: oldProperty?.published || true,
-    userId: oldProperty?.id || "",
-    subDistrictId: oldProperty?.subDistrictId || "",
+    price: "",
+    floor: "",
+    totalArea: "",
+    totalUnit: "",
+    totalBedroom: "",
+    totalBathroom: "",
+    totalKitchen: "",
+    description: "",
+    latitude: "",
+    longitude: "",
+    rentPeriod: "",
+    locked: "",
+    published: "",
+    userId: oldProperty?.userId || "",
+    subDistrictId: "",
   };
 
   const dispatch = useDispatch();
@@ -99,11 +94,12 @@ export default function PropertyForm({
   };
 
   const [position, setPosition] = useState({});
-  console.log("position", position);
+  // console.log("position", position);
 
   const handleChangeMap = (newPosition) => {
     setPosition(newPosition);
   };
+  const editorRef = useRef(null);
 
   useEffect(() => {
     dispatch(animityAsync());
@@ -116,7 +112,7 @@ export default function PropertyForm({
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log("------------>***", input);
+
       const result = await validateCreateProperty(input);
 
       
@@ -128,7 +124,8 @@ export default function PropertyForm({
       console.log(err);
     }
     setError({});
-    input.description = stateToHTML(editorState.getCurrentContent());
+    console.log("------------>***", input);
+    input.description = editorRef.current.getContent();
     const property = await dispatch(createPropertyAsync(input)).unwrap();
 
     const formdata = new FormData();
@@ -152,8 +149,6 @@ export default function PropertyForm({
     { id: 2, thaiName: "รายเดือน", engName: "MONTHLY" },
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
-
-  console.log("initialInput----->", initialInput);
 
   return (
     <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
@@ -322,7 +317,7 @@ export default function PropertyForm({
                 id="subDistrict"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
-                value={input.subDistrictId || selectedSubDistrict}
+                value={selectedSubDistrict}
                 onChange={handleSubDistrictChange}
                 disabled={!selectedDistrict}
               >
@@ -357,7 +352,10 @@ export default function PropertyForm({
             </div>
 
             <div className="">
-              <GoogleMap location={position} handleChangeMap={handleChangeMap}/>
+              <GoogleMap
+                location={position}
+                handleChangeMap={handleChangeMap}
+              />
             </div>
 
             <div>
@@ -369,7 +367,7 @@ export default function PropertyForm({
                     placeholder=""
                     value={position?.lat ? position.lat.toFixed(3) : ""}
                     onChange={handleChangeMap}
-                    isInvalid={error.floor}
+                    isInvalid={error.latitude}
                   />
                   {error.latitude && (
                     <InputErrorMessage message={error.latitude} />
@@ -473,11 +471,79 @@ export default function PropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            <EditorForm
-              name="description"
-              value={input.description}
-              onChange={handleChangeInput}
-              isInvalid={error.description}
+            <Editor
+              apiKey="beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm"
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              // initialValue="<p>This is the initial content of the editor.</p>"
+              init={{
+                height: 500,
+                menubar: {
+                  file: {
+                    title: "File",
+                    items:
+                      "newdocument restoredraft | preview | export print | deleteallconversations",
+                  },
+                  edit: {
+                    title: "Edit",
+                    items:
+                      "undo redo | cut copy paste pastetext | selectall | searchreplace",
+                  },
+                  view: {
+                    title: "View",
+                    items:
+                      "code | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments",
+                  },
+                  insert: {
+                    title: "Insert",
+                    items:
+                      "image link media addcomment pageembed template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime",
+                  },
+                  format: {
+                    title: "Format",
+                    items:
+                      "bold italic underline strikethrough superscript subscript codeformat | styles blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat",
+                  },
+                  tools: {
+                    title: "Tools",
+                    items:
+                      "spellchecker spellcheckerlanguage | a11ycheck code wordcount",
+                  },
+                  table: {
+                    title: "Table",
+                    items:
+                      "inserttable | cell row column | advtablesort | tableprops deletetable",
+                  },
+                  help: { title: "Help", items: "help" },
+                },
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "code",
+                  "wordcount",
+                  "emoticons",
+                  "preview",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | emoticons | preview ",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
             />
             {error.description && (
               <InputErrorMessage message={error.description} />
