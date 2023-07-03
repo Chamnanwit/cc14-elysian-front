@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesAsync } from "../slice/userProperties";
 import Loading from "../../../components/Loading";
+import PictureNone from "../../../components/PictureNone";
 
 export default function RentCardSmallList() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -36,7 +37,7 @@ export default function RentCardSmallList() {
           propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
           propArea={el.totalArea}
           link={el?.id}
-          src={el?.Images[0]?.imageLink}
+          src={el?.Images[0]?.imageLink || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
         />
       ))}
     </>
