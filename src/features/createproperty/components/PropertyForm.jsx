@@ -16,12 +16,12 @@ import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
-import * as fireProvider from "../../../geography.json";
 
 export default function PropertyForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
+  listProvice,
 }) {
   const initialInput = {
     price: oldProperty?.price || "",
@@ -45,25 +45,20 @@ export default function PropertyForm({
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedSubdistrict, setSelectedSubdistrict] = useState("");
 
-  const listProvice = fireProvider?.default;
+  const [province, setProvince] = useState();
+  const [district, setDistrict] = useState();
 
-  const handleProvinceChange = (event) => {
-    setSelectedProvince(event.target.value);
-    setSelectedDistrict("");
-    setSelectedSubdistrict("");
+  const selectProvince = (e) => {
+    const selectedProvince = listProvice.find(
+      (entry) => entry.province === e.target.value
+    );
+    setDistrict("");
+    setProvince(selectedProvince);
   };
 
-  const handleDistrictChange = (event) => {
-    setSelectedDistrict(event.target.value);
-    setSelectedSubdistrict("");
-  };
-
-  const handleSubdistrictChange = (event) => {
-    setSelectedSubdistrict(event.target.value);
+  const selectDistrict = (e) => {
+    setDistrict(e.target.value);
   };
 
   useEffect(() => {
@@ -117,64 +112,6 @@ export default function PropertyForm({
     { id: 2, thaiName: "รายเดือน", engName: "MONTHLY" },
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
-
-  const renderProvinceOptions = () => {
-    const uniqueProvinces = {};
-
-    listProvice.forEach((province) => {
-      if (!uniqueProvinces[province.idProvince]) {
-        uniqueProvinces[province.idProvince] = province;
-      }
-    });
-
-    return Object.values(uniqueProvinces).map((province) => (
-      <option key={province.idProvince} value={province.idProvince}>
-        {province.provinceNameEn}
-      </option>
-    ));
-  };
-
-  const renderDistrictOptions = () => {
-    const selectedProvinceData = listProvice.find(
-      (province) => province.provinceCode === selectedProvince
-    );
-
-    if (selectedProvinceData) {
-      const filteredDistricts = listProvice.filter(
-        (district) =>
-          district.districtCode === selectedProvinceData.districtCode
-      );
-
-      return filteredDistricts.map((district) => (
-        <option key={district.id} value={district.districtCode}>
-          {district.districtNameEn}
-        </option>
-      ));
-    }
-
-    return null;
-  };
-
-  const renderSubdistrictOptions = () => {
-    const selectedDistrictData = listProvice.find(
-      (district) => district.districtCode === selectedDistrict
-    );
-
-    if (selectedDistrictData) {
-      const filteredSubdistricts = listProvice.filter(
-        (subdistrict) =>
-          subdistrict.subdistrictCode === selectedDistrictData.subdistrictCode
-      );
-
-      return filteredSubdistricts.map((subdistrict) => (
-        <option key={subdistrict.id} value={subdistrict.subdistrictCode}>
-          {subdistrict.subdistrictNameEn}
-        </option>
-      ));
-    }
-
-    return null;
-  };
 
   return (
     <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
@@ -284,12 +221,16 @@ export default function PropertyForm({
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
                 value={input.subDistrictId}
-                onChange={handleProvinceChange}
+                onChange={selectProvince}
               >
                 <option selected hidden value={""}>
                   เลือกจังหวัด
                 </option>
-                {renderProvinceOptions()}
+                {listProvice.map((el) => (
+                  <option key={el.id} value={el.Name}>
+                    {el.nameInThai}
+                  </option>
+                ))}
               </select>
               <div className="h-6 pb-2">
                 {error.rentPeriod && (
@@ -309,13 +250,13 @@ export default function PropertyForm({
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
                 value={input.subDistrictId}
-                onChange={handleChangeInput}
+                onChange={selectDistrict}
               >
                 <option selected hidden value={""}>
                   เลือกเขต
                 </option>
                 {listProvice.map((el) => (
-                  <option key={el.id} value={el.Name}>
+                  <option key={el?.district} value={el.district}>
                     {el.nameInThai}
                   </option>
                 ))}
@@ -326,7 +267,7 @@ export default function PropertyForm({
                 )}
               </div>
             </div>
-            <div>
+            {/* <div>
               <label
                 htmlFor="subDistrictId"
                 className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
@@ -354,7 +295,7 @@ export default function PropertyForm({
                   <InputErrorMessage message={error.rentPeriod} />
                 )}
               </div>
-            </div>
+            </div>  */}
 
             <div>
               <div>
