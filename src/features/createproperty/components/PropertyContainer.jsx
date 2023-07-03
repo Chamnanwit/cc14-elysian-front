@@ -23,7 +23,7 @@ export default function PropertyContainer() {
 
   return (
     <>
-      <HeaderAgent topic="Create Property" />
+      <HeaderAgent topic="เพิ่มห้องเช่า" />
       <div className="flex flex-col gap-6 m-8 mt-0">
         <PropertyForm
           key={userCreate?.user?.id}

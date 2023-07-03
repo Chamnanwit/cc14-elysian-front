@@ -7,7 +7,7 @@ function LoginButton() {
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
 
-  console.log(isAuthenticated, user)
+  console.log(isAuthenticated, user);
   const handleLogin = async () => {
     if (isAuthenticated) {
       const email = user?.email;
@@ -24,7 +24,7 @@ function LoginButton() {
           className="border border-1 border-c-blue1 rounded-full px-5 py-1 text-c-blue1 font-semibold hover:bg-c-blue1 hover:text-c-white1 active:scale-95 hover:scale-105 transition-all duration-200"
           onClick={handleLogin}
         >
-          Log In
+          เข้าสู่ระบบ
         </button>
       ) : null}
     </div>

@@ -249,7 +249,7 @@ export default function PropertyForm({
               <select
                 id="province"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                name="subDistrictId"
+                name="province"
                 value={selectedProvince}
                 onChange={handleProvinceChange}
               >
@@ -278,8 +278,8 @@ export default function PropertyForm({
               <select
                 id="district"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                name="subDistrictId"
-                value={input.subDistrictId || selectedSubDistrict}
+                name="district"
+                value={selectedSubDistrict}
                 onChange={handleDistrictChange}
                 disabled={!selectedProvince}
               >
@@ -309,7 +309,7 @@ export default function PropertyForm({
                 id="subDistrict"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
-                value={selectedSubDistrict}
+                value={input.subDistrictId || selectedSubDistrict}
                 onChange={handleSubDistrictChange}
                 disabled={!selectedDistrict}
               >

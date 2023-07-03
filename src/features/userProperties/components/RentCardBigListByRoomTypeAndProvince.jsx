@@ -7,6 +7,7 @@ import BadgeGreen from "../../../components/BadgeGreen";
 import BadgeYellow from "../../../components/BadgeYellow";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import PictureNone from "../../../components/PictureNone";
 
 export default function RentCardBigListByRoomTypeAndProvince() {
   let { state } = useLocation();
@@ -26,6 +27,7 @@ export default function RentCardBigListByRoomTypeAndProvince() {
   const userPropertieslist = useSelector(
     (state) => state?.userProperties?.userProperties
   );
+  // console.log("------------------------------------->>>>", userPropertieslist)
   const rentPeriodFilter = state.rentPeriod;
   //   console.log("asds", rentPeriodFilter);
   //   console.log("tettt", state.rentPeriod);
@@ -97,6 +99,7 @@ export default function RentCardBigListByRoomTypeAndProvince() {
                 style: "currency",
                 currency: "THB",
               })}
+                src={el?.Images || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
               propRentPeriod={
                 el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
               }

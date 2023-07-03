@@ -1,6 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 
-export default function EditorForm({ oldProperty }) {
+export default function EditorForm({ value, onChange, isInvalid }) {
   return (
     <Editor
       apiKey="beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm"
