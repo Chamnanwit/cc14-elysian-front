@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import { useState } from 'react';
-import FormButton from './FornButton';
+import { useState } from "react";
+import FormButton from "./FornButton";
 
-export default function PictureForm({children, initialSrc, onSave, input }) {
+export default function PictureForm({ children, initialSrc, onSave, input }) {
   const inputEl = useRef();
   const [file, setFile] = useState(null);
 
@@ -14,7 +14,7 @@ export default function PictureForm({children, initialSrc, onSave, input }) {
         className="hidden"
         name="profileImage"
         ref={inputEl}
-        onChange={e => {
+        onChange={(e) => {
           if (e.target.files[0]) {
             onSave(e);
           }
@@ -24,19 +24,37 @@ export default function PictureForm({children, initialSrc, onSave, input }) {
         <div>
           {file && (
             <>
+              <button
+                type="button"
+                className="px-2.5 py-1.5 rounded-md text-blue-600 font-medium hover:bg-gray-100"
+                onClick={async () => {
+                  await onSave(file);
+                  setFile(null);
+                  inputEl.current.value = "";
+                }}
+              >
+                Save
+              </button>
               <FormButton
                 onClick={async () => {
                   await onSave(file);
                   setFile(null);
-                  inputEl.current.value = '';
+                  inputEl.current.value = "";
                 }}
               >
                 Save
               </FormButton>
+              <button
+                type="button"
+                className="px-2.5 py-1.5 rounded-md text-blue-600 font-medium hover:bg-gray-100"
+                onClick={onClick}
+              >
+                Cancle
+              </button>
               <FormButton
                 onClick={() => {
                   setFile(null);
-                  inputEl.current.value = '';
+                  inputEl.current.value = "";
                 }}
               >
                 Cancel
@@ -46,7 +64,12 @@ export default function PictureForm({children, initialSrc, onSave, input }) {
           {/* <FormButton onClick={() => inputEl.current.click()}>Edit</FormButton> */}
         </div>
       </div>
-      {children(input.profileImage ? URL.createObjectURL(input.profileImage) : initialSrc, () => inputEl.current.click())}
+      {children(
+        input.profileImage
+          ? URL.createObjectURL(input.profileImage)
+          : initialSrc,
+        () => inputEl.current.click()
+      )}
     </div>
   );
 }
