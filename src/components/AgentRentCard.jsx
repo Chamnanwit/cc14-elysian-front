@@ -19,8 +19,9 @@ export default function AgentRentCard({
   propPrice,
   propRentPeriod,
   propLocation,
-  propNearBY,
+  propArea,
   link,
+  src,
 }) {
   const dispatch = useDispatch();
 
@@ -52,12 +53,15 @@ export default function AgentRentCard({
       </div>
 
       <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105  duration-500 cursor-pointer">
-        <Link to={`/rentdetail/${id}`}>
+        <Link to={`/rentdetail/${link}`}>
           <div>
             <img
-              src="/src/assets/pic/pictest1.jpg"
+              src={
+                src ||
+                "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+              }
               alt="pic test1"
-              className="h-[180px] w-full"
+              className="h-[180px] w-[270px] bg-[#d0d0d0]"
             />
           </div>
           <div className="flex flex-col px-5 py-3 gap-1 w-full">
@@ -71,17 +75,19 @@ export default function AgentRentCard({
               <div className="text-[6pt] text-c-white1 p-1 rounded-md bg-c-blue2  text-center h-auto align-middle my-auto ">
                 ฟิสเนส
               </div>
+     
             </div> */}
-            <div className="flex align-middle  items-center overflow-hidden h-10 text-sm text-c-gray3">
+            <div className="flex  overflow-hidden h-10 text-sm text-c-gray3">
               {propName}
             </div>
             <div className="text-[6pt] text-c-gray2 h-12  overflow-y-auto">
-              {propDescription}
+              {/* {propDescription} */}
+              <div dangerouslySetInnerHTML={{ __html: propDescription }} />
             </div>
             <div className="flex justify-between"></div>
             <div className="text-xs text-c-gray2 ">{agencyName}</div>
             <div className="text-c-gray3 text-sm">
-              ฿{propPrice} / {propRentPeriod}
+              {propPrice} / {propRentPeriod}
             </div>
           </div>
 
@@ -90,9 +96,9 @@ export default function AgentRentCard({
               <div>
                 <MdLocationOn />
               </div>
-              <div> {propLocation || "ที่อยู๋"}</div>
+              <div> {propLocation || "ที่อยู่"}</div>
             </div>
-            <div>{propNearBY || "0.45km"}</div>
+            <div>{propArea || ""} ตร.ม.</div>
           </div>
         </Link>
 

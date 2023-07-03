@@ -109,7 +109,7 @@ export default function SponserRentCardBigList() {
               propName={el?.name}
               propDescription={el?.description}
               agencyName={el?.User?.firstName}
-              propArea={el.totalArea}
+              propArea={el?.totalArea}
               propPrice={Number(el?.price).toLocaleString("th-TH", {
                 style: "currency",
                 currency: "THB",
