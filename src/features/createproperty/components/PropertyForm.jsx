@@ -44,6 +44,7 @@ export default function PropertyForm({
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [file, setFile] = useState([]);
+  const [file, setFile] = useState([]);
 
   const selectProvice = listProvice;
 
@@ -130,11 +131,11 @@ export default function PropertyForm({
     } catch (err) {
       console.log(err);
     }
-    console.log("------------>***", {
-      ...input,
-      latitude: position.lat,
-      longitude: position.lng,
-    });
+    // console.log("------------>***", {
+    //   ...input,
+    //   latitude: position.lat,
+    //   longitude: position.lng,
+    // });
 
     const property = await dispatch(
       createPropertyAsync({
@@ -143,10 +144,13 @@ export default function PropertyForm({
         longitude: position.lng,
       })
     ).unwrap();
+    console.log("------------>***", input);
+
     const formdata = new FormData();
     formdata.append("imageLink", file[0]);
     console.log("---------property---------", property);
     const image = await creatImagePropperty(property.id, formdata);
+
     navigate("/agent");
   };
 
