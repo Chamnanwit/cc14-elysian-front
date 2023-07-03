@@ -17,7 +17,7 @@ export default function MyProfileContainer() {
 
   return (
     <>
-      <HeaderAgent topic="My profile" />
+      <HeaderAgent topic="ข้อมูลส่วนตัว" />
       <div className="flex flex-col gap-6  mt-0">
         <MyProfileForm
           key={userObjects?.user?.id}
