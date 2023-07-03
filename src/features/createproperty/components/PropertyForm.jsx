@@ -32,18 +32,30 @@ export default function PropertyForm({
     latitude: "",
     longitude: "",
     rentPeriod: "",
-    locked: "",
-    published: "",
-    userId: oldProperty?.userId || "",
+    locked: false,
+    published: true,
+    userId: oldProperty?.id || "",
     subDistrictId: "",
   };
+
+  const initialImageInput = {
+    image1: "",
+    image2: "",
+    image3: "",
+    image4: "",
+  };
+  // console.log("initialImageInput--->", initialImageInput);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
-  const [file, setFile] = useState([]);
+  const [files, setFiles] = useState({});
+  const [imageInput, setImageInput] = useState(initialImageInput);
+
   const selectProvice = listProvice;
+
+  console.log({ files });
 
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -105,6 +117,23 @@ export default function PropertyForm({
     dispatch(animityAsync());
   }, []);
 
+  const handleLockChange = (event) => {
+    setInput((prevInput) => ({
+      ...prevInput,
+      locked: event.target.value === "show",
+    }));
+  };
+
+  const [inputcheck, setInputcheck] = useState({});
+
+  const handleAminityFormChange = (inputcheck) => {
+    setInputcheck(inputcheck);
+  };
+
+  const handleChangeImageInput = (e) => {
+    setImageInput({ ...imageInput, [e.target.name]: e.target.files[0] });
+  };
+
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     // console.log(input);
@@ -112,29 +141,42 @@ export default function PropertyForm({
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
+      input.description = editorRef.current.getContent();
+      // const result = await validateCreateProperty(input);
+      // if (result) {
+      //   return setError(result);
+      // }
+      // setError({});
 
-      const result = await validateCreateProperty(input);
+      const property = {
+        ...input,
+        latitude: position.lat,
+        longitude: position.lng,
+      };
 
-      
-      if (result) {
-        return setError(result);
-      }
-      setError({});
+      // console.log("------------>***", inputcheck);
+      const formdata = new FormData();
+      // for (let image of [property.id, formdata, file[0]])
+      formdata.append("property", JSON.stringify(property));
+      formdata.append("imageLink", file[0]);
+      formdata.append("otpionals", JSON.stringify(inputcheck));
+      // console.log("------------>***", formdata);
+
+      await dispatch(createPropertyAsync(formdata)).unwrap();
+
+      //  const image = await creatImagePropperty(property.id, formdata);
+
+      navigate("/agent");
     } catch (err) {
       console.log(err);
     }
-    setError({});
-    console.log("------------>***", input);
-    input.description = editorRef.current.getContent();
-    const property = await dispatch(createPropertyAsync(input)).unwrap();
-
-    const formdata = new FormData();
-    formdata.append("imageLink", file[0]);
-    console.log("---------property---------", property);
-    const image = await creatImagePropperty(property.id, formdata);
-
-    navigate("/agent");
+    // console.log("------------>***", {
+    //   ...input,
+    //   latitude: position.lat,
+    //   longitude: position.lng,
+    // });
   };
+  createPropertyAsync;
 
   const propertyType = [
     { id: 1, name: "สตูดิโอ" },
@@ -287,7 +329,7 @@ export default function PropertyForm({
                 id="district"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="district"
-                value={selectedSubDistrict}
+                value={selectedDistrict}
                 onChange={handleDistrictChange}
                 disabled={!selectedProvince}
               >
@@ -560,26 +602,74 @@ export default function PropertyForm({
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 1</p>
-              <PropertyImage cls="Image1" />
+              <PropertyImage
+                cls="Image1"
+                onChange={handleChangeImageInput}
+                name="image1"
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 2</p>
-              <PropertyImage cls="Image2" />
+              <PropertyImage
+                cls="Image2"
+                onChange={handleChangeImageInput}
+                name="image2"
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 3</p>
-              <PropertyImage cls="Image3" />
+              <PropertyImage
+                cls="Image3"
+                onChange={handleChangeImageInput}
+                name="image3"
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 4</p>
-              <PropertyImage cls="Image4" />
+              <PropertyImage
+                cls="Image4"
+                onChange={handleChangeImageInput}
+                name="image4"
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
           </div>
         </div>
       </div>
 
       <>
-        <AminityForm />
+        <AminityForm onInputChange={handleAminityFormChange} />
+        <div className="rounded-md overflow-hidden flex flex-col">
+          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
+            ตั้งค่าห้องเช่า
+          </div>
+          <div>
+            <label
+              htmlFor="option"
+              className="block mb-2 text-lg font-medium text-gray-900 dark:text-white p-5"
+            >
+              แสดงห้องเช่าทันที
+            </label>
+            <select
+              id="option"
+              name="option"
+              className="bg-gray-50 border p-5 mx-5 w-[50%] border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={input.locked ? "show" : "hide"}
+              onChange={handleLockChange}
+            >
+              <option value="show">แสดง</option>
+              <option value="hide ">ไม่แสดง</option>
+            </select>
+          </div>
+        </div>
+
         <div className="flex">
           <button
             type="submit"
