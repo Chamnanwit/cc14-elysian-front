@@ -99,7 +99,6 @@ export default function SponserRentCardBigList() {
               el?.User?.PurchaseHistories[0]?.pricingPlanId == 3 ||
               el?.User?.PurchaseHistories[0]?.pricingPlanId == 7
             );
-          //   console.log("see el", el);
         })
 
         .map((el) => (

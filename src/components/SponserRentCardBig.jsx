@@ -51,7 +51,6 @@ export default function SponserRentCardBig({
             <div className="flex gap-2  overflow-auto  w-[16rem] relative ">
               {rootype}
               {badge}
-              <div className="bg-black w-full relative top-24"> </div>
             </div>
             <div className="flex gap-2  text-c-gray2 w-fit whitespace-nowrap">
               <BiTime />

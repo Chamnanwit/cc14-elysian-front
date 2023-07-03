@@ -1,8 +1,8 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 export default function LogoWhite() {
   return (
-    <a href="/">
+    <Link to="/">
       <svg
         className="w-[130px] hover:scale-105 transition-all duration-500"
         viewBox="0 0 276 71"
@@ -16,6 +16,6 @@ export default function LogoWhite() {
           fill="white"
         />
       </svg>
-    </a>
+    </Link>
   );
 }

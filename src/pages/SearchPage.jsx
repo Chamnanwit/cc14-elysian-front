@@ -3,8 +3,8 @@ import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
 import InputBar from "../components/InputBar";
 import ButtonYellowM from "../components/ButtonYellowM";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import RentCardBig from "../components/RentCardBig";
 import CarouselBig from "../components/CarouselBig";
@@ -33,7 +33,7 @@ export default function SearchPage() {
   const [rentPeriod, setRentPeriod] = useState("");
 
   let { state } = useLocation();
-  console.log(state);
+  console.log("what", state);
 
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
 
@@ -53,6 +53,12 @@ export default function SearchPage() {
   };
   const hdlChangeRentPeriodInput = (e) => {
     setRentPeriod(e.target.value);
+  };
+  const hdlClear = (e) => {
+    setRentPeriod("");
+    setAreaRange("");
+    setPriceRange("");
+
     // console.log("Check area", rentPeriod);
   };
 
@@ -127,6 +133,10 @@ export default function SearchPage() {
                       มากกว่า 40,000 บาท
                     </option>
                   </select>
+                  <ButtonGhostWhite clickme={hdlClear}>
+                    ล้างทั้งหมด
+                  </ButtonGhostWhite>
+                  {/* <button onClick={hdlClear}>clear</button> */}
                 </form>
               </div>
               <LogoWhite />
