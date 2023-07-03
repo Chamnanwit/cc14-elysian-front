@@ -13,7 +13,6 @@ export default function PackageItem({
   expirationType,
   lockedType,
 }) {
-
   const [isEditMode, setIsEditMode] = useState(false);
   const dispatch = useDispatch();
   const handleClickDeleteBox = async () => {
@@ -24,19 +23,19 @@ export default function PackageItem({
     <>
       {!isEditMode ? (
         <>
-          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+          <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
             <th
               scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
               {el?.id}
             </th>
-            <td class="px-6 py-4">{el?.name}</td>
-            <td class="px-6 py-4">฿ {el?.price}</td>
-            <td class="px-6 py-4">
+            <td className="px-6 py-4">{el?.name}</td>
+            <td className="px-6 py-4">฿ {el?.price}</td>
+            <td className="px-6 py-4">
               {el?.expiration === "WEEKLY" ? "รายสัปดาห์" : "รายเดือน"}
             </td>
-            <td class="px-6 py-4 w-[180px]">
+            <td className="px-6 py-4 w-[180px]">
               {el?.locked ? (
                 <div className="border rounded-full bg-green-600 flex justify-center items-center text-white py-1 max-w-[100px]">
                   เปิดใช้งาน
@@ -47,7 +46,7 @@ export default function PackageItem({
                 </div>
               )}
             </td>
-            <td class="px-6 py-4 flex gap-3">
+            <td className="px-6 py-4 flex gap-3">
               <div
                 className="bg-blue-700 p-[5px] rounded-md cursor-pointer"
                 onClick={(e) => {
@@ -81,7 +80,7 @@ export default function PackageItem({
                 textConFirm={`Edit`}
                 onIsAddMode={setIsEditMode}
                 oldPackage={el}
-                key={el.id}
+                key={el?.id}
                 pricingPlanType={pricingPlanType}
                 expirationType={expirationType}
                 lockedType={lockedType}

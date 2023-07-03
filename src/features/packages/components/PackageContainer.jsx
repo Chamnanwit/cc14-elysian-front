@@ -19,9 +19,9 @@ export default function PackageContainer() {
   const searchValue = useSelector((state) => state?.pricingPlan?.searchValue);
   const isLoading = useSelector((state) => state?.pricingPlan?.isLoading);
 
-    useEffect(() => {
-        dispatch(pricingPlanAsync());
-    }, []);
+  useEffect(() => {
+    dispatch(pricingPlanAsync());
+  }, []);
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -62,67 +62,78 @@ export default function PackageContainer() {
     return <Loading />;
   }
   return (
-        <>
-            <HeaderAdmin topic="แพ็คเกจ"/>
-                {isAddMode? 
-                    <div className='m-8 mt-0'>
-                        <PackageForm 
-                            textConFirm={`Add`} 
-                            onIsAddMode={setIsAddMode}
-                            pricingPlanType={pricingPlanType}
-                            expirationType={expirationType}
-                            lockedType={lockedType} />
-                    </div> 
-                    : 
-                    <button type='button' className='mx-8 p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-sm w-fit' onClick={() => setIsAddMode(true)}>เพิ่ม</button>}
-                <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
-                    <div className="flex items-baseline gap-4 justify-end mb-6">
-                        <div>ค้นหา:</div>
-                        <div className="100px text-md">
-                            <InputForm 
-                                type='text'
-                                className='header__search__input'
-                                placeholder='ชื่อแพ็คเกจ'
-                                onChange={handleChange}
-                                value={searchValue}
-                            />
-                        </div>
-                    </div>
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
-                    <table class="w-full text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-5">
-                                ลำดับที่
-                                </th>
-                                <th scope="col" class="px-6 py-5">
-                                ชื่อแพ็คเกจ
-                                </th>
-                                <th scope="col" class="px-6 py-5">
-                                ราคา
-                                </th>
-                                <th scope="col" class="px-6 py-5">
-                                ระยะเวลา
-                                </th>
-                                <th scope="col" class="px-6 py-5">
-                                สถานะ
-                                </th>
-                                <th scope="col" class="px-6 py-5">
-                                Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { packageArrSearch.map( el => <PackageItem 
-                                key={el.id} 
-                                el={el}
-                                pricingPlanType={pricingPlanType}
-                                expirationType={expirationType}
-                                lockedType={lockedType}/>)}
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-        </>
-  )
+    <>
+      <HeaderAdmin topic="แพ็คเกจ" />
+      {isAddMode ? (
+        <div className="m-8 mt-0">
+          <PackageForm
+            textConFirm={`Add`}
+            onIsAddMode={setIsAddMode}
+            pricingPlanType={pricingPlanType}
+            expirationType={expirationType}
+            lockedType={lockedType}
+          />
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="mx-8 p-2 min-w-[80px] mb-8 text-white bg-blue-600 rounded-sm w-fit"
+          onClick={() => setIsAddMode(true)}
+        >
+          เพิ่ม
+        </button>
+      )}
+      <div className="bg-white rounded-md m-8 px-8 py-8 mt-0">
+        <div className="flex items-baseline gap-4 justify-end mb-6">
+          <div>ค้นหา:</div>
+          <div className="100px text-md">
+            <InputForm
+              type="text"
+              className="header__search__input"
+              placeholder="ชื่อแพ็คเกจ"
+              onChange={handleChange}
+              value={searchValue}
+            />
+          </div>
+        </div>
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
+          <table className="w-full text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-5">
+                  ลำดับที่
+                </th>
+                <th scope="col" className="px-6 py-5">
+                  ชื่อแพ็คเกจ
+                </th>
+                <th scope="col" className="px-6 py-5">
+                  ราคา
+                </th>
+                <th scope="col" className="px-6 py-5">
+                  ระยะเวลา
+                </th>
+                <th scope="col" className="px-6 py-5">
+                  สถานะ
+                </th>
+                <th scope="col" className="px-6 py-5">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {packageArrSearch.map((el) => (
+                <PackageItem
+                  key={el?.id}
+                  el={el}
+                  pricingPlanType={pricingPlanType}
+                  expirationType={expirationType}
+                  lockedType={lockedType}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
 }

@@ -26,6 +26,7 @@ export default function RentCardBigList() {
       {userPropertieslist?.map((el) => (
         <Link to={`/rentdetail/${el?.id}`}>
           <RentCardBig
+            key={el?.id}
             src={el?.Images}
             propName={el?.name}
             propDescription={el?.description}
@@ -47,7 +48,9 @@ export default function RentCardBigList() {
             agencyemail={el?.User?.email || "00"}
             createTime={el?.createdAt?.slice(0, 10)}
             badge={el?.Optionals?.map((el) => (
-              <BadgeYellow>{el?.OptionalType?.name}</BadgeYellow>
+              <BadgeYellow key={el?.OptionalType?.name}>
+                {el?.OptionalType?.name}
+              </BadgeYellow>
             ))}
             rootype={<BadgeGreen>{el?.RoomType?.name}</BadgeGreen>}
           />

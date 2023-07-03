@@ -7,6 +7,9 @@ const myProfileSchema = Joi.object({
   lastName: Joi.string().trim().required().messages({
     "string.empty": "กรุณากรอกนามสกุล",
   }),
+  profileImage: Joi.any().messages({
+    
+  }),
 });
 
 const validateMyProfile = (input) => {

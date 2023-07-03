@@ -9,34 +9,69 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import validateMyProfile from "../validators/myprofileValidate";
 import ButtonYellowM from "../../../components/ButtonYellowM";
+import * as profileAgncyService from "../../../api/agency-api";
+import PictureForm from "./PictureForm";
+import Avatar from "./Avatar";
 
-export default function MyProfileForm({ oldProfile }) {
+import { useCallback } from "react";
+import { useMemo } from "react";
+import { useEffect } from "react";
+import { fetchMe } from "../../auth/slice/authSlice";
+import validateAgentProfile from "../validators/myprofileValidate";
+
+export default function MyProfileForm() {
+  const user = useSelector((state) => state?.auth?.user);
   const initialInput = {
-    firstName: oldProfile?.firstName || "",
-    lastName: oldProfile?.lastName || "",
-    profileimg: oldProfile?.profileImage || "",
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    profileImage: "",
   };
 
+  const initialImage = user?.profileImage;
+  const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const dispatch = useDispatch();
 
+  const updateProfileImage = async (input) => {
+    const formData = new FormData();
+    console.log("formData", formData);
+    formData.append("profileImage", input);
+    setIsLoading(true);
+    const res = await profileAgncyService.updateAgentImage(formData);
+    setInput({ ...user, profileImage: res.data.profileImage });
+    await dispatch(fetchMe()).unwrap();
+    setIsLoading(false);
+  };
+
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+  const handleChangeImage = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.files[0] });
+  };
+
+  console.log(error);
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-      // const result = await
+      const result = validateAgentProfile(input);
+      if (result) {
+        return setError(result);
+      }
+      setError({});
       const formData = new FormData();
-      formData.append("profileimg", input);
-      await dispatch(
-        updateprofileAgncyAsync({ id: oldProfile.id, ...input })
-      ).unwrap();
-
-      await dispatch(profileAgncyAsync());
+      if (input.profileImage)
+        formData.append("profileImage", input.profileImage);
+      formData.append("id", user.id);
+      formData.append("firstName", input.firstName);
+      formData.append("lastName", input.lastName);
+      setIsLoading(true);
+      await dispatch(updateprofileAgncyAsync(formData)).unwrap();
+      await dispatch(fetchMe()).unwrap();
+      setIsEditMode(false);
     } catch (err) {
       console.log("Error in register", err);
     }
@@ -45,53 +80,67 @@ export default function MyProfileForm({ oldProfile }) {
 
   return (
     <>
-      <div className="col-lg-9 col-md-8 col-12 mt-8">
+      <div className="col-lg-9 col-md-8 col-12 mt-4 mx-28">
         <div className="p-4 border-radius-4">
           <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2">
-              <div className="w-[345px] h-[370px]">
-                <img
-                  src="https://datacraft.app/uploads/custom-images/john-doe-2023-05-07-12-57-43-3520.jpg"
-                  alt="agent"
-                />
+              <div className="w-[345px] h-[370px] border">
+                <img src={initialImage} alt="agent" />
               </div>
             </div>
-            <div className="md:w-1/2 mt-4 md:mt-0">
-              <div className="mt-[30px]">
-                <h3 className="text-xl m-0 font-semibold">
-                  {oldProfile?.firstName}
-                  {oldProfile?.lastName}
-                </h3>
-                <p>Real Estate Broker</p>
-              </div>
-              <ul className="list-none p-0 m-0 flex flex-col gap-15 flex-wrap mt-4">
-                <li className="flex items-center gap">
-                  <img
-                    src="https://datacraft.app/frontend/img/agent-phone.svg"
-                    alt="phone"
-                    className="mr-2"
-                  />
-                  {oldProfile?.phoneNumber}
-                </li>
-                <li className="flex items-center">
-                  <img
-                    src="https://datacraft.app/frontend/img/agent-email.svg"
-                    alt="email"
-                    className="mr-2"
-                  />
-                  <a href="#">{oldProfile?.email}</a>
-                </li>
-                <li className="flex items-center">
+            <div className="ml-16 md:w-1/2 mt-4 md:mt-0 flex flex-col justify-between">
+              <div>
+                <div className="mt-[30px]">
+                  <h3 className="text-xl my-2 font-semibold">
+                    {user?.firstName} {user?.lastName}
+                  </h3>
+                  <p>Real Estate Broker</p>
+                </div>
+                <ul className="list-none p-0 m-0 flex flex-col gap-1 flex-wrap mt-4">
+                  <li className="flex items-center gap">
+                    <img
+                      src="https://datacraft.app/frontend/img/agent-phone.svg"
+                      alt="phone"
+                      className="mr-2"
+                    />
+                    {user?.phoneNumber}
+                  </li>
+                  <li className="flex items-center">
+                    <img
+                      src="https://datacraft.app/frontend/img/agent-email.svg"
+                      alt="email"
+                      className="mr-2"
+                    />
+                    <div>{user?.email}</div>
+                  </li>
+                  {/* <li className="flex items-center">
                   <img
                     src="https://datacraft.app/frontend/img/agent-location.svg"
                     alt="location"
                     className="mr-2"
                   />
                   Los Angeles, CA, USA
-                </li>
-              </ul>
-              <ul className="relative opacity-100 visible flex flex-row top-0 left-0 mt-[25px] gap-4">
+                </li> */}
+                </ul>
+              </div>
+              <div className="row">
+                <div className="col-12 flex justify-end">
+                  <button
+                    data-modal-target="authentication-modal"
+                    data-modal-toggle="authentication-modal"
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsEditMode(true);
+                    }}
+                  >
+                    Edit profile
+                  </button>
+                </div>
+              </div>
+              {/* <ul className="relative opacity-100 visible flex flex-row top-0 left-0 mt-[25px] gap-4">
                 <li>
                   <a href="https://www.linkedin.com">
                     <i className="fab fa-linkedin-in"></i>
@@ -112,30 +161,15 @@ export default function MyProfileForm({ oldProfile }) {
                     <i className="fab fa-facebook-f"></i>
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>
-        <div className="top-0 m-0 p-0 mt-[30px]">
+        {/* <div className="top-0 m-0 p-0 mt-[30px]">
           <div className=" p-4 border-radius-4 overflow-hidden"></div>
-        </div>
-        <div className="row mt-8">
-          <div className="col-12 flex justify-end">
-            <button
-              data-modal-target="authentication-modal"
-              data-modal-toggle="authentication-modal"
-              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsEditMode(true);
-              }}
-            >
-              Edit profile
-            </button>
-          </div>
-        </div>
+        </div> */}
       </div>
+
       {isEditMode ? (
         <>
           <form onSubmit={hdlSubmit}>
@@ -156,7 +190,7 @@ export default function MyProfileForm({ oldProfile }) {
                       isInvalid={error.firstName}
                     />
                     {error.firstName && (
-                      <InputErrorMessage message={error.name} />
+                      <InputErrorMessage message={error.firstName} />
                     )}
                   </td>
                 </tr>
@@ -170,7 +204,7 @@ export default function MyProfileForm({ oldProfile }) {
                       isInvalid={error.lastName}
                     />
                     {error.lastName && (
-                      <InputErrorMessage message={error.name} />
+                      <InputErrorMessage message={error.lastName} />
                     )}
                   </td>
                 </tr>
@@ -181,7 +215,7 @@ export default function MyProfileForm({ oldProfile }) {
                   <td className="w-1/2 p-3 border-b">
                     <InputForm
                       name="phonenumber"
-                      value={oldProfile?.phoneNumber}
+                      value={user?.phoneNumber}
                       isInvalid={error.phonenumber}
                       disabled={true}
                     />
@@ -195,7 +229,7 @@ export default function MyProfileForm({ oldProfile }) {
                   <td className="w-1/2 p-3 border-b">
                     <InputForm
                       name="email"
-                      value={oldProfile?.email}
+                      value={user?.email}
                       isInvalid={error.email}
                       disabled={true}
                     />
@@ -207,14 +241,15 @@ export default function MyProfileForm({ oldProfile }) {
                     รูปโปรไฟล์
                   </td>
                   <td className="w-1/2 p-3 border-b">
+                    {/* <td className="w-1/2 p-3 border-b">
                     <label
                       for="dropzone-file"
-                      class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                      className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                     >
-                      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
                         <svg
                           aria-hidden="true"
-                          class="w-10 h-10 mb-3 text-gray-400"
+                          className="w-10 h-10 mb-3 text-gray-400"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -227,19 +262,45 @@ export default function MyProfileForm({ oldProfile }) {
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                           ></path>
                         </svg>
-                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                          <span class="font-semibold">Click to upload</span> or
-                          drag and drop
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
                         </p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           SVG, PNG, JPG or GIF (MAX. 800x400px)
                         </p>
                       </div>
-                      <input id="dropzone-file" type="file" class="hidden" />
+                      <input
+                        id="dropzone-file"
+                        type="file"
+                        className="hidden"
+                      />
                     </label>
+                  </td> */}
+                    <PictureForm
+                      onSave={handleChangeImage}
+                      title="Picture"
+                      initialSrc={initialImage}
+                      input={input}
+                    >
+                      {(src, onClick) => (
+                        <div className="flex justify-center" onClick={onClick}>
+                          <Avatar
+                            src={src}
+                            className="h-[10.5rem] w-[10.5rem]"
+                          />
+                        </div>
+                      )}
+                    </PictureForm>
                   </td>
                 </tr>
-                <ButtonYellowM type="submit">ยืนยัน</ButtonYellowM>
+                <tr>
+                  <td colSpan={2}>
+                    <div className="flex justify-end p-6">
+                      <ButtonYellowM type="submit">ยืนยัน</ButtonYellowM>
+                    </div>
+                  </td>
+                </tr>
               </table>
             </Modal>
           </form>

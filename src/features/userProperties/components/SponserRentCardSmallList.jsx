@@ -40,6 +40,7 @@ export default function SponserRentCardSmallList() {
         })
         ?.map((el) => (
           <SponserRentCard
+            key={el?.id}
             propName={el?.name}
             propDescription={el?.description}
             agencyName={el?.User?.firstName}
@@ -47,7 +48,10 @@ export default function SponserRentCardSmallList() {
               style: "currency",
               currency: "THB",
             })}
-            src={el?.Images[0]?.imageLink || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
+            src={
+              el?.Images[0]?.imageLink ||
+              "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+            }
             propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
             propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
             propArea={el.totalArea}

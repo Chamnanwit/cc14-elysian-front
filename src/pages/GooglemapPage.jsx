@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 
-function ShowMap({ name, lat, long }) {
+
+function ShowMap({ name }) {
   let map;
   const [init, setInit] = useState(true);
   const [latitude, setLatitude] = useState(null);
   const [logtitude, setLongitude] = useState(null);
+  const { id } = useParams();
   const navigate = Navigate
-  async function initMap() {
+  const userPropertiesIdlist = useSelector(
+    (state) => state?.userProperties?.userPropertiesById
+  );
+  console.log( userPropertiesIdlist,'sssss')
+  async function initMap(lat,long) {
     
     const position = { lat: lat, lng: long };
 
@@ -17,7 +26,7 @@ function ShowMap({ name, lat, long }) {
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
     map = new Map(document.getElementById("map"), {
-      zoom: 17,
+      zoom: 14,
       center: position,
       mapId: "DEMO_MAP_ID",
     });
@@ -41,32 +50,17 @@ function ShowMap({ name, lat, long }) {
     });
   }
 
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        setLatitude(pos.coords.latitude);
-        setLongitude(pos.coords.longitude);
-      });
-    }
-  }
 
   useEffect(() => {
-    getLocation();
-  }, []);
-
-  useEffect(() => {
-    if (logtitude && init) {
-      console.log(init);
-      initMap();
-      setInit(false);
-    }
-  }, [logtitude, latitude]);
+      if(+id === +userPropertiesIdlist.id){
+        initMap(+userPropertiesIdlist.latitude,+userPropertiesIdlist.longitude);
+      }
+  }, [userPropertiesIdlist]);
 
   return (
     <div className="">
       {/* <a href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`}> */}
       <div className="w-[90%] h-[500px]" id="map">
-        MapPage
       </div>
       {/* </a> */}
     </div>

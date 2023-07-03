@@ -1,28 +1,29 @@
-import { useState } from "react";
+import React, { useEffect } from "react";
+// import "draft-js/dist/Draft.css";
+// import "draftail/dist/draftail.css";
+import { useState, useRef } from "react";
+// import { EditorState } from "draft-js";
+// import { DraftailEditor } from "draftail";
+// import { stateToHTML } from "draft-js-export-html";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
-import Checkbox from "../../createproperty/components/Checkbox";
+import Checkbox from "./Checkbox";
+import validateCreateProperty from "../validators/validate-create-property";
+import PropertyImage from "../../../components/PropertyImage";
+import { creatImagePropperty } from "../../../api/property-api";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createPropertyAsync } from "../slice/createproperty-slice";
+import { animityAsync } from "../../addanimity/slice/aminity-slice";
+import AminityForm from "./AminityForm";
 
-export default function PropertyEditForm({
+import { Editor } from "@tinymce/tinymce-react";
+
+export default function PropertyForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
 }) {
-  const data = [
-    { id: 1, name: "เครื่องปรับอากาศ", type: "ROOM" },
-    { id: 2, name: "TV", type: "ROOM" },
-    { id: 3, name: "ตู้เย็น", type: "ROOM" },
-    { id: 4, name: "เครื่องทำน้ำอุ่น", type: "ROOM" },
-    { id: 5, name: "เครื่องซักผ้า", type: "ROOM" },
-    { id: 6, name: "สระว่ายน้ำ", type: "COMMON" },
-    { id: 7, name: "ฟิตเนส", type: "COMMON" },
-    { id: 8, name: "สวน", type: "COMMON" },
-    { id: 9, name: "ครัว", type: "COMMON" },
-    { id: 10, name: "Co-working Space", type: "COMMON" },
-  ];
-  const dataRoom = data.filter((el) => el.type === "ROOM");
-  const dataCommon = data.filter((el) => el.type === "COMMON");
-
   const initialInput = {
     price: oldProperty?.price || "",
     floor: oldProperty?.floor || "",
@@ -32,15 +33,79 @@ export default function PropertyEditForm({
     totalBathroom: oldProperty?.totalBathroom || "",
     totalKitchen: oldProperty?.totalKitchen || "",
     description: oldProperty?.description || "",
-    latitude: oldProperty?.latitude || "",
-    longitude: oldProperty?.longitude || "",
+    latitude: oldProperty?.latitude || "99.999999",
+    longitude: oldProperty?.longitude || "444.440000",
     rentPeriod: oldProperty?.rentPeriod || "",
-    locked: oldProperty?.locked || "",
-    published: oldProperty?.published || "",
-    userId: oldProperty?.userId || "",
-    roomTypeId: oldProperty?.roomTypeId || "",
-    subDistrictId: oldProperty?.subDistrictId || "",
+    locked: oldProperty?.locked || true,
+    published: oldProperty?.published || true,
+    userId: oldProperty?.id || "",
+    subDistrictId: oldProperty?.subDistrictId || "3",
   };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [input, setInput] = useState(initialInput);
+  const [error, setError] = useState({});
+
+  useEffect(() => {
+    dispatch(animityAsync());
+  }, []);
+
+  const animityRoomArrSearch = useSelector(
+    (state) => state?.animity?.animityRoomFilter
+  );
+  const animityCommonArrSearch = useSelector(
+    (state) => state?.animity?.animityCommonFilter
+  );
+
+  // const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  // const onEditorStateChange = (newEditorState) => {
+  //   setEditorState(newEditorState);
+  // };
+
+  //-----------tiny mce
+
+  const editorRef = useRef(null);
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     console.log(editorRef.current.getContent());
+  //   }
+  // };
+  //-----------tiny mce
+
+  const handleChangeInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+    // console.log(input);
+  };
+  const hdlSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      console.log("------------>***", input);
+      const result = await validateCreateProperty(input);
+
+      const formdata = new FormData();
+      // formdata.append("imageLink", file[0]);
+      console.log("submit");
+      const image = await creatImagePropperty(product.data.id, formdata);
+
+      if (result) {
+        return setError(result);
+      }
+      setError({});
+    } catch (err) {
+      console.log(err);
+    }
+    setError({});
+
+    // console.log('ttttttny',editorRef.current.getContent());
+    input.description = editorRef.current.getContent();
+    console.log("input with tiny mce", input);
+    // input.description = stateToHTML(editorState.getCurrentContent());
+    await dispatch(createPropertyAsync(input)).unwrap();
+    navigate("/agent");
+  };
+
   const propertyType = [
     { id: 1, name: "สตูดิโอ" },
     { id: 2, name: "ห้องเพดานสูง" },
@@ -54,19 +119,11 @@ export default function PropertyEditForm({
     { id: 2, thaiName: "รายเดือน", engName: "MONTHLY" },
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
-
-  const [input, setInput] = useState(initialInput);
-  const [error, setError] = useState({});
-
-  const handleChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
-
   return (
     <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          ข้อมูลห้องเช่า
+          ข้อมูลพื้นฐาน
         </div>
         <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
@@ -162,6 +219,36 @@ export default function PropertyEditForm({
             <div>
               <div>
                 <InputForm
+                  labelName="ละติจูด"
+                  name="latitude"
+                  placeholder=""
+                  value={input.latitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.floor}
+                />
+                {error.latitude && (
+                  <InputErrorMessage message={error.latitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
+                  labelName="longitude"
+                  name="longitude"
+                  placeholder=""
+                  value={input.longitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.longitude}
+                />
+                {error.longitude && (
+                  <InputErrorMessage message={error.longitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
                   labelName="ชั้น"
                   name="floor"
                   placeholder=""
@@ -252,13 +339,66 @@ export default function PropertyEditForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            <textarea
-              name="description"
-              value={input.description}
-              onChange={handleChangeInput}
-              className="w-full rounded-md border-gray-300"
-              rows="4"
+
+            <Editor
+              apiKey="beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm"
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              // initialValue="<p>This is the initial content of the editor.</p>"
+              init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "code",
+                  "wordcount",
+                  "emoticons",
+                  "preview",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | emoticons | preview ",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
             />
+
+            {/* <DraftailEditor
+              editorState={editorState}
+              onChange={onEditorStateChange}
+              blockTypes={[
+                { type: "header-one" },
+                { type: "header-two" },
+                { type: "header-three" },
+                { type: "unstyled" },
+                { type: "blockquote" },
+                { type: "code" },
+                { type: "unordered-list-item" },
+                { type: "ordered-list-item" },
+              ]}
+              inlineStyles={[
+                { type: "BOLD" },
+                { type: "ITALIC" },
+                { type: "UNDERLINE" },
+                { type: "STRIKETHROUGH" },
+                { type: "CODE" },
+              ]}
+            /> */}
             {error.description && (
               <InputErrorMessage message={error.description} />
             )}
@@ -268,152 +408,28 @@ export default function PropertyEditForm({
 
       <div className="rounded-md overflow-hidden flex flex-col">
         <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-          รูปภาพห้อง
+          รูปภาพห้องของคุณ
         </div>
-        <form className=" bg-white px-6 py-4">
+        <div className=" bg-white px-6 py-4">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
-              <p>Image 1</p>
-              <div className="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
-                </label>
-              </div>
+              <p>รูปภาพที่ 1</p>
+              <PropertyImage cls="Image1" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 2</p>
-              <div className="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
-                </label>
-              </div>
+              <p>รูปภาพที่ 2</p>
+              <PropertyImage cls="Image2" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 3</p>
-              <div className="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
-                </label>
-              </div>
+              <p>รูปภาพที่ 3</p>
+              <PropertyImage cls="Image3" />
             </div>
             <div className="flex flex-col gap-2">
-              <p>Image 4</p>
-              <div className="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
-                </label>
-              </div>
+              <p>รูปภาพที่ 4</p>
+              <PropertyImage cls="Image4" />
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
       <>
@@ -423,7 +439,7 @@ export default function PropertyEditForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataRoom.map((el) => (
+              {animityRoomArrSearch.map((el) => (
                 <Checkbox el={el} key={el?.id} />
               ))}
             </form>
@@ -436,7 +452,7 @@ export default function PropertyEditForm({
           </div>
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {dataCommon.map((el) => (
+              {animityCommonArrSearch.map((el) => (
                 <Checkbox el={el} key={el?.id} />
               ))}
             </form>
@@ -447,9 +463,10 @@ export default function PropertyEditForm({
             type="submit"
             className="p-2 min-w-[80px] text-white bg-yellow-400 rounded-md w-full"
           >
-            แก้ไขห้องเช่า
+            สร้างห้องเช่า
           </button>
         </div>
+        <AminityForm />
       </>
     </form>
   );

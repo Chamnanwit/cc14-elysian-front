@@ -35,7 +35,7 @@ export default function MyPropertyContainer() {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        className=" flex w-full gap-5 px-10 py-5 overflow-auto"
+        className=" flex flex-wrap w-full gap-5 gap-y-10 px-10 py-5"
       >
         {userproperty?.map((property) => (
           <AgentRentCard
@@ -45,8 +45,8 @@ export default function MyPropertyContainer() {
             agencyName={property?.firstName}
             propPrice={property?.price}
             propRentPeriod={property?.rentPeriod}
-            propLocation=""
-            propNearBY=""
+            propLocation={property?.SubDistrict?.District?.Province?.nameInThai}
+            propArea={property?.totalArea}
           />
         ))}
       </motion.div>

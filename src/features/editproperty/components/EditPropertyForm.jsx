@@ -5,7 +5,10 @@ import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
 import validateCreateProperty from "../../createproperty/validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { creatImagePropperty, editImageProperty } from "../../../api/property-api";
+import {
+  creatImagePropperty,
+  editImageProperty,
+} from "../../../api/property-api";
 import { useDispatch } from "react-redux";
 
 export default function EditPropertyForm({
@@ -119,7 +122,7 @@ export default function EditPropertyForm({
             <div>
               <label
                 htmlFor="roomTypeId"
-                class="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
               >
                 ประเภทที่พัก
               </label>
@@ -135,11 +138,11 @@ export default function EditPropertyForm({
                 </option>
                 {propertyType.map((el) =>
                   el.id === input.roomTypeId ? (
-                    <option selected key={el.id} value={el.id}>
+                    <option selected key={el?.id} value={el.id}>
                       {el.name}
                     </option>
                   ) : (
-                    <option key={el.id} value={el.id}>
+                    <option key={el?.id} value={el.id}>
                       {el.name}
                     </option>
                   )
@@ -169,7 +172,7 @@ export default function EditPropertyForm({
                   เลือกระยะเวลา
                 </option>
                 {period.map((el) => (
-                  <option key={el.id} value={el.engName}>
+                  <option key={el?.id} value={el.engName}>
                     {el.thaiName}
                   </option>
                 ))}
@@ -322,7 +325,7 @@ export default function EditPropertyForm({
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
               {animityRoomArrSearch.map((el) => (
-                <Checkbox el={el} key={el.id} />
+                <Checkbox el={el} key={el?.id} />
               ))}
             </form>
           </div>
@@ -335,7 +338,7 @@ export default function EditPropertyForm({
           <div>
             <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
               {animityCommonArrSearch.map((el) => (
-                <Checkbox el={el} key={el.id} />
+                <Checkbox el={el} key={el?.id} />
               ))}
             </form>
           </div>
