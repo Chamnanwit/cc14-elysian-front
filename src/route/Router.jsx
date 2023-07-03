@@ -41,6 +41,7 @@ import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
 import AgentPropertiesPage from "../pages/AgentPropertiesPage";
 import AgentPurchasePage from "../pages/AgentPurchasePage";
 import AgentPackagePlanPage from "../pages/AgentPackagePlanPage";
+import ProtectedAgentRoute from "../components/ProtectedAgentRoute";
 import { useSelector } from "react-redux";
 
 export default function Router() {
@@ -136,32 +137,54 @@ export default function Router() {
     },
     {
       path: "/agent/createproperty",
-      element: <AgentCreatePropertyPage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentCreatePropertyPage />
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent",
 
       element: (
         <RedirectedAgent>
-          <AgentDashBoardPage />,
+          <ProtectedAgentRoute>
+            <AgentDashBoardPage />,
+          </ProtectedAgentRoute>
         </RedirectedAgent>
       ),
     },
     {
       path: "/agent/myproperty/:id",
-      element: <AgentAllPropertyPage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentAllPropertyPage />
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent/myprofile",
-      element: <AgentProfilePage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentProfilePage />,
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent/package",
-      element: <AgentPackagePlanPage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentPackagePlanPage />,
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent/purchase-history/:id",
-      element: <AgentPurchasePage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentPurchasePage />,
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/packageplan",

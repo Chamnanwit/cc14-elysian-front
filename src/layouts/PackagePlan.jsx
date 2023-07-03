@@ -41,22 +41,6 @@ export default function PackagePlan() {
     return setToggle(false);
   };
 
-  // const pricingPlanType = [
-  //   { id: 1, type: "FREE" },
-  //   { id: 2, type: "GOLD" },
-  //   { id: 3, type: "PREMIUM" },
-  // ];
-
-  // const expirationType = [
-  //   { id: 1, type: "WEEKLY", thaiType: "รายสัปดาห์" },
-  //   { id: 2, type: "MONTHLY", thaiType: "รายเดือน" },
-  // ];
-
-  // const lockedType = [
-  //   { id: 1, type: true, thaiType: "เปิดใช้งาน" },
-  //   { id: 2, type: false, thaiType: "ปิดใช้งาน" },
-  // ];
-
   return (
     <div>
       <div className=" w-full justify-center flex flex-col items-center">
