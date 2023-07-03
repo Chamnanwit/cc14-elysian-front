@@ -33,7 +33,10 @@ export default function AminityForm({ textConFirm, onIsAddMode, oldProperty }) {
           สิ่งอำนวยความสะดวกภายในห้อง
         </div>
         <div>
-          <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
+          <form
+            className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
+            onClick={handleChangeInput}
+          >
             {animityRoomArrSearch.map((el) => (
               <Checkbox el={el} key={el.id} />
             ))}
@@ -46,7 +49,10 @@ export default function AminityForm({ textConFirm, onIsAddMode, oldProperty }) {
           สิ่งอำนวยความสะดวกส่วนกลาง
         </div>
         <div>
-          <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
+          <form
+            className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
+            onClick={handleChangeInput}
+          >
             {animityCommonArrSearch.map((el) => (
               <Checkbox el={el} key={el.id} />
             ))}
