@@ -18,5 +18,6 @@ export default function RedirectedAgent({ children }) {
   if (isAuthenticated && user.role === "AGENCY" && user.locked === true) {
     return <Navigate to="/phonenumber" />;
   }
+
   return children;
 }

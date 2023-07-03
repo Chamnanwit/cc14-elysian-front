@@ -1,108 +1,84 @@
 import React, { useEffect } from "react";
-import { Editor } from "@tinymce/tinymce-react";
-import { useState, useRef } from "react";
-
+// import "draft-js/dist/Draft.css";
+// import "draftail/dist/draftail.css";
+import { useState, useRef  } from "react";
+// import { EditorState } from "draft-js";
+// import { DraftailEditor } from "draftail";
+// import { stateToHTML } from "draft-js-export-html";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
+import Checkbox from "./Checkbox";
 import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
 import { creatImagePropperty } from "../../../api/property-api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import AminityForm from "./AminityForm";
-import GoogleMap from "../../../components/ShowGooglemap";
+
+import { Editor } from '@tinymce/tinymce-react';
 
 export default function PropertyForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
-  listProvice,
 }) {
   const initialInput = {
-    price: "",
-    floor: "",
-    totalArea: "",
-    totalUnit: "",
-    totalBedroom: "",
-    totalBathroom: "",
-    totalKitchen: "",
-    description: "",
-    latitude: "",
-    longitude: "",
-    rentPeriod: "",
-    locked: "",
-    published: "",
-    userId: oldProperty?.userId || "",
-    subDistrictId: "",
+    price: oldProperty?.price || "",
+    floor: oldProperty?.floor || "",
+    totalArea: oldProperty?.totalArea || "",
+    totalUnit: oldProperty?.totalUnit || "",
+    totalBedroom: oldProperty?.totalBedroom || "",
+    totalBathroom: oldProperty?.totalBathroom || "",
+    totalKitchen: oldProperty?.totalKitchen || "",
+    description: oldProperty?.description || "",
+    latitude: oldProperty?.latitude || "99.999999",
+    longitude: oldProperty?.longitude || "444.440000",
+    rentPeriod: oldProperty?.rentPeriod || "",
+    locked: oldProperty?.locked || true,
+    published: oldProperty?.published || true,
+    userId: oldProperty?.id || "",
+    subDistrictId: oldProperty?.subDistrictId || "3",
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
-  const selectProvice = listProvice;
-
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
-
-  const handleProvinceChange = (event) => {
-    const province = event.target.value;
-    setSelectedProvince(province);
-    setSelectedDistrict("");
-    setSelectedSubDistrict("");
-  };
-
-  const handleDistrictChange = (event) => {
-    const district = event.target.value;
-    setSelectedDistrict(district);
-    setSelectedSubDistrict("");
-  };
-
-  const handleSubDistrictChange = (event) => {
-    const subDistrict = event.target.value;
-    setSelectedSubDistrict(subDistrict);
-    setInput({ ...input, subDistrictId: subDistrict });
-  };
-
-  const getDistrictsByProvince = () => {
-    const provinceData = selectProvice.find(
-      (item) => item.nameInThai === selectedProvince
-    );
-    if (provinceData && provinceData.Districts) {
-      return provinceData.Districts;
-    }
-    return [];
-  };
-
-  const getSubDistrictsByDistrict = () => {
-    const provinceData = selectProvice.find(
-      (item) => item.nameInThai === selectedProvince
-    );
-    if (provinceData && provinceData.Districts) {
-      const districtData = provinceData.Districts.find(
-        (item) => item.nameInThai === selectedDistrict
-      );
-      if (districtData && districtData.SubDistricts) {
-        return districtData.SubDistricts;
-      }
-    }
-    return [];
-  };
-
-  const [position, setPosition] = useState({});
-  // console.log("position", position);
-
-  const handleChangeMap = (newPosition) => {
-    setPosition(newPosition);
-  };
-  const editorRef = useRef(null);
 
   useEffect(() => {
     dispatch(animityAsync());
   }, []);
+
+  const animityRoomArrSearch = useSelector(
+    (state) => state?.animity?.animityRoomFilter
+  );
+  const animityCommonArrSearch = useSelector(
+    (state) => state?.animity?.animityCommonFilter
+  );
+
+  // const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  // const onEditorStateChange = (newEditorState) => {
+  //   setEditorState(newEditorState);
+  // };
+
+
+
+//-----------tiny mce
+
+
+const editorRef = useRef(null);
+// const log = () => {
+//   if (editorRef.current) {
+//     console.log(editorRef.current.getContent());
+//   }
+// };
+//-----------tiny mce
+
+
+
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -111,12 +87,12 @@ export default function PropertyForm({
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-
+      console.log("------------>***", input);
       const result = await validateCreateProperty(input);
 
       const formdata = new FormData();
       // formdata.append("imageLink", file[0]);
-      // console.log("submit");
+      console.log("submit");
       const image = await creatImagePropperty(product.data.id, formdata);
 
       if (result) {
@@ -127,8 +103,11 @@ export default function PropertyForm({
       console.log(err);
     }
     setError({});
-    console.log("------------>***", input);
-    input.description = editorRef.current.getContent();
+    
+    // console.log('ttttttny',editorRef.current.getContent());
+    input.description =  editorRef.current.getContent()
+    console.log('input with tiny mce',input)
+    // input.description = stateToHTML(editorState.getCurrentContent());
     await dispatch(createPropertyAsync(input)).unwrap();
     navigate("/agent");
   };
@@ -146,7 +125,6 @@ export default function PropertyForm({
     { id: 2, thaiName: "รายเดือน", engName: "MONTHLY" },
     { id: 3, thaiName: "รายปี", engName: "YEARLY" },
   ];
-
   return (
     <form className="flex flex-col gap-8" onSubmit={hdlSubmit}>
       <div className="rounded-md overflow-hidden flex flex-col">
@@ -214,7 +192,6 @@ export default function PropertyForm({
                 )}
               </div>
             </div>
-
             <div>
               <label
                 htmlFor="rentPeriod"
@@ -233,97 +210,8 @@ export default function PropertyForm({
                   เลือกระยะเวลา
                 </option>
                 {period.map((el) => (
-                  <option key={el.id} value={el.Name}>
+                  <option key={el.id} value={el.engName}>
                     {el.thaiName}
-                  </option>
-                ))}
-              </select>
-              <div className="h-6 pb-2">
-                {error.rentPeriod && (
-                  <InputErrorMessage message={error.rentPeriod} />
-                )}
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="province"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
-              >
-                เลือกจังหวัด
-              </label>
-              <select
-                id="province"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                name="province"
-                value={selectedProvince}
-                onChange={handleProvinceChange}
-              >
-                <option selected hidden value={""}>
-                  เลือกจังหวัด
-                </option>
-                {listProvice.map((province) => (
-                  <option key={province.id} value={province.nameInThai}>
-                    {province.nameInThai}
-                  </option>
-                ))}
-              </select>
-              <div className="h-6 pb-2">
-                {error.province && (
-                  <InputErrorMessage message={error.province} />
-                )}
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="district"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
-              >
-                เลือกอำเภอ
-              </label>
-              <select
-                id="district"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                name="district"
-                value={selectedSubDistrict}
-                onChange={handleDistrictChange}
-                disabled={!selectedProvince}
-              >
-                <option selected hidden value={""}>
-                  เลือกเขต
-                </option>
-                {getDistrictsByProvince().map((district) => (
-                  <option key={district?.id} value={district.nameInThai}>
-                    {district.nameInThai}
-                  </option>
-                ))}
-              </select>
-              <div className="h-6 pb-2">
-                {error.district && (
-                  <InputErrorMessage message={error.district} />
-                )}
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="subDistrict"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
-              >
-                ตำบล
-              </label>
-              <select
-                id="subDistrict"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                name="subDistrictId"
-                value={selectedSubDistrict}
-                onChange={handleSubDistrictChange}
-                disabled={!selectedDistrict}
-              >
-                <option selected hidden value={""}>
-                  เลือกตำบล
-                </option>
-                {getSubDistrictsByDistrict().map((subDistrict) => (
-                  <option key={subDistrict.id} value={subDistrict.id}>
-                    {subDistrict.nameInThai}
                   </option>
                 ))}
               </select>
@@ -337,6 +225,36 @@ export default function PropertyForm({
             <div>
               <div>
                 <InputForm
+                  labelName="ละติจูด"
+                  name="latitude"
+                  placeholder=""
+                  value={input.latitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.floor}
+                />
+                {error.latitude && (
+                  <InputErrorMessage message={error.latitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
+                  labelName="longitude"
+                  name="longitude"
+                  placeholder=""
+                  value={input.longitude}
+                  onChange={handleChangeInput}
+                  isInvalid={error.longitude}
+                />
+                {error.longitude && (
+                  <InputErrorMessage message={error.longitude} />
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <InputForm
                   labelName="ชั้น"
                   name="floor"
                   placeholder=""
@@ -347,47 +265,6 @@ export default function PropertyForm({
                 {error.floor && <InputErrorMessage message={error.floor} />}
               </div>
             </div>
-
-            <div className="">
-              <GoogleMap
-                location={position}
-                handleChangeMap={handleChangeMap}
-              />
-            </div>
-
-            <div>
-              <div>
-                <div>
-                  <InputForm
-                    labelName="ละติจูด"
-                    name="latitude"
-                    placeholder=""
-                    value={position?.lat ? position.lat.toFixed(3) : ""}
-                    onChange={handleChangeMap}
-                    isInvalid={error.latitude}
-                  />
-                  {error.latitude && (
-                    <InputErrorMessage message={error.latitude} />
-                  )}
-                </div>
-              </div>
-              <div>
-                <div>
-                  <InputForm
-                    labelName="ลองจิจูด"
-                    name="longitude"
-                    placeholder=""
-                    value={position?.lng ? position.lng.toFixed(3) : ""}
-                    onChange={handleChangeMap}
-                    isInvalid={error.longitude}
-                  />
-                  {error.longitude && (
-                    <InputErrorMessage message={error.longitude} />
-                  )}
-                </div>
-              </div>
-            </div>
-
             <div>
               <div>
                 <InputForm
@@ -468,80 +345,51 @@ export default function PropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
+
             <Editor
-              apiKey="beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm"
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              // initialValue="<p>This is the initial content of the editor.</p>"
-              init={{
-                height: 500,
-                menubar: {
-                  file: {
-                    title: "File",
-                    items:
-                      "newdocument restoredraft | preview | export print | deleteallconversations",
-                  },
-                  edit: {
-                    title: "Edit",
-                    items:
-                      "undo redo | cut copy paste pastetext | selectall | searchreplace",
-                  },
-                  view: {
-                    title: "View",
-                    items:
-                      "code | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments",
-                  },
-                  insert: {
-                    title: "Insert",
-                    items:
-                      "image link media addcomment pageembed template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime",
-                  },
-                  format: {
-                    title: "Format",
-                    items:
-                      "bold italic underline strikethrough superscript subscript codeformat | styles blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat",
-                  },
-                  tools: {
-                    title: "Tools",
-                    items:
-                      "spellchecker spellcheckerlanguage | a11ycheck code wordcount",
-                  },
-                  table: {
-                    title: "Table",
-                    items:
-                      "inserttable | cell row column | advtablesort | tableprops deletetable",
-                  },
-                  help: { title: "Help", items: "help" },
-                },
-                plugins: [
-                  "advlist",
-                  "autolink",
-                  "lists",
-                  "link",
-                  "image",
-                  "charmap",
-                  "preview",
-                  "anchor",
-                  "searchreplace",
-                  "visualblocks",
-                  "code",
-                  "fullscreen",
-                  "insertdatetime",
-                  "media",
-                  "table",
-                  "code",
-                  "wordcount",
-                  "emoticons",
-                  "preview",
-                ],
-                toolbar:
-                  "undo redo | blocks | " +
-                  "bold italic forecolor | alignleft aligncenter " +
-                  "alignright alignjustify | bullist numlist outdent indent | " +
-                  "removeformat | emoticons | preview ",
-                content_style:
-                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-              }}
-            />
+        apiKey='beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm'
+        onInit={(evt, editor) => editorRef.current = editor}
+        // initialValue="<p>This is the initial content of the editor.</p>"
+        init={{
+          height: 500,
+          menubar: false,
+          plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'code', 'wordcount', 'emoticons', 'preview'
+          ],
+          toolbar: 'undo redo | blocks | ' +
+            'bold italic forecolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | emoticons | preview ',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        }}
+      />
+
+
+
+
+            {/* <DraftailEditor
+              editorState={editorState}
+              onChange={onEditorStateChange}
+              blockTypes={[
+                { type: "header-one" },
+                { type: "header-two" },
+                { type: "header-three" },
+                { type: "unstyled" },
+                { type: "blockquote" },
+                { type: "code" },
+                { type: "unordered-list-item" },
+                { type: "ordered-list-item" },
+              ]}
+              inlineStyles={[
+                { type: "BOLD" },
+                { type: "ITALIC" },
+                { type: "UNDERLINE" },
+                { type: "STRIKETHROUGH" },
+                { type: "CODE" },
+              ]}
+            /> */}
             {error.description && (
               <InputErrorMessage message={error.description} />
             )}
@@ -576,7 +424,31 @@ export default function PropertyForm({
       </div>
 
       <>
-        <AminityForm />
+        <div className="rounded-md overflow-hidden flex flex-col">
+          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
+            สิ่งอำนวยความสะดวกภายในห้อง
+          </div>
+          <div>
+            <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
+              {animityRoomArrSearch.map((el) => (
+                <Checkbox el={el} key={el.id} />
+              ))}
+            </form>
+          </div>
+        </div>
+
+        <div className="rounded-md overflow-hidden flex flex-col">
+          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
+            สิ่งอำนวยความสะดวกส่วนกลาง
+          </div>
+          <div>
+            <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
+              {animityCommonArrSearch.map((el) => (
+                <Checkbox el={el} key={el.id} />
+              ))}
+            </form>
+          </div>
+        </div>
         <div className="flex">
           <button
             type="submit"
@@ -585,6 +457,7 @@ export default function PropertyForm({
             สร้างห้องเช่า
           </button>
         </div>
+        <AminityForm />
       </>
     </form>
   );

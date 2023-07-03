@@ -86,11 +86,11 @@ export default function Navbar() {
                 <Link
                   to="/"
                   onClick={() => {
-                    dispatch(logout());
                     logout({
                       logoutParams: { returnTo: window.location.origin },
                     });
                     dispatch(removetoken());
+                    dispatch(logout());
                   }}
                 >
                   <div class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">

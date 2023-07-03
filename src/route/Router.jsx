@@ -41,6 +41,7 @@ import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
 import AgentPropertiesPage from "../pages/AgentPropertiesPage";
 import AgentPurchasePage from "../pages/AgentPurchasePage";
 import AgentPackagePlanPage from "../pages/AgentPackagePlanPage";
+import ProtectedAgentRoute from "../components/ProtectedAgentRoute";
 import { useSelector } from "react-redux";
 
 export default function Router() {
@@ -132,61 +133,84 @@ export default function Router() {
     },
     {
       path: "/register",
-      element: <RegisterPage />,
+      element: (
+        <RedirectedAgent>
+          <RegisterPage />,
+        </RedirectedAgent>
+      ),
     },
     {
       path: "/agent/createproperty",
-      element: <AgentCreatePropertyPage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentCreatePropertyPage />
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent",
 
       element: (
         <RedirectedAgent>
-          <AgentDashBoardPage />,
+          <AgentDashBoardPage />
         </RedirectedAgent>
       ),
     },
     {
       path: "/agent/myproperty/:id",
-      element: <AgentAllPropertyPage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentAllPropertyPage />
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent/myprofile",
-      element: <AgentProfilePage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentProfilePage />,
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent/package",
-      element: <AgentPackagePlanPage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentPackagePlanPage />,
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/agent/purchase-history/:id",
-      element: <AgentPurchasePage />,
+      element: (
+        <ProtectedAgentRoute>
+          <AgentPurchasePage />,
+        </ProtectedAgentRoute>
+      ),
     },
     {
       path: "/packageplan",
       element: <PackagePlanPage />,
-      // children: [],
     },
     {
       path: "/searchpage",
       element: <SearchPage />,
-      // children: [],
     },
     {
       path: "/phonenumber",
-      element: <PhoneNumberPage />,
-      // children: [],
+      element: (
+        <RedirectedAgent>
+          <PhoneNumberPage />,
+        </RedirectedAgent>
+      ),
     },
     {
       path: `/rentdetail/:id`,
       element: <RentDetailPage />,
-      // children: [],
     },
     {
       path: "/map",
       element: <GooglemapApi />,
-      // children: [],
     },
     {
       path: "/user",

@@ -2,24 +2,37 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as agentService from "../../../api/agency-api";
 
 const initialState = {
-    agentList: [],
-    agentById: {},
-    agentListFilter: [],
-    searchValue: "",
-    isLoading: true
+  agentList: [],
+  agentById: {},
+  districtlist: [],
+  agentListFilter: [],
+  searchValue: "",
+  isLoading: true,
 };
 
 export const agentAsync = createAsyncThunk(
-    "agent/agentAsync",
-    async (_, thunkApi) => {
-      try {
-        const res = await agentService.getAllAgent();
-        return res.data;
-      } catch (err) {
-        console.log(err);
-        return thunkApi.rejectWithValue(err.response.data.message);
-      }
+  "agent/agentAsync",
+  async (_, thunkApi) => {
+    try {
+      const res = await agentService.getAllAgent();
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
     }
+  }
+);
+export const getdistrictlistAsync = createAsyncThunk(
+  "agent/getdistrictlistAsync",
+  async (_, thunkApi) => {
+    try {
+      const res = await agentService.getSubDistrict();
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
 );
 
 export const agentByIdAsync = createAsyncThunk(
@@ -47,7 +60,6 @@ export const deleteagentAsync = createAsyncThunk(
     }
   }
 );
-
 
 export const updateAgentAsync = createAsyncThunk(
   "agent/updateAgentAsync",
@@ -86,19 +98,19 @@ export const searchAgentAsync = createAsyncThunk(
 );
 
 const adminViewAgentSlice = createSlice({
-    name: "agent",
-    initialState,
-    reducers: {
-      setSearchValueRedux: (state, action) => {
-        state.searchValue = action.payload;
-      },
+  name: "agent",
+  initialState,
+  reducers: {
+    setSearchValueRedux: (state, action) => {
+      state.searchValue = action.payload;
     },
-    extraReducers: (builder) =>
+  },
+  extraReducers: (builder) =>
     builder
-    .addCase(agentAsync.pending, state => {
-      // state.initialLoading = true;
-    })
-    .addCase(agentAsync.fulfilled, (state, action) => {
+      .addCase(agentAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(agentAsync.fulfilled, (state, action) => {
         state.agentList = action.payload;
         if (state.searchValue.trim() === "")
           state.agentListFilter = state.agentList;
@@ -113,57 +125,69 @@ const adminViewAgentSlice = createSlice({
                 .includes(state.searchValue.toLowerCase()) ||
               el.email.toLowerCase().includes(state.searchValue.toLowerCase())
           );
-      }
+        }
         state.isLoading = false;
-    })
-    .addCase(agentAsync.rejected, (state, action) => {
+      })
+      .addCase(agentAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
-    })
-    // .addCase(createPricingPlanAsync.pending, state => {
-    //   // state.initialLoading = true;
-    // })
-    // .addCase(createPricingPlanAsync.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    // })
-    // .addCase(createPricingPlanAsync.rejected, (state, action) => {
-    //     state.error = action.payload;
-    //     state.isLoading = false;
-    // })
-    .addCase(updateAgentAsync.pending, (state) => {
-      state.isLoading = false;
-    })
-    .addCase(updateAgentAsync.fulfilled, (state, action) => {
-      // state.isAuthenticated = true;
-      state.isLoading = false;
-      //state.user = action.payload;
-    })
-    .addCase(updateAgentAsync.rejected, (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    })
-    .addCase(searchAgentAsync.pending, (state) => {
-      // state.initialLoading = true;
-    })
-    .addCase(searchAgentAsync.fulfilled, (state, action) => {
-      state.agentListFilter = action.payload;
-      state.isLoading = false;
-    })
-    .addCase(searchAgentAsync.rejected, (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    })
-    .addCase(agentByIdAsync.pending, state => {
+      })
+      // .addCase(createPricingPlanAsync.pending, state => {
+      //   // state.initialLoading = true;
+      // })
+      // .addCase(createPricingPlanAsync.fulfilled, (state, action) => {
+      //     state.isLoading = false;
+      // })
+      // .addCase(createPricingPlanAsync.rejected, (state, action) => {
+      //     state.error = action.payload;
+      //     state.isLoading = false;
+      // })
+      .addCase(updateAgentAsync.pending, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateAgentAsync.fulfilled, (state, action) => {
+        // state.isAuthenticated = true;
+        state.isLoading = false;
+        //state.user = action.payload;
+      })
+      .addCase(updateAgentAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+
+      .addCase(getdistrictlistAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(getdistrictlistAsync.fulfilled, (state, action) => {
+        state.districtlist = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getdistrictlistAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(searchAgentAsync.pending, (state) => {
+        // state.initialLoading = true;
+      })
+      .addCase(searchAgentAsync.fulfilled, (state, action) => {
+        state.agentListFilter = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(searchAgentAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(agentByIdAsync.pending, (state) => {
         state.isLoading = true;
-    })
-    .addCase(agentByIdAsync.fulfilled, (state, action) => {
+      })
+      .addCase(agentByIdAsync.fulfilled, (state, action) => {
         state.agentById = action.payload;
         state.isLoading = false;
-    })
-    .addCase(agentByIdAsync.rejected, (state, action) => {
+      })
+      .addCase(agentByIdAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
-    })
+      }),
 });
 
 export default adminViewAgentSlice.reducer;

@@ -44,7 +44,7 @@ export default function Logo() {
           xmlns="http://www.w3.org/2000/svg"
           className="absolute -top-[1.5px] bottom-0 right-0 left-[52px]"
           animate={{
-            scale: [0, 0, 1, 1],
+            // scale: [0, 0, 1, 1],
             rotate: [0, 180, 180, 360],
             // opacity: [0, 0, 1, 1, 1],
             // borderRadius: ["0%", "0%", "50%", "50%", "0%"],
