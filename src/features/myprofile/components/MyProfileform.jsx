@@ -6,6 +6,7 @@ import {
   profileAgncyAsync,
   updateprofileAgncyAsync,
 } from "../slice/myProfile-slice";
+import defaultImage from '../../../assets/blank.png';
 import { useDispatch, useSelector } from "react-redux";
 import validateMyProfile from "../validators/myprofileValidate";
 import ButtonYellowM from "../../../components/ButtonYellowM";
@@ -31,7 +32,7 @@ export default function MyProfileForm() {
   const inputEl = useRef();
   const [file, setFile] = useState(null);
 
-  const initialImage = user?.profileImage;
+  const initialImage = user?.profileImage || defaultImage;
   const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [input, setInput] = useState(initialInput);
@@ -77,7 +78,7 @@ export default function MyProfileForm() {
           <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2">
-              <div className="w-[345px] h-[370px] border">
+              <div className="w-[345px] h-[340px] border">
                 <img src={initialImage} alt="agent" />
               </div>
             </div>
