@@ -43,6 +43,8 @@ export default function AgentPropertiesPage() {
 
   const el = useSelector((state) => state?.adminViewAgent?.agentById);
 
+  console.log("-------------------*****-----------------", userproperty)
+
   const t = userproperty;
   console.log(userproperty);
 
@@ -96,6 +98,7 @@ export default function AgentPropertiesPage() {
                       style: "currency",
                       currency: "THB",
                     })}
+                    src={el?.Images[0]?.imageLink}
                     propRentPeriod={
                       el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
                     }
