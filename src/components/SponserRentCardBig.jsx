@@ -26,13 +26,13 @@ export default function SponserRentCardBig({
     <div className=" flex flex-col bg-white w-full rounded-lg overflow-hidden shadow-lg transition-all active:scale-100 duration-[400ms] hover:scale-[101%]">
       <div className="flex">
         <div className="flex-[1.5] h-[180px] overflow-auto bg-white ml-2 flex  justify-start gap-2 items-center">
-        {src.length > 0 ? (
+          {src.length > 0 ? (
             src.map((im) => (
               <img
                 key={im.id} // ใส่ key ให้แตกต่างกันสำหรับแต่ละรูปภาพ
                 src={im.imageLink}
                 alt="pic test1"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
             ))
           ) : (
@@ -40,22 +40,22 @@ export default function SponserRentCardBig({
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test2"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test3"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test4"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test5"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
             </>
           )}
@@ -65,7 +65,6 @@ export default function SponserRentCardBig({
             <div className="flex gap-2  overflow-auto  w-[16rem] relative ">
               {rootype}
               {badge}
-              <div className="bg-black w-full relative top-24"> </div>
             </div>
             <div className="flex gap-2  text-c-gray2 w-fit whitespace-nowrap">
               <BiTime />

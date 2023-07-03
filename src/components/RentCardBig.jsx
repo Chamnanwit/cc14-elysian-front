@@ -25,7 +25,7 @@ export default function RentCardBig({
   return (
     <div className=" flex flex-col bg-white w-full rounded-lg overflow-hidden shadow-lg transition-all active:scale-100 duration-[400ms] hover:scale-[101%]">
       <div className="flex">
-        <div className="flex-[1.5] h-[180px] overflow-auto bg-white ml-2 flex  justify-start gap-2 items-center">
+        <div className="flex-[1.5] h-[180px] overflow-x-auto bg-white ml-2 flex  justify-start gap-2 items-center">
           {src.length > 0 ? (
             src.map((im) => (
               <img
@@ -65,7 +65,6 @@ export default function RentCardBig({
             <div className="flex gap-2  overflow-auto  w-[16rem] relative ">
               {rootype}
               {badge}
-              <div className="bg-black w-full relative top-24"> </div>
             </div>
             <div className="flex gap-2  text-c-gray2 w-fit whitespace-nowrap">
               <BiTime />

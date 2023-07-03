@@ -41,8 +41,11 @@ import RedirectedAgentOrAdmin from "../components/RedirectedAgentOrAdmin";
 import AgentPropertiesPage from "../pages/AgentPropertiesPage";
 import AgentPurchasePage from "../pages/AgentPurchasePage";
 import AgentPackagePlanPage from "../pages/AgentPackagePlanPage";
+import { useSelector } from "react-redux";
 
 export default function Router() {
+  const user = useSelector((state) => state.auth.user);
+
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   // const requireAuth = (link) => {
@@ -194,7 +197,7 @@ export default function Router() {
       element: <SuccessPaymentPage />,
     },
     {
-      path: "/agentproperties/",
+      path: "/agentproperties/:id",
       element: <AgentPropertiesPage />,
     },
   ]);

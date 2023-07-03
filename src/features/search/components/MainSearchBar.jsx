@@ -4,7 +4,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-export default function MainSearchBar({ areaRange, priceRange, rentPeriod, roomtypeName, provinceName }) {
+export default function MainSearchBar({
+  areaRange,
+  priceRange,
+  rentPeriod,
+  roomtypeName,
+  provinceName,
+}) {
   const dispatch = useDispatch();
   const [roomtype, setRoomtype] = useState(roomtypeName || "");
   const [province, setProvince] = useState(provinceName || "");
@@ -58,9 +64,7 @@ export default function MainSearchBar({ areaRange, priceRange, rentPeriod, roomt
         value={roomtype}
         onChange={hdlChangeRoomTypeInput}
       >
-        <option disabled value="">
-          เลือกประเภทห้อง
-        </option>
+        <option value="">ประเภทห้องทั้งหมด</option>
         {searchList?.roomtype?.map((el) =>
           el?.name === checkRoomtype ? (
             <option key={el?.id} selected value={el?.name} className="text-2xl">
@@ -79,9 +83,8 @@ export default function MainSearchBar({ areaRange, priceRange, rentPeriod, roomt
         value={province}
         onChange={hdlChangeProvinceInput}
       >
-        <option disabled value="">
-          เลือกจังหวัด
-        </option>
+        <option value="">จังหวัดทั้งหมด</option>
+
         {searchList?.province?.map((el) => (
           <option key={el?.id} value={el?.nameInThai} className="text-2xl">
             {el?.nameInThai}

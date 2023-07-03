@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import ButtonYellowM from "../components/ButtonYellowM";
 
@@ -33,9 +34,11 @@ export default function AdverBar() {
             Here at Flowbite we focus on markets where technology, innovation,
             and capital can unlock long-term value and drive economic growth.
           </p>
-          <div className=" flex  p-5 px-8 bg-c-green4 w-fit mt-10 rounded-md text-c-white1 transition-all hover:bg-c-green3 hover:scale-105 active:scale-95 active:bg-c-green2">
-            เพิ่มห้องเช่าของคุณ
-          </div>
+          <Link to="/agent">
+            <div className=" flex  p-5 px-8 bg-c-green4 w-fit mt-10 rounded-md text-c-white1 transition-all hover:bg-c-green3 hover:scale-105 active:scale-95 active:bg-c-green2">
+              เพิ่มห้องเช่าของคุณ
+            </div>
+          </Link>
         </div>
       </div>
     </motion.div>

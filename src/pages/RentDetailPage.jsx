@@ -166,11 +166,13 @@ export default function RentDetailPage() {
                 </div>
 
                 <AgencyCard
+                  agencyImage={el?.User?.profileImage}
                   agencyfirstname={el?.User?.firstName}
                   agencylastname={el?.User?.lastName}
                   agencystatus={el?.User?.locked}
                   agencyphone={el?.User?.phoneNumber}
                   agencyemail={el?.User?.email || "00"}
+                  agencyId={el?.User?.id}
                 />
               </div>
 
