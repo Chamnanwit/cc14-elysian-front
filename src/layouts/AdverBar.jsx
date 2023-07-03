@@ -24,13 +24,13 @@ export default function AdverBar() {
           />
         </div>
         <div className=" flex-1 h-full p-10 w-fit text-left pl-20">
-          <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white ">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+          <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white ">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
               หาง่าย ขายเร็ว
             </span>
             เป็นระบบ
           </h1>
-          <p class="text-base font-normal text-c-gray2 w-[70%] mt-8">
+          <p className="text-base font-normal text-c-gray2 w-[70%] mt-8">
             Here at Flowbite we focus on markets where technology, innovation,
             and capital can unlock long-term value and drive economic growth.
           </p>

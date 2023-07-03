@@ -8,40 +8,45 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { agentAsync, agentByIdAsync, updateAgentAsync } from "../slice/adminviewagency-slice";
+import {
+  agentAsync,
+  agentByIdAsync,
+  updateAgentAsync,
+} from "../slice/adminviewagency-slice";
 import Loading from "../../../components/Loading";
-import pic from "../../../assets/blank.png"
+import pic from "../../../assets/blank.png";
 export default function AgencyProfile() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const [pageLoading, setPageLoading] = useState(true);
 
-    const dispatch = useDispatch();
-    const { id } = useParams();
-    const [pageLoading, setPageLoading] = useState(true)
-
-    const el = useSelector((state) => state?.adminViewAgent?.agentById);
-    useEffect(() => {
-      const fetch = async () => {
-        await dispatch(agentByIdAsync(id)).unwrap();
-        setPageLoading(false)
-      }
-      fetch()
-    }, [id]);
-    
-    const [locked, setStatus] = useState(el?.result?.locked);
-
-    useEffect(() => {
-      setStatus(el?.result?.locked)
-    }, [el])
-
-    const navigate = useNavigate();
-
-    const handleClickChangeStatus = async (e) => {
-      await dispatch(updateAgentAsync({ id: el.result?.id, locked: !locked })).unwrap();
-      await dispatch(agentAsync()).unwrap();
-      setStatus(!locked);
+  const el = useSelector((state) => state?.adminViewAgent?.agentById);
+  useEffect(() => {
+    const fetch = async () => {
+      await dispatch(agentByIdAsync(id)).unwrap();
+      setPageLoading(false);
     };
-    if (pageLoading) {
-      return <Loading />;
-    }
+    fetch();
+  }, [id]);
+
+  const [locked, setStatus] = useState(el?.result?.locked);
+
+  useEffect(() => {
+    setStatus(el?.result?.locked);
+  }, [el]);
+
+  const navigate = useNavigate();
+
+  const handleClickChangeStatus = async (e) => {
+    await dispatch(
+      updateAgentAsync({ id: el.result?.id, locked: !locked })
+    ).unwrap();
+    await dispatch(agentAsync()).unwrap();
+    setStatus(!locked);
+  };
+  if (pageLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -55,16 +60,32 @@ export default function AgencyProfile() {
           <div>Agent list</div>
         </div>
         <div className=" grid grid-cols-4 gap-6 text-base">
-          <DashboardItem bgColor="blue-600" title="ห้องเช่าทั้งหมด" result={el?.totalPropertyById}>
+          <DashboardItem
+            bgColor="blue-600"
+            title="ห้องเช่าทั้งหมด"
+            result={el?.totalPropertyById}
+          >
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="green-600" title="ห้องเช่าที่เปิดอยู่" result={el?.totalActiveProperty}>
+          <DashboardItem
+            bgColor="green-600"
+            title="ห้องเช่าที่เปิดอยู่"
+            result={el?.totalActiveProperty}
+          >
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="gray-500" title="ห้องเช่าที่ปิดอยู่" result={el?.totalInactiveProperty}>
+          <DashboardItem
+            bgColor="gray-500"
+            title="ห้องเช่าที่ปิดอยู่"
+            result={el?.totalInactiveProperty}
+          >
             <BsFillBuildingsFill fill="#ffffff" size={28} />
           </DashboardItem>
-          <DashboardItem bgColor="blue-600" title="ยอดซื้อแพ็คเกจ" result={el?.totalPurchase}>
+          <DashboardItem
+            bgColor="blue-600"
+            title="ยอดซื้อแพ็คเกจ"
+            result={el?.totalPurchase}
+          >
             <FaRegMoneyBillAlt fill="#ffffff" size={28} />
           </DashboardItem>
         </div>
@@ -104,21 +125,24 @@ export default function AgencyProfile() {
                 <td className="w-1/2 px-3 py-2 border-b border-r">
                   เบอร์โทรศัพท์
                 </td>
-                <td className="w-1/2 p-3 border-b"> {el?.result?.phoneNumber}</td>
+                <td className="w-1/2 p-3 border-b">
+                  {" "}
+                  {el?.result?.phoneNumber}
+                </td>
               </tr>
               <tr className="bg-gray-100">
                 <td className="w-1/2 px-3 py-2 border-b border-r">สถานะ</td>
                 <td className="w-1/2 p-3 border-b">
-                <label class="relative inline-flex items-center cursor-pointer">
+                  <label className="relative inline-flex items-center cursor-pointer">
                     <input
-                        type="checkbox"
-                        value={locked}
-                        className="sr-only peer"
-                        checked={!locked}
-                        onChange={handleClickChangeStatus}
+                      type="checkbox"
+                      value={locked}
+                      className="sr-only peer"
+                      checked={!locked}
+                      onChange={handleClickChangeStatus}
                     />
                     <div className="w-11 h-6 bg-red-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                </label>
+                  </label>
                 </td>
               </tr>
             </table>

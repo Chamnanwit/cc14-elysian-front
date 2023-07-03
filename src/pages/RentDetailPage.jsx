@@ -3,18 +3,30 @@ import Footer from "../layouts/Footer";
 import GoogleMap from "../pages/GooglemapPage";
 import { BiTime } from "react-icons/bi";
 import { MdEmail, MdLocationOn } from "react-icons/md";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesByIdAsync } from "../features/userProperties/slice/userProperties";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { getImageByPropertyIdAsync } from "../features/createproperty/slice/createproperty-slice";
+// import Loading from "../components/Loading";
 
 import AgencyCard from "../components/AgencyCard";
 import SponserRentbar from "../layouts/SponserRentbar";
 
 export default function RentDetailPage() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
+  // const isLoading = useSelector((state) => state?.userProperties?.isLoading);
   const { id } = useParams();
+
+  const pageTopRef = useRef(null);
+  useEffect(() => {
+    if (pageTopRef.current) {
+      window.scrollTo({
+        top: pageTopRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(userPropertiesByIdAsync(id)); /// เอามาจาก slice
@@ -28,16 +40,18 @@ export default function RentDetailPage() {
   const imageProperty = useSelector(
     (state) => state?.propertyPlan?.imageProperty
   );
-
+console.log(userPropertiesIdlist,"userPropertiesIdlist")
   const imageProp = [...(imageProperty?.result ?? [])];
 
   const el = { ...userPropertiesIdlist };
-  console.log("111111111111", el)
 
-  console.log({lat: el.latitude, lng: el.longitude})
+  console.log({ lat: el?.latitude, lng: el?.longitude });
 
   return (
-    <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
+    <div
+      ref={pageTopRef}
+      className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto"
+    >
       <div>
         <Navbar />
 
@@ -46,7 +60,7 @@ export default function RentDetailPage() {
             {el?.name}
           </div>
           <div className="pb-10 shadow-xl">
-            <div className="h-[330px] overflow-auto bg-c-gray3 flex justify-start gap-2 items-center">
+            <div className="h-[330px] overflow-auto bg-c-gray3 flex justify-start gap-4 items-center">
               {imageProp.length > 0 ? (
                 imageProp.map((im) => (
                   <img
@@ -73,7 +87,7 @@ export default function RentDetailPage() {
                     alt="pic test4"
                     className="h-[300px] w-auto"
                   />
-                   <img
+                  <img
                     src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                     alt="pic test5"
                     className="h-[300px] w-auto"
@@ -196,22 +210,18 @@ export default function RentDetailPage() {
                   </div>
                   <div className="collapse-content">
                     {el?.Optionals?.map((el) => (
-                      <li className=" text-c-gray2">
+                      <li key={el?.id} className=" text-c-gray2">
                         {el?.OptionalType?.name}
                       </li>
                     ))}
                   </div>
                 </div>
               </div>
-              <div className="">
-                {/* {el.name && ( */}
+                <div className="">
                   <GoogleMap
-                    name={el?.name? el.name : ""}
-                    lat={el?.latitude?+el.latitude: 14.041204}
-                    long={el?.longitude?+el.longitude: 100.079655}
+                    name={el?.name}
                   />
-                {/* // )} */}
-              </div>
+                </div>
             </div>
           </div>
         </div>
@@ -219,5 +229,5 @@ export default function RentDetailPage() {
       </div>
       <Footer />
     </div>
-  );
+  )
 }

@@ -32,19 +32,19 @@ export default function AdminItem({ el }) {
 
   return (
     <>
-      <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+      <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
         <th
           scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
         >
           {el.id}
         </th>
-        <td class="px-6 py-4">
+        <td className="px-6 py-4">
           {el.firstName} {el.lastName}
         </td>
-        <td class="px-6 py-4">{el.email}</td>
-        <td class="px-6 py-4">
-          <label class="relative inline-flex items-center cursor-pointer">
+        <td className="px-6 py-4">{el.email}</td>
+        <td className="px-6 py-4">
+          <label className="relative inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
               value={status}
@@ -56,7 +56,7 @@ export default function AdminItem({ el }) {
           </label>
         </td>
 
-        <td class="px-6 py-4 flex gap-3">
+        <td className="px-6 py-4 flex gap-3">
           <div
             className="bg-blue-700 p-[7px] rounded-md cursor-pointer flex items-center"
             onClick={(e) => {
@@ -114,7 +114,7 @@ export default function AdminItem({ el }) {
             <tr>
               <td className="w-1/2 px-3 py-2 border-b border-r">สถานะ</td>
               <td className="w-1/2 p-3 border-b">
-                <label class="relative inline-flex items-center cursor-pointer">
+                <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     value={status}
@@ -139,10 +139,16 @@ export default function AdminItem({ el }) {
           <div className="flex flex-col gap-8">
             <div className="text-center">คุณแน่ใจว่าจะลบใช่หรือไม่</div>
             <div className="flex justify-between gap-6">
-              <div className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer" onClick={handleClickDeleteBox}>
+              <div
+                className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer"
+                onClick={handleClickDeleteBox}
+              >
                 ตกลง
               </div>
-              <div className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer" onClick={() => setClickDeleteBox(false)}>
+              <div
+                className="bg-black text-white px-4 py-[6px] rounded-md w-full flex justify-center cursor-pointer"
+                onClick={() => setClickDeleteBox(false)}
+              >
                 ยกเลิก
               </div>
             </div>

@@ -26,6 +26,7 @@ export default function RentCardSmallList() {
     <>
       {userPropertieslist?.map((el) => (
         <RentCard
+          key={el?.id}
           propName={el?.name}
           propDescription={el?.description}
           agencyName={el?.User?.firstName}
@@ -37,7 +38,10 @@ export default function RentCardSmallList() {
           propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
           propArea={el.totalArea}
           link={el?.id}
-          src={el?.Images[0]?.imageLink || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
+          src={
+            el?.Images[0]?.imageLink ||
+            "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+          }
         />
       ))}
     </>

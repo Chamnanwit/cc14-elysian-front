@@ -4,7 +4,7 @@ export default function Checkbox({ el }) {
     console.log(e.target.value, e.target.checked);
   };
   return (
-    <div class="flex items-center border-gray-200 rounded dark:border-gray-700">
+    <div className="flex items-center border-gray-200 rounded dark:border-gray-700">
       <input
         id={el.id}
         type="checkbox"
@@ -16,7 +16,7 @@ export default function Checkbox({ el }) {
       />
       <label
         htmlFor={el.id}
-        class="w-full py-4 ml-2 text-lg font-medium text-gray-900 dark:text-gray-300"
+        className="w-full py-4 ml-2 text-lg font-medium text-gray-900 dark:text-gray-300"
       >
         {el.name}
       </label>
