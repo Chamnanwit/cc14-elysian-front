@@ -33,9 +33,15 @@ export default function SidebarAgency() {
       </div>
       <div className="py-4 overflow-y-auto  text-c-white1">
         <ul className="space-y-2 font-medium">
-          <ListAdminMenuButton link={`/agent`} icon={<AiFillDashboard />}>
-            ภาพรวม
+          <ListAdminMenuButton link="/" icon={<AiFillHome />}>
+            กลับหน้าแรก
           </ListAdminMenuButton>
+          <ListAdminMenuButton link={`/agent`} icon={<ImProfile />}>
+            ข้อมูลส่วนตัว
+          </ListAdminMenuButton>
+          {/* <ListAdminMenuButton link={`/agent`} icon={<AiFillDashboard />}>
+            ภาพรวม
+          </ListAdminMenuButton> */}
           <details open>
             <summary className="flex items-center p-2  justify-between rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
               <div className="flex">
@@ -82,7 +88,7 @@ export default function SidebarAgency() {
             <ul>
               <li>
                 <Link
-                  to="/agent/package"
+                  to="/packageplan"
                   className="flex items-center p-2 w-full pl-11 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200"
                 >
                   ซื้อแพ็คเกจ
@@ -98,9 +104,9 @@ export default function SidebarAgency() {
               </li>
             </ul>
           </details>
-          <ListAdminMenuButton link="/agent/myprofile" icon={<ImProfile />}>
+          {/* <ListAdminMenuButton link="/agent/myprofile" icon={<ImProfile />}>
             ข้อมูลส่วนตัว
-          </ListAdminMenuButton>
+          </ListAdminMenuButton> */}
           {/* <ListAdminMenuButton link="" icon={<MdPassword />}>
             เปลี่ยนรหัสผ่าน
           </ListAdminMenuButton> */}
@@ -108,9 +114,7 @@ export default function SidebarAgency() {
           <ListAdminMenuButton link="" icon={<FaSignOutAlt />} onClick={logout}>
             ออกจากระบบ
           </ListAdminMenuButton>
-          <ListAdminMenuButton link="/" icon={<AiFillHome />}>
-            กลับหน้าแรก
-          </ListAdminMenuButton>
+
           {/* <ListAdminMenuButton link="/phonenumber" icon={<RiAdminLine />}>
             ยืนยันตัวตน
           </ListAdminMenuButton> */}

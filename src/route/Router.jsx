@@ -149,11 +149,11 @@ export default function Router() {
       ),
     },
     {
-      path: "/agent",
+      path: "/agent/",
 
       element: (
         <RedirectedAgent>
-          <AgentDashBoardPage />
+          <AgentProfilePage />,{/* <AgentAllPropertyPage /> */}
         </RedirectedAgent>
       ),
     },

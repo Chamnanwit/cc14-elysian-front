@@ -3,6 +3,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { FaCrown } from "react-icons/fa";
 import { AiFillEye } from "react-icons/ai";
 import { MdLocationOn } from "react-icons/md";
+import { RiAdvertisementFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -113,8 +114,8 @@ export default function AgentRentCard({
           <label className="relative inline-flex items-center cursor-pointer">
             <input type="checkbox" value="" className="sr-only peer" checked />
             <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-c-yellow1"></div>
-            <span className="ml-3 text-lg font-medium text-c-yellow2 dark:text-gray-300">
-              <FaCrown />
+            <span className="ml-3 text-2xl font-medium text-c-yellow2 dark:text-gray-300">
+              <RiAdvertisementFill />
             </span>
           </label>
         </div>

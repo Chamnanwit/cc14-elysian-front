@@ -99,30 +99,19 @@ export default function PackagePlan() {
                   เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง
                 </ListCheckGreenTrue>
                 <ListCheckGreenTrue>
-                  เพิ่มการติดอันดับ ระดับ {el?.numberOfTop}
+                  เปิดโหมดโฆษณาได้สูงสุด {el?.numberOfTop} ห้อง
                 </ListCheckGreenTrue>
+                {/* {el?.planType === "PREMIUM" || "GOLD" ? (
+                  <ListCheckGreenTrue>
+                    แสดงโฆษณาห้องเช่าด้านล่าง
+                  </ListCheckGreenTrue>
+                ) : (
+                  false
+                )} */}
               </PromotionCard>
             ))}
         </div>
       ) : (
-        // </div>
-        // <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
-        //   <PromotionCard price="฿0/เดือน" packname="ฟรี" onClick={hdlClickBuyPackage} >
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //   </PromotionCard>
-        //   <PromotionCard price="฿1,799/เดือน" packname="พื้นฐาน" onClick={hdlClickBuyPackage} id={"price_1NMPY9Kiz6RxD96BaRuyuEhS"}>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //   </PromotionCard>
-        //   <PromotionCard price="฿3,599/เดือน" packname="ธุรกิจ" onClick={hdlClickBuyPackage} id={"price_1NMPaoKiz6RxD96B583Xd2PI"}>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //   </PromotionCard>
-        // </div>
         <div className="flex justify-center mt-5 gap-5 w-full h-fit p-5 text-c-gray3">
           {pricingPlanWeekly
             .slice()
