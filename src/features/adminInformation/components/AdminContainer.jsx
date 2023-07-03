@@ -43,7 +43,7 @@ export default function AdminContainer() {
   const adminInformationArr = useSelector(
     (state) => state?.adminInformation?.adminInformationFilter
   );
-  
+
   if (isLoading) {
     return <Loading />;
   }
@@ -51,12 +51,9 @@ export default function AdminContainer() {
   return (
     <>
       <HeaderAdmin topic="รายชื่อแอดมิน" />
-      {isAddMode? (
+      {isAddMode ? (
         <div className="m-8 mt-0">
-          <AdminForm
-            textConFirm={`Add`} 
-            onIsAddMode={setIsAddMode}
-          />
+          <AdminForm textConFirm={`Add`} onIsAddMode={setIsAddMode} />
         </div>
       ) : (
         <button
@@ -80,30 +77,30 @@ export default function AdminContainer() {
             />
           </div>
         </div>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
-          <table class="w-full text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-lg">
+          <table className="w-full text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" className="px-6 py-5">
                   ลำดับที่
                 </th>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" className="px-6 py-5">
                   ชื่อ-สกุล
                 </th>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" className="px-6 py-5">
                   อีเมล
                 </th>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" className="px-6 py-5">
                   สถานะ
                 </th>
-                <th scope="col" class="px-6 py-5">
+                <th scope="col" className="px-6 py-5">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
               {adminInformationArr.map((el) => (
-                <AdminItem key={el.id} el={el} />
+                <AdminItem key={el?.id} el={el} />
               ))}
             </tbody>
           </table>

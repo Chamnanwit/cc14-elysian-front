@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LogoWhite from "../components/LogoWhite";
 import AgencyCard from "../components/AgencyCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SponserRentbar from "../layouts/SponserRentbar";
 import HeaderAgent from "../components/HeaderAgent";
 import AgentRentCard from "../components/AgentRentCard";
@@ -17,6 +17,7 @@ import RentCard from "../components/RentCard";
 export default function AgentPropertiesPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const pageTopRef = useRef(null);
 
   const [pageLoading, setPageLoading] = useState(true);
 
@@ -37,19 +38,31 @@ export default function AgentPropertiesPage() {
     fetch();
   }, [id]);
 
+  useEffect(() => {
+    if (pageTopRef.current) {
+      window.scrollTo({
+        top: pageTopRef.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
   const userproperty = useSelector(
     (state) => state?.propertyPlan?.propertyPlan?.Properties
   );
 
   const el = useSelector((state) => state?.adminViewAgent?.agentById);
 
-  console.log("-------------------*****-----------------", userproperty)
+  console.log("-------------------*****-----------------", userproperty);
 
   const t = userproperty;
   console.log(userproperty);
 
   return (
-    <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
+    <div
+      ref={pageTopRef}
+      className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto"
+    >
       <div>
         <Navbar />
         {/* <CarouselBig /> */}

@@ -185,7 +185,7 @@ export default function PropertyForm({
             <div>
               <label
                 htmlFor="roomTypeId"
-                class="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
               >
                 ประเภทที่พัก
               </label>
@@ -201,11 +201,11 @@ export default function PropertyForm({
                 </option>
                 {propertyType.map((el) =>
                   el.id === input.roomTypeId ? (
-                    <option selected key={el.id} value={el.id}>
+                    <option selected key={el?.id} value={el.id}>
                       {el.name}
                     </option>
                   ) : (
-                    <option key={el.id} value={el.id}>
+                    <option key={el?.id} value={el.id}>
                       {el.name}
                     </option>
                   )
@@ -236,7 +236,7 @@ export default function PropertyForm({
                   เลือกระยะเวลา
                 </option>
                 {period.map((el) => (
-                  <option key={el.id} value={el.Name}>
+                  <option key={el?.id} value={el.Name}>
                     {el.thaiName}
                   </option>
                 ))}

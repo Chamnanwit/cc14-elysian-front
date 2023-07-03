@@ -83,8 +83,8 @@ export default function PhoneNumberPage() {
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
-              <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-medium text-c-gray3 dark:text-white">
+              <div className="px-6 py-6 lg:px-8">
+                <h3 className="mb-4 text-xl font-medium text-c-gray3 dark:text-white">
                   กรอก OTP
                 </h3>
                 <div className="flex flex-col justify-center gap-5 items-center ">
@@ -105,18 +105,18 @@ export default function PhoneNumberPage() {
                   <ButtonYellowM onClick={hdlSubmitOtp} type="submit">
                     ยืนยัน
                   </ButtonYellowM>
-                  <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                  <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                     หากยังไม่ได้ข้อความ{" "}
                     <button
                       onClick={hdlSubmit}
-                      class="text-blue-700 hover:underline dark:text-blue-500"
+                      className="text-blue-700 hover:underline dark:text-blue-500"
                     >
                       ขอรหัสอีกครั้ง
                     </button>
                   </div>
                 </div>
 
-                <form class="space-y-6" action="#"></form>
+                <form className="space-y-6" action="#"></form>
               </div>
             </form>
           </dialog>
