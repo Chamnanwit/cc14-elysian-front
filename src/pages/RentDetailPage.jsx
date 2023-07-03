@@ -8,12 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesByIdAsync } from "../features/userProperties/slice/userProperties";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { getImageByPropertyIdAsync } from "../features/createproperty/slice/createproperty-slice";
+// import Loading from "../components/Loading";
 
 import AgencyCard from "../components/AgencyCard";
 import SponserRentbar from "../layouts/SponserRentbar";
 
 export default function RentDetailPage() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
+  // const isLoading = useSelector((state) => state?.userProperties?.isLoading);
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,14 +30,17 @@ export default function RentDetailPage() {
   const imageProperty = useSelector(
     (state) => state?.propertyPlan?.imageProperty
   );
-
+console.log(userPropertiesIdlist,"userPropertiesIdlist")
   const imageProp = [...(imageProperty?.result ?? [])];
 
   const el = { ...userPropertiesIdlist };
 
-  console.log({lat: el.latitude, lng: el.longitude})
+  console.log({ lat: el?.latitude, lng: el?.longitude });
 
-  return (
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+return (
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
       <div>
         <Navbar />
@@ -72,7 +77,7 @@ export default function RentDetailPage() {
                     alt="pic test4"
                     className="h-[300px] w-auto"
                   />
-                   <img
+                  <img
                     src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                     alt="pic test5"
                     className="h-[300px] w-auto"
@@ -202,13 +207,11 @@ export default function RentDetailPage() {
                   </div>
                 </div>
               </div>
-              <div className="">
+                <div className="">
                   <GoogleMap
                     name={el?.name}
-                    lat={el?.latitude?+el.latitude: 14.041204}
-                    long={el?.longitude?+el.longitude: 100.079655}
                   />
-              </div>
+                </div>
             </div>
           </div>
         </div>
@@ -216,5 +219,5 @@ export default function RentDetailPage() {
       </div>
       <Footer />
     </div>
-  );
+  )
 }
