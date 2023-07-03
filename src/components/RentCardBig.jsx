@@ -32,7 +32,7 @@ export default function RentCardBig({
                 key={im.id} // ใส่ key ให้แตกต่างกันสำหรับแต่ละรูปภาพ
                 src={im.imageLink}
                 alt="pic test1"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
             ))
           ) : (
@@ -40,22 +40,22 @@ export default function RentCardBig({
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test2"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test3"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test4"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                 alt="pic test5"
-                className="h-[300px] w-auto"
+                className="h-[160px] w-auto"
               />
             </>
           )}

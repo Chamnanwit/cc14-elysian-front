@@ -14,10 +14,10 @@ import Logo from "../components/logo";
 import LogoWhite from "../components/LogoWhite";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../features/auth/slice/authSlice";
+import { logout as removetoken } from "../features/auth/slice/authSlice";
 
 export default function Navbar() {
-  const { isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated } = useAuth0();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
@@ -82,8 +82,17 @@ export default function Navbar() {
                 </span>
               </Link>
 
-              {user ? (
-                <Link to="/" onClick={() => dispatch(logout())}>
+              {user && isAuthenticated ? (
+                <Link
+                  to="/"
+                  onClick={() => {
+                    dispatch(logout());
+                    logout({
+                      logoutParams: { returnTo: window.location.origin },
+                    });
+                    dispatch(removetoken());
+                  }}
+                >
                   <div class="flex items-center p-2 rounded-full hover:bg-c-white1 hover:text-c-gray3 transition-all  active:scale-95 duration-200">
                     <div className="text-[18pt]">
                       <FaSignOutAlt />

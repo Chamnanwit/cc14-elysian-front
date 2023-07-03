@@ -30,19 +30,7 @@ export default function HomePage() {
           </div>
           <div className="mt-24 h-5 bg-c-white1"></div>
         </div>
-        {/* <div className=" py-5">
-          <div className="flex justify-between px-10 pt-5">
-            <div className="text-xl text-c-gray3">ห้องเช่า</div>
-            <div className="text-sm text-c-gray2"> </div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className=" flex w-full gap-5 px-10 py-5 overflow-auto"
-          >
-            <RentCardSmallList />
-          </motion.div>
-        </div> */}
+
         <div className=" py-5">
           <div className="flex justify-between px-10 pt-5">
             <div className="text-xl text-c-gray3">ห้องเช่าแนะนำ</div>
@@ -57,7 +45,15 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <motion.div
+          initial={{ opacity: 0, transform: "translateX(-140px)" }}
+          whileInView={{
+            opacity: 1,
+
+            times: [0, 1],
+            transform: "translateX(0px)",
+          }}
+        >
           <AdverBar />
         </motion.div>
         <PackagePlan />

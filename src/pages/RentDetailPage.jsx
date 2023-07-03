@@ -43,7 +43,7 @@ export default function RentDetailPage() {
             {el?.name}
           </div>
           <div className="pb-10 shadow-xl">
-            <div className="h-[330px] overflow-auto bg-c-gray3 flex justify-start gap-2 items-center">
+            <div className="h-[330px] overflow-auto bg-c-gray3 flex justify-start gap-4 items-center">
               {imageProp.length > 0 ? (
                 imageProp.map((im) => (
                   <img
@@ -70,7 +70,7 @@ export default function RentDetailPage() {
                     alt="pic test4"
                     className="h-[300px] w-auto"
                   />
-                   <img
+                  <img
                     src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
                     alt="pic test5"
                     className="h-[300px] w-auto"
