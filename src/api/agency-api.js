@@ -13,3 +13,5 @@ export const getPurchaseAgentHistory = (id) =>
 export const paymentPackage = (input) => axios.post("/agent/payment", input);
 export const createPaymentData = (idSession) =>
   axios.get("/agent/payment/data?session_id=" + idSession);
+
+export const updateAgentImage = (input) => axios.patch("/agent/addProfileImage", input);
