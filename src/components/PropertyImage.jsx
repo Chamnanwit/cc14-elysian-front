@@ -4,7 +4,7 @@ export default function PropertyImage({ cls }) {
   const [file, setFile] = useState([]);
   const inputRef = useRef();
 
-  console.log("GLOBAL", cls);
+  // console.log("GLOBAL", cls);
   const handleFileChange = (e) => {
     // e.stopPropagation()
     //  e.stopPropagation()

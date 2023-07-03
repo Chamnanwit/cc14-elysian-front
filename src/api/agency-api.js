@@ -10,6 +10,8 @@ export const updateAgent = (input) =>
 export const getPurchaseAgentHistory = (id) =>
   axios.get(`/agent/purchase-history/${id}`);
 
+export const getSubDistrict = () => axios.get("/agent/get-all-province");
+
 export const paymentPackage = (input) => axios.post("/agent/payment", input);
 export const createPaymentData = (idSession) =>
   axios.get("/agent/payment/data?session_id=" + idSession);

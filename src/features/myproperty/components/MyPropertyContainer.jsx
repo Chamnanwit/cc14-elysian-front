@@ -30,7 +30,7 @@ export default function MyPropertyContainer() {
 
   return (
     <>
-      <HeaderAgent topic="My Properties" />
+      <HeaderAgent topic="ห้องเช่าทั้งหมด" />
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

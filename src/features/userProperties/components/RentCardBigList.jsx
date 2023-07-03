@@ -5,6 +5,7 @@ import { userPropertiesAsync } from "../slice/userProperties";
 import { Link } from "react-router-dom";
 import BadgeGreen from "../../../components/BadgeGreen";
 import BadgeYellow from "../../../components/BadgeYellow";
+import PictureNone from "../../../components/PictureNone";
 
 export default function RentCardBigList() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -17,14 +18,15 @@ export default function RentCardBigList() {
     (state) => state?.userProperties?.userProperties
   );
 
-  const timestamp = {};
-  const date = new Date(timestamp)?.toLocaleDateString();
+  // const timestamp = {};
+  // const date = new Date(timestamp)?.toLocaleDateString();
 
   return (
     <>
       {userPropertieslist?.map((el) => (
         <Link to={`/rentdetail/${el?.id}`}>
           <RentCardBig
+            src={el?.Images}
             propName={el?.name}
             propDescription={el?.description}
             agencyName={el?.User?.firstName}

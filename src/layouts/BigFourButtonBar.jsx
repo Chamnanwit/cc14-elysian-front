@@ -44,21 +44,23 @@ export default function BigFourButtonBar() {
         </div>
         <div className=" text-c-white1 text-xl">ค้นหาในแผนที่</div>
       </div> */}
-      <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300">
-        <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
-          <img
-            src="src/assets/icon/union.png"
-            alt=""
-            className="absolute left-[110px] top-[-10px] bottom-0 right-0 h-fit w-fit"
-          />
-          <img
-            src="src/assets/icon/officeBuildingBig.png"
-            alt=""
-            className="absolute left-9 top-3 bottom-0 right-0 h-fit w-fit"
-          />
+      <Link to="/agent">
+        <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300">
+          <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
+            <img
+              src="src/assets/icon/union.png"
+              alt=""
+              className="absolute left-[110px] top-[-10px] bottom-0 right-0 h-fit w-fit"
+            />
+            <img
+              src="src/assets/icon/officeBuildingBig.png"
+              alt=""
+              className="absolute left-9 top-3 bottom-0 right-0 h-fit w-fit"
+            />
+          </div>
+          <div className=" text-c-white1 text-xl">เพิ่มห้องเช่า</div>
         </div>
-        <div className=" text-c-white1 text-xl">เพิ่มห้องเช่า</div>
-      </div>
+      </Link>
       <div className="w-[200px] h-[200px] bg-c-green3 rounded-3xl flex flex-col justify-between p-5 py-7 text-center transition hover:bg-c-green4 hover:scale-105 active:scale-95 active:bg-c-green2 shadow-lg duration-300">
         <div className="text-[80pt] text-c-white1 w-full pl-5 relative flex">
           <img

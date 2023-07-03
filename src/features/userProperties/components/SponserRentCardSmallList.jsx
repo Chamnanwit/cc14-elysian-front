@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userPropertiesAsync } from "../slice/userProperties";
 import Loading from "../../../components/Loading";
 import SponserRentCard from "./SponserRentCard";
+import PictureNone from "../../../components/PictureNone";
 
 export default function SponserRentCardSmallList() {
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -46,6 +47,7 @@ export default function SponserRentCardSmallList() {
               style: "currency",
               currency: "THB",
             })}
+            src={el?.Images[0]?.imageLink || "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"}
             propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
             propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
             propArea={el.totalArea}

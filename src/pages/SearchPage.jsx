@@ -3,8 +3,8 @@ import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
 import InputBar from "../components/InputBar";
 import ButtonYellowM from "../components/ButtonYellowM";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import RentCardBig from "../components/RentCardBig";
 import CarouselBig from "../components/CarouselBig";
@@ -20,7 +20,12 @@ import { useLocation } from "react-router-dom";
 import RentCardBigListByRoomTypeAndProvince from "../features/userProperties/components/RentCardBigListByRoomTypeAndProvince";
 import SponserRentCardBigList from "../features/userProperties/components/SponserRentCardBigList";
 import SponserRentCardSmallList from "../features/userProperties/components/SponserRentCardSmallList";
+import { agentAsync } from "../features/agencyInformation/slice/adminviewagency-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { FaRegImage } from "react-icons/fa";
+
 import SponserRentbar from "../layouts/SponserRentbar";
+import PictureNone from "../components/PictureNone";
 
 export default function SearchPage() {
   const [priceRange, setPriceRange] = useState("");
@@ -28,13 +33,16 @@ export default function SearchPage() {
   const [rentPeriod, setRentPeriod] = useState("");
 
   let { state } = useLocation();
-  console.log(state)
+  console.log("what", state);
 
-  useEffect(() => {}, []);
+  const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
 
-  // let { state } = useLocation();
-  // console.log(state);
+  useEffect(() => {
+    dispatch(agentAsync()); /// เอามาจาก slice
+  }, []);
 
+  const agentlist = useSelector((state) => state?.adminViewAgent?.agentList);
+  console.log("Check ag", agentlist);
   const hdlChangePriceRangeInput = (e) => {
     setPriceRange(e.target.value);
     // console.log("Check pricer", priceRange);
@@ -45,6 +53,12 @@ export default function SearchPage() {
   };
   const hdlChangeRentPeriodInput = (e) => {
     setRentPeriod(e.target.value);
+  };
+  const hdlClear = (e) => {
+    setRentPeriod("");
+    setAreaRange("");
+    setPriceRange("");
+
     // console.log("Check area", rentPeriod);
   };
 
@@ -119,6 +133,10 @@ export default function SearchPage() {
                       มากกว่า 40,000 บาท
                     </option>
                   </select>
+                  <ButtonGhostWhite clickme={hdlClear}>
+                    ล้างทั้งหมด
+                  </ButtonGhostWhite>
+                  {/* <button onClick={hdlClear}>clear</button> */}
                 </form>
               </div>
               <LogoWhite />
@@ -127,7 +145,7 @@ export default function SearchPage() {
           <div className="flex-[3] px-10 gap-5 flex flex-col my-12">
             {/* <BigFourButtonBar /> */}
             <div className="flex gap-5 w-full">
-              <MainSearchBar 
+              <MainSearchBar
                 areaRange={areaRange}
                 priceRange={priceRange}
                 rentPeriod={rentPeriod}
@@ -156,10 +174,17 @@ export default function SearchPage() {
           </div>
           <div className=" px-5  mt-12 gap-8 flex-[1] flex flex-col items-center border-l-1 border border-t-0 border-r-0 border-b-0 border-l-c-gray1 justify-start text-center">
             <p className=" text-c-gray3">ผู้ให้เช่าแนะนำ</p>
-            <AgencyCard />
-            <AgencyCard />
-            <AgencyCard />
-            <AgencyCard />
+            {agentlist?.map((el) => (
+              <AgencyCard
+                agencyImage={el?.profileImage}
+                agencyfirstname={el?.firstName}
+                agencylastname={el?.lastName}
+                agencystatus={el?.locked}
+                agencyphone={el?.phoneNumber}
+                agencyemail={el?.email}
+                agencyId={el.id}
+              />
+            ))}
           </div>
         </div>
         <SponserRentbar />
