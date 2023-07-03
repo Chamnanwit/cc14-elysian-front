@@ -42,6 +42,9 @@ export default function RentDetailPage() {
   const imageProp = [...(imageProperty?.result ?? [])];
 
   const el = { ...userPropertiesIdlist };
+  console.log("111111111111", el)
+
+  console.log({lat: el.latitude, lng: el.longitude})
 
   return (
     <div
@@ -214,13 +217,13 @@ export default function RentDetailPage() {
                 </div>
               </div>
               <div className="">
-                {el.name && (
+                {/* {el.name && ( */}
                   <GoogleMap
-                    name={el?.name}
-                    lat={el?.latitude}
-                    long={el?.longitude}
+                    name={el?.name? el.name : ""}
+                    lat={el?.latitude?+el.latitude: 14.041204}
+                    long={el?.longitude?+el.longitude: 100.079655}
                   />
-                )}
+                {/* // )} */}
               </div>
             </div>
           </div>

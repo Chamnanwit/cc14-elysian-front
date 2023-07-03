@@ -42,6 +42,7 @@ export default function PropertyForm({
   const navigate = useNavigate();
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const [file, setFile] = useState([]);
   const selectProvice = listProvice;
 
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -114,11 +115,7 @@ export default function PropertyForm({
 
       const result = await validateCreateProperty(input);
 
-      const formdata = new FormData();
-      // formdata.append("imageLink", file[0]);
-      // console.log("submit");
-      const image = await creatImagePropperty(product.data.id, formdata);
-
+      
       if (result) {
         return setError(result);
       }
@@ -129,7 +126,13 @@ export default function PropertyForm({
     setError({});
     console.log("------------>***", input);
     input.description = editorRef.current.getContent();
-    await dispatch(createPropertyAsync(input)).unwrap();
+    const property = await dispatch(createPropertyAsync(input)).unwrap();
+
+    const formdata = new FormData();
+    formdata.append("imageLink", file[0]);
+    console.log("---------property---------", property);
+    const image = await creatImagePropperty(property.id, formdata);
+
     navigate("/agent");
   };
 
