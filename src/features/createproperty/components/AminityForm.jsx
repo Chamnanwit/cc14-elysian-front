@@ -1,10 +1,14 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
 import { useSelector } from "react-redux";
 
-export default function AminityForm({ textConFirm, onIsAddMode, oldProperty }) {
+export default function AminityForm({
+  textConFirm,
+  onIsAddMode,
+  oldProperty,
+  onInputChange,
+}) {
   const animityRoomArrSearch = useSelector(
     (state) => state?.animity?.animityRoomFilter
   );
@@ -13,19 +17,23 @@ export default function AminityForm({ textConFirm, onIsAddMode, oldProperty }) {
   );
 
   const initialInput = {};
-  const [input, setInput] = useState(initialInput);
+  const [inputcheck, setInputcheck] = useState(initialInput);
   const [error, setError] = useState({});
+
   const handleChangeInput = (e) => {
     if (e.target.checked) {
-      setInput({ ...input, [e.target.name]: e.target.checked });
+      setInputcheck({ ...inputcheck, [e.target.name]: e.target.checked });
     } else {
-      const arr = { ...input };
+      const arr = { ...inputcheck };
       delete arr[e.target.name];
-      setInput({ ...arr });
+      setInputcheck({ ...arr });
     }
+
+    // เรียกใช้งานฟังก์ชันที่ถูกส่งเข้ามาจากหน้าที่เรียกใช้
+    onInputChange(inputcheck);
   };
 
-  console.log("input", input);
+  console.log("inputcheck", inputcheck);
   return (
     <>
       <div className="rounded-md overflow-hidden flex flex-col">

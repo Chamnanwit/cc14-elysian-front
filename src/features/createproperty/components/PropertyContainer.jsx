@@ -19,8 +19,6 @@ export default function PropertyContainer() {
     (state) => state?.adminViewAgent?.districtlist
   );
 
-  // console.log("--------->", listProvice);
-
   return (
     <>
       <HeaderAgent topic="เพิ่มห้องเช่า" />

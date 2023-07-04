@@ -81,7 +81,7 @@ export default function PackagePlan() {
       </div>
 
       {toggle ? (
-        <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
+        <div className="flex justify-center mt-5 gap-5  w-full h-[500px] p-5 text-c-gray3">
           {pricingPlanMonthly
             .slice()
             .sort((a, b) => (a?.price > b?.price ? 1 : -1))
@@ -140,9 +140,10 @@ export default function PackagePlan() {
       <div className=" w-full flex flex-col items-center p-5">
         <p className=" text-lg font-semibold">แพ็คเกจ</p>
         <p className=" text-c-gray2 w-[60%] text-center">
-          disLorem ipsum dolor sit amet consectetur. Elit sed facilisi ac sed
-          elit. disLorem ipsum dolor sit amet consectetur. Elit sed facilisi ac
-          sed elit.{" "}
+          เพิ่มจำนวนห้องเช่าที่สามารถสร้างได้
+          พร้อมกับเพิ่มการมองเห็นห้องเช่าของคุณมากยิ่งขึ้น กับโหมดโษณาห้องเช่า
+          ช่วยให้ติดอันดับต้นๆของรายการที่ค้นหา
+          พร้อมกับโฆษณาโดดเด่นที่หน้าแรกและด้านล่างของหน้า{" "}
         </p>
       </div>
     </div>

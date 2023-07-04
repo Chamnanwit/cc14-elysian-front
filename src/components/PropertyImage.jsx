@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
 
-export default function PropertyImage({ cls }) {
-  const [file, setFile] = useState([]);
+export default function PropertyImage({ cls, files, setFiles, name }) {
+  // const [file, setFile] = useState([]);
   const inputRef = useRef();
+
+  // console.log(name);
 
   // console.log("GLOBAL", cls);
   const handleFileChange = (e) => {
@@ -10,7 +12,8 @@ export default function PropertyImage({ cls }) {
     //  e.stopPropagation()
     if (e.target.files.length) {
       const selectedFile = e.target.files[0];
-      setFile([selectedFile]);
+      // console.log({ ...files }[name]);
+      setFiles({ ...files, [name]: selectedFile });
     }
   };
 
@@ -21,9 +24,9 @@ export default function PropertyImage({ cls }) {
 
   return (
     <button className="flex items-center justify-center w-full" type="button">
-      {file.length > 0 ? (
+      {Object.keys(files).length > 0 && files[name] ? (
         <img
-          src={URL.createObjectURL(file[0])}
+          src={URL.createObjectURL(files[name])}
           alt="Uploaded"
           onClick={onChangeImage}
         />
