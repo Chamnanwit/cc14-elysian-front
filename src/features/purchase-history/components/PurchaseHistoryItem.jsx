@@ -101,7 +101,7 @@ export default function PurchaseHistoryItem({ el }) {
                   : "รายสัปดาห์"}
               </td>
             </tr>
-            <tr>
+            {/* <tr>
               <td className="w-1/2 px-3 py-2 border-b border-r">วันหมดอายุ</td>
               <td className="w-1/2 p-3 border-b">{el.price}</td>
             </tr>
@@ -110,7 +110,7 @@ export default function PurchaseHistoryItem({ el }) {
                 เวลาที่เหลือ
               </td>
               <td className="w-1/2 p-3 border-b">{el.price}</td>
-            </tr>
+            </tr> */}
             <tr>
               <td className="w-1/2 px-3 py-2 border-b border-r">
                 จำนวนประกาศแบบธรรมดา

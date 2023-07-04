@@ -52,6 +52,7 @@ export default function AgentAllPropertyPage() {
               title="ห้องเช่าทั้งหมด"
               number={dashboardAgent?.totalPropertyById}
             />
+            
 
         <div className="flex  gap-6 m-auto mt-0 p-5 border-b-2">
           <AgentShowBox
@@ -76,6 +77,8 @@ export default function AgentAllPropertyPage() {
             title="ห้องเช่าที่โฆษณา"
             number={dashboardAgent?.totalPurchase}
           />
+        </div>
+        </div>
         </div>
       </div>
     </div>
