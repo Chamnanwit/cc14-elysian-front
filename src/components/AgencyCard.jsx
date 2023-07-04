@@ -19,11 +19,13 @@ export default function AgencyCard({
   return (
     <Link to={`/agentproperties/${agencyId}`}>
       <div className=" bg-gray-100 gap-2 w-[200px] p-5 h-fit border rounded-lg shadow-md flex flex-col items-center text-c-white1">
-        <img
-          src={agencyImage || "/src/assets/blank.png"}
-          alt="avatar"
-          className=" rounded-full w-20 h-20"
-        />
+        <div className=" rounded-full w-20 h-20  overflow-auto align-middle items-center bg-clip-border">
+          <img
+            src={agencyImage || "/src/assets/blank.png"}
+            alt="avatar"
+            className=" rounded-full h-20 w-20"
+          />
+        </div>
         <div className="flex gap-1 text-c-gray3  w-full text-xs justify-center">
           {/* <div>ชื่อ</div> */}
           <div>

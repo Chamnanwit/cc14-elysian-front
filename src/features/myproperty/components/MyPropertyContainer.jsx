@@ -31,7 +31,6 @@ export default function MyPropertyContainer() {
 
   return (
     <>
-      <HeaderAgent topic="ห้องเช่าทั้งหมด" />
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -39,12 +38,15 @@ export default function MyPropertyContainer() {
       >
         {userproperty?.map((property) => (
           <AgentRentCard
+            src={property?.Images[0]?.imageLink}
             id={property?.id}
             propName={property?.name}
             propDescription={property?.description}
             agencyName={property?.firstName}
             propPrice={property?.price}
-            propRentPeriod={property?.rentPeriod}
+            propRentPeriod={
+              property?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+            }
             propLocation={property?.SubDistrict?.District?.Province?.nameInThai}
             propArea={property?.totalArea}
           />
