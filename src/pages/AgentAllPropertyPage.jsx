@@ -56,13 +56,14 @@ export default function AgentAllPropertyPage() {
           <AgentShowBox
             icon={<AiFillEye />}
             title="ห้องเช่าที่โชว์"
-            number={dashboardAgent?.totalInactiveProperty}
+            number={dashboardAgent?.totalActiveProperty}
           />
           <AgentShowBox
             icon={<AiFillEyeInvisible />}
             title="ห้องเช่าที่ไม่โชว์"
-            number={dashboardAgent?.totalActiveProperty}
+            number={dashboardAgent?.totalInactiveProperty}
           />
+          
           <AgentShowBox
             icon={<RiAdvertisementFill />}
             title="ห้องเช่าที่โฆษณา"

@@ -12,6 +12,7 @@ import {
   updatePropertyAsync,
 } from "../features/createproperty/slice/createproperty-slice";
 import { useState } from "react";
+import { dashboardAgentAsync } from "../features/dashboard/slice/dashboard-slice";
 
 export default function AgentRentCard({
   id,
@@ -43,10 +44,12 @@ export default function AgentRentCard({
 
   const handleClickChangeStatus = async (e) => {
     await dispatch(updatePropertyAsync({ id, locked: !status })).unwrap();
+    await dispatch(dashboardAgentAsync(userid)).unwrap();
     setStatus(!status);
   };
   const handleClickChangeStatusTop = async (e) => {
     await dispatch(updatePropertyAsync({ id, topStatus: !statusTop })).unwrap();
+    await dispatch(dashboardAgentAsync(userid)).unwrap();
     setStatusTop(!statusTop);
   };
 
