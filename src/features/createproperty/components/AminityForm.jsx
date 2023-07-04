@@ -33,7 +33,7 @@ export default function AminityForm({
     onInputChange(inputcheck);
   };
 
-  console.log("inputcheck", inputcheck);
+  // console.log("inputcheck", inputcheck);
   return (
     <>
       <div className="rounded-md overflow-hidden flex flex-col">
