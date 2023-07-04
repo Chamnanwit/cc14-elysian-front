@@ -39,7 +39,7 @@ export default function MyPropertyContainer() {
         {userproperty?.map((property) => (
           <AgentRentCard
             src={property?.Images[0]?.imageLink}
-            id={property?.id}
+            // id={property?.id}
             propName={property?.name}
             propDescription={property?.description}
             agencyName={property?.firstName}
@@ -49,6 +49,7 @@ export default function MyPropertyContainer() {
             }
             propLocation={property?.SubDistrict?.District?.Province?.nameInThai}
             propArea={property?.totalArea}
+            link={property?.id}
           />
         ))}
       </motion.div>
