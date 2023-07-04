@@ -11,8 +11,8 @@ export const getPropertyUserById = (id) =>
 export const creatProperty = (input) =>
   axios.post("/agent/propertiesandoptionals", input);
 
-export const updateProperty = (input) =>
-  axios.patch("/agent/properties", input);
+export const updateProperty = (id) =>
+  axios.patch(`/agent/update-property/${id}`, id);
 export const deleteProperty = (id) => axios.delete(`/agent/properties/${id}`);
 export const creatImagePropperty = (id, files) => {
   // console.log(id, files);

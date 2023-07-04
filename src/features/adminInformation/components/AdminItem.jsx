@@ -29,7 +29,7 @@ export default function AdminItem({ el }) {
     await dispatch(deleteAdminInformationAsync(el.id)).unwrap();
     await dispatch(adminInformationAsync()).unwrap();
   };
-
+  //////
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
