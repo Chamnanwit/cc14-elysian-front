@@ -89,8 +89,8 @@ export default function AgencyProfile() {
             <FaRegMoneyBillAlt fill="#ffffff" size={28} />
           </DashboardItem>
         </div>
-        <div className="flex gap-4">
-          <div className="w-3/5 bg-white rounded-lg p-6 relative mt-6">
+        <div className="flex gap-8">
+          <div className="w-3/5 bg-white rounded-lg p-6 relative">
             <div className="flex flex-col gap-4 items-center">
               <div className="rounded-full w-[70px] h-[70px] overflow-hidden">
                 <img
@@ -147,13 +147,13 @@ export default function AgencyProfile() {
               </tr>
             </table>
           </div>
-          <div className="w-2/5 flex flex-col gap-4 sha bg-white rounded-lg p-6 mt-ุ">
+          <div className="w-2/5 flex flex-col gap-4 sha bg-white rounded-lg p-6">
             <div className="font-medium mb-3">Agent Action</div>
             <div className="py-2 px-6 bg-red-600 rounded-md text-white flex justify-center cursor-pointer">
-              Report issues
+              รายงานปัญหา
             </div>
             <div className="py-2 px-6 bg-blue-600 rounded-md text-white flex justify-center cursor-pointer">
-              Purchase History
+              ประวัติการซื้อ
             </div>
           </div>
         </div>
