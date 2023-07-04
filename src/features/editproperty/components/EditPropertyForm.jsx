@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
@@ -9,14 +9,23 @@ import {
   creatImagePropperty,
   editImageProperty,
 } from "../../../api/property-api";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { animityAsync } from "../../addanimity/slice/aminity-slice";
+import { Editor } from "@tinymce/tinymce-react";
+import GoogleMap from "../../../components/ShowGooglemap";
+import AminityForm from "./AminityEditForm";
+import PropertyEditImage from "../../../components/PropertyEditImage";
+import AminityEditForm from "./AminityEditForm";
 export default function EditPropertyForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
+  listProvice,
+  oldImage,
 }) {
   const initialInput = {
+    name: oldProperty?.name || "",
+    roomTypeId: oldProperty?.roomTypeId || "",
     price: oldProperty?.price || "",
     floor: oldProperty?.floor || "",
     totalArea: oldProperty?.totalArea || "",
@@ -25,43 +34,99 @@ export default function EditPropertyForm({
     totalBathroom: oldProperty?.totalBathroom || "",
     totalKitchen: oldProperty?.totalKitchen || "",
     description: oldProperty?.description || "",
-    latitude: oldProperty?.latitude || "99.999999",
-    longitude: oldProperty?.longitude || "444.440000",
+    latitude: oldProperty?.latitude || "",
+    longitude: oldProperty?.longitude || "",
     rentPeriod: oldProperty?.rentPeriod || "",
-    locked: oldProperty?.locked || true,
-    published: oldProperty?.published || true,
+    locked: oldProperty?.locked || "",
+    published: oldProperty?.published || "",
     userId: oldProperty?.id || "",
-    subDistrictId: oldProperty?.subDistrictId || "3",
+    subDistrictId: oldProperty?.subDistrictId || "",
   };
+
+  console.log("oldProperty----->", oldProperty);
 
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const [files, setFiles] = useState({});
+  const [position, setPosition] = useState({});
+  const [inputcheck, setInputcheck] = useState({});
   const dispatch = useDispatch();
+
+  const editorRef = useRef(null);
+  const selectProvice = listProvice;
 
   useEffect(() => {
     dispatch(animityAsync());
   }, []);
 
-  const animityRoomArrSearch = useSelector(
-    (state) => state?.animity?.animityRoomFilter
-  );
-  const animityCommonArrSearch = useSelector(
-    (state) => state?.animity?.animityCommonFilter
-  );
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
+
+  const handleProvinceChange = (event) => {
+    const province = event.target.value;
+    setSelectedProvince(province);
+    setSelectedDistrict("");
+    setSelectedSubDistrict("");
+  };
+
+  const handleDistrictChange = (event) => {
+    const district = event.target.value;
+    setSelectedDistrict(district);
+    setSelectedSubDistrict();
+  };
+
+  const handleSubDistrictChange = (event) => {
+    const subDistrict = event.target.value;
+    setSelectedSubDistrict(subDistrict);
+    setInput({ ...input, subDistrictId: subDistrict });
+  };
+
+  const getDistrictsByProvince = () => {
+    const provinceData = selectProvice.find(
+      (item) => item.nameInThai === selectedProvince
+    );
+    if (provinceData && provinceData.Districts) {
+      return provinceData.Districts;
+    }
+    return [];
+  };
+
+  const getSubDistrictsByDistrict = () => {
+    const provinceData = selectProvice.find(
+      (item) => item.nameInThai === selectedProvince
+    );
+    if (provinceData && provinceData.Districts) {
+      const districtData = provinceData.Districts.find(
+        (item) => item.nameInThai === selectedDistrict
+      );
+      if (districtData && districtData.SubDistricts) {
+        return districtData.SubDistricts;
+      }
+    }
+    return [];
+  };
+  const handleChangeMap = (newPosition) => {
+    setPosition(newPosition);
+  };
+
+  const handleAminityFormChange = (inputcheck) => {
+    setInputcheck(inputcheck);
+  };
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
+    // console.log(input);
   };
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
       const result = await validateCreateProperty(input);
 
-      if (file.length > 0) {
+      if (files.length > 0) {
         const deleteFile = await editImageProperty(id);
         const formdata = new FormData();
-        formdata.append("imageLink", file[0]);
+        formdata.append("imageLink", files[0]);
         const image = await creatImagePropperty(product.data.id, formdata);
       }
 
@@ -183,6 +248,95 @@ export default function EditPropertyForm({
                 )}
               </div>
             </div>
+            <div>
+              <label
+                htmlFor="province"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >
+                เลือกจังหวัด
+              </label>
+              <select
+                id="province"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="province"
+                value={selectedProvince}
+                onChange={handleProvinceChange}
+              >
+                <option selected hidden value={""}>
+                  เลือกจังหวัด
+                </option>
+                {listProvice.map((province) => (
+                  <option key={province.id} value={province.nameInThai}>
+                    {province.nameInThai}
+                  </option>
+                ))}
+              </select>
+              <div className="h-6 pb-2">
+                {error.province && (
+                  <InputErrorMessage message={error.province} />
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="district"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >
+                เลือกอำเภอ
+              </label>
+              <select
+                id="district"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="district"
+                value={selectedDistrict}
+                onChange={handleDistrictChange}
+                disabled={!selectedProvince}
+              >
+                <option selected hidden value={""}>
+                  เลือกเขต
+                </option>
+                {getDistrictsByProvince().map((district) => (
+                  <option key={district?.id} value={district.nameInThai}>
+                    {district.nameInThai}
+                  </option>
+                ))}
+              </select>
+              <div className="h-6 pb-2">
+                {error.district && (
+                  <InputErrorMessage message={error.district} />
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="subDistrict"
+                className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >
+                ตำบล
+              </label>
+              <select
+                id="subDistrict"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="subDistrictId"
+                value={selectedSubDistrict}
+                onChange={handleSubDistrictChange}
+                disabled={!selectedDistrict}
+              >
+                <option selected hidden value={""}>
+                  เลือกตำบล
+                </option>
+                {getSubDistrictsByDistrict().map((subDistrict) => (
+                  <option key={subDistrict.id} value={subDistrict.id}>
+                    {subDistrict.nameInThai}
+                  </option>
+                ))}
+              </select>
+              <div className="h-6 pb-2">
+                {error.rentPeriod && (
+                  <InputErrorMessage message={error.rentPeriod} />
+                )}
+              </div>
+            </div>
 
             <div>
               <div>
@@ -195,6 +349,45 @@ export default function EditPropertyForm({
                   isInvalid={error.floor}
                 />
                 {error.floor && <InputErrorMessage message={error.floor} />}
+              </div>
+            </div>
+            <div className="">
+              <GoogleMap
+                location={position}
+                handleChangeMap={handleChangeMap}
+              />
+            </div>
+
+            <div>
+              <div>
+                <div>
+                  <InputForm
+                    labelName="ละติจูด"
+                    name="latitude"
+                    placeholder=""
+                    value={position?.lat ? position.lat.toFixed(3) : ""}
+                    onChange={handleChangeMap}
+                    isInvalid={error.latitude}
+                  />
+                  {error.latitude && (
+                    <InputErrorMessage message={error.latitude} />
+                  )}
+                </div>
+              </div>
+              <div>
+                <div>
+                  <InputForm
+                    labelName="ลองจิจูด"
+                    name="longitude"
+                    placeholder=""
+                    value={position?.lng ? position.lng.toFixed(3) : ""}
+                    onChange={handleChangeMap}
+                    isInvalid={error.longitude}
+                  />
+                  {error.longitude && (
+                    <InputErrorMessage message={error.longitude} />
+                  )}
+                </div>
               </div>
             </div>
             <div>
@@ -277,12 +470,80 @@ export default function EditPropertyForm({
             <div className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">
               รายละเอียดเพิ่มเติม
             </div>
-            <textarea
-              name="description"
+            <Editor
               value={input.description}
-              onChange={handleChangeInput}
-              className="w-full rounded-md border-gray-300"
-              rows="4"
+              apiKey="beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm"
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              // initialValue="<p>This is the initial content of the editor.</p>"
+              init={{
+                height: 500,
+                menubar: {
+                  file: {
+                    title: "File",
+                    items:
+                      "newdocument restoredraft | preview | export print | deleteallconversations",
+                  },
+                  edit: {
+                    title: "Edit",
+                    items:
+                      "undo redo | cut copy paste pastetext | selectall | searchreplace",
+                  },
+                  view: {
+                    title: "View",
+                    items:
+                      "code | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments",
+                  },
+                  insert: {
+                    title: "Insert",
+                    items:
+                      "image link media addcomment pageembed template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime",
+                  },
+                  format: {
+                    title: "Format",
+                    items:
+                      "bold italic underline strikethrough superscript subscript codeformat | styles blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat",
+                  },
+                  tools: {
+                    title: "Tools",
+                    items:
+                      "spellchecker spellcheckerlanguage | a11ycheck code wordcount",
+                  },
+                  table: {
+                    title: "Table",
+                    items:
+                      "inserttable | cell row column | advtablesort | tableprops deletetable",
+                  },
+                  help: { title: "Help", items: "help" },
+                },
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "code",
+                  "wordcount",
+                  "emoticons",
+                  "preview",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | emoticons | preview ",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
             />
             {error.description && (
               <InputErrorMessage message={error.description} />
@@ -299,50 +560,52 @@ export default function EditPropertyForm({
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 1</p>
-              <PropertyImage cls="Image1" />
+              <PropertyEditImage
+                cls="Image1"
+                name="Image1"
+                oldImage={oldImage[0]}
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 2</p>
-              <PropertyImage cls="Image2" />
+              <PropertyEditImage
+                cls="Image2"
+                name="Image2"
+                oldImage={oldImage[1]}
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 3</p>
-              <PropertyImage cls="Image3" />
+              <PropertyEditImage
+                cls="Image3"
+                name="Image3"
+                oldImage={oldImage[2]}
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <p>รูปภาพที่ 4</p>
-              <PropertyImage cls="Image4" />
+              <PropertyEditImage
+                cls="Image4"
+                name="Image4"
+                oldImage={oldImage[3]}
+                files={files}
+                setFiles={setFiles}
+              />
             </div>
           </div>
         </div>
       </div>
-
       <>
-        <div className="rounded-md overflow-hidden flex flex-col">
-          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-            สิ่งอำนวยความสะดวกภายในห้อง
-          </div>
-          <div>
-            <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {animityRoomArrSearch.map((el) => (
-                <Checkbox el={el} key={el?.id} />
-              ))}
-            </form>
-          </div>
-        </div>
-
-        <div className="rounded-md overflow-hidden flex flex-col">
-          <div className="bg-c-blue3 text-white text-xl py-4 px-6">
-            สิ่งอำนวยความสะดวกส่วนกลาง
-          </div>
-          <div>
-            <form className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between">
-              {animityCommonArrSearch.map((el) => (
-                <Checkbox el={el} key={el?.id} />
-              ))}
-            </form>
-          </div>
-        </div>
+        {/* <AminityEditForm
+          onInputChange={handleAminityFormChange}
+          oldProperty={oldProperty}
+        /> */}
         <div className="flex">
           <button
             type="submit"

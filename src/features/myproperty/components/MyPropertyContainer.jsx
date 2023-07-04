@@ -27,7 +27,6 @@ export default function MyPropertyContainer() {
   const userproperty = useSelector(
     (state) => state?.propertyPlan?.propertyPlan?.Properties
   );
-  console.log("userproperty--->", userproperty);
 
   return (
     <>
@@ -49,7 +48,12 @@ export default function MyPropertyContainer() {
             }
             propLocation={property?.SubDistrict?.District?.Province?.nameInThai}
             propArea={property?.totalArea}
+<<<<<<< HEAD
             link={property?.id}
+=======
+            proplock={property?.locked}
+            proptopStatus={property?.topStatus}
+>>>>>>> 3b58262ca2d3facccd4bdf90dd46c9125fcc9f03
           />
         ))}
       </motion.div>

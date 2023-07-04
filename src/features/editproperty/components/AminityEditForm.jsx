@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import InputForm from "../../../components/InputForm";
-import Checkbox from "./Checkbox";
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import Checkbox from "./Checkbox";
 
-export default function AminityForm({
+export default function AminityEditForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
@@ -15,25 +14,34 @@ export default function AminityForm({
   const animityCommonArrSearch = useSelector(
     (state) => state?.animity?.animityCommonFilter
   );
+  console.log("----->", oldProperty);
 
-  const initialInput = {};
+  // Get the IDs of the optional types in the oldProperty array
+  // const oldPropertyIds = oldProperty?.Optional?.map(
+  //   (prop) => prop.optionalTypeId
+  // );
+
+  // const initialInput = oldPropertyIds.reduce((inputObj, id) => {
+  //   return { ...inputObj, [id]: true };
+  // }, {});
+
   const [inputcheck, setInputcheck] = useState(initialInput);
   const [error, setError] = useState({});
 
   const handleChangeInput = (e) => {
     if (e.target.checked) {
-      setInputcheck({ ...inputcheck, [e.target.name]: e.target.checked });
+      setInputcheck((prevInput) => ({
+        ...prevInput,
+        [e.target.name]: e.target.checked,
+      }));
     } else {
-      const arr = { ...inputcheck };
-      delete arr[e.target.name];
-      setInputcheck({ ...arr });
+      const { [e.target.name]: _, ...updatedInput } = inputcheck;
+      setInputcheck(updatedInput);
     }
 
-    // เรียกใช้งานฟังก์ชันที่ถูกส่งเข้ามาจากหน้าที่เรียกใช้
     onInputChange(inputcheck);
   };
 
-  // console.log("inputcheck", inputcheck);
   return (
     <>
       <div className="rounded-md overflow-hidden flex flex-col">
@@ -42,11 +50,11 @@ export default function AminityForm({
         </div>
         <div>
           <form
-            className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
+            className="bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
             onClick={handleChangeInput}
           >
             {animityRoomArrSearch.map((el) => (
-              <Checkbox el={el} key={el?.id} />
+              <Checkbox el={el} key={el?.id} checked={inputcheck[el?.id]} />
             ))}
           </form>
         </div>
@@ -58,11 +66,11 @@ export default function AminityForm({
         </div>
         <div>
           <form
-            className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
+            className="bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
             onClick={handleChangeInput}
           >
             {animityCommonArrSearch.map((el) => (
-              <Checkbox el={el} key={el?.id} />
+              <Checkbox el={el} key={el?.id} checked={inputcheck[el?.id]} />
             ))}
           </form>
         </div>
