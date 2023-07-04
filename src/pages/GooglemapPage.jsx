@@ -1,19 +1,10 @@
-import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import Loading from "../components/Loading";
-
-
 
 function ShowMap({ name }) {
   let map;
-  const [init, setInit] = useState(true);
-  const [latitude, setLatitude] = useState(null);
-  const [logtitude, setLongitude] = useState(null);
   const { id } = useParams();
-  const navigate = Navigate
   const userPropertiesIdlist = useSelector(
     (state) => state?.userProperties?.userPropertiesById
   );
@@ -44,8 +35,8 @@ function ShowMap({ name }) {
 
     marker.addListener("click", (mapsMouseEvent) => {
       console.log(mapsMouseEvent.latLng.toJSON());
-      navigate(
-        `https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`
+      window.location.replace(
+        `https://www.google.com/maps/search/?api=1&query=${userPropertiesIdlist.latitude}%2C${userPropertiesIdlist.longitude}`
       );
     });
   }
@@ -59,10 +50,8 @@ function ShowMap({ name }) {
 
   return (
     <div className="">
-      {/* <a href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`}> */}
       <div className="w-[90%] h-[500px]" id="map">
       </div>
-      {/* </a> */}
     </div>
   );
 }
