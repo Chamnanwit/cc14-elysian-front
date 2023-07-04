@@ -5,12 +5,13 @@ import { AiFillEye } from "react-icons/ai";
 import { MdLocationOn } from "react-icons/md";
 import { RiAdvertisementFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   PropertyAsync,
   deletePropertyAsync,
+  updatePropertyAsync,
 } from "../features/createproperty/slice/createproperty-slice";
+import { useState } from "react";
 
 export default function AgentRentCard({
   id,
@@ -23,12 +24,31 @@ export default function AgentRentCard({
   propArea,
   link,
   src,
+  proplock,
+  proptopStatus,
 }) {
+  const initialInput = {
+    id: id,
+    locked: proplock || "",
+    topStatus: proptopStatus || "",
+  };
+
   const dispatch = useDispatch();
+  const [status, setStatus] = useState(proplock);
+  const [statusTop, setStatusTop] = useState(proptopStatus);
 
   const user = useSelector((state) => state?.auth?.user);
 
   const userid = user?.id;
+
+  const handleClickChangeStatus = async (e) => {
+    await dispatch(updatePropertyAsync({ id, locked: !status })).unwrap();
+    setStatus(!status);
+  };
+  const handleClickChangeStatusTop = async (e) => {
+    await dispatch(updatePropertyAsync({ id, topStatus: !statusTop })).unwrap();
+    setStatusTop(!statusTop);
+  };
 
   const handleDeleteProperty = async () => {
     await dispatch(deletePropertyAsync(id)).unwrap();
@@ -40,7 +60,7 @@ export default function AgentRentCard({
       {/* edit delete text */}
       <div className="flex justify-end w-[270px] py-2">
         <Link
-          to={"/agent/"}
+          to={`/agent/editproperty/${id}`}
           className="text-sm text-c-gray2  p-1 px-3 rounded-xl hover:bg-c-gray1 hover:text-c-white1 active:scale-95 transition-all duration-200 cursor-pointer"
         >
           Edit
@@ -54,7 +74,7 @@ export default function AgentRentCard({
       </div>
 
       <div className="flex flex-col bg-white rounded-2xl w-[270px] overflow-hidden items-center shadow-lg transition-all hover:scale-105  duration-500 cursor-pointer">
-        <Link to={`/rentdetail/${link}`}>
+        <Link to={`/rentdetail/${id}`}>
           <div>
             <img
               src={
@@ -105,14 +125,26 @@ export default function AgentRentCard({
 
         <div className="flex justify-between w-full px-5 py-2 text-xs  text-c-gray2 bg-c-white1 border">
           <label className="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" className="sr-only peer" checked />
+            <input
+              type="checkbox"
+              name="locked"
+              className="sr-only peer"
+              checked={!status}
+              onChange={handleClickChangeStatus}
+            />
             <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-c-blue1"></div>
             <span className="ml-3 text-lg font-medium text-c-blue1 dark:text-gray-300 ">
               <AiFillEye />
             </span>
           </label>
           <label className="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" className="sr-only peer" checked />
+            <input
+              type="checkbox"
+              name="topStatus"
+              className="sr-only peer"
+              checked={!statusTop}
+              onChange={handleClickChangeStatusTop}
+            />
             <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-c-yellow1"></div>
             <span className="ml-3 text-2xl font-medium text-c-yellow2 dark:text-gray-300">
               <RiAdvertisementFill />

@@ -40,7 +40,7 @@ export default function RentDetailPage() {
   const imageProperty = useSelector(
     (state) => state?.propertyPlan?.imageProperty
   );
-console.log(userPropertiesIdlist,"userPropertiesIdlist")
+  // console.log(userPropertiesIdlist,"userPropertiesIdlist")
   const imageProp = [...(imageProperty?.result ?? [])];
 
   const el = { ...userPropertiesIdlist };
@@ -217,11 +217,9 @@ console.log(userPropertiesIdlist,"userPropertiesIdlist")
                   </div>
                 </div>
               </div>
-                <div className="">
-                  <GoogleMap
-                    name={el?.name}
-                  />
-                </div>
+              <div className="">
+                <GoogleMap name={el?.name} />
+              </div>
             </div>
           </div>
         </div>
@@ -229,5 +227,5 @@ console.log(userPropertiesIdlist,"userPropertiesIdlist")
       </div>
       <Footer />
     </div>
-  )
+  );
 }

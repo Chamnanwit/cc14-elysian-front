@@ -1,20 +1,27 @@
 import React, { useState, useRef } from "react";
 
-export default function PropertyImage({ cls, files, setFiles, name }) {
+export default function PropertyEditImage({
+  cls,
+  files,
+  setFiles,
+  name,
+  oldImage,
+}) {
+  // console.log("------>", oldImage);
+  // console.log(cls);
   // oldImage = {Properter : {id : number}, imageLink:string}
   const inputRef = useRef();
 
   const handleFileChange = (e) => {
-    console.log("file change");
     // e.stopPropagation()
     //  e.stopPropagation()
+    console.log("$$$$$", e.target.name);
     if (e.target.files.length) {
       const selectedFile = e.target.files[0];
       // console.log({ ...files }[name]);
-      setFiles({ ...files, [name]: selectedFile });
+      setFiles({ ...files, [e.target.name]: selectedFile });
     }
   };
-
   const onChangeImage = () => {
     console.log(inputRef.current);
     inputRef.current.click();
@@ -28,6 +35,8 @@ export default function PropertyImage({ cls, files, setFiles, name }) {
           alt="Uploaded"
           onClick={onChangeImage}
         />
+      ) : oldImage?.imageLink ? (
+        <img src={oldImage.imageLink} alt="Old Image" onClick={onChangeImage} />
       ) : (
         <>
           <label
@@ -64,6 +73,7 @@ export default function PropertyImage({ cls, files, setFiles, name }) {
       )}
       <input
         type="file"
+        name={cls}
         ref={inputRef}
         className={`hidden ${cls}`}
         onChange={handleFileChange}

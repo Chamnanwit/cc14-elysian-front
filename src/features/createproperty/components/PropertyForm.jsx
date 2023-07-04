@@ -37,12 +37,6 @@ export default function PropertyForm({
     subDistrictId: "",
   };
 
-  const initialImageInput = {
-    image1: "",
-    image2: "",
-    image3: "",
-    image4: "",
-  };
   // console.log("initialImageInput--->", initialImageInput);
 
   const dispatch = useDispatch();
@@ -50,7 +44,7 @@ export default function PropertyForm({
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
-  const [imageInput, setImageInput] = useState(initialImageInput);
+
   const selectProvice = listProvice;
 
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -113,10 +107,6 @@ export default function PropertyForm({
     dispatch(animityAsync());
   }, []);
 
-  const handleLockChange = (event) => {
-    setLocked(event.target.value === "show");
-  };
-  // console.log("------------>", handleLockChange);
   const [inputcheck, setInputcheck] = useState({});
 
   const handleAminityFormChange = (inputcheck) => {
@@ -153,8 +143,7 @@ export default function PropertyForm({
       const formdata = new FormData();
 
       formdata.append("property", JSON.stringify(property));
-      // console.log(" JSONproperty----->", JSON.stringify(property));
-      console.log(files);
+
       for (let [key, image] of Object.entries(files)) {
         formdata.append("imageLink", image);
       }
