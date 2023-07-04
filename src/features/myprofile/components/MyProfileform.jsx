@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import validateMyProfile from "../validators/myprofileValidate";
 import ButtonYellowM from "../../../components/ButtonYellowM";
 import * as profileAgncyService from "../../../api/agency-api";
-import PictureForm from "./PictureForm";
 import Avatar from "./Avatar";
 
 import { useCallback } from "react";
@@ -61,13 +60,13 @@ export default function MyProfileForm() {
       formData.append("id", user.id);
       formData.append("firstName", input.firstName);
       formData.append("lastName", input.lastName);
-      console.log("dddddd", formData)
+
       setIsLoading(true);
       await dispatch(updateprofileAgncyAsync(formData)).unwrap();
       await dispatch(fetchMe()).unwrap();
       setIsEditMode(false);
     } catch (err) {
-      console.log("Error in register", err);
+      console.log("Error in loading profile", err);
     }
   };
 
