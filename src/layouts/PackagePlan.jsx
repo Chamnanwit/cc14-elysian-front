@@ -112,7 +112,7 @@ export default function PackagePlan() {
             ))}
         </div>
       ) : (
-        <div className="flex justify-center mt-5 gap-5 w-full h-fit p-5 text-c-gray3">
+        <div className="flex justify-center mt-5 gap-5 w-full h-[500px] p-5 text-c-gray3">
           {pricingPlanWeekly
             .slice()
             .sort((a, b) => (a?.price > b?.price ? 1 : -1))
@@ -130,7 +130,7 @@ export default function PackagePlan() {
                   เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง
                 </ListCheckGreenTrue>
                 <ListCheckGreenTrue>
-                  เพิ่มการติดอันดับ ระดับ {el?.numberOfTop}
+                  เปิดโหมดโฆษณาได้สูงสุด {el?.numberOfTop} ห้อง
                 </ListCheckGreenTrue>
               </PromotionCard>
             ))}
