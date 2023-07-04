@@ -48,12 +48,9 @@ export default function MyPropertyContainer() {
             }
             propLocation={property?.SubDistrict?.District?.Province?.nameInThai}
             propArea={property?.totalArea}
-<<<<<<< HEAD
             link={property?.id}
-=======
             proplock={property?.locked}
             proptopStatus={property?.topStatus}
->>>>>>> 3b58262ca2d3facccd4bdf90dd46c9125fcc9f03
           />
         ))}
       </motion.div>
