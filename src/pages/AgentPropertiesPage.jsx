@@ -104,6 +104,7 @@ export default function AgentPropertiesPage() {
               >
                 {userproperty?.map((el) => (
                   <RentCard
+                    key={el?.id}
                     propName={el?.name}
                     propDescription={el?.description}
                     agencyName={el?.User?.firstName}

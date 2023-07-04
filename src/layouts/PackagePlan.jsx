@@ -81,7 +81,7 @@ export default function PackagePlan() {
       </div>
 
       {toggle ? (
-        <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
+        <div className="flex justify-center mt-5 gap-5  w-full h-[500px] p-5 text-c-gray3">
           {pricingPlanMonthly
             .slice()
             .sort((a, b) => (a?.price > b?.price ? 1 : -1))
@@ -99,31 +99,20 @@ export default function PackagePlan() {
                   เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง
                 </ListCheckGreenTrue>
                 <ListCheckGreenTrue>
-                  เพิ่มการติดอันดับ ระดับ {el?.numberOfTop}
+                  เปิดโหมดโฆษณาได้สูงสุด {el?.numberOfTop} ห้อง
                 </ListCheckGreenTrue>
+                {/* {el?.planType === "PREMIUM" || "GOLD" ? (
+                  <ListCheckGreenTrue>
+                    แสดงโฆษณาห้องเช่าด้านล่าง
+                  </ListCheckGreenTrue>
+                ) : (
+                  false
+                )} */}
               </PromotionCard>
             ))}
         </div>
       ) : (
-        // </div>
-        // <div className="flex justify-center mt-5 gap-5  w-full h-fit p-5 text-c-gray3">
-        //   <PromotionCard price="฿0/เดือน" packname="ฟรี" onClick={hdlClickBuyPackage} >
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //   </PromotionCard>
-        //   <PromotionCard price="฿1,799/เดือน" packname="พื้นฐาน" onClick={hdlClickBuyPackage} id={"price_1NMPY9Kiz6RxD96BaRuyuEhS"}>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //   </PromotionCard>
-        //   <PromotionCard price="฿3,599/เดือน" packname="ธุรกิจ" onClick={hdlClickBuyPackage} id={"price_1NMPaoKiz6RxD96B583Xd2PI"}>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //     <ListCheckGreenTrue>เพิ่มห้องเช่าได้สูงสุด 4 ห้อง</ListCheckGreenTrue>
-        //   </PromotionCard>
-        // </div>
-        <div className="flex justify-center mt-5 gap-5 w-full h-fit p-5 text-c-gray3">
+        <div className="flex justify-center mt-5 gap-5 w-full h-[500px] p-5 text-c-gray3">
           {pricingPlanWeekly
             .slice()
             .sort((a, b) => (a?.price > b?.price ? 1 : -1))
@@ -141,7 +130,7 @@ export default function PackagePlan() {
                   เพิ่มห้องเช่าได้สูงสุด {el?.limit} ห้อง
                 </ListCheckGreenTrue>
                 <ListCheckGreenTrue>
-                  เพิ่มการติดอันดับ ระดับ {el?.numberOfTop}
+                  เปิดโหมดโฆษณาได้สูงสุด {el?.numberOfTop} ห้อง
                 </ListCheckGreenTrue>
               </PromotionCard>
             ))}
@@ -151,9 +140,10 @@ export default function PackagePlan() {
       <div className=" w-full flex flex-col items-center p-5">
         <p className=" text-lg font-semibold">แพ็คเกจ</p>
         <p className=" text-c-gray2 w-[60%] text-center">
-          disLorem ipsum dolor sit amet consectetur. Elit sed facilisi ac sed
-          elit. disLorem ipsum dolor sit amet consectetur. Elit sed facilisi ac
-          sed elit.{" "}
+          เพิ่มจำนวนห้องเช่าที่สามารถสร้างได้
+          พร้อมกับเพิ่มการมองเห็นห้องเช่าของคุณมากยิ่งขึ้น กับโหมดโษณาห้องเช่า
+          ช่วยให้ติดอันดับต้นๆของรายการที่ค้นหา
+          พร้อมกับโฆษณาโดดเด่นที่หน้าแรกและด้านล่างของหน้า{" "}
         </p>
       </div>
     </div>

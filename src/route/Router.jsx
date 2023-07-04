@@ -44,6 +44,7 @@ import AgentPackagePlanPage from "../pages/AgentPackagePlanPage";
 import ProtectedAgentRoute from "../components/ProtectedAgentRoute";
 import { useSelector } from "react-redux";
 import RecommendPage from "../pages/RecommendPage";
+import AgentEditPropertyPage from "../pages/AgentEditPropertyPage";
 
 export default function Router() {
   const user = useSelector((state) => state.auth.user);
@@ -149,11 +150,11 @@ export default function Router() {
       ),
     },
     {
-      path: "/agent",
+      path: "/agent/",
 
       element: (
         <RedirectedAgent>
-          <AgentDashBoardPage />
+          <AgentProfilePage />,{/* <AgentAllPropertyPage /> */}
         </RedirectedAgent>
       ),
     },
@@ -186,6 +187,14 @@ export default function Router() {
       element: (
         <ProtectedAgentRoute>
           <AgentPurchasePage />,
+        </ProtectedAgentRoute>
+      ),
+    },
+    {
+      path: "/agent/editproperty/:id",
+      element: (
+        <ProtectedAgentRoute>
+          <AgentEditPropertyPage />
         </ProtectedAgentRoute>
       ),
     },

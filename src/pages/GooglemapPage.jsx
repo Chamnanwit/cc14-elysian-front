@@ -1,25 +1,17 @@
-import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import Loading from "../components/Loading";
-
-
+import { useNavigate } from "react-router-dom";
 
 function ShowMap({ name }) {
   let map;
-  const [init, setInit] = useState(true);
-  const [latitude, setLatitude] = useState(null);
-  const [logtitude, setLongitude] = useState(null);
   const { id } = useParams();
-  const navigate = Navigate
+  const navigate = useNavigate();
   const userPropertiesIdlist = useSelector(
     (state) => state?.userProperties?.userPropertiesById
   );
-  console.log( userPropertiesIdlist,'sssss')
-  async function initMap(lat,long) {
-    
+  
+  async function initMap(lat, long) {
     const position = { lat: lat, lng: long };
 
     const { Map } = await google.maps.importLibrary("maps");
@@ -44,25 +36,26 @@ function ShowMap({ name }) {
 
     marker.addListener("click", (mapsMouseEvent) => {
       console.log(mapsMouseEvent.latLng.toJSON());
-      navigate(
-        `https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`
+      window.location.assign(
+        `https://www.google.com/maps/search/?api=1&query=${userPropertiesIdlist.latitude}%2C${userPropertiesIdlist.longitude}`
       );
     });
   }
 
-
   useEffect(() => {
-      if(+id === +userPropertiesIdlist.id){
-        initMap(+userPropertiesIdlist.latitude,+userPropertiesIdlist.longitude);
-      }
+    if (+id === +userPropertiesIdlist.id) {
+      initMap(+userPropertiesIdlist.latitude, +userPropertiesIdlist.longitude);
+    }
   }, [userPropertiesIdlist]);
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="">
-      {/* <a href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${long}`}> */}
-      <div className="w-[90%] h-[500px]" id="map">
-      </div>
-      {/* </a> */}
+      <div className="w-[90%] h-[500px]" id="map"></div>
+      <button onClick={handleGoBack}>Back</button>
     </div>
   );
 }
