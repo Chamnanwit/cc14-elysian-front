@@ -45,6 +45,13 @@ export default function AgentAllPropertyPage() {
       <SidebarAgency />
       <div className="w-3/4 flex flex-col bg-[#F4F6FF] text-lg border-r">
         <HeaderAgent topic="ห้องเช่าทั้งหมด" />
+        <div>
+          <div className="flex  gap-6 m-auto mt-0 p-5 border-b-2">
+            <AgentShowBox
+              icon={<FaBuilding />}
+              title="ห้องเช่าทั้งหมด"
+              number={dashboardAgent?.totalPropertyById}
+            />
 
         <div className="flex  gap-6 m-auto mt-0 p-5 border-b-2">
           <AgentShowBox
@@ -70,8 +77,6 @@ export default function AgentAllPropertyPage() {
             number={dashboardAgent?.totalPurchase}
           />
         </div>
-
-        <MyPropertyContainer />
       </div>
     </div>
   );
