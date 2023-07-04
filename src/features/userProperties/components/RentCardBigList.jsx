@@ -23,39 +23,45 @@ export default function RentCardBigList() {
 
   return (
     <>
-      {userPropertieslist?.map((el) => (
-        <Link to={`/rentdetail/${el?.id}`}>
-          <RentCardBig
-            key={el?.id}
-            src={el?.Images}
-            propName={el?.name}
-            propDescription={el?.description}
-            agencyName={el?.User?.firstName}
-            propArea={el.totalArea}
-            propPrice={Number(el?.price).toLocaleString("th-TH", {
-              style: "currency",
-              currency: "THB",
-            })}
-            propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
-            propLocation={
-              el?.SubDistrict?.nameInThai +
-              ", " +
-              el?.SubDistrict?.District?.nameInThai +
-              ", " +
-              el?.SubDistrict?.District?.Province?.nameInThai
-            }
-            agencyphone={el?.User?.phoneNumber}
-            agencyemail={el?.User?.email || "00"}
-            createTime={el?.createdAt?.slice(0, 10)}
-            badge={el?.Optionals?.map((el) => (
-              <BadgeYellow key={el?.OptionalType?.name}>
-                {el?.OptionalType?.name}
-              </BadgeYellow>
-            ))}
-            rootype={<BadgeGreen>{el?.RoomType?.name}</BadgeGreen>}
-          />
-        </Link>
-      ))}
+      {userPropertieslist
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
+        ?.map((el) => (
+          <Link to={`/rentdetail/${el?.id}`}>
+            <RentCardBig
+              key={el?.id}
+              src={el?.Images}
+              propName={el?.name}
+              propDescription={el?.description}
+              agencyName={el?.User?.firstName}
+              propArea={el.totalArea}
+              propPrice={Number(el?.price).toLocaleString("th-TH", {
+                style: "currency",
+                currency: "THB",
+              })}
+              propRentPeriod={
+                el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+              }
+              propLocation={
+                el?.SubDistrict?.nameInThai +
+                ", " +
+                el?.SubDistrict?.District?.nameInThai +
+                ", " +
+                el?.SubDistrict?.District?.Province?.nameInThai
+              }
+              agencyphone={el?.User?.phoneNumber}
+              agencyemail={el?.User?.email || "00"}
+              createTime={el?.createdAt?.slice(0, 10)}
+              badge={el?.Optionals?.map((el) => (
+                <BadgeYellow key={el?.OptionalType?.name}>
+                  {el?.OptionalType?.name}
+                </BadgeYellow>
+              ))}
+              rootype={<BadgeGreen>{el?.RoomType?.name}</BadgeGreen>}
+            />
+          </Link>
+        ))}
     </>
   );
 }

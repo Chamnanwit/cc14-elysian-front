@@ -38,6 +38,12 @@ export default function SponserRentCardSmallList() {
               el?.User?.PurchaseHistories[0]?.pricingPlanId == 6
             );
         })
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
+        // .filter((el) => {
+        //   if (el?.topStatus) return el?.topStatus === true;
+        // })
         ?.map((el) => (
           <SponserRentCard
             key={el?.id}

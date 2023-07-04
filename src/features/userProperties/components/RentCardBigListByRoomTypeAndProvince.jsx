@@ -88,6 +88,9 @@ export default function RentCardBigListByRoomTypeAndProvince() {
           }
           return true;
         })
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
             <RentCardBig

@@ -115,8 +115,11 @@ export default function SearchPage() {
                     <option key="" value="MONTHLY" className="text-2xl">
                       รายเดือน
                     </option>
-                    <option key="" value="WEEKLY" className="text-2xl">
-                      รายสัปดาห์
+                    <option key="" value="YEARLY" className="text-2xl">
+                      รายปี
+                    </option>
+                    <option key="" value="DAILY" className="text-2xl">
+                      รายวัน
                     </option>
                   </select>
                   <select
