@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ShowMap({ name }) {
   let map;
   const { id } = useParams();
+  const navigate = useNavigate();
   const userPropertiesIdlist = useSelector(
     (state) => state?.userProperties?.userPropertiesById
   );
-  console.log( userPropertiesIdlist,'sssss')
-  async function initMap(lat,long) {
-    
+  
+  async function initMap(lat, long) {
     const position = { lat: lat, lng: long };
 
     const { Map } = await google.maps.importLibrary("maps");
@@ -35,23 +36,26 @@ function ShowMap({ name }) {
 
     marker.addListener("click", (mapsMouseEvent) => {
       console.log(mapsMouseEvent.latLng.toJSON());
-      window.location.replace(
+      window.location.assign(
         `https://www.google.com/maps/search/?api=1&query=${userPropertiesIdlist.latitude}%2C${userPropertiesIdlist.longitude}`
       );
     });
   }
 
-
   useEffect(() => {
-      if(+id === +userPropertiesIdlist.id){
-        initMap(+userPropertiesIdlist.latitude,+userPropertiesIdlist.longitude);
-      }
+    if (+id === +userPropertiesIdlist.id) {
+      initMap(+userPropertiesIdlist.latitude, +userPropertiesIdlist.longitude);
+    }
   }, [userPropertiesIdlist]);
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="">
-      <div className="w-[90%] h-[500px]" id="map">
-      </div>
+      <div className="w-[90%] h-[500px]" id="map"></div>
+      <button onClick={handleGoBack}>Back</button>
     </div>
   );
 }
