@@ -6,7 +6,7 @@ import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
 import validateCreateProperty from "../validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPropertyAsync } from "../slice/createproperty-slice";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
@@ -41,6 +41,7 @@ export default function PropertyForm({
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(state => state.auth.user)
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
@@ -149,7 +150,7 @@ export default function PropertyForm({
       }
       formdata.append("optional", JSON.stringify(inputcheck));
       await dispatch(createPropertyAsync(formdata)).unwrap();
-      navigate("/agent");
+      navigate(`/agent/myproperty/${user?.id}`);
     } catch (err) {
       console.log(err);
     }
