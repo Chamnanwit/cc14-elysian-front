@@ -114,7 +114,11 @@ export default function AgentPropertiesPage() {
                     })}
                     src={el?.Images[0]?.imageLink}
                     propRentPeriod={
-                      el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+                      el?.rentPeriod === "MONTHLY"
+                        ? "เดือน"
+                        : false || el?.rentPeriod === "YEARLY"
+                        ? "ปี"
+                        : "วัน"
                     }
                     propLocation={
                       el?.SubDistrict?.District?.Province?.nameInThai

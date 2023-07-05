@@ -40,8 +40,13 @@ export default function RentCardBigList() {
                 style: "currency",
                 currency: "THB",
               })}
+              // propRentPeriod={el?.rentPeriod}
               propRentPeriod={
-                el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+                el?.rentPeriod === "MONTHLY"
+                  ? "เดือน"
+                  : false || el?.rentPeriod === "YEARLY"
+                  ? "ปี"
+                  : "วัน"
               }
               propLocation={
                 el?.SubDistrict?.nameInThai +

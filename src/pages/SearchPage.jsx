@@ -112,14 +112,14 @@ export default function SearchPage() {
                     onChange={hdlChangeRentPeriodInput}
                   >
                     <option value="">ระยะเวลาทั้งหมด</option>
+                    <option key="" value="DAILY" className="text-2xl">
+                      รายวัน
+                    </option>
                     <option key="" value="MONTHLY" className="text-2xl">
                       รายเดือน
                     </option>
                     <option key="" value="YEARLY" className="text-2xl">
                       รายปี
-                    </option>
-                    <option key="" value="DAILY" className="text-2xl">
-                      รายวัน
                     </option>
                   </select>
                   <select

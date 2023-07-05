@@ -46,7 +46,7 @@ export default function AgentAllPropertyPage() {
       <div className="w-3/4 flex flex-col bg-[#F4F6FF] text-lg border-r">
         <HeaderAgent topic="ห้องเช่าทั้งหมด" />
         <div>
-          <div className="flex  gap-6 m-auto mt-0 p-5 border-b-2">
+          <div className="flex gap-6 m-auto mt-0 p-5 border-b-2">
             <AgentShowBox
               icon={<FaBuilding />}
               title="ห้องเช่าทั้งหมด"
@@ -56,19 +56,21 @@ export default function AgentAllPropertyPage() {
             <AgentShowBox
               icon={<AiFillEye />}
               title="ห้องเช่าที่โชว์"
-              number={dashboardAgent?.totalInactiveProperty}
+              number={dashboardAgent?.totalActiveProperty}
             />
             <AgentShowBox
               icon={<AiFillEyeInvisible />}
               title="ห้องเช่าที่ไม่โชว์"
-              number={dashboardAgent?.totalActiveProperty}
+              number={dashboardAgent?.totalInactiveProperty}
             />
+
             <AgentShowBox
               icon={<RiAdvertisementFill />}
               title="ห้องเช่าที่โฆษณา"
               number={dashboardAgent?.totalPurchase}
             />
           </div>
+
           <MyPropertyContainer />
         </div>
       </div>
