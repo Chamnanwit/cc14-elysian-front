@@ -38,6 +38,12 @@ export default function SponserRentCardSmallList() {
               el?.User?.PurchaseHistories[0]?.pricingPlanId == 6
             );
         })
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
+        // .filter((el) => {
+        //   if (el?.topStatus) return el?.topStatus === true;
+        // })
         ?.map((el) => (
           <SponserRentCard
             key={el?.id}
@@ -52,7 +58,13 @@ export default function SponserRentCardSmallList() {
               el?.Images[0]?.imageLink ||
               "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
             }
-            propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
+            propRentPeriod={
+              el?.rentPeriod === "MONTHLY"
+                ? "เดือน"
+                : false || el?.rentPeriod === "YEARLY"
+                ? "ปี"
+                : "วัน"
+            }
             propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
             propArea={el.totalArea}
             link={el?.id}

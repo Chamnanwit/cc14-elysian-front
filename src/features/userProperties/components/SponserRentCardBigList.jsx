@@ -28,6 +28,7 @@ export default function SponserRentCardBigList() {
   const userPropertieslist = useSelector(
     (state) => state?.userProperties?.userProperties
   );
+
   //   const rentPeriodFilter = state.rentPeriod;
   //   console.log("asds", rentPeriodFilter);
   //   console.log("tettt", state.rentPeriod);
@@ -101,6 +102,12 @@ export default function SponserRentCardBigList() {
               el?.User?.PurchaseHistories[0]?.pricingPlanId == 7
             );
         })
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
+        // .filter((el) => {
+        //   if (el?.topStatus) return el?.topStatus === true;
+        // })
 
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
@@ -118,8 +125,13 @@ export default function SponserRentCardBigList() {
                 el.Images ||
                 "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
               }
+              // propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "ปี"}
               propRentPeriod={
-                el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+                el?.rentPeriod === "MONTHLY"
+                  ? "เดือน"
+                  : false || el?.rentPeriod === "YEARLY"
+                  ? "ปี"
+                  : "วัน"
               }
               propLocation={`${el?.SubDistrict?.nameInThai}, ${el?.SubDistrict?.District?.nameInThai}, ${el?.SubDistrict?.District?.Province?.nameInThai}`}
               agencyphone={el?.User?.phoneNumber}

@@ -44,7 +44,11 @@ export default function MyPropertyContainer() {
             agencyName={property?.firstName}
             propPrice={property?.price}
             propRentPeriod={
-              property?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+              property?.rentPeriod === "MONTHLY"
+                ? "เดือน"
+                : false || property?.rentPeriod === "YEARLY"
+                ? "ปี"
+                : "วัน"
             }
             propLocation={property?.SubDistrict?.District?.Province?.nameInThai}
             propArea={property?.totalArea}
