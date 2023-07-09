@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import InputForm from "../../../components/InputForm";
+import Checkbox from "./CheckboxEdit";
 import { useSelector } from "react-redux";
-import Checkbox from "./Checkbox";
+import CheckboxEdit from "./CheckboxEdit";
 
-export default function AminityEditForm({
+export default function AminityForm({
   textConFirm,
   onIsAddMode,
   oldProperty,
@@ -14,31 +16,37 @@ export default function AminityEditForm({
   const animityCommonArrSearch = useSelector(
     (state) => state?.animity?.animityCommonFilter
   );
-  console.log("----->", oldProperty);
 
-  // Get the IDs of the optional types in the oldProperty array
-  // const oldPropertyIds = oldProperty?.Optional?.map(
-  //   (prop) => prop.optionalTypeId
-  // );
-
-  // const initialInput = oldPropertyIds.reduce((inputObj, id) => {
-  //   return { ...inputObj, [id]: true };
-  // }, {});
-
+  const optionals = oldProperty?.Optionals;
+  const initialInput = {};
   const [inputcheck, setInputcheck] = useState(initialInput);
   const [error, setError] = useState({});
 
+  useEffect(() => {
+    if (oldProperty) {
+      const oldOptions = oldProperty.Optionals;
+      const initialInput = {};
+
+      if (oldOptions) {
+        oldOptions.forEach((option) => {
+          initialInput[option.name] = true;
+        });
+      }
+
+      setInputcheck(initialInput);
+    }
+  }, [oldProperty]);
+
   const handleChangeInput = (e) => {
     if (e.target.checked) {
-      setInputcheck((prevInput) => ({
-        ...prevInput,
-        [e.target.name]: e.target.checked,
-      }));
+      setInputcheck({ ...inputcheck, [e.target.name]: e.target.checked });
     } else {
-      const { [e.target.name]: _, ...updatedInput } = inputcheck;
-      setInputcheck(updatedInput);
+      const arr = { ...inputcheck };
+      delete arr[e.target.name];
+      setInputcheck({ ...arr });
     }
 
+    // เรียกใช้งานฟังก์ชันที่ถูกส่งเข้ามาจากหน้าที่เรียกใช้
     onInputChange(inputcheck);
   };
 
@@ -50,11 +58,11 @@ export default function AminityEditForm({
         </div>
         <div>
           <form
-            className="bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
+            className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
             onClick={handleChangeInput}
           >
             {animityRoomArrSearch.map((el) => (
-              <Checkbox el={el} key={el?.id} checked={inputcheck[el?.id]} />
+              <CheckboxEdit el={el} key={el?.id} defaultValue={optionals} />
             ))}
           </form>
         </div>
@@ -66,11 +74,11 @@ export default function AminityEditForm({
         </div>
         <div>
           <form
-            className="bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
+            className=" bg-white px-6 py-2 grid grid-cols-5 justify-content: space-between"
             onClick={handleChangeInput}
           >
             {animityCommonArrSearch.map((el) => (
-              <Checkbox el={el} key={el?.id} checked={inputcheck[el?.id]} />
+              <CheckboxEdit el={el} key={el?.id} optionals={optionals} />
             ))}
           </form>
         </div>

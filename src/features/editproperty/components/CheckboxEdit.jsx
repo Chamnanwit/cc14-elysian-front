@@ -1,8 +1,5 @@
-import React from "react";
-export default function Checkbox({ el }) {
-  const hdlClick = (e) => {
-    console.log(e.target.value, e.target.checked);
-  };
+import React, { useState } from "react";
+export default function CheckboxEdit({ el, onChange }) {
   return (
     <div className="flex items-center border-gray-200 rounded dark:border-gray-700">
       <input
@@ -10,9 +7,8 @@ export default function Checkbox({ el }) {
         type="checkbox"
         value={el.id}
         name={el.id}
-        checked
         className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        onClick={hdlClick}
+        onClick={onChange}
       />
       <label
         htmlFor={el.id}

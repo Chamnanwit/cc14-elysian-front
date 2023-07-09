@@ -28,12 +28,6 @@ export default function AgentRentCard({
   proplock,
   proptopStatus,
 }) {
-  const initialInput = {
-    id: id,
-    locked: proplock || "",
-    topStatus: proptopStatus || "",
-  };
-
   const dispatch = useDispatch();
   const [status, setStatus] = useState(proplock);
   const [statusTop, setStatusTop] = useState(proptopStatus);
@@ -41,6 +35,8 @@ export default function AgentRentCard({
   const user = useSelector((state) => state?.auth?.user);
 
   const userid = user?.id;
+
+  console.log("**********>>", id);
 
   const handleClickChangeStatus = async (e) => {
     await dispatch(updatePropertyAsync({ id, locked: !status })).unwrap();

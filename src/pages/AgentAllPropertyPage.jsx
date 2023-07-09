@@ -52,33 +52,25 @@ export default function AgentAllPropertyPage() {
               title="ห้องเช่าทั้งหมด"
               number={dashboardAgent?.totalPropertyById}
             />
-            
 
-        <div className="flex  gap-6 m-auto mt-0 p-5 border-b-2">
-          <AgentShowBox
-            icon={<FaBuilding />}
-            title="ห้องเช่าทั้งหมด"
-            number={dashboardAgent?.totalPropertyById}
-          />
+            <AgentShowBox
+              icon={<AiFillEye />}
+              title="ห้องเช่าที่โชว์"
+              number={dashboardAgent?.totalActiveProperty}
+            />
+            <AgentShowBox
+              icon={<AiFillEyeInvisible />}
+              title="ห้องเช่าที่ไม่โชว์"
+              number={dashboardAgent?.totalInactiveProperty}
+            />
 
-          <AgentShowBox
-            icon={<AiFillEye />}
-            title="ห้องเช่าที่โชว์"
-            number={dashboardAgent?.totalActiveProperty}
-          />
-          <AgentShowBox
-            icon={<AiFillEyeInvisible />}
-            title="ห้องเช่าที่ไม่โชว์"
-            number={dashboardAgent?.totalInactiveProperty}
-          />
-          
-          <AgentShowBox
-            icon={<RiAdvertisementFill />}
-            title="ห้องเช่าที่โฆษณา"
-            number={dashboardAgent?.totalPurchase}
-          />
-        </div>
-        </div>
+            <AgentShowBox
+              icon={<RiAdvertisementFill />}
+              title="ห้องเช่าที่โฆษณา"
+              number={dashboardAgent?.totalPurchase}
+            />
+          </div>
+          <MyPropertyContainer />
         </div>
       </div>
     </div>
