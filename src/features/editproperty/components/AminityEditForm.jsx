@@ -62,7 +62,7 @@ export default function AminityForm({
             onClick={handleChangeInput}
           >
             {animityRoomArrSearch.map((el) => (
-              <CheckboxEdit el={el} key={el?.id} defaultValue={optionals} />
+              <CheckboxEdit el={el} key={el?.id} />
             ))}
           </form>
         </div>
@@ -78,7 +78,7 @@ export default function AminityForm({
             onClick={handleChangeInput}
           >
             {animityCommonArrSearch.map((el) => (
-              <CheckboxEdit el={el} key={el?.id} optionals={optionals} />
+              <CheckboxEdit el={el} key={el?.id} />
             ))}
           </form>
         </div>
