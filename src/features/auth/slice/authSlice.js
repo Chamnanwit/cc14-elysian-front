@@ -118,7 +118,7 @@ const authSlice = createSlice({
         // state.isLoading = true;
       })
       .addCase(registerAdminAsync.fulfilled, (state, action) => {
-        state.user = action.payload;
+        // state.user = action.payload;
         state.isLoading = false;
       })
       .addCase(registerAdminAsync.rejected, (state, action) => {

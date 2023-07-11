@@ -88,6 +88,13 @@ export default function RentCardBigListByRoomTypeAndProvince() {
           }
           return true;
         })
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
+        .filter((el) => {
+          if (el?.User?.PurchaseHistories[0]?.orderStatus)
+            return el?.User?.PurchaseHistories[0]?.orderStatus !== "ACTIVE";
+        })
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
             <RentCardBig
@@ -104,8 +111,15 @@ export default function RentCardBigListByRoomTypeAndProvince() {
                 el?.Images ||
                 "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
               }
+              // propRentPeriod={
+              //   el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+              // }
               propRentPeriod={
-                el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"
+                el?.rentPeriod === "MONTHLY"
+                  ? "เดือน"
+                  : false || el?.rentPeriod === "YEARLY"
+                  ? "ปี"
+                  : "วัน"
               }
               propLocation={`${el?.SubDistrict?.nameInThai}, ${el?.SubDistrict?.District?.nameInThai}, ${el?.SubDistrict?.District?.Province?.nameInThai}`}
               agencyphone={el?.User?.phoneNumber}

@@ -24,26 +24,30 @@ export default function RentCardSmallList() {
   }
   return (
     <>
-      {userPropertieslist?.map((el) => (
-        <RentCard
-          key={el?.id}
-          propName={el?.name}
-          propDescription={el?.description}
-          agencyName={el?.User?.firstName}
-          propPrice={Number(el?.price).toLocaleString("th-TH", {
-            style: "currency",
-            currency: "THB",
-          })}
-          propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
-          propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
-          propArea={el.totalArea}
-          link={el?.id}
-          src={
-            el?.Images[0]?.imageLink ||
-            "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
-          }
-        />
-      ))}
+      {userPropertieslist
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
+        ?.map((el) => (
+          <RentCard
+            key={el?.id}
+            propName={el?.name}
+            propDescription={el?.description}
+            agencyName={el?.User?.firstName}
+            propPrice={Number(el?.price).toLocaleString("th-TH", {
+              style: "currency",
+              currency: "THB",
+            })}
+            propRentPeriod={el?.rentPeriod === "MONTHLY" ? "เดือน" : "สัปดาห์"}
+            propLocation={el?.SubDistrict?.District?.Province?.nameInThai}
+            propArea={el.totalArea}
+            link={el?.id}
+            src={
+              el?.Images[0]?.imageLink ||
+              "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+            }
+          />
+        ))}
     </>
   );
 }
