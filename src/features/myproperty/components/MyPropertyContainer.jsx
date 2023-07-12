@@ -38,7 +38,7 @@ export default function MyPropertyContainer() {
         {userproperty?.map((property) => (
           <AgentRentCard
             src={property?.Images[0]?.imageLink}
-            // id={property?.id}
+            id={property?.id}
             propName={property?.name}
             propDescription={property?.description}
             agencyName={property?.firstName}

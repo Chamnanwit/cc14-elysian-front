@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
-import Checkbox from "./Checkbox";
+import Checkbox from "./CheckboxEdit";
 import validateCreateProperty from "../../createproperty/validators/validate-create-property";
 import PropertyImage from "../../../components/PropertyImage";
 import {
@@ -43,7 +43,7 @@ export default function EditPropertyForm({
     subDistrictId: oldProperty?.subDistrictId || "",
   };
 
-  console.log("oldProperty----->", oldProperty);
+  // console.log("oldProperty----->", oldProperty);
 
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
@@ -602,10 +602,10 @@ export default function EditPropertyForm({
         </div>
       </div>
       <>
-        {/* <AminityEditForm
+        <AminityEditForm
           onInputChange={handleAminityFormChange}
           oldProperty={oldProperty}
-        /> */}
+        />
         <div className="flex">
           <button
             type="submit"

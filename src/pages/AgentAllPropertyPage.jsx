@@ -70,7 +70,6 @@ export default function AgentAllPropertyPage() {
               number={dashboardAgent?.totalPurchase}
             />
           </div>
-
           <MyPropertyContainer />
         </div>
       </div>

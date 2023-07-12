@@ -28,7 +28,7 @@ export default function EditPropertyContainer() {
   );
   const imageProp = [...(imageProperty?.result ?? [])];
 
-  console.log("oldProperty-------->", oldProperty);
+  // console.log("oldProperty-------->", oldProperty);
   return (
     <>
       <HeaderAgent topic="Edit Property" />
