@@ -45,6 +45,8 @@ import ProtectedAgentRoute from "../components/ProtectedAgentRoute";
 import { useSelector } from "react-redux";
 import RecommendPage from "../pages/RecommendPage";
 import AgentEditPropertyPage from "../pages/AgentEditPropertyPage";
+import RedirectedRegister from "../components/RedirectedRegister";
+import RedirectedOTP from "../components/RedirectedOTP";
 
 export default function Router() {
   const user = useSelector((state) => state.auth.user);
@@ -136,9 +138,9 @@ export default function Router() {
     {
       path: "/register",
       element: (
-        <RedirectedAgent>
+        <RedirectedRegister>
           <RegisterPage />,
-        </RedirectedAgent>
+        </RedirectedRegister>
       ),
     },
     {
@@ -209,9 +211,11 @@ export default function Router() {
     {
       path: "/phonenumber",
       element: (
-        <RedirectedAgent>
+        // <RedirectedRegister>
+        <RedirectedOTP>
           <PhoneNumberPage />,
-        </RedirectedAgent>
+        </RedirectedOTP>
+        // </RedirectedRegister>
       ),
     },
     {

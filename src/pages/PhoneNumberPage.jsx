@@ -19,6 +19,8 @@ import { fetchMe } from "../features/auth/slice/authSlice";
 export default function PhoneNumberPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
+  const [error, setError] = useState();
+
   const navigate = useNavigate(); // ใช้เพื่อ forward ไป หน้าที่ต้องการ
 
   const dispatch = useDispatch(); /// ประกาศเพื่อดึงค่ามาใช้
@@ -46,9 +48,11 @@ export default function PhoneNumberPage() {
       const input = { phoneNumber: phoneNumber.phoneNumber, code: otp };
       await dispatch(verifyPlanAsync(input)).unwrap();
       await dispatch(fetchMe()).unwrap();
+      setError("ยืนยันตัวตนสำเร็จ");
       navigate("/agent");
-      console.log("verlifile success");
+      console.log("verlify success");
     } catch (err) {
+      setError(err);
       console.log("Error to send", err);
     }
   };
@@ -100,7 +104,7 @@ export default function PhoneNumberPage() {
                     renderInput={(props) => <input {...props} />}
                   />
 
-                  <InputErrorMessage message="" />
+                  <InputErrorMessage message={error} />
 
                   <ButtonYellowM onClick={hdlSubmitOtp} type="submit">
                     ยืนยัน

@@ -11,7 +11,7 @@ export default function RedirectedAgent({ children }) {
   // const { user, isAuthenticated, isLoading } = useAuth0();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  console.log("sssss", isAuthenticated, user);
+  // console.log("sssss", isAuthenticated, user);
   if (!isAuthenticated) {
     loginWithRedirect();
   }
