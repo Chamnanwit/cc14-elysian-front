@@ -7,7 +7,7 @@ export default function RedirectedOTP({ children }) {
   const userr = useSelector((state) => state?.auth?.user);
 
   if (!isAuthenticated) {
-    <Navigate to="/register" />;
+    return <Navigate to="/register" />;
   } else if (!user) {
     return <Navigate to="/" />;
   } else if (userr?.locked === false || userr === null) {
