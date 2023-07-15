@@ -17,7 +17,7 @@ const UserProfile = () => {
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(checkMeAsync(user.email)).unwrap();
-      // console.log(user.email);
+      console.log("check useremail.", user.email);
     }
   });
 
@@ -76,6 +76,8 @@ const UserProfile = () => {
   // }, [getAccessTokenSilently]);
 
   return (
+    // <Loading />
+
     <div className=" w-full bg-c-white1 min-h-screen flex flex-col justify-between max-w-[1440px] m-auto">
       <div className=" pb-10">
         <Navbar />
