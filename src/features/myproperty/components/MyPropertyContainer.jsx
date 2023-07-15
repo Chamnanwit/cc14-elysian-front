@@ -14,7 +14,9 @@ export default function MyPropertyContainer() {
   const { id } = useParams();
 
   const [pageLoading, setPageLoading] = useState(true);
-
+  const userproperty = useSelector(
+    (state) => state?.propertyPlan?.propertyPlan?.Properties
+  );
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(PropertyAsync(id)).unwrap();
@@ -23,10 +25,6 @@ export default function MyPropertyContainer() {
 
     fetchData();
   }, [id]);
-
-  const userproperty = useSelector(
-    (state) => state?.propertyPlan?.propertyPlan?.Properties
-  );
 
   return (
     <>
