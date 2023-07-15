@@ -33,12 +33,15 @@ export default function AgentAllPropertyPage() {
   useEffect(() => {
     dispatch(dashboardAgentAsync(userid));
   }, []);
+  const purchaseAgent = useSelector(
+    (state) => state?.purchaseHistory?.purchaseAgent
+  );
 
-  // console.log("dashboard------->", dashboardAgent);
+  console.log("dashboard------->", dashboardAgent);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="max-w-[1440px] mx-auto min-h-screen flex ">
@@ -67,7 +70,7 @@ export default function AgentAllPropertyPage() {
             <AgentShowBox
               icon={<RiAdvertisementFill />}
               title="ห้องเช่าที่โฆษณา"
-              number={dashboardAgent?.totalPurchase}
+              number={dashboardAgent?.totalTopStatus}
             />
           </div>
           <MyPropertyContainer />

@@ -6,6 +6,7 @@ import store from "../store";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../layouts/Navbar";
 import HeaderSearch from "../layouts/HeaderSearch";
+import Loading from "../components/Loading";
 const UserProfile = () => {
   const { user, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const UserProfile = () => {
   });
 
   const emailstatus = useSelector((state) => state.auth.emailStatus);
-  // console.log("emailstatus", emailstatus);
+  console.log("emailstatus", emailstatus);
 
   useEffect(() => {
     if (emailstatus) {
@@ -80,6 +81,7 @@ const UserProfile = () => {
         <Navbar />
         <div className="h-full bg-c-white1">
           <HeaderSearch />
+          {/* <Loading /> */}
         </div>
       </div>
     </div>
