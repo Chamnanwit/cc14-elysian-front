@@ -37,7 +37,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              className=" absolute top-[-80px] right-0 bottom-0 left-0 "
+              className=" absolute top-[-80px] right-0 bottom-0 left-0 z-[45]"
             >
               <BigFourButtonBar />
             </motion.div>
