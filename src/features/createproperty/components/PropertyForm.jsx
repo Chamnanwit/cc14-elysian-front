@@ -37,7 +37,7 @@ export default function PropertyForm({
     subDistrictId: "",
   };
 
-  // console.log("initialImageInput--->", initialImageInput);
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
