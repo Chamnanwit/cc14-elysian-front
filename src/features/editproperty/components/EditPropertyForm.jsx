@@ -16,6 +16,8 @@ import GoogleMap from "../../../components/ShowGooglemap";
 import AminityForm from "./AminityEditForm";
 import PropertyEditImage from "../../../components/PropertyEditImage";
 import AminityEditForm from "./AminityEditForm";
+import { updatePropertyAsync } from "../../createproperty/slice/createproperty-slice";
+import { useNavigate, useParams } from "react-router-dom";
 export default function EditPropertyForm({
   textConFirm,
   onIsAddMode,
@@ -39,18 +41,21 @@ export default function EditPropertyForm({
     rentPeriod: oldProperty?.rentPeriod || "",
     locked: oldProperty?.locked || "",
     published: oldProperty?.published || "",
-    userId: oldProperty?.id || "",
+    userId: oldProperty?.userId || "",
     subDistrictId: oldProperty?.subDistrictId || "",
   };
 
-  // console.log("oldProperty----->", oldProperty);
-
+  // console.log("oldProperty----->", oldProperty?.Optionals);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
   const [position, setPosition] = useState({});
-  const [inputcheck, setInputcheck] = useState({});
+  const [inputcheck, setInputcheck] = useState(oldProperty?.Optionals);
+  const [oldDescription, setOldDescription] = useState(
+    oldProperty?.description
+  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const editorRef = useRef(null);
   const selectProvice = listProvice;
@@ -58,10 +63,14 @@ export default function EditPropertyForm({
   useEffect(() => {
     dispatch(animityAsync());
   }, []);
-
+  const user = useSelector((state) => state.auth.user);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
+
+  const handleChangeDescription = (content) => {
+    setOldDescription(content);
+  };
 
   const handleProvinceChange = (event) => {
     const province = event.target.value;
@@ -121,19 +130,32 @@ export default function EditPropertyForm({
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
-      const result = await validateCreateProperty(input);
+      input.description = editorRef.current.getContent();
+      // const result = await validateCreateProperty(input);
+      // if (result) {
+      //   return setError(result);
+      // }
+      // setError({});
 
-      if (files.length > 0) {
-        const deleteFile = await editImageProperty(id);
-        const formdata = new FormData();
-        formdata.append("imageLink", files[0]);
-        const image = await creatImagePropperty(product.data.id, formdata);
-      }
+      const property = {
+        ...input,
+        id: oldProperty?.id,
+        latitude: position.lat,
+        longitude: position.lng,
+      };
 
-      if (result) {
-        return setError(result);
+      console.log("property****>", property);
+
+      const formdata = new FormData();
+
+      formdata.append("property", JSON.stringify(property));
+
+      for (let [key, image] of Object.entries(files)) {
+        formdata.append("imageLink", image);
       }
-      setError({});
+      formdata.append("optional", JSON.stringify(inputcheck));
+      await dispatch(updatePropertyAsync(formdata)).unwrap();
+      // navigate(`/agent/myproperty/${user?.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -471,10 +493,11 @@ export default function EditPropertyForm({
               รายละเอียดเพิ่มเติม
             </div>
             <Editor
-              value={input.description}
+              name="description"
+              onChange={handleChangeDescription}
               apiKey="beu31zgpl2iagusvmlxahjevllhs67h9eagoju5q81mqzahm"
               onInit={(evt, editor) => (editorRef.current = editor)}
-              // initialValue="<p>This is the initial content of the editor.</p>"
+              initialValue={oldDescription}
               init={{
                 height: 500,
                 menubar: {
@@ -604,7 +627,7 @@ export default function EditPropertyForm({
       <>
         <AminityEditForm
           onInputChange={handleAminityFormChange}
-          oldProperty={oldProperty}
+          oldProperty={oldProperty?.Optionals}
         />
         <div className="flex">
           <button

@@ -17,23 +17,20 @@ export default function AminityForm({
     (state) => state?.animity?.animityCommonFilter
   );
 
-  const optionals = oldProperty?.Optionals;
+  // console.log(oldProperty);
   const initialInput = {};
-  const [inputcheck, setInputcheck] = useState(initialInput);
-  const [error, setError] = useState({});
+  const [inputcheck, setInputcheck] = useState({});
+  const [error, setError] = useState({ A: 2 });
 
   useEffect(() => {
     if (oldProperty) {
-      const oldOptions = oldProperty.Optionals;
-      const initialInput = {};
-
-      if (oldOptions) {
-        oldOptions.forEach((option) => {
-          initialInput[option.name] = true;
-        });
-      }
-
-      setInputcheck(initialInput);
+      const arr = [];
+      console.log(oldProperty);
+      oldProperty.map((el) => {
+        arr.push(el.OptionalType);
+        initialInput[el.OptionalType.id] = true;
+        setInputcheck(initialInput);
+      });
     }
   }, [oldProperty]);
 
@@ -49,7 +46,7 @@ export default function AminityForm({
     // เรียกใช้งานฟังก์ชันที่ถูกส่งเข้ามาจากหน้าที่เรียกใช้
     onInputChange(inputcheck);
   };
-
+  console.log(inputcheck);
   return (
     <>
       <div className="rounded-md overflow-hidden flex flex-col">
@@ -62,7 +59,7 @@ export default function AminityForm({
             onClick={handleChangeInput}
           >
             {animityRoomArrSearch.map((el) => (
-              <CheckboxEdit el={el} key={el?.id} />
+              <CheckboxEdit el={el} key={el?.id} isCheck={inputcheck[el?.id]} />
             ))}
           </form>
         </div>
@@ -78,7 +75,7 @@ export default function AminityForm({
             onClick={handleChangeInput}
           >
             {animityCommonArrSearch.map((el) => (
-              <CheckboxEdit el={el} key={el?.id} />
+              <CheckboxEdit el={el} key={el?.id} isCheck={inputcheck[el?.id]} />
             ))}
           </form>
         </div>
