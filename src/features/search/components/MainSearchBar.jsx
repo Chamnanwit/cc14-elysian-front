@@ -60,7 +60,7 @@ export default function MainSearchBar({
   return (
     <form className="text-lg w-full flex">
       <select
-        className="flex-1 pl-10 select w-full h-full text-c-gray3 rounded-l-full ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-40"
+        className="flex-1 pl-10 select z-40 w-full h-full text-c-gray3 rounded-l-full ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-none hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-[41]"
         value={roomtype}
         onChange={hdlChangeRoomTypeInput}
       >
@@ -79,7 +79,7 @@ export default function MainSearchBar({
       </select>
 
       <select
-        className="flex-[2] pl-10 select w-full h-full text-c-blue2 rounded-none ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-c-blue4 hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-40"
+        className="flex-[2] pl-10 select w-full z-40 h-full text-c-blue2 rounded-none ring-0 border-1 border focus:outline-none border-c-gray1 ring-c-gray1 outline-none focus:ring-c-blue4 hover:ring-4 hover:ring-c-blue4 transition-all duration-300 hover:z-[41]]"
         value={province}
         onChange={hdlChangeProvinceInput}
       >
@@ -94,6 +94,7 @@ export default function MainSearchBar({
 
       <Link
         to="/searchpage"
+        className="z-[39]"
         state={{
           roomtype: roomtype || "",
           province: province || "",
@@ -102,7 +103,7 @@ export default function MainSearchBar({
           rentPeriod: rentPeriod || "",
         }}
       >
-        <button className="w-fit px-7 py-2 rounded-r-full h-full bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-105 active:scale-95 active:bg-c-yellow3 hover:z-50">
+        <button className="w-fit px-7 py-2 rounded-r-full h-full bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-105 active:scale-95 active:bg-c-yellow3 hover:z-[42]">
           ค้นหา
         </button>
       </Link>
