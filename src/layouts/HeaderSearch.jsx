@@ -13,7 +13,7 @@ export default function HeaderSearch() {
   const bgLy4 = useTransform(scrollYProgress, [0, 2], ["0%", "125%"]);
   const bgLy3 = useTransform(scrollYProgress, [0, 1], ["0%", "150%"]);
   const bgLy2 = useTransform(scrollYProgress, [0, 1], ["0%", "175%"]);
-  const bgLy1 = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
+  const bgLy1 = useTransform(scrollYProgress, [0, 1], ["20%", "200%"]);
 
   return (
     // <div className=" bg-[url('/src/assets/pic/cover1.jpg')] relative h-screen w-full flex flex-col text-center items-center py-16 bg-cover">
@@ -32,8 +32,8 @@ export default function HeaderSearch() {
         //   repeatDelay: 0,
         // }}
         style={{
-          backgroundImage: `url('/src/assets/pic/whitecloud.jpeg')`,
-          backgroundPosition: "buttom",
+          backgroundImage: `url('/src/assets/pic/whitecloud1.jpg')`,
+          backgroundPosition: "top",
           backgroundSize: "cover",
           y: bgLy5,
         }}

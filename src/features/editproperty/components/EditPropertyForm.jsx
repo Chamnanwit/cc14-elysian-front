@@ -635,7 +635,7 @@ export default function EditPropertyForm({
         <div className="flex">
           <button
             type="submit"
-            className="p-2 min-w-[80px] text-white bg-yellow-400 rounded-md w-full"
+            className="p-2 min-w-[80px] text-c-gray3 rounded-lg bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-[101%] active:scale-100 active:bg-c-yellow3rounded-md w-full duration-300"
           >
             ยืนยันการแก้ไข
           </button>
