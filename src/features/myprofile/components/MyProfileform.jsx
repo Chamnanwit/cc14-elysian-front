@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaPhone, FaEnvelope } from "react-icons/fa";
 import Modal from "../../../components/Modal";
 import InputForm from "../../../components/InputForm";
 import InputErrorMessage from "../../../components/InputErrorMessage";
@@ -6,7 +7,7 @@ import {
   profileAgncyAsync,
   updateprofileAgncyAsync,
 } from "../slice/myProfile-slice";
-import defaultImage from '../../../assets/blank.png';
+import defaultImage from "../../../assets/blank.png";
 import { useDispatch, useSelector } from "react-redux";
 import validateMyProfile from "../validators/myprofileValidate";
 import ButtonYellowM from "../../../components/ButtonYellowM";
@@ -56,7 +57,8 @@ export default function MyProfileForm() {
       }
       setError({});
       const formData = new FormData();
-      if (input.profileImage) formData.append("profileImage", input.profileImage);
+      if (input.profileImage)
+        formData.append("profileImage", input.profileImage);
       formData.append("id", user.id);
       formData.append("firstName", input.firstName);
       formData.append("lastName", input.lastName);
@@ -91,19 +93,11 @@ export default function MyProfileForm() {
                 </div>
                 <ul className="list-none p-0 m-0 flex flex-col gap-1 flex-wrap mt-4">
                   <li className="flex items-center gap">
-                    <img
-                      src="https://datacraft.app/frontend/img/agent-phone.svg"
-                      alt="phone"
-                      className="mr-2"
-                    />
+                    <FaPhone className="mr-2" />
                     {user?.phoneNumber}
                   </li>
                   <li className="flex items-center">
-                    <img
-                      src="https://datacraft.app/frontend/img/agent-email.svg"
-                      alt="email"
-                      className="mr-2"
-                    />
+                    <FaEnvelope className="mr-2" />
                     <div>{user?.email}</div>
                   </li>
                 </ul>
@@ -198,7 +192,7 @@ export default function MyProfileForm() {
                 <tr>
                   <td className="w-1/2 px-3 py-2 border-b border-r">
                     รูปโปรไฟล์
-                  </td>                 
+                  </td>
                   <td className="w-1/2 p-3 border-b">
                     <div>
                       <input
@@ -212,18 +206,22 @@ export default function MyProfileForm() {
                           }
                         }}
                       />
-                     
                     </div>
-                    <div className="flex justify-end" onClick={() => inputEl.current.click()}>
-                      <img src={input.profileImage ? URL.createObjectURL(input.profileImage) : initialImage} />
+                    <div
+                      className="flex justify-end"
+                      onClick={() => inputEl.current.click()}
+                    >
+                      <img
+                        src={
+                          input.profileImage
+                            ? URL.createObjectURL(input.profileImage)
+                            : initialImage
+                        }
+                      />
                     </div>
                   </td>
-                  
-
                 </tr>
-                
-                  
-                
+
                 <tr>
                   <td colSpan={2}>
                     <div className="flex justify-end p-6">

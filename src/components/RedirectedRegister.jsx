@@ -10,7 +10,7 @@ export default function RedirectedRegister({ children }) {
   const userr = useSelector((state) => state?.auth?.user);
   // console.log("sssss", isAuthenticated, user);
   if (userr?.locked === false) {
-    return <Navigate to="/" />;
+    return <Navigate to="/register" />;
   } else if (userr?.role === "AGENCY" && userr?.locked === true) {
     return <Navigate to="/phonenumber" />;
   } else if (!isAuthenticated) {
