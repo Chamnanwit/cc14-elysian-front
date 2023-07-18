@@ -37,19 +37,20 @@ export default function AgentRentCard({
 
   const userid = user?.id;
 
-  console.log("**********>>", id);
-  console.log("**********>>dd", userid);
+  // console.log("**********>>dd", userid);
 
   // useEffect(() => {}, [status, statusTop]);
 
   const handleClickChangeStatus = async (e) => {
-    await dispatch(updatePropertyAsync({ id, locked: !status })).unwrap();
+    await dispatch(updatePropertyAsync({ id: link, locked: !status })).unwrap();
     await dispatch(PropertyAsync(userid)).unwrap();
     await dispatch(dashboardAgentAsync(userid)).unwrap();
     setStatus(!status);
   };
   const handleClickChangeStatusTop = async (e) => {
-    await dispatch(updatePropertyAsync({ id, topStatus: !statusTop })).unwrap();
+    await dispatch(
+      updatePropertyAsync({ id: link, topStatus: !statusTop })
+    ).unwrap();
     await dispatch(PropertyAsync(userid)).unwrap();
     await dispatch(dashboardAgentAsync(userid)).unwrap();
     setStatusTop(!statusTop);
@@ -58,6 +59,7 @@ export default function AgentRentCard({
   const handleDeleteProperty = async () => {
     await dispatch(deletePropertyAsync(id)).unwrap();
     await dispatch(PropertyAsync(userid)).unwrap();
+    await dispatch(dashboardAgentAsync(userid)).unwrap();
   };
 
   return (
