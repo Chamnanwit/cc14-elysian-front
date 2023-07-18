@@ -93,27 +93,6 @@ export default function MyProfileForm() {
                 />
               </div>
             </div>
-<<<<<<< HEAD
-            <div className="ml-16 md:w-1/2 mt-4 md:mt-0 flex flex-col justify-between">
-              <div>
-                <div className="mt-[30px]">
-                  <h3 className="text-xl my-2 font-semibold">
-                    {user?.firstName} {user?.lastName}
-                  </h3>
-                  <p>Real Estate Broker</p>
-                </div>
-                <ul className="list-none p-0 m-0 flex flex-col gap-1 flex-wrap mt-4">
-                  <li className="flex items-center gap">
-                    <FaPhone className="mr-2" />
-                    {user?.phoneNumber}
-                  </li>
-                  <li className="flex items-center">
-                    <FaEnvelope className="mr-2" />
-                    <div>{user?.email}</div>
-                  </li>
-                </ul>
-              </div>
-=======
             <div className="flex flex-col justify-between h-[220px]">
               <div className="">
                 <h3 className="text-xl my-2 font-semibold">
@@ -162,7 +141,6 @@ export default function MyProfileForm() {
                 Edit profile
               </button> */}
 
->>>>>>> bbbbd42a06339f0ba6abc7e14d7262bc541c63ea
               <div className="row">
                 <div className="col-12 flex justify-start"></div>
               </div>
