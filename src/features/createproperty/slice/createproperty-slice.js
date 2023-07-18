@@ -40,6 +40,7 @@ export const updatePropertyAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await PropertyService.updateProperty(input);
+      console.log("IN SLICE UPDATE", res.data);
       return res.data;
     } catch (err) {
       console.log(err);

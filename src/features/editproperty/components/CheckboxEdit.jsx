@@ -1,9 +1,10 @@
 import React from "react";
 
-export default function CheckboxEdit({ el, onChange }) {
+export default function CheckboxEdit({ el, onChange, isCheck = false }) {
   return (
     <div className="flex items-center border-gray-200 rounded dark:border-gray-700">
       <input
+        checked={isCheck ?? false}
         id={el.id}
         type="checkbox"
         value={el.id}
