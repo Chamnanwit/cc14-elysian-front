@@ -6,12 +6,18 @@ import {
   profileAgncyAsync,
   updateprofileAgncyAsync,
 } from "../slice/myProfile-slice";
-import defaultImage from '../../../assets/blank.png';
+import defaultImage from "../../../assets/blank.png";
 import { useDispatch, useSelector } from "react-redux";
 import validateMyProfile from "../validators/myprofileValidate";
 import ButtonYellowM from "../../../components/ButtonYellowM";
 import * as profileAgncyService from "../../../api/agency-api";
 import Avatar from "./Avatar";
+import { MdEmail, MdLocationOn } from "react-icons/md";
+import {
+  BsTelephoneFill,
+  BsCheckCircleFill,
+  BsFillXCircleFill,
+} from "react-icons/bs";
 
 import { useCallback } from "react";
 import { useMemo } from "react";
@@ -56,7 +62,8 @@ export default function MyProfileForm() {
       }
       setError({});
       const formData = new FormData();
-      if (input.profileImage) formData.append("profileImage", input.profileImage);
+      if (input.profileImage)
+        formData.append("profileImage", input.profileImage);
       formData.append("id", user.id);
       formData.append("firstName", input.firstName);
       formData.append("lastName", input.lastName);
@@ -76,53 +83,65 @@ export default function MyProfileForm() {
         <div className="p-4 border-radius-4">
           <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
           <div className="flex flex-col md:flex-row">
-            <div className="md:w-1/2">
-              <div className="w-[345px] h-[340px] border">
-                <img src={initialImage} alt="agent" />
+            <div className=" rounded-xl">
+              <div className="w-auto h-[340px] mr-5">
+                <img
+                  src={initialImage}
+                  alt="agent"
+                  className=" rounded-xl shadow-lg h-[200px]"
+                />
               </div>
             </div>
-            <div className="ml-16 md:w-1/2 mt-4 md:mt-0 flex flex-col justify-between">
-              <div>
-                <div className="mt-[30px]">
-                  <h3 className="text-xl my-2 font-semibold">
-                    {user?.firstName} {user?.lastName}
-                  </h3>
-                  <p>Real Estate Broker</p>
-                </div>
-                <ul className="list-none p-0 m-0 flex flex-col gap-1 flex-wrap mt-4">
-                  <li className="flex items-center gap">
-                    <img
+            <div className="flex flex-col justify-between h-[220px]">
+              <div className="">
+                <h3 className="text-xl my-2 font-semibold">
+                  {user?.firstName} {user?.lastName}
+                </h3>
+                <p className="text-sm text-c-gray2">Real Estate Broker</p>
+              </div>
+              <ul className="list-none  flex flex-col gap-1 flex-wrap">
+                <li className="flex items-center gap-2 text-sm">
+                  {/* <img
                       src="https://datacraft.app/frontend/img/agent-phone.svg"
                       alt="phone"
                       className="mr-2"
-                    />
-                    {user?.phoneNumber}
-                  </li>
-                  <li className="flex items-center">
-                    <img
+                    /> */}
+                  <BsTelephoneFill className="text-lg" />
+                  {user?.phoneNumber}
+                </li>
+                <li className="flex items-center gap-2 text-sm">
+                  {/* <img
                       src="https://datacraft.app/frontend/img/agent-email.svg"
                       alt="email"
                       className="mr-2"
-                    />
-                    <div>{user?.email}</div>
-                  </li>
-                </ul>
-              </div>
+                    /> */}
+                  <MdEmail className="text-lg" />
+                  <div>{user?.email}</div>
+                </li>
+              </ul>
+              <ButtonYellowM
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsEditMode(true);
+                }}
+              >
+                แก้ไขข้อมูล
+              </ButtonYellowM>
+              {/* <button
+                data-modal-target="authentication-modal"
+                data-modal-toggle="authentication-modal"
+                class="block text-white bg-c-blue1 hover:bg-c-blue2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsEditMode(true);
+                }}
+              >
+                Edit profile
+              </button> */}
+
               <div className="row">
-                <div className="col-12 flex justify-end">
-                  <button
-                    data-modal-target="authentication-modal"
-                    data-modal-toggle="authentication-modal"
-                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsEditMode(true);
-                    }}
-                  >
-                    Edit profile
-                  </button>
-                </div>
+                <div className="col-12 flex justify-start"></div>
               </div>
             </div>
           </div>
@@ -198,7 +217,7 @@ export default function MyProfileForm() {
                 <tr>
                   <td className="w-1/2 px-3 py-2 border-b border-r">
                     รูปโปรไฟล์
-                  </td>                 
+                  </td>
                   <td className="w-1/2 p-3 border-b">
                     <div>
                       <input
@@ -212,18 +231,22 @@ export default function MyProfileForm() {
                           }
                         }}
                       />
-                     
                     </div>
-                    <div className="flex justify-end" onClick={() => inputEl.current.click()}>
-                      <img src={input.profileImage ? URL.createObjectURL(input.profileImage) : initialImage} />
+                    <div
+                      className="flex justify-end"
+                      onClick={() => inputEl.current.click()}
+                    >
+                      <img
+                        src={
+                          input.profileImage
+                            ? URL.createObjectURL(input.profileImage)
+                            : initialImage
+                        }
+                      />
                     </div>
                   </td>
-                  
-
                 </tr>
-                
-                  
-                
+
                 <tr>
                   <td colSpan={2}>
                     <div className="flex justify-end p-6">

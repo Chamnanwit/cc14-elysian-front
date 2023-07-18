@@ -37,11 +37,9 @@ export default function PropertyForm({
     subDistrictId: "",
   };
 
-  
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(state => state.auth.user)
+  const user = useSelector((state) => state.auth.user);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
@@ -659,7 +657,7 @@ export default function PropertyForm({
         <div className="flex">
           <button
             type="submit"
-            className="p-2 min-w-[80px] text-white bg-yellow-400 rounded-md w-full"
+            className="p-2 min-w-[80px] text-c-gray3 rounded-lg bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-[101%] active:scale-100 active:bg-c-yellow3rounded-md w-full duration-300"
           >
             สร้างห้องเช่า
           </button>
