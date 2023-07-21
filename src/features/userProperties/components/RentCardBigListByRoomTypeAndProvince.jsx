@@ -88,17 +88,18 @@ export default function RentCardBigListByRoomTypeAndProvince() {
           }
           return true;
         })
-        .filter((el) => {
-          if (el?.published) return el?.published === true;
-        })
-        .filter((el) => {
-          if (el?.topStatus) return el?.topStatus !== true;
-        })
-        .filter((el) => {
-          if (el?.User?.PurchaseHistories[0]?.orderStatus)
-            return el?.User?.PurchaseHistories[0]?.orderStatus !== "ACTIVE";
-        })
-
+        // .filter((el) => {
+        //   if (el?.published) return el?.published === true;
+        // })
+        .filter((el) => el?.topStatus !== true)
+        // .filter((el) => {
+        //   if (el?.User?.PurchaseHistories[0]?.orderStatus) return;
+        //   console.log("check status", el?.User?.PurchaseHistories[0]?.id);
+        //   el?.User?.PurchaseHistories[0]?.orderStatus === "EXPIRE";
+        // })
+        // .filter(
+        //   (el) => el?.User?.PurchaseHistories[0]?.orderStatus !== "ACTIVE"
+        // )
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
             <RentCardBig

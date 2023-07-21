@@ -91,28 +91,17 @@ export default function SponserRentCardBigList() {
           }
           return true;
         })
-        .filter((el) => {
-          if (el?.User?.PurchaseHistories[0]?.orderStatus)
-            return el?.User?.PurchaseHistories[0]?.orderStatus === "ACTIVE";
-        })
-        .filter((el) => {
-          if (el?.User?.PurchaseHistories[0]?.pricingPlanId)
-            return (
-              el?.User?.PurchaseHistories[0]?.pricingPlanId == 3 ||
-              el?.User?.PurchaseHistories[0]?.pricingPlanId == 7
-            );
-        })
-        // .filter((el) => {
-        //   if (el?.locked) return el?.locked === true;
-        // })
-        .filter((el) => {
-          if (el?.published) return el?.published === true;
-        })
+        .filter(
+          (el) => el?.User?.PurchaseHistories[0]?.orderStatus === "ACTIVE"
+        )
 
-        .filter((el) => {
-          if (el?.topStatus) return el?.topStatus === true;
-        })
+        .filter(
+          (el) =>
+            el?.User?.PurchaseHistories[0]?.pricingPlanId == 3 ||
+            el?.User?.PurchaseHistories[0]?.pricingPlanId == 7
+        )
 
+        .filter((el) => el?.topStatus === true)
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
             <SponserRentCardBig
