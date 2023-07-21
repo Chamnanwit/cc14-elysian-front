@@ -39,7 +39,7 @@ function MapPage({ location, handleChangeMap }) {
       });
     });
 
-    console.log("-----------------map---------------", position);
+    // console.log("-----------------map---------------", position);
   }
 
   function getLocation() {
