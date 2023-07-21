@@ -88,13 +88,17 @@ export default function RentCardBigListByRoomTypeAndProvince() {
           }
           return true;
         })
-        // .filter((el) => {
-        //   if (el?.published) return el?.published === true;
-        // })
+        .filter((el) => {
+          if (el?.published) return el?.published === true;
+        })
+        .filter((el) => {
+          if (el?.topStatus) return el?.topStatus !== true;
+        })
         .filter((el) => {
           if (el?.User?.PurchaseHistories[0]?.orderStatus)
             return el?.User?.PurchaseHistories[0]?.orderStatus !== "ACTIVE";
         })
+
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>
             <RentCardBig

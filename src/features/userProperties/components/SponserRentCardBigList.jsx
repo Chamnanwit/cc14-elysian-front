@@ -34,7 +34,7 @@ export default function SponserRentCardBigList() {
   //   console.log("tettt", state.rentPeriod);
   //   const timestamp = {};
   //   const date = new Date(timestamp).toLocaleDateString();
-  console.log("reresr", userPropertieslist?.User);
+  console.log("reresr", userPropertieslist);
   //   userPropertieslist?.User?.PurchaseHistories?.pricingPlanId
 
   return (
@@ -103,11 +103,15 @@ export default function SponserRentCardBigList() {
             );
         })
         // .filter((el) => {
-        //   if (el?.published) return el?.published === true;
+        //   if (el?.locked) return el?.locked === true;
         // })
-        // .filter((el) => {
-        //   if (el?.topStatus) return el?.topStatus === true;
-        // })
+        .filter((el) => {
+          if (el?.published) return el?.published === true;
+        })
+
+        .filter((el) => {
+          if (el?.topStatus) return el?.topStatus === true;
+        })
 
         .map((el) => (
           <Link to={`/rentdetail/${el?.id}`} key={el?.id}>

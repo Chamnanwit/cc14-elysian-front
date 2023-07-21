@@ -25,6 +25,8 @@ export default function DashboardAgenctContainer() {
     (state) => state?.dashboard?.dashboardAgentResult
   );
 
+  console.log("dashboardAgent".dashboardAgent);
+
   if (isLoading) {
     return <Loading />;
   }

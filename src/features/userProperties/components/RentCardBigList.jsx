@@ -24,9 +24,13 @@ export default function RentCardBigList() {
   return (
     <>
       {userPropertieslist
-        // .filter((el) => {
-        //   if (el?.published) return el?.published === true;
-        // })
+        .filter((el) => {
+          if (el?.published) return el?.published === true;
+        })
+        .filter((el) => {
+          if (el?.topStatus);
+          return el?.topStatus === false;
+        })
         ?.map((el) => (
           <Link to={`/rentdetail/${el?.id}`}>
             <RentCardBig

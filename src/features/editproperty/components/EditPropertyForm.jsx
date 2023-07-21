@@ -45,7 +45,6 @@ export default function EditPropertyForm({
     subDistrictId: oldProperty?.subDistrictId || "",
   };
 
-  // console.log("oldProperty----->", oldProperty?.Optionals);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
@@ -144,18 +143,16 @@ export default function EditPropertyForm({
         longitude: position.lng,
       };
 
-      console.log("property****>", property);
+      // const formdata = new FormData();
 
-      const formdata = new FormData();
+      // formdata.append("property", JSON.stringify(property));
 
-      formdata.append("property", JSON.stringify(property));
-
-      for (let [key, image] of Object.entries(files)) {
-        formdata.append("imageLink", image);
-      }
-      formdata.append("optional", JSON.stringify(inputcheck));
-      await dispatch(updatePropertyAsync(formdata)).unwrap();
-      // navigate(`/agent/myproperty/${user?.id}`);
+      // for (let [key, image] of Object.entries(files)) {
+      //   formdata.append("imageLink", image);
+      // }
+      // formdata.append("optional", JSON.stringify(inputcheck));
+      await dispatch(updatePropertyAsync(property)).unwrap();
+      navigate(`/agent/myproperty/${user?.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -252,7 +249,7 @@ export default function EditPropertyForm({
                 id="rentPeriod"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="rentPeriod"
-                value={input.rentPeriod}
+                value={input?.rentPeriod}
                 onChange={handleChangeInput}
               >
                 <option selected hidden value={""}>
@@ -340,7 +337,7 @@ export default function EditPropertyForm({
                 id="subDistrict"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
-                value={selectedSubDistrict}
+                value={input.subDistrictId}
                 onChange={handleSubDistrictChange}
                 disabled={!selectedDistrict}
               >
@@ -387,7 +384,10 @@ export default function EditPropertyForm({
                     labelName="ละติจูด"
                     name="latitude"
                     placeholder=""
-                    value={position?.lat ? position.lat.toFixed(3) : ""}
+                    // value={
+                    //   position?.lat ? position.lat.toFixed(3) : input?.latitude
+                    // }
+                    value={input?.latitude}
                     onChange={handleChangeMap}
                     isInvalid={error.latitude}
                   />
@@ -402,7 +402,10 @@ export default function EditPropertyForm({
                     labelName="ลองจิจูด"
                     name="longitude"
                     placeholder=""
-                    value={position?.lng ? position.lng.toFixed(3) : ""}
+                    // value={
+                    //   position?.lng ? position.lng.toFixed(3) : input?.longitude
+                    // }
+                    value={input?.longitude}
                     onChange={handleChangeMap}
                     isInvalid={error.longitude}
                   />
@@ -634,7 +637,7 @@ export default function EditPropertyForm({
             type="submit"
             className="p-2 min-w-[80px] text-c-gray3 rounded-lg bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-[101%] active:scale-100 active:bg-c-yellow3rounded-md w-full duration-300"
           >
-            สร้างห้องเช่า
+            ยืนยันการแก้ไข
           </button>
         </div>
       </>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaPhone, FaEnvelope } from "react-icons/fa";
 import Modal from "../../../components/Modal";
 import InputForm from "../../../components/InputForm";
 import InputErrorMessage from "../../../components/InputErrorMessage";
