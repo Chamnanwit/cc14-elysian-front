@@ -32,6 +32,7 @@ export default function PropertyForm({
     longitude: "",
     rentPeriod: "",
     locked: "",
+    topStatus: 1,
     published: true,
     userId: oldProperty?.id || "",
     subDistrictId: "",
@@ -138,7 +139,7 @@ export default function PropertyForm({
         latitude: position.lat,
         longitude: position.lng,
       };
-
+      console.log("property----->", property);
       const formdata = new FormData();
 
       formdata.append("property", JSON.stringify(property));
@@ -148,7 +149,7 @@ export default function PropertyForm({
       }
       formdata.append("optional", JSON.stringify(inputcheck));
       await dispatch(createPropertyAsync(formdata)).unwrap();
-      navigate(`/agent/myproperty/${user?.id}`);
+      // navigate(`/agent/myproperty/${user?.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -260,7 +261,7 @@ export default function PropertyForm({
                     เลือกระยะเวลา
                   </option>
                   {period.map((el) => (
-                    <option key={el?.id} value={el.Name}>
+                    <option key={el?.id} value={el.engName}>
                       {el.thaiName}
                     </option>
                   ))}

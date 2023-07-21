@@ -249,7 +249,7 @@ export default function EditPropertyForm({
                 id="rentPeriod"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="rentPeriod"
-                value={input?.rentPeriod}
+                value={input.rentPeriod}
                 onChange={handleChangeInput}
               >
                 <option selected hidden value={""}>
@@ -337,7 +337,7 @@ export default function EditPropertyForm({
                 id="subDistrict"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="subDistrictId"
-                value={input.subDistrictId}
+                value={selectedSubDistrict}
                 onChange={handleSubDistrictChange}
                 disabled={!selectedDistrict}
               >
@@ -635,7 +635,7 @@ export default function EditPropertyForm({
         <div className="flex">
           <button
             type="submit"
-            className="p-2 min-w-[80px] text-c-gray3 rounded-lg bg-c-yellow1 font-semibold transition-all hover:bg-c-yellow2 hover:scale-[101%] active:scale-100 active:bg-c-yellow3rounded-md w-full duration-300"
+            className="p-2 min-w-[80px] text-white bg-yellow-400 rounded-md w-full"
           >
             ยืนยันการแก้ไข
           </button>
