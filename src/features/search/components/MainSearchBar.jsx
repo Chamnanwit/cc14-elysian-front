@@ -14,8 +14,6 @@ export default function MainSearchBar({
   const dispatch = useDispatch();
   const [roomtype, setRoomtype] = useState(roomtypeName || "");
   const [province, setProvince] = useState(provinceName || "");
-  // const [areaRange, setAreaRange] = useState("");
-  // const [priceRange, setPriceRange] = useState("");
 
   let { state } = useLocation();
 
