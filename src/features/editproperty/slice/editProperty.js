@@ -4,6 +4,7 @@ import { Input } from "postcss";
 
 const initialState = {
   propertyPlan: [],
+  UserPropertyPlan: [],
   isLoading: true,
 };
 
@@ -60,8 +61,20 @@ export const deletePropertyPlanAsync = createAsyncThunk(
     }
   }
 );
+export const getAllPropertyPlanAsync = createAsyncThunk(
+  "propertyPlan/getAllPropertyPlanAsync",
+  async (id, thunkApi) => {
+    try {
+      const res = await propertyPlanService.getPropertyUserById(id);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 
-const propertyPlanSlice = createSlice({
+const editPropertyPlanSlice = createSlice({
   name: "propertyPlan",
   initialState,
   extraReducers: (builder) =>
@@ -98,7 +111,18 @@ const propertyPlanSlice = createSlice({
       .addCase(updatePropertyPlanAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+      })
+      .addCase(getAllPropertyPlanAsync.pending, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getAllPropertyPlanAsync.fulfilled, (state, action) => {
+        state.UserPropertyPlan = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getAllPropertyPlanAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
       }),
 });
 
-export default propertyPlanSlice.reducer;
+export default editPropertyPlanSlice.reducer;

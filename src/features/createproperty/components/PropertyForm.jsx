@@ -22,6 +22,7 @@ export default function PropertyForm({
   const initialInput = {
     price: "",
     floor: "",
+    roomTypeId: "",
     totalArea: "",
     totalUnit: "",
     totalBedroom: "",
@@ -32,8 +33,8 @@ export default function PropertyForm({
     longitude: "",
     rentPeriod: "",
     locked: "",
-    topStatus: 1,
-    published: true,
+    topStatus: true,
+    published: false,
     userId: oldProperty?.id || "",
     subDistrictId: "",
   };
@@ -44,8 +45,11 @@ export default function PropertyForm({
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
+  console.log("files------>", files);
 
   const selectProvice = listProvice;
+
+  const [imgError, setImgError] = useState({});
 
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -113,33 +117,35 @@ export default function PropertyForm({
     setInputcheck(inputcheck);
   };
 
-  const handleChangeImageInput = (e) => {
-    setImageInput({ ...imageInput, [e.target.name]: e.target.files[0] });
-  };
+  // const handleChangeImageInput = (e) => {
+  //   setImageInput({ ...ImageInput, [e.target.name]: e.target.files[0] });
+  // };
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     // console.log(input);
   };
 
-  // console.log("--------->", files);
-
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
       input.description = editorRef.current.getContent();
-      // const result = await validateCreateProperty(input);
-      // if (result) {
-      //   return setError(result);
-      // }
-      // setError({});
-
       const property = {
         ...input,
         latitude: position.lat,
         longitude: position.lng,
       };
-      console.log("property----->", property);
+      const result = await validateCreateProperty(property);
+      if (result) {
+        console.log("result----->", result);
+        return setError(result);
+      }
+      setError({});
+      if (Object.keys(files).length < 3) {
+        return setImgError("กรุณาเพิ่มรูปภาพอย่างน้อย 3 รูปภาพ");
+      }
+      setImgError({});
+
       const formdata = new FormData();
 
       formdata.append("property", JSON.stringify(property));
@@ -149,17 +155,12 @@ export default function PropertyForm({
       }
       formdata.append("optional", JSON.stringify(inputcheck));
       await dispatch(createPropertyAsync(formdata)).unwrap();
-      // navigate(`/agent/myproperty/${user?.id}`);
+      navigate(`/agent/myproperty/${user?.id}`);
     } catch (err) {
       console.log(err);
     }
-    // console.log("------------>***", {
-    //   ...input,
-    //   latitude: position.lat,
-    //   longitude: position.lng,
-    // });
   };
-
+  console.log("imgError--->", imgError);
   const propertyType = [
     { id: 1, name: "สตูดิโอ" },
     { id: 2, name: "ห้องเพดานสูง" },
@@ -356,8 +357,8 @@ export default function PropertyForm({
                   ))}
                 </select>
                 <div className="h-6 pb-2">
-                  {error.rentPeriod && (
-                    <InputErrorMessage message={error.rentPeriod} />
+                  {error.subDistrictId && (
+                    <InputErrorMessage message={error.subDistrictId} />
                   )}
                 </div>
               </div>
@@ -587,7 +588,6 @@ export default function PropertyForm({
                 <p>รูปภาพที่ 1</p>
                 <PropertyImage
                   cls="Image1"
-                  onChange={handleChangeImageInput}
                   name="image1"
                   files={files}
                   setFiles={setFiles}
@@ -597,7 +597,6 @@ export default function PropertyForm({
                 <p>รูปภาพที่ 2</p>
                 <PropertyImage
                   cls="Image2"
-                  onChange={handleChangeImageInput}
                   name="image2"
                   files={files}
                   setFiles={setFiles}
@@ -607,7 +606,6 @@ export default function PropertyForm({
                 <p>รูปภาพที่ 3</p>
                 <PropertyImage
                   cls="Image3"
-                  onChange={handleChangeImageInput}
                   name="image3"
                   files={files}
                   setFiles={setFiles}
@@ -617,11 +615,13 @@ export default function PropertyForm({
                 <p>รูปภาพที่ 4</p>
                 <PropertyImage
                   cls="Image4"
-                  onChange={handleChangeImageInput}
                   name="image4"
                   files={files}
                   setFiles={setFiles}
                 />
+              </div>
+              <div className="flex flex-col gap-2">
+                <InputErrorMessage message={imgError} />
               </div>
             </div>
           </div>
@@ -649,9 +649,10 @@ export default function PropertyForm({
               <option selected hidden value={""}>
                 ตั้งค่าห้องเช่า
               </option>
-              <option value={0}>แสดง</option>
-              <option value={1}>ไม่แสดง</option>
+              <option value={false}>แสดง</option>
+              <option value={true}>ไม่แสดง</option>
             </select>
+            {error.locked && <InputErrorMessage message={error.locked} />}
           </div>
         </div>
 
