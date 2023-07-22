@@ -12,6 +12,7 @@ import agencyOtpReducer from "../features/agencyotp/slice/agencyotp-slice";
 import searchListReducer from "../features/search/slice/search-slice";
 import paymentReducer from "../features/payment/slice/payment-slice";
 import dashboardReducer from "../features/dashboard/slice/dashboard-slice";
+import editPropertyPlanReducer from "../features/editproperty/slice/editProperty";
 
 const store = configureStore({
   reducer: {
@@ -29,6 +30,7 @@ const store = configureStore({
     purchaseHistory: purchaseHistoryReducer,
     requestOtpAsync: agencyOtpReducer,
     searchList: searchListReducer,
+    editPropertyPlan: editPropertyPlanReducer,
   },
 });
 

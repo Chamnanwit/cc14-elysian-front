@@ -45,6 +45,7 @@ export default function EditPropertyForm({
     subDistrictId: oldProperty?.subDistrictId || "",
   };
 
+  console.log("oldProperty--------*", oldProperty?.SubDistrict?.nameInThai);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
@@ -62,17 +63,24 @@ export default function EditPropertyForm({
   useEffect(() => {
     dispatch(animityAsync());
   }, []);
-  const user = useSelector((state) => state.auth.user);
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
-
   const handleChangeDescription = (content) => {
     setOldDescription(content);
   };
 
+  const user = useSelector((state) => state.auth.user);
+  const [selectedProvince, setSelectedProvince] = useState(
+    oldProperty?.SubDistrict?.District?.Province?.nameInThai
+  );
+  const [selectedDistrict, setSelectedDistrict] = useState(
+    oldProperty?.SubDistrict?.District?.nameInThai
+  );
+  const [selectedSubDistrict, setSelectedSubDistrict] = useState(
+    oldProperty?.SubDistrict?.id
+  );
+
   const handleProvinceChange = (event) => {
     const province = event.target.value;
+    // console.log("province", province);
     setSelectedProvince(province);
     setSelectedDistrict("");
     setSelectedSubDistrict("");

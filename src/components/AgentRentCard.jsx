@@ -37,10 +37,6 @@ export default function AgentRentCard({
 
   const userid = user?.id;
 
-  // console.log("**********>>dd", userid);
-
-  // useEffect(() => {}, [status, statusTop]);
-
   const handleClickChangeStatus = async (e) => {
     await dispatch(updatePropertyAsync({ id: link, locked: !status })).unwrap();
     await dispatch(PropertyAsync(userid)).unwrap();

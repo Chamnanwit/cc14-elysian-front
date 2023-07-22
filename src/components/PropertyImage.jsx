@@ -6,11 +6,8 @@ export default function PropertyImage({ cls, files, setFiles, name }) {
 
   const handleFileChange = (e) => {
     console.log("file change");
-    // e.stopPropagation()
-    //  e.stopPropagation()
     if (e.target.files.length) {
       const selectedFile = e.target.files[0];
-      // console.log({ ...files }[name]);
       setFiles({ ...files, [name]: selectedFile });
     }
   };

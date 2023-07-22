@@ -44,16 +44,25 @@ const CreatePropertySchema = Joi.object({
   description: Joi.string().trim().messages({
     "string.empty": "กรุณากรอกรายละเอียดเพิ่มเติม",
   }),
-  latitude: Joi.string().trim().message({
+  latitude: Joi.number().messages({
     "string.empty": "กรุณาเพิ่มละติจูด",
+    "string.base": "กรุณาเพิ่มละติจูด",
   }),
-  longitude: Joi.string().trim().message({
+  longitude: Joi.number().messages({
     "string.empty": "กรุณาเพิ่มลองจิจูด",
+    "string.base": "กรุณาเพิ่มลองจิจูด",
   }),
-  locked: Joi.string(),
-  published: Joi.string(),
+  locked: Joi.boolean().messages({
+    "boolean.empty": "กรุณาเลือกการแสดงห้องเช่า",
+    "boolean.base": "กรุณาเลือกการแสดงห้องเช่า",
+  }),
+  published: Joi.boolean(),
+  topStatus: Joi.boolean(),
   userId: Joi.number(),
-  subDistrictId: Joi.string(),
+  subDistrictId: Joi.string().required().messages({
+    "string.empty": "กรุณาเลือกจังหวัด",
+    "string.base": "กรุณาเลือกจังหวัด",
+  }),
 });
 const validateCreateProperty = (input) => {
   const { error } = CreatePropertySchema.validate(input, { abortEarly: false });
