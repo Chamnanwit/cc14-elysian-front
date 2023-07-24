@@ -395,7 +395,7 @@ export default function EditPropertyForm({
                     // value={
                     //   position?.lat ? position.lat.toFixed(3) : input?.latitude
                     // }
-                    value={input?.latitude}
+                    value={position?.lat ? position.lat.toFixed(3) : ""}
                     onChange={handleChangeMap}
                     isInvalid={error.latitude}
                   />
@@ -413,7 +413,7 @@ export default function EditPropertyForm({
                     // value={
                     //   position?.lng ? position.lng.toFixed(3) : input?.longitude
                     // }
-                    value={input?.longitude}
+                    value={position?.lng ? position.lng.toFixed(3) : ""}
                     onChange={handleChangeMap}
                     isInvalid={error.longitude}
                   />
