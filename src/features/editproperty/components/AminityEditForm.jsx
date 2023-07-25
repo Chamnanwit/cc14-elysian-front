@@ -34,6 +34,10 @@ export default function AminityForm({
     }
   }, [oldProperty]);
 
+  useEffect(() => {
+    // เรียกใช้งานฟังก์ชันที่ถูกส่งเข้ามาจากหน้าที่เรียกใช้
+    onInputChange(inputcheck);
+  }, [inputcheck]);
   const handleChangeInput = (e) => {
     if (e.target.checked) {
       setInputcheck({ ...inputcheck, [e.target.name]: e.target.checked });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputForm from "../../../components/InputForm";
 import Checkbox from "./Checkbox";
 import { useSelector } from "react-redux";
@@ -19,6 +19,10 @@ export default function AminityForm({
   const initialInput = {};
   const [inputcheck, setInputcheck] = useState(initialInput);
   const [error, setError] = useState({});
+  useEffect(() => {
+    // เรียกใช้งานฟังก์ชันที่ถูกส่งเข้ามาจากหน้าที่เรียกใช้
+    onInputChange(inputcheck);
+  }, [inputcheck]);
 
   const handleChangeInput = (e) => {
     if (e.target.checked) {
