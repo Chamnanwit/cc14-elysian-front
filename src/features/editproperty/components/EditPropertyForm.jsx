@@ -400,7 +400,14 @@ export default function EditPropertyForm({
                     labelName="ละติจูด"
                     name="latitude"
                     placeholder=""
+<<<<<<< HEAD
                     value={parseFloat(position.lat).toFixed(3)}
+=======
+                    // value={
+                    //   position?.lat ? position.lat.toFixed(3) : input?.latitude
+                    // }
+                    value={position?.lat ? position.lat.toFixed(3) : ""}
+>>>>>>> 166974b32e3f97bf7c068999aff15e2ccb0ed762
                     onChange={handleChangeMap}
                     isInvalid={error.latitude}
                     disabled="true"
@@ -416,7 +423,14 @@ export default function EditPropertyForm({
                     labelName="ลองจิจูด"
                     name="longitude"
                     placeholder=""
+<<<<<<< HEAD
                     value={parseFloat(position.lng).toFixed(3)}
+=======
+                    // value={
+                    //   position?.lng ? position.lng.toFixed(3) : input?.longitude
+                    // }
+                    value={position?.lng ? position.lng.toFixed(3) : ""}
+>>>>>>> 166974b32e3f97bf7c068999aff15e2ccb0ed762
                     onChange={handleChangeMap}
                     isInvalid={error.longitude}
                     disabled="true"
