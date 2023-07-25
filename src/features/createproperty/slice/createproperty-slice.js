@@ -48,6 +48,20 @@ export const updatePropertyAsync = createAsyncThunk(
     }
   }
 );
+export const updateMyPropertyAsync = createAsyncThunk(
+  "propertyPlan/updateMyPropertyAsync",
+  async (id, formdata, thunkApi) => {
+    try {
+      const res = await PropertyService.updateMyProperty(id, formdata);
+      console.log("IN SLICE MYUPDATE", res.data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 export const deletePropertyAsync = createAsyncThunk(
   "propertyPlan/deletePropertyAsync",
   async (id, thunkApi) => {
@@ -137,6 +151,16 @@ const propertyPlanSlice = createSlice({
         //state.user = action.payload;
       })
       .addCase(updatePropertyAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(updateMyPropertyAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateMyPropertyAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(updateMyPropertyAsync.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       })

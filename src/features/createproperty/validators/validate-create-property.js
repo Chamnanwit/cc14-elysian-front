@@ -10,7 +10,7 @@ const CreatePropertySchema = Joi.object({
     "number.precision": "กรุณากรอกตัวเลขทศนิยมไม่เกิน 2 ตำแหน่ง",
     "any.required": "กรุณากรอกราคาห้องเช่า",
   }),
-  roomTypeId: Joi.string().required().messages({
+  roomTypeId: Joi.number().required().messages({
     "string.empty": "กรุณาเลือกประเภทที่พัก",
     "string.base": "กรุณาเลือกประเภทที่พัก",
   }),
@@ -54,12 +54,11 @@ const CreatePropertySchema = Joi.object({
   }),
   locked: Joi.boolean().messages({
     "boolean.empty": "กรุณาเลือกการแสดงห้องเช่า",
-    "boolean.base": "กรุณาเลือกการแสดงห้องเช่า",
   }),
   published: Joi.boolean(),
   topStatus: Joi.boolean(),
   userId: Joi.number(),
-  subDistrictId: Joi.string().required().messages({
+  subDistrictId: Joi.number().required().messages({
     "string.empty": "กรุณาเลือกจังหวัด",
     "string.base": "กรุณาเลือกจังหวัด",
   }),

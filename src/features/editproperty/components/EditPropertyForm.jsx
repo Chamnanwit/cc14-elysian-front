@@ -16,7 +16,10 @@ import GoogleMap from "../../../components/ShowGooglemap";
 import AminityForm from "./AminityEditForm";
 import PropertyEditImage from "../../../components/PropertyEditImage";
 import AminityEditForm from "./AminityEditForm";
-import { updatePropertyAsync } from "../../createproperty/slice/createproperty-slice";
+import {
+  updateMyPropertyAsync,
+  updatePropertyAsync,
+} from "../../createproperty/slice/createproperty-slice";
 import { useNavigate, useParams } from "react-router-dom";
 export default function EditPropertyForm({
   textConFirm,
@@ -27,7 +30,7 @@ export default function EditPropertyForm({
 }) {
   const initialInput = {
     name: oldProperty?.name || "",
-    roomTypeId: oldProperty?.roomTypeId || "",
+    roomTypeId: oldProperty?.roomTypeId,
     price: oldProperty?.price || "",
     floor: oldProperty?.floor || "",
     totalArea: oldProperty?.totalArea || "",
@@ -39,17 +42,22 @@ export default function EditPropertyForm({
     latitude: oldProperty?.latitude || "",
     longitude: oldProperty?.longitude || "",
     rentPeriod: oldProperty?.rentPeriod || "",
-    locked: oldProperty?.locked || "",
-    published: oldProperty?.published || "",
+    locked: oldProperty?.locked,
+    published: false,
+    topStatus: true,
     userId: oldProperty?.userId || "",
-    subDistrictId: oldProperty?.subDistrictId || "",
+    subDistrictId: oldProperty?.subDistrictId,
   };
+  const oldmap = {
+    lat: oldProperty?.latitude,
+    lng: oldProperty?.longitude,
+  };
+  const id = oldProperty?.id;
 
-  console.log("oldProperty--------*", oldProperty?.SubDistrict?.nameInThai);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
-  const [position, setPosition] = useState({});
+  const [position, setPosition] = useState(oldmap);
   const [inputcheck, setInputcheck] = useState(oldProperty?.Optionals);
   const [oldDescription, setOldDescription] = useState(
     oldProperty?.description
@@ -138,29 +146,29 @@ export default function EditPropertyForm({
     try {
       e.preventDefault();
       input.description = editorRef.current.getContent();
-      // const result = await validateCreateProperty(input);
-      // if (result) {
-      //   return setError(result);
-      // }
-      // setError({});
 
       const property = {
         ...input,
-        id: oldProperty?.id,
         latitude: position.lat,
         longitude: position.lng,
       };
+      console.log(property);
+      const result = await validateCreateProperty(input);
+      if (result) {
+        return setError(result);
+      }
+      setError({});
 
-      // const formdata = new FormData();
+      const formdata = new FormData();
 
-      // formdata.append("property", JSON.stringify(property));
+      formdata.append("property", JSON.stringify(property));
 
-      // for (let [key, image] of Object.entries(files)) {
-      //   formdata.append("imageLink", image);
-      // }
-      // formdata.append("optional", JSON.stringify(inputcheck));
-      await dispatch(updatePropertyAsync(property)).unwrap();
-      navigate(`/agent/myproperty/${user?.id}`);
+      for (let [key, image] of Object.entries(files)) {
+        formdata.append("imageLink", image);
+      }
+      formdata.append("optional", JSON.stringify(inputcheck));
+      await dispatch(updateMyPropertyAsync(id, formdata)).unwrap();
+      // navigate(`/agent/myproperty/${user?.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -392,12 +400,10 @@ export default function EditPropertyForm({
                     labelName="ละติจูด"
                     name="latitude"
                     placeholder=""
-                    // value={
-                    //   position?.lat ? position.lat.toFixed(3) : input?.latitude
-                    // }
-                    value={input?.latitude}
+                    value={parseFloat(position.lat).toFixed(3)}
                     onChange={handleChangeMap}
                     isInvalid={error.latitude}
+                    disabled="true"
                   />
                   {error.latitude && (
                     <InputErrorMessage message={error.latitude} />
@@ -410,12 +416,10 @@ export default function EditPropertyForm({
                     labelName="ลองจิจูด"
                     name="longitude"
                     placeholder=""
-                    // value={
-                    //   position?.lng ? position.lng.toFixed(3) : input?.longitude
-                    // }
-                    value={input?.longitude}
+                    value={parseFloat(position.lng).toFixed(3)}
                     onChange={handleChangeMap}
                     isInvalid={error.longitude}
+                    disabled="true"
                   />
                   {error.longitude && (
                     <InputErrorMessage message={error.longitude} />

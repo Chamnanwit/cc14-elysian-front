@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import PropertyForm from "../features/createproperty/components/PropertyForm";
 
 function MapPage({ location, handleChangeMap }) {
   let map;
+  console.log("location----->", location);
+  const namberlatitude = parseFloat(location?.lat);
+  const namberlongitude = parseFloat(location?.lng);
+
   const [init, setInit] = useState(true);
-  const [latitude, setLatitude] = useState(null);
-  const [logtitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(namberlatitude);
+  const [longitude, setLongitude] = useState(namberlongitude);
+
   async function initMap() {
-    const position = { lat: latitude, lng: logtitude };
+    const position = { lat: latitude, lng: longitude };
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
@@ -18,7 +22,7 @@ function MapPage({ location, handleChangeMap }) {
       mapId: "DEMO_MAP_ID",
     });
     let infoWindow = new google.maps.InfoWindow({
-      content: "Click the map to get Lat/Lng!",
+      content: "กรุณาเลือกที่ตั้งอีกครั้ง",
       position: position,
     });
     const marker = new google.maps.Marker({
@@ -29,7 +33,7 @@ function MapPage({ location, handleChangeMap }) {
     infoWindow.open(map, marker);
 
     map.addListener("click", (mapsMouseEvent) => {
-      // console.log(mapsMouseEvent.latLng.toJSON())
+      // console.log(mapsMouseEvent.latLng.toJSON());
       marker.setPosition(mapsMouseEvent.latLng.toJSON());
       setLatitude(mapsMouseEvent.latLng.toJSON().lat);
       setLongitude(mapsMouseEvent.latLng.toJSON().lng);
@@ -38,7 +42,6 @@ function MapPage({ location, handleChangeMap }) {
         lng: mapsMouseEvent.latLng.toJSON().lng,
       });
     });
-
     // console.log("-----------------map---------------", position);
   }
 
@@ -47,7 +50,6 @@ function MapPage({ location, handleChangeMap }) {
       navigator.geolocation.getCurrentPosition((pos) => {
         setLatitude(pos.coords.latitude);
         setLongitude(pos.coords.longitude);
-
         handleChangeMap({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
@@ -57,16 +59,11 @@ function MapPage({ location, handleChangeMap }) {
   }
 
   useEffect(() => {
-    getLocation();
-  }, []);
-
-  useEffect(() => {
-    if (logtitude && init) {
-      console.log(init);
+    if (longitude && init) {
       initMap();
       setInit(false);
     }
-  }, [logtitude, latitude]);
+  }, [longitude]);
 
   return (
     <div className="">

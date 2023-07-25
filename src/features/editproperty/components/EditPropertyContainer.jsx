@@ -27,17 +27,18 @@ export default function EditPropertyContainer() {
     (state) => state?.propertyPlan?.imageProperty
   );
   const imageProp = [...(imageProperty?.result ?? [])];
-
-  // console.log("oldProperty-------->", oldProperty);
+  
   return (
     <>
       <HeaderAgent topic="Edit Property" />
-      <EditPropertyForm
-        key={oldProperty.id}
-        oldProperty={oldProperty}
-        listProvice={listProvice}
-        oldImage={imageProp}
-      />
+      <div className="flex flex-col gap-6 m-8 mt-0">
+        <EditPropertyForm
+          key={oldProperty.id}
+          oldProperty={oldProperty}
+          listProvice={listProvice}
+          oldImage={imageProp}
+        />
+      </div>
     </>
   );
 }
