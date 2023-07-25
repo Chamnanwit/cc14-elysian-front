@@ -46,7 +46,7 @@ export default function AminityForm({
     // เรียกใช้งานฟังก์ชันที่ถูกส่งเข้ามาจากหน้าที่เรียกใช้
     onInputChange(inputcheck);
   };
-  console.log(inputcheck);
+  // console.log(inputcheck);
   return (
     <>
       <div className="rounded-md overflow-hidden flex flex-col">

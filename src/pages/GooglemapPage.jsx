@@ -10,7 +10,7 @@ function ShowMap({ name }) {
   const userPropertiesIdlist = useSelector(
     (state) => state?.userProperties?.userPropertiesById
   );
-  
+
   async function initMap(lat, long) {
     const position = { lat: lat, lng: long };
 

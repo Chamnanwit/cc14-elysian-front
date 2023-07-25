@@ -13,6 +13,8 @@ export const creatProperty = (input) =>
 
 export const updateProperty = (input) =>
   axios.patch(`/agent/update-property/${"111"}`, input);
+export const updateMyProperty = (id, formdata) =>
+  axios.put(`/agent/properties/${id}`, formdata);
 export const deleteProperty = (id) => axios.delete(`/agent/properties/${id}`);
 export const creatImagePropperty = (id, files) => {
   // console.log(id, files);
