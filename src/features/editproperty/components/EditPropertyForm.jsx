@@ -2,17 +2,11 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import InputErrorMessage from "../../../components/InputErrorMessage";
 import InputForm from "../../../components/InputForm";
-import Checkbox from "./CheckboxEdit";
-import validateCreateProperty from "../../createproperty/validators/validate-create-property";
-import PropertyImage from "../../../components/PropertyImage";
-import {
-  creatImagePropperty,
-  editImageProperty,
-} from "../../../api/property-api";
+
 import { useDispatch, useSelector } from "react-redux";
 import { animityAsync } from "../../addanimity/slice/aminity-slice";
 import { Editor } from "@tinymce/tinymce-react";
-import GoogleMap from "../../../components/ShowGooglemap";
+import GoogleMap from "../components/ShowGooglemap";
 import AminityForm from "./AminityEditForm";
 import PropertyEditImage from "../../../components/PropertyEditImage";
 import AminityEditForm from "./AminityEditForm";
@@ -21,6 +15,7 @@ import {
   updatePropertyAsync,
 } from "../../createproperty/slice/createproperty-slice";
 import { useNavigate, useParams } from "react-router-dom";
+import validateEditProperty from "../validators/validate-edit-property";
 export default function EditPropertyForm({
   textConFirm,
   onIsAddMode,
@@ -44,7 +39,7 @@ export default function EditPropertyForm({
     rentPeriod: oldProperty?.rentPeriod || "",
     locked: oldProperty?.locked,
     published: false,
-    topStatus: true,
+    topStatus: oldProperty?.topStatus || true,
     userId: oldProperty?.userId || "",
     subDistrictId: oldProperty?.subDistrictId,
   };
@@ -52,8 +47,7 @@ export default function EditPropertyForm({
     lat: oldProperty?.latitude,
     lng: oldProperty?.longitude,
   };
-  const id = oldProperty?.id;
-
+  const [imageId, setImageId] = useState([]);
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [files, setFiles] = useState({});
@@ -140,9 +134,7 @@ export default function EditPropertyForm({
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    // console.log(input);
   };
-  console.log("Amnity", inputcheck);
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -153,22 +145,33 @@ export default function EditPropertyForm({
         latitude: position.lat,
         longitude: position.lng,
       };
-      console.log(property);
-      const result = await validateCreateProperty(property);
+
+      const result = await validateEditProperty(property);
       if (result) {
+        console.log("---->", result);
         return setError(result);
       }
       setError({});
 
+      console.log("input", property);
+      console.log("animty", inputcheck);
+      console.log("files", files);
+      console.log("imageid", imageId);
+
+      const propertyId = oldProperty?.id;
       const formdata = new FormData();
 
       formdata.append("property", JSON.stringify(property));
+      // const imageLinks = [];
 
       for (let [key, image] of Object.entries(files)) {
         formdata.append("imageLink", image);
       }
+      // formdata.set("imageLink", imageLinks);
+      formdata.set("imageId", imageId);
       formdata.append("optional", JSON.stringify(inputcheck));
-      await dispatch(updateMyPropertyAsync(id, formdata)).unwrap();
+      formdata.append("propertyId", JSON.stringify(propertyId));
+      await dispatch(updateMyPropertyAsync(formdata)).unwrap();
       // navigate(`/agent/myproperty/${user?.id}`);
     } catch (err) {
       console.log(err);
@@ -605,6 +608,8 @@ export default function EditPropertyForm({
                 oldImage={oldImage[0]}
                 files={files}
                 setFiles={setFiles}
+                setImageId={setImageId}
+                imageId={imageId}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -615,6 +620,8 @@ export default function EditPropertyForm({
                 oldImage={oldImage[1]}
                 files={files}
                 setFiles={setFiles}
+                setImageId={setImageId}
+                imageId={imageId}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -625,6 +632,8 @@ export default function EditPropertyForm({
                 oldImage={oldImage[2]}
                 files={files}
                 setFiles={setFiles}
+                setImageId={setImageId}
+                imageId={imageId}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -635,6 +644,8 @@ export default function EditPropertyForm({
                 oldImage={oldImage[3]}
                 files={files}
                 setFiles={setFiles}
+                setImageId={setImageId}
+                imageId={imageId}
               />
             </div>
           </div>

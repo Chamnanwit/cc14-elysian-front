@@ -50,9 +50,9 @@ export const updatePropertyAsync = createAsyncThunk(
 );
 export const updateMyPropertyAsync = createAsyncThunk(
   "propertyPlan/updateMyPropertyAsync",
-  async (id, formdata, thunkApi) => {
+  async (formdata, thunkApi) => {
     try {
-      const res = await PropertyService.updateMyProperty(id, formdata);
+      const res = await PropertyService.updateMyProperty(formdata);
       console.log("IN SLICE MYUPDATE", res.data);
       return res.data;
     } catch (err) {

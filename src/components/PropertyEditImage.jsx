@@ -6,18 +6,26 @@ export default function PropertyEditImage({
   setFiles,
   name,
   oldImage,
+  setImageId,
+  imageId,
 }) {
-  // console.log("------>", oldImage);
+  console.log("------>", oldImage?.id);
   // console.log(cls);
   // oldImage = {Properter : {id : number}, imageLink:string}
   const inputRef = useRef();
 
   const handleFileChange = (e) => {
     // e.stopPropagation()
-    //  e.stopPropagation()
     console.log("$$$$$", e.target.name);
     if (e.target.files.length) {
       const selectedFile = e.target.files[0];
+      const oldImageId = oldImage?.id;
+      const isDuplicate = Object.values(imageId).includes(oldImageId);
+
+      // ถ้ายังไม่มีให้เพิ่มค่าไอดีใน Object ของ imageIds
+      if (!isDuplicate) {
+        setImageId((imageId) => [...imageId, oldImageId]);
+      }
       // console.log({ ...files }[name]);
       setFiles({ ...files, [e.target.name]: selectedFile });
     }

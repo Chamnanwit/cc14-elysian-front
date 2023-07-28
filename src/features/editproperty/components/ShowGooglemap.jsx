@@ -4,10 +4,12 @@ import { useEffect } from "react";
 function MapPage({ location, handleChangeMap }) {
   let map;
   console.log("location----->", location);
+  const namberlatitude = parseFloat(location?.lat);
+  const namberlongitude = parseFloat(location?.lng);
 
   const [init, setInit] = useState(true);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(namberlatitude);
+  const [longitude, setLongitude] = useState(namberlongitude);
 
   async function initMap() {
     const position = { lat: latitude, lng: longitude };
@@ -55,9 +57,6 @@ function MapPage({ location, handleChangeMap }) {
       });
     }
   }
-  useEffect(() => {
-    getLocation();
-  }, []);
 
   useEffect(() => {
     if (longitude && init) {
